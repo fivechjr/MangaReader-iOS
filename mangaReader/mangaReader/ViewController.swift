@@ -12,14 +12,28 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        if (false) {
+            DataRequester.getMangaList (page:0, size:100) { (mangaListResponse) in
+                if let mangas = mangaListResponse?.mangas {
+                    print("---Manga---")
+                    for manga in mangas {
+                        print(manga.title ?? "")
+                        print(manga.imagePath ?? "")
+                    }
+                }
+            }
+        } else {
+            DataRequester.getFullMangaList { (mangaListResponse) in
+                if let mangas = mangaListResponse?.mangas {
+                    print("---Manga---")
+                    for manga in mangas {
+                        print(manga.title ?? "")
+                        print(manga.imagePath ?? "")
+                    }
+                }
+            }
+        }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
 }
 
