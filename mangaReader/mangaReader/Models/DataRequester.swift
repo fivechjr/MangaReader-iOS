@@ -16,7 +16,17 @@ enum MangaEdenAPI: String {
 
 class DataRequester {
     
-    private static var MANGA_LIST_URL:String = "https://www.mangaeden.com/api/list/0/"
+    private static var mangaListCacheFileName:String = "mangaList"
+    
+    static func getMangaListFromCache(completion:@escaping (MangaListResponse?)->Void) {
+        guard  let url = mangaListCachePath(), let mangaListString = try? String(contentsOf: url, encoding: String.Encoding.utf8) else {
+            getFullMangaList(completion: completion)
+            return
+        }
+        
+        let mangaListResponse = MangaListResponse(JSONString: mangaListString)
+        completion(mangaListResponse)
+    }
     
     static func getFullMangaList(completion:@escaping (MangaListResponse?)->Void) {
         
@@ -24,6 +34,13 @@ class DataRequester {
             
             completion(response.result.value);
             
+            }.responseData { (responseData) in
+                if let data = responseData.result.value {
+                    // Save to disk
+                    if let cacheUrl = mangaListCachePath() {
+                        try? data.write(to: cacheUrl)
+                    }
+                }
         }
     }
     
@@ -40,5 +57,16 @@ class DataRequester {
             }.responseString { (responseString) in
                 
         }
+    }
+    
+    static func mangaListCachePath() -> URL? {
+        guard let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first else {
+            return nil
+        }
+        
+        var url = URL(fileURLWithPath: documentsPath, isDirectory: true)
+        url.appendPathComponent(mangaListCacheFileName)
+        
+        return url
     }
 }

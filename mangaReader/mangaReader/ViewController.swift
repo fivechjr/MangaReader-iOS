@@ -24,15 +24,15 @@ class ViewController: UIViewController {
                 }
             }
         } else {
-            DataRequester.getFullMangaList { (mangaListResponse) in
-                if let mangas = mangaListResponse?.mangas {
+            DataRequester.getMangaListFromCache(completion: { (response) in
+                if let mangas = response?.mangas {
                     print("---Manga---")
                     for manga in mangas {
                         print(manga.title ?? "")
                         print(manga.imagePath ?? "")
                     }
                 }
-            }
+            })
         }
     }
 }
