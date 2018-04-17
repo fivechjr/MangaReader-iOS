@@ -17,9 +17,18 @@ enum MangaEdenAPI: String {
 class DataRequester {
     
     private static var mangaListCacheFileName:String = "mangaList"
+    private static var cacheDateKey = "cacheDate"
+    private static var updateInterval:Double = 86400
     
     static func getMangaListFromCache(completion:@escaping (MangaListResponse?)->Void) {
         guard  let url = mangaListCachePath(), let mangaListString = try? String(contentsOf: url, encoding: String.Encoding.utf8) else {
+            getFullMangaList(completion: completion)
+            return
+        }
+        
+        let now = Date()
+        if let cacheDate = UserDefaults.standard.object(forKey: cacheDateKey) as? Date
+            , now.timeIntervalSince(cacheDate) > updateInterval {
             getFullMangaList(completion: completion)
             return
         }
@@ -35,11 +44,8 @@ class DataRequester {
             completion(response.result.value);
             
             }.responseData { (responseData) in
-                if let data = responseData.result.value {
-                    // Save to disk
-                    if let cacheUrl = mangaListCachePath() {
-                        try? data.write(to: cacheUrl)
-                    }
+                if responseData.result.isSuccess, let data = responseData.result.value {
+                    cacheMangaListData(data)
                 }
         }
     }
@@ -68,5 +74,15 @@ class DataRequester {
         url.appendPathComponent(mangaListCacheFileName)
         
         return url
+    }
+    
+    static func cacheMangaListData(_ data: Data) {
+        if let cacheUrl = mangaListCachePath() {
+            try? data.write(to: cacheUrl)
+            
+            let cacheDate = Date();
+            UserDefaults.standard.set(cacheDate, forKey: cacheDateKey)
+            UserDefaults.standard.synchronize()
+        }
     }
 }
