@@ -8,10 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		8C8EAC7F206A141900803BD1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8EAC7E206A141900803BD1 /* AppDelegate.swift */; };
-		8C8EAC81206A141900803BD1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8EAC80206A141900803BD1 /* ViewController.swift */; };
+		8C8EAC81206A141900803BD1 /* MangaListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8EAC80206A141900803BD1 /* MangaListViewController.swift */; };
 		8C8EAC84206A141900803BD1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C8EAC82206A141900803BD1 /* Main.storyboard */; };
 		8C8EAC86206A141900803BD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C8EAC85206A141900803BD1 /* Assets.xcassets */; };
 		8C8EAC89206A141900803BD1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C8EAC87206A141900803BD1 /* LaunchScreen.storyboard */; };
+		8C904D772085D1BB00A599E9 /* MangaListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C904D762085D1BB00A599E9 /* MangaListCollectionViewCell.swift */; };
 		8CF7EFAA208450D400E6AB6C /* DataRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF7EFA9208450D400E6AB6C /* DataRequester.swift */; };
 		8CF7EFAD2084565000E6AB6C /* MangaListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF7EFAC2084565000E6AB6C /* MangaListResponse.swift */; };
 		8CF7EFAF208456FB00E6AB6C /* MangaResonse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF7EFAE208456FB00E6AB6C /* MangaResonse.swift */; };
@@ -23,11 +24,12 @@
 		65171A2F5A9EBB700F64B9D3 /* Pods-mangaReader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mangaReader.release.xcconfig"; path = "Pods/Target Support Files/Pods-mangaReader/Pods-mangaReader.release.xcconfig"; sourceTree = "<group>"; };
 		8C8EAC7B206A141900803BD1 /* mangaReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mangaReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C8EAC7E206A141900803BD1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8C8EAC80206A141900803BD1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		8C8EAC80206A141900803BD1 /* MangaListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaListViewController.swift; sourceTree = "<group>"; };
 		8C8EAC83206A141900803BD1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8C8EAC85206A141900803BD1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8C8EAC88206A141900803BD1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8C8EAC8A206A141A00803BD1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8C904D762085D1BB00A599E9 /* MangaListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaListCollectionViewCell.swift; sourceTree = "<group>"; };
 		8CF7EFA9208450D400E6AB6C /* DataRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRequester.swift; sourceTree = "<group>"; };
 		8CF7EFAC2084565000E6AB6C /* MangaListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaListResponse.swift; sourceTree = "<group>"; };
 		8CF7EFAE208456FB00E6AB6C /* MangaResonse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaResonse.swift; sourceTree = "<group>"; };
@@ -86,7 +88,8 @@
 			children = (
 				8CF7EFAB2084560000E6AB6C /* Models */,
 				8C8EAC7E206A141900803BD1 /* AppDelegate.swift */,
-				8C8EAC80206A141900803BD1 /* ViewController.swift */,
+				8C8EAC80206A141900803BD1 /* MangaListViewController.swift */,
+				8C904D762085D1BB00A599E9 /* MangaListCollectionViewCell.swift */,
 				8C8EAC82206A141900803BD1 /* Main.storyboard */,
 				8C8EAC85206A141900803BD1 /* Assets.xcassets */,
 				8C8EAC87206A141900803BD1 /* LaunchScreen.storyboard */,
@@ -240,11 +243,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8C8EAC81206A141900803BD1 /* ViewController.swift in Sources */,
+				8C8EAC81206A141900803BD1 /* MangaListViewController.swift in Sources */,
 				8CF7EFAD2084565000E6AB6C /* MangaListResponse.swift in Sources */,
 				8CF7EFAF208456FB00E6AB6C /* MangaResonse.swift in Sources */,
 				8C8EAC7F206A141900803BD1 /* AppDelegate.swift in Sources */,
 				8CF7EFAA208450D400E6AB6C /* DataRequester.swift in Sources */,
+				8C904D772085D1BB00A599E9 /* MangaListCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
