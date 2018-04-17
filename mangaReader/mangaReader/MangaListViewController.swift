@@ -28,7 +28,11 @@ class MangaListViewController: UIViewController, UICollectionViewDataSource, UIC
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let manga = mangas?[indexPath.item]
-        print("manga id:\(manga?.id)")
+//        print("manga id:\(manga?.id)")
+        
+        DataRequester.getMangaDetail(mangaID: manga?.id) { (mangaDetail) in
+            print(mangaDetail?.title)
+        }
     }
     
 

@@ -20,6 +20,30 @@ class DataRequester {
     private static var cacheDateKey = "cacheDate"
     private static var updateInterval:Double = 86400
     
+    //https://www.mangaeden.com/api/manga/5372389645b9ef5a0b1d20d8/
+    static func getMangaDetail(mangaID: String?, completion:@escaping (MangaDetailResponse?)->Void) {
+        guard let mangaID = mangaID else {
+            completion(nil)
+            return
+        }
+        let urlString = "https://www.mangaeden.com/api/manga/\(mangaID)/"
+        Alamofire.request(urlString).responseObject { (respObject: DataResponse<MangaDetailResponse>) in
+            let detail = respObject.result.value
+            if let chapters = detail?.chapters {
+                var chapterObjects = [Chapter]()
+                chapters.forEach({ (chapter) in
+                    if let chapterData = chapter as? [Any] {
+                        let chapterObj = Chapter(arrayData: chapterData)
+                        chapterObjects.append(chapterObj)
+                    }
+                })
+                detail?.chapterObjects = chapterObjects
+            }
+            
+            completion(detail)
+        }
+    }
+    
     static func getMangaListFromCache(completion:@escaping (MangaListResponse?)->Void) {
         guard  let url = mangaListCachePath(), let mangaListString = try? String(contentsOf: url, encoding: String.Encoding.utf8) else {
             getFullMangaList(completion: completion)
