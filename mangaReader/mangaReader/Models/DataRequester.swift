@@ -50,15 +50,14 @@ class DataRequester {
             return
         }
         
+        let mangaListResponse = MangaListResponse(JSONString: mangaListString)
+        completion(mangaListResponse)
+        
         let now = Date()
         if let cacheDate = UserDefaults.standard.object(forKey: cacheDateKey) as? Date
             , now.timeIntervalSince(cacheDate) > updateInterval {
             getFullMangaList(completion: completion)
-            return
         }
-        
-        let mangaListResponse = MangaListResponse(JSONString: mangaListString)
-        completion(mangaListResponse)
     }
     
     static func getFullMangaList(completion:@escaping (MangaListResponse?)->Void) {

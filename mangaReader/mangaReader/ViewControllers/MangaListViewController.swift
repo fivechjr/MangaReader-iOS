@@ -26,13 +26,22 @@ class MangaListViewController: UIViewController, UICollectionViewDataSource, UIC
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let manga = mangas?[indexPath.item]
-//        print("manga id:\(manga?.id)")
-        
-        DataRequester.getMangaDetail(mangaID: manga?.id) { (mangaDetail) in
-            print(mangaDetail?.title)
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        if let manga = mangas?[indexPath.item] {
+//            
+//        }
+//    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard segue.identifier == "showMangaDetail"
+            , let mangaDetailVC = segue.destination as? MangaDetailViewController
+            , let cell = sender as? MangaListCollectionViewCell
+            , let indexPath = mangaListCollectionView.indexPath(for: cell)
+            , let manga = mangas?[indexPath.item] else {
+            return
         }
+        
+        mangaDetailVC.mangaID = manga.id
     }
     
 
