@@ -26,12 +26,6 @@ class MangaListViewController: UIViewController, UICollectionViewDataSource, UIC
         return cell
     }
     
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        if let manga = mangas?[indexPath.item] {
-//            
-//        }
-//    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == "showMangaDetail"
             , let mangaDetailVC = segue.destination as? MangaDetailViewController
@@ -54,6 +48,7 @@ class MangaListViewController: UIViewController, UICollectionViewDataSource, UIC
     func loadMangaData() {
         DataRequester.getMangaListFromCache(completion: {[weak self] (response) in
             self?.mangas = response?.mangas
+            self?.mangas?.sort(by: { ($0.hitCount ?? 0) > ($1.hitCount ?? 0) })
             self?.mangaListCollectionView.reloadData()
         })
     }

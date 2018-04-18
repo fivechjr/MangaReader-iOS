@@ -23,7 +23,7 @@ class MangaDetailViewController: UIViewController, UITableViewDataSource, UITabl
         
         if let chapter = mangaDetail?.chapterObjects?[indexPath.item] {
             let chapterTitle = chapter.title ?? "\(chapter.number ?? 0)"
-            cell.textLabel?.text = "Chapter: \(chapterTitle)"
+            cell.textLabel?.text = "[Chapter] \(chapterTitle)"
         }
         
         return cell
