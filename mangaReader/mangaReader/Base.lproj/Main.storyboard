@@ -86,13 +86,32 @@
                     <view key="view" contentMode="scaleToFill" id="evA-0Y-q4U">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cex-0C-UsJ">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="rWd-yO-dM8" id="0GN-Iy-hOw"/>
+                                    <outlet property="delegate" destination="rWd-yO-dM8" id="dsr-7l-qYF"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="cex-0C-UsJ" firstAttribute="leading" secondItem="BSu-0f-eB5" secondAttribute="leading" id="FfP-tx-c85"/>
+                            <constraint firstItem="cex-0C-UsJ" firstAttribute="bottom" secondItem="BSu-0f-eB5" secondAttribute="bottom" id="ahf-pz-Xhd"/>
+                            <constraint firstItem="cex-0C-UsJ" firstAttribute="top" secondItem="BSu-0f-eB5" secondAttribute="top" id="nsI-G9-jbz"/>
+                            <constraint firstItem="cex-0C-UsJ" firstAttribute="trailing" secondItem="BSu-0f-eB5" secondAttribute="trailing" id="u3k-it-l12"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="BSu-0f-eB5"/>
                     </view>
+                    <connections>
+                        <outlet property="chaptersTableview" destination="cex-0C-UsJ" id="B5m-tM-2WP"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B3a-Lf-bJO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1765" y="68"/>
+            <point key="canvasLocation" x="1764" y="67.916041979010501"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="8Gk-Ty-a7t">

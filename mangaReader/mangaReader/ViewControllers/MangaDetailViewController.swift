@@ -8,15 +8,39 @@
 
 import UIKit
 
-class MangaDetailViewController: UIViewController {
+class MangaDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    var mangaDetail: MangaDetailResponse?
+    
+    @IBOutlet weak var chaptersTableview: UITableView!
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return mangaDetail?.chapters?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "chapterCell", for: indexPath)
+        
+        if let chapter = mangaDetail?.chapterObjects?[indexPath.item] {
+            let chapterTitle = chapter.title ?? "\(chapter.number ?? 0)"
+            cell.textLabel?.text = "Chapter: \(chapterTitle)"
+        }
+        
+        return cell
+    }
+    
 
     var mangaID: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        DataRequester.getMangaDetail(mangaID: mangaID) { (mangaDetail) in
-            print(mangaDetail?.title)
+        chaptersTableview.register(UITableViewCell.self, forCellReuseIdentifier: "chapterCell")
+        
+        DataRequester.getMangaDetail(mangaID: mangaID) { [weak self] (mangaDetail) in
+            self?.mangaDetail = mangaDetail
+            
+            self?.chaptersTableview.reloadData()
         }
     }
 }
