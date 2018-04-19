@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Kingfisher
+import AlamofireImage
 
 class ChapterReadViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -47,7 +47,12 @@ class ChapterReadViewController: UIViewController, UITableViewDelegate, UITableV
             , let url = URL(string: urlString)
             , let imageView = cell.contentView.viewWithTag(100) as? UIImageView  {
             
-            imageView.kf.setImage(with: url)
+//            imageView.kf.setImage(with: url)
+            let placeHolderImage = UIImage(named: "manga_default")
+            imageView.af_setImage(withURL: url, placeholderImage: placeHolderImage, imageTransition: .crossDissolve(0.2))
+//            imageView.kf.setImage(with: url, placeholder: placeHolderImage) { (image, error, cacheType, url) in
+//                print("completed")
+//            }
         }
         
         return cell
