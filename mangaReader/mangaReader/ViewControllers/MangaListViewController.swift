@@ -11,6 +11,7 @@ import UIKit
 class MangaListViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
     @IBOutlet weak var mangaListCollectionView: UICollectionView!
+    
     var mangas:[MangaResponse]?
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

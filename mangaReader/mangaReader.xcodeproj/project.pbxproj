@@ -19,6 +19,7 @@
 		8C904D822088783000A599E9 /* ChapterDetailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C904D812088783000A599E9 /* ChapterDetailResponse.swift */; };
 		8C904D84208878E100A599E9 /* ChapterImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C904D83208878E100A599E9 /* ChapterImage.swift */; };
 		8C904D8620887D4800A599E9 /* ChapterReadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C904D8520887D4800A599E9 /* ChapterReadViewController.swift */; };
+		8C904D892088BB7F00A599E9 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C904D882088BB7F00A599E9 /* ImageViewController.swift */; };
 		8CF7EFAA208450D400E6AB6C /* DataRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF7EFA9208450D400E6AB6C /* DataRequester.swift */; };
 		8CF7EFAD2084565000E6AB6C /* MangaListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF7EFAC2084565000E6AB6C /* MangaListResponse.swift */; };
 		8CF7EFAF208456FB00E6AB6C /* MangaResonse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF7EFAE208456FB00E6AB6C /* MangaResonse.swift */; };
@@ -42,6 +43,7 @@
 		8C904D812088783000A599E9 /* ChapterDetailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterDetailResponse.swift; sourceTree = "<group>"; };
 		8C904D83208878E100A599E9 /* ChapterImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterImage.swift; sourceTree = "<group>"; };
 		8C904D8520887D4800A599E9 /* ChapterReadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterReadViewController.swift; sourceTree = "<group>"; };
+		8C904D882088BB7F00A599E9 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		8CF7EFA9208450D400E6AB6C /* DataRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRequester.swift; sourceTree = "<group>"; };
 		8CF7EFAC2084565000E6AB6C /* MangaListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaListResponse.swift; sourceTree = "<group>"; };
 		8CF7EFAE208456FB00E6AB6C /* MangaResonse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaResonse.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				8C8EAC80206A141900803BD1 /* MangaListViewController.swift */,
 				8C904D7E2087892500A599E9 /* MangaDetailViewController.swift */,
 				8C904D8520887D4800A599E9 /* ChapterReadViewController.swift */,
+				8C904D882088BB7F00A599E9 /* ImageViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -224,6 +227,7 @@
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper/AlamofireObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -231,6 +235,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -283,6 +288,7 @@
 				8CF7EFAD2084565000E6AB6C /* MangaListResponse.swift in Sources */,
 				8CF7EFAF208456FB00E6AB6C /* MangaResonse.swift in Sources */,
 				8C8EAC7F206A141900803BD1 /* AppDelegate.swift in Sources */,
+				8C904D892088BB7F00A599E9 /* ImageViewController.swift in Sources */,
 				8CF7EFAA208450D400E6AB6C /* DataRequester.swift in Sources */,
 				8C904D84208878E100A599E9 /* ChapterImage.swift in Sources */,
 				8C904D792085F78300A599E9 /* MangaDetailResponse.swift in Sources */,
@@ -429,6 +435,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8MWQU2YKZK;
 				INFOPLIST_FILE = mangaReader/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dym.mangaReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -445,6 +452,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8MWQU2YKZK;
 				INFOPLIST_FILE = mangaReader/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dym.mangaReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
