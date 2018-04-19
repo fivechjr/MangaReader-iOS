@@ -29,6 +29,16 @@ class MangaDetailViewController: UIViewController, UITableViewDataSource, UITabl
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let chapter = mangaDetail?.chapterObjects?[indexPath.item] else {
+            return
+        }
+        
+        DataRequester.getChapterDetail(chapterID: chapter.id) { (chapterDetail) in
+            print(chapterDetail?.imageObjets?.first?.imagePath)
+        }
+    }
+    
 
     var mangaID: String!
     

@@ -20,7 +20,30 @@ class DataRequester {
     private static var cacheDateKey = "cacheDate"
     private static var updateInterval:Double = 86400
     
-    //https://www.mangaeden.com/api/manga/5372389645b9ef5a0b1d20d8/
+    // https://www.mangaeden.com/api/chapter/5aad5eca719a1676fbad40fe/
+    static func getChapterDetail(chapterID: String?, completion:@escaping (ChapterDetailResponse?)->Void) {
+        guard let chapterID = chapterID else {
+            completion(nil)
+            return
+        }
+        let urlString = "https://www.mangaeden.com/api/chapter/\(chapterID)/"
+        Alamofire.request(urlString).responseObject { (respObject: DataResponse<ChapterDetailResponse>) in
+            let detail = respObject.result.value
+            if let images = detail?.images {
+                var imageObjects = [ChapterImage]()
+                images.forEach({ (image) in
+                    if let imageData = image as? [Any] {
+                        let imageObj = ChapterImage(arrayData: imageData)
+                        imageObjects.append(imageObj)
+                    }
+                })
+                detail?.imageObjets = imageObjects
+            }
+            
+            completion(detail)
+        }
+    }
+    
     static func getMangaDetail(mangaID: String?, completion:@escaping (MangaDetailResponse?)->Void) {
         guard let mangaID = mangaID else {
             completion(nil)
