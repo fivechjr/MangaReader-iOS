@@ -20,7 +20,14 @@ class DataRequester {
     private static var cacheDateKey = "cacheDate"
     private static var updateInterval:Double = 86400
     
-    // https://www.mangaeden.com/api/chapter/5aad5eca719a1676fbad40fe/
+    static func getImageUrl(withImagePath path: String?) -> String? {
+        if let path = path {
+            return "https://cdn.mangaeden.com/mangasimg/\(path)"
+        }
+        
+        return nil
+    }
+    
     static func getChapterDetail(chapterID: String?, completion:@escaping (ChapterDetailResponse?)->Void) {
         guard let chapterID = chapterID else {
             completion(nil)

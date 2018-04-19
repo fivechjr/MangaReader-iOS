@@ -107,11 +107,67 @@
                     </view>
                     <connections>
                         <outlet property="chaptersTableview" destination="cex-0C-UsJ" id="B5m-tM-2WP"/>
+                        <segue destination="WAO-F0-Dug" kind="show" identifier="readChapter" id="TIO-hv-shb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B3a-Lf-bJO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1764" y="67.916041979010501"/>
+        </scene>
+        <!--Chapter Read View Controller-->
+        <scene sceneID="O5Q-36-RcC">
+            <objects>
+                <viewController storyboardIdentifier="ChapterReadViewController" id="WAO-F0-Dug" customClass="ChapterReadViewController" customModule="mangaReader" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="GAn-fN-Tpw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="KsE-o5-xFf">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="imageCell" rowHeight="100" id="yWz-gl-gR5">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="100"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yWz-gl-gR5" id="RTr-CO-0MU">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" tag="100" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3HM-7a-7Vq">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="3HM-7a-7Vq" firstAttribute="leading" secondItem="RTr-CO-0MU" secondAttribute="leading" id="7Cd-68-oIT"/>
+                                                <constraint firstAttribute="bottom" secondItem="3HM-7a-7Vq" secondAttribute="bottom" id="A9q-4B-JgD"/>
+                                                <constraint firstItem="3HM-7a-7Vq" firstAttribute="top" secondItem="RTr-CO-0MU" secondAttribute="top" id="fdc-v9-hHe"/>
+                                                <constraint firstAttribute="trailing" secondItem="3HM-7a-7Vq" secondAttribute="trailing" id="sLw-4b-KZs"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="WAO-F0-Dug" id="ziR-hU-yUQ"/>
+                                    <outlet property="delegate" destination="WAO-F0-Dug" id="7e1-Vj-raf"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="KsE-o5-xFf" firstAttribute="leading" secondItem="y8r-WM-a5q" secondAttribute="leading" id="AYh-gV-LQe"/>
+                            <constraint firstItem="KsE-o5-xFf" firstAttribute="trailing" secondItem="y8r-WM-a5q" secondAttribute="trailing" id="OEw-bg-D9N"/>
+                            <constraint firstItem="KsE-o5-xFf" firstAttribute="top" secondItem="y8r-WM-a5q" secondAttribute="top" id="mz2-zl-cV8"/>
+                            <constraint firstItem="KsE-o5-xFf" firstAttribute="bottom" secondItem="y8r-WM-a5q" secondAttribute="bottom" id="re3-Y4-yMW"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="y8r-WM-a5q"/>
+                    </view>
+                    <connections>
+                        <outlet property="imagesTableView" destination="KsE-o5-xFf" id="UiG-lw-KnW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="F1X-hM-Zg8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2573.5999999999999" y="67.916041979010501"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="8Gk-Ty-a7t">

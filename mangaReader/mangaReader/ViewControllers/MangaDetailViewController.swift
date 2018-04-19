@@ -34,9 +34,21 @@ class MangaDetailViewController: UIViewController, UITableViewDataSource, UITabl
             return
         }
         
-        DataRequester.getChapterDetail(chapterID: chapter.id) { (chapterDetail) in
-            print(chapterDetail?.imageObjets?.first?.imagePath)
+        if let cell = tableView.cellForRow(at: indexPath) {
+            performSegue(withIdentifier: "readChapter", sender: cell)
         }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let id = segue.identifier, id == "readChapter"
+        , let destination = segue.destination as? ChapterReadViewController
+        , let cell = sender as? UITableViewCell
+        , let indexPath = chaptersTableview.indexPath(for: cell)
+        , let chapterID = mangaDetail?.chapterObjects?[indexPath.item].id else {
+            return
+        }
+        
+        destination.chapterID = chapterID
     }
     
 
