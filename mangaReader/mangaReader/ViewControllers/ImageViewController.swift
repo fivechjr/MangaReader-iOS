@@ -56,13 +56,35 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             imageView.af_setImage(withURL: url, placeholderImage: placeHolderImage, imageTransition: .crossDissolve(0.2))
         }
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(ImageViewController.handleDoubleTapScrollView(_:)))
-        tapGesture.numberOfTapsRequired = 2
-        view.addGestureRecognizer(tapGesture)
+        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(ImageViewController.handleDoubleTapScrollView(_:)))
+        doubleTapGesture.numberOfTapsRequired = 2
+        view.addGestureRecognizer(doubleTapGesture)
+        
+        let singleTapGesture = UITapGestureRecognizer(target: self, action: #selector(ImageViewController.handleSingleTapScrollView(_:)))
+        singleTapGesture.numberOfTapsRequired = 1
+        view.addGestureRecognizer(singleTapGesture)
+        
+        singleTapGesture.require(toFail: doubleTapGesture)
     }
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return imageView
+    }
+    
+    @objc func handleSingleTapScrollView(_ recognizer: UITapGestureRecognizer) {
+        
+        guard let viewHeight = recognizer.view?.frame.size.height else {
+            return
+        }
+        
+        let location = recognizer.location(in: recognizer.view)
+        if (location.y < viewHeight * 0.3) {
+            print("tap top area")
+        } else if (location.y > viewHeight * 0.7) {
+            print("tap bottom area")
+        } else {
+            print("tap center area")
+        }
     }
     
     @objc func handleDoubleTapScrollView(_ recognizer: UITapGestureRecognizer) {
@@ -70,21 +92,18 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             let location = recognizer.location(in: recognizer.view)
             let rect = zoomRectForScale(scale: 2, center: location)
             imageScrollView.zoom(to: rect, animated: true)
-//            imageScrollView.zoom(to: zoomRectForScale(scale: imageScrollView.maximumZoomScale, center: recognizer.location(in: recognizer.view)), animated: true)
         } else {
             imageScrollView.setZoomScale(1, animated: true)
         }
-
-        print("imageScrollView.zoomScale: \(imageScrollView.zoomScale)")
     }
 
     func zoomRectForScale(scale: CGFloat, center: CGPoint) -> CGRect {
         var zoomRect = CGRect.zero
         zoomRect.size.height = imageView.frame.size.height / scale
         zoomRect.size.width  = imageView.frame.size.width  / scale
-        let newCenter = imageScrollView.convert(center, from: imageView)
-        zoomRect.origin.x = newCenter.x - (zoomRect.size.width / 2.0)
-        zoomRect.origin.y = newCenter.y - (zoomRect.size.height / 2.0)
+//        let newCenter = imageScrollView.convert(center, from: imageView)
+        zoomRect.origin.x = center.x - (zoomRect.size.width / 2.0)
+        zoomRect.origin.y = center.y - (zoomRect.size.height / 2.0)
         return zoomRect
     }
 }
