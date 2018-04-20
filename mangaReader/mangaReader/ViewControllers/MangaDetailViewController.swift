@@ -49,6 +49,8 @@ class MangaDetailViewController: UIViewController, UITableViewDataSource, UITabl
         }
         
         destination.chapterID = chapterID
+        destination.chapterObject = mangaDetail?.chapterObjects?[indexPath.item]
+        destination.mangaDetail = mangaDetail
     }
     
 

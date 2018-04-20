@@ -14,14 +14,19 @@ import NVActivityIndicatorView
 class ChapterReadViewController: UIViewController {
     
     var chapterID: String!
+    var chapterObject: Chapter?
+    var mangaDetail: MangaDetailResponse?
 
     var chapterDetail: ChapterDetailResponse?
     
     var pageViewController: UIPageViewController!
     
     @IBOutlet weak var topNavigationView: UIView!
-    
     @IBOutlet weak var labelInfo: UILabel!
+    @IBOutlet weak var bottomToolView: UIView!
+    @IBOutlet weak var buttonPreviousChapter: UIButton!
+    @IBOutlet weak var buttonNextChapter: UIButton!
+    
     
     var imageViewControllers: [ImageViewController] = [ImageViewController]()
     
@@ -29,6 +34,7 @@ class ChapterReadViewController: UIViewController {
         super.viewDidLoad()
         
         topNavigationView.alpha = 0
+        bottomToolView.alpha = 0
         
         loadImages()
         installPageViewController()
@@ -67,6 +73,7 @@ class ChapterReadViewController: UIViewController {
             
             NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
             
+            self?.imageViewControllers.removeAll()
             chapterDetail?.imageObjets?.forEach({ (chapterImage) in
                 let imageVC = ImageViewController()
                 imageVC.chapterImage = chapterImage
@@ -77,6 +84,7 @@ class ChapterReadViewController: UIViewController {
             if let firstImageViewController = self?.imageViewControllers.first {
                 self?.pageViewController.setViewControllers([firstImageViewController], direction: .forward, animated: false, completion: { (completed) in
                     self?.updateInfoLabel()
+                    self?.updateChapterButtons()
                 })
             }
         }
@@ -93,9 +101,52 @@ class ChapterReadViewController: UIViewController {
     func switchNavigationVisible() {
         UIView.animate(withDuration: 0.3) {
             self.topNavigationView.alpha = 1 - self.topNavigationView.alpha
+            self.bottomToolView.alpha = self.topNavigationView.alpha
         }
     }
     
+    // MARK: Chapter navigation
+    
+    @IBAction func gotoNextChapterAction(_ sender: Any) {
+        guard var index = getCurrentChapterIndex()
+            , let chapterObjects = mangaDetail?.chapterObjects else {
+            return
+        }
+        
+        index -= 1
+        if (index >= 0 && index < chapterObjects.count) {
+            let chapter = chapterObjects[index]
+            if let chapterID = chapter.id {
+                self.chapterID = chapterID
+                self.chapterObject = chapter
+                
+                loadImages()
+                installPageViewController()
+            }
+        }
+    }
+    
+    @IBAction func gotoPreviousChapterAction(_ sender: Any) {
+        guard var index = getCurrentChapterIndex()
+            , let chapterObjects = mangaDetail?.chapterObjects else {
+                return
+        }
+        
+        index += 1
+        if (index >= 0 && index < chapterObjects.count) {
+            let chapter = chapterObjects[index]
+            if let chapterID = chapter.id {
+                self.chapterID = chapterID
+                self.chapterObject = chapter
+                
+                loadImages()
+                installPageViewController()
+            }
+        }
+    }
+    
+    
+    // MARK: page navigation
     func gotoPreviousPage() {
         guard let viewController = pageViewController.viewControllers?.first as? ImageViewController
             , imageViewControllers.count > 1
@@ -128,6 +179,7 @@ class ChapterReadViewController: UIViewController {
         })
     }
     
+    // MARK: update UI
     func updateInfoLabel() {
         
         guard let viewController = pageViewController.viewControllers?.first as? ImageViewController
@@ -136,7 +188,35 @@ class ChapterReadViewController: UIViewController {
                 return
         }
         
-        labelInfo.text = "\(index + 1)/\(imageViewControllers.count)"
+        let chapterName = chapterObject?.title ?? String(chapterObject?.number ?? 0)
+        labelInfo.text = "Chapte - '\(chapterName)' \n\(index + 1)/\(imageViewControllers.count)"
+    }
+    
+    func updateChapterButtons() {
+        guard let chapterObjects = mangaDetail?.chapterObjects else {
+            return
+        }
+        
+        if let index = getCurrentChapterIndex() {
+            self.buttonNextChapter.isHidden = (index <= 0)
+            self.buttonPreviousChapter.isHidden = (index >= chapterObjects.count - 1)
+        }
+    }
+    
+    // MARK: Helper
+    func getCurrentChapterIndex() -> Int? {
+        
+        guard let chapterObjects = mangaDetail?.chapterObjects else {
+            return nil
+        }
+        
+        for (index, chapter) in chapterObjects.enumerated() {
+            if let id = chapter.id, id == self.chapterID {
+                return index
+            }
+        }
+        
+        return nil;
     }
 }
 

@@ -33,7 +33,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor(white: 0.98, alpha: 1)
+        view.backgroundColor = UIColor(white: 0.95, alpha: 1)
         
         imageScrollView = UIScrollView(frame: CGRect.zero)
         imageScrollView.delegate = self
