@@ -9,6 +9,7 @@
 import UIKit
 import AlamofireImage
 import SnapKit
+import NVActivityIndicatorView
 
 class ChapterReadViewController: UIViewController {
     
@@ -57,8 +58,14 @@ class ChapterReadViewController: UIViewController {
     }
     
     func loadImages() {
+        
+        let activityData = ActivityData(size:CGSize(width: 35, height: 35), type: .ballPulse, color: UIColor.black)
+        NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData)
+        
         DataRequester.getChapterDetail(chapterID: chapterID) { [weak self] (chapterDetail) in
             self?.chapterDetail = chapterDetail
+            
+            NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
             
             chapterDetail?.imageObjets?.forEach({ (chapterImage) in
                 let imageVC = ImageViewController()
