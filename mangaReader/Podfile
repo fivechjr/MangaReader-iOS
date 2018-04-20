@@ -6,4 +6,5 @@ target 'mangaReader' do
     pod 'AlamofireImage', '~> 3.3'
     pod 'AlamofireObjectMapper', '~> 5.0.0'
     pod 'SnapKit', '~> 4.0.0'
+    pod 'NVActivityIndicatorView', '~> 4.1.1'
 end

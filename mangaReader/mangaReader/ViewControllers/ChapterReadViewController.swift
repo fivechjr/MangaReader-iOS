@@ -20,6 +20,7 @@ class ChapterReadViewController: UIViewController {
     
     @IBOutlet weak var topNavigationView: UIView!
     
+    @IBOutlet weak var labelInfo: UILabel!
     
     var imageViewControllers: [ImageViewController] = [ImageViewController]()
     
@@ -44,6 +45,7 @@ class ChapterReadViewController: UIViewController {
         // Creation
         pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .vertical, options: nil)
         pageViewController.dataSource = self
+        pageViewController.delegate = self
         
         // Install
         addChildViewController(pageViewController)
@@ -66,7 +68,9 @@ class ChapterReadViewController: UIViewController {
             })
             
             if let firstImageViewController = self?.imageViewControllers.first {
-                self?.pageViewController.setViewControllers([firstImageViewController], direction: .forward, animated: false, completion: nil)
+                self?.pageViewController.setViewControllers([firstImageViewController], direction: .forward, animated: false, completion: { (completed) in
+                    self?.updateInfoLabel()
+                })
             }
         }
     }
@@ -83,6 +87,49 @@ class ChapterReadViewController: UIViewController {
         UIView.animate(withDuration: 0.3) {
             self.topNavigationView.alpha = 1 - self.topNavigationView.alpha
         }
+    }
+    
+    func gotoPreviousPage() {
+        guard let viewController = pageViewController.viewControllers?.first as? ImageViewController
+            , imageViewControllers.count > 1
+            , let index = imageViewControllers.index(of: viewController)
+            , index > 0
+            else {
+                return
+        }
+        
+        let previousVC = imageViewControllers[index - 1]
+        
+        pageViewController.setViewControllers([previousVC], direction: .reverse, animated: true, completion: { [weak self] (completed) in
+            self?.updateInfoLabel()
+        })
+    }
+    
+    func gotoNextPage() {
+        guard let viewController = pageViewController.viewControllers?.first as? ImageViewController
+            , imageViewControllers.count > 1
+            , let index = imageViewControllers.index(of: viewController)
+            , index < imageViewControllers.count - 1
+            else {
+                return
+        }
+        
+        let nextVC = imageViewControllers[index + 1]
+        
+        pageViewController.setViewControllers([nextVC], direction: .forward, animated: true, completion: { [weak self] (completed) in
+            self?.updateInfoLabel()
+        })
+    }
+    
+    func updateInfoLabel() {
+        
+        guard let viewController = pageViewController.viewControllers?.first as? ImageViewController
+            , let index = imageViewControllers.index(of: viewController)
+            else {
+                return
+        }
+        
+        labelInfo.text = "\(index + 1)/\(imageViewControllers.count)"
     }
 }
 
@@ -117,13 +164,13 @@ extension ChapterReadViewController: UIPageViewControllerDataSource {
 
 extension ChapterReadViewController: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        
+        updateInfoLabel()
     }
 }
 
 extension ChapterReadViewController: ImageViewControllerDelegate {
     func topAreaTapped(imageViewController: ImageViewController!) {
-        
+        gotoPreviousPage()
     }
     
     func centerAreaTapped(imageViewController: ImageViewController!) {
@@ -131,7 +178,7 @@ extension ChapterReadViewController: ImageViewControllerDelegate {
     }
     
     func bottomAreaTapped(imageViewController: ImageViewController!) {
-        
+        gotoNextPage()
     }
     
     

@@ -135,6 +135,12 @@
                                             <action selector="dismissAction:" destination="WAO-F0-Dug" eventType="touchUpInside" id="SUq-5D-5xu"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y5C-10-7fZ">
+                                        <rect key="frame" x="188" y="32" width="0.0" height="0.0"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -142,7 +148,9 @@
                                     <constraint firstAttribute="height" constant="64" id="NlA-M2-IPl"/>
                                     <constraint firstItem="3zQ-Vu-wMS" firstAttribute="leading" secondItem="8R0-Lf-v1o" secondAttribute="leading" id="Ozg-7k-1Rc"/>
                                     <constraint firstItem="3zQ-Vu-wMS" firstAttribute="top" secondItem="8R0-Lf-v1o" secondAttribute="top" id="QC3-zV-7Jv"/>
+                                    <constraint firstItem="y5C-10-7fZ" firstAttribute="centerX" secondItem="8R0-Lf-v1o" secondAttribute="centerX" id="QE8-oF-vlM"/>
                                     <constraint firstAttribute="trailing" secondItem="4lD-Ie-a08" secondAttribute="trailing" id="a9a-TF-aNg"/>
+                                    <constraint firstItem="y5C-10-7fZ" firstAttribute="centerY" secondItem="8R0-Lf-v1o" secondAttribute="centerY" id="dfG-nC-x1F"/>
                                     <constraint firstAttribute="trailing" secondItem="3zQ-Vu-wMS" secondAttribute="trailing" id="hFe-Yb-Osa"/>
                                     <constraint firstItem="4lD-Ie-a08" firstAttribute="centerY" secondItem="8R0-Lf-v1o" secondAttribute="centerY" id="mdG-hu-UvR"/>
                                 </constraints>
@@ -157,6 +165,7 @@
                         <viewLayoutGuide key="safeArea" id="y8r-WM-a5q"/>
                     </view>
                     <connections>
+                        <outlet property="labelInfo" destination="y5C-10-7fZ" id="FsZ-a1-eMq"/>
                         <outlet property="topNavigationView" destination="8R0-Lf-v1o" id="hDv-PC-QVD"/>
                     </connections>
                 </viewController>

@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import NVActivityIndicatorView
 
 protocol ImageViewControllerDelegate {
     func topAreaTapped(imageViewController: ImageViewController!)
@@ -19,6 +20,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     
     var imageView: UIImageView!
     var imageScrollView: UIScrollView!
+    var indicatorView: NVActivityIndicatorView!
     
     var delegate: ImageViewControllerDelegate?
     
@@ -56,14 +58,6 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             maker.height.equalToSuperview()
         }
         
-        if let imagePath = chapterImage?.imagePath
-            , let urlString = DataRequester.getImageUrl(withImagePath: imagePath)
-            , let url = URL(string: urlString) {
-            
-            let placeHolderImage = UIImage(named: "manga_default")
-            imageView.af_setImage(withURL: url, placeholderImage: placeHolderImage, imageTransition: .crossDissolve(0.2))
-        }
-        
         let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(ImageViewController.handleDoubleTapScrollView(_:)))
         doubleTapGesture.numberOfTapsRequired = 2
         view.addGestureRecognizer(doubleTapGesture)
@@ -73,6 +67,33 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         view.addGestureRecognizer(singleTapGesture)
         
         singleTapGesture.require(toFail: doubleTapGesture)
+        
+        installIndicatorView()
+        
+        loadImage()
+    }
+    
+    func installIndicatorView() {
+        indicatorView = NVActivityIndicatorView(frame: CGRect.zero, type: .ballSpinFadeLoader, color: UIColor.black)
+        view.addSubview(indicatorView)
+        indicatorView.snp.makeConstraints { (maker) in
+            maker.center.equalToSuperview()
+            maker.width.equalTo(50)
+            maker.height.equalTo(50)
+        }
+    }
+    
+    func loadImage() {
+        indicatorView.startAnimating()
+        if let imagePath = chapterImage?.imagePath
+            , let urlString = DataRequester.getImageUrl(withImagePath: imagePath)
+            , let url = URL(string: urlString) {
+            
+//            let placeHolderImage = UIImage(named: "manga_default")
+            imageView.af_setImage(withURL: url, placeholderImage: nil, imageTransition: .crossDissolve(0.2))  {[weak self] (imageDataResponse) in
+                self?.indicatorView.stopAnimating()
+            }
+        }
     }
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
