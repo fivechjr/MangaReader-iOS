@@ -18,6 +18,9 @@ class ChapterReadViewController: UIViewController {
     
     var pageViewController: UIPageViewController!
     
+    @IBOutlet weak var topNavigationView: UIView!
+    
+    
     var imageViewControllers: [ImageViewController] = [ImageViewController]()
     
     override func viewDidLoad() {
@@ -42,7 +45,7 @@ class ChapterReadViewController: UIViewController {
         
         // Install
         addChildViewController(pageViewController)
-        view.addSubview(pageViewController.view)
+        view.insertSubview(pageViewController.view, at: 0)
         pageViewController.view.snp.makeConstraints { (maker) in
             maker.edges.equalToSuperview()
         }
@@ -65,17 +68,13 @@ class ChapterReadViewController: UIViewController {
         }
     }
     
-//    func getIndex(forward: Bool) -> Int {
-//        guard let totalPage = chapterDetail?.imageObjets?.count else {
-//            return 0
-//        }
-//
-//        var theIndex = (forward ? currentIndex + 1 : currentIndex - 1)
-//        theIndex = min(totalPage, theIndex)
-//        theIndex = max(0, theIndex)
-//
-//        return theIndex;
-//    }
+    @IBAction func dismissAction(_ sender: UIButton) {
+        presentingViewController?.dismiss(animated: true, completion: nil)
+    }
+    
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
 }
 
 extension ChapterReadViewController: UIPageViewControllerDataSource {

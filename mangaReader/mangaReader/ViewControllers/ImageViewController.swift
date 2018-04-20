@@ -16,7 +16,9 @@ class ImageViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        view.backgroundColor = UIColor(white: 0.98, alpha: 1)
+        
         imageView = UIImageView(frame: CGRect.zero)
         imageView.contentMode = .scaleAspectFit
         view.addSubview(imageView)
