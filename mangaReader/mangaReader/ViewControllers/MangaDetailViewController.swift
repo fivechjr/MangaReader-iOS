@@ -30,7 +30,7 @@ class MangaDetailViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let chapter = mangaDetail?.chapterObjects?[indexPath.item] else {
+        guard let _ = mangaDetail?.chapterObjects?[indexPath.item] else {
             return
         }
         
