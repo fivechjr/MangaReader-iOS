@@ -9,10 +9,18 @@
 import UIKit
 import SnapKit
 
+protocol ImageViewControllerDelegate {
+    func topAreaTapped(imageViewController: ImageViewController!)
+    func centerAreaTapped(imageViewController: ImageViewController!)
+    func bottomAreaTapped(imageViewController: ImageViewController!)
+}
+
 class ImageViewController: UIViewController, UIScrollViewDelegate {
     
     var imageView: UIImageView!
     var imageScrollView: UIScrollView!
+    
+    var delegate: ImageViewControllerDelegate?
     
     var chapterImage: ChapterImage?
     
@@ -79,11 +87,11 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         
         let location = recognizer.location(in: recognizer.view)
         if (location.y < viewHeight * 0.3) {
-            print("tap top area")
+            delegate?.topAreaTapped(imageViewController: self)
         } else if (location.y > viewHeight * 0.7) {
-            print("tap bottom area")
+            delegate?.bottomAreaTapped(imageViewController: self)
         } else {
-            print("tap center area")
+            delegate?.centerAreaTapped(imageViewController: self)
         }
     }
     
@@ -107,26 +115,3 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         return zoomRect
     }
 }
-
-/*
- var vWidth = self.view.frame.width
- var vHeight = self.view.frame.height
- 
- var scrollImg: UIScrollView = UIScrollView()
- scrollImg.delegate = self
- scrollImg.frame = CGRectMake(0, 0, vWidth!, vHeight!)
- scrollImg.backgroundColor = UIColor(red: 90, green: 90, blue: 90, alpha: 0.90)
- scrollImg.alwaysBounceVertical = false
- scrollImg.alwaysBounceHorizontal = false
- scrollImg.showsVerticalScrollIndicator = true
- scrollImg.flashScrollIndicators()
- 
- scrollImg.minimumZoomScale = 1.0
- scrollImg.maximumZoomScale = 10.0
- 
- defaultView!.addSubview(scrollImg)
- 
- imageView!.layer.cornerRadius = 11.0
- imageView!.clipsToBounds = false
- scrollImg.addSubview(imageView!)
- */

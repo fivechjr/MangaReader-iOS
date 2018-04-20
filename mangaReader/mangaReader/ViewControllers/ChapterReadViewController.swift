@@ -26,6 +26,8 @@ class ChapterReadViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        topNavigationView.alpha = 0
+        
         loadImages()
         installPageViewController()
     }
@@ -59,6 +61,7 @@ class ChapterReadViewController: UIViewController {
             chapterDetail?.imageObjets?.forEach({ (chapterImage) in
                 let imageVC = ImageViewController()
                 imageVC.chapterImage = chapterImage
+                imageVC.delegate = self
                 self?.imageViewControllers.append(imageVC)
             })
             
@@ -74,6 +77,12 @@ class ChapterReadViewController: UIViewController {
     
     override var prefersStatusBarHidden: Bool {
         return true
+    }
+    
+    func switchNavigationVisible() {
+        UIView.animate(withDuration: 0.3) {
+            self.topNavigationView.alpha = 1 - self.topNavigationView.alpha
+        }
     }
 }
 
@@ -110,4 +119,20 @@ extension ChapterReadViewController: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         
     }
+}
+
+extension ChapterReadViewController: ImageViewControllerDelegate {
+    func topAreaTapped(imageViewController: ImageViewController!) {
+        
+    }
+    
+    func centerAreaTapped(imageViewController: ImageViewController!) {
+        switchNavigationVisible()
+    }
+    
+    func bottomAreaTapped(imageViewController: ImageViewController!) {
+        
+    }
+    
+    
 }
