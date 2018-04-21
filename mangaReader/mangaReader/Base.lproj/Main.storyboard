@@ -123,77 +123,106 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8R0-Lf-v1o">
-                                <rect key="frame" x="0.0" y="20" width="375" height="55"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="60"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gradient" translatesAutoresizingMaskIntoConstraints="NO" id="3zQ-Vu-wMS">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
-                                    </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4lD-Ie-a08">
-                                        <rect key="frame" x="325" y="2.5" width="50" height="50"/>
+                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bIv-9m-46V">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                                        <items/>
+                                        <color key="barTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </toolbar>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4lD-Ie-a08" userLabel="CloseButton">
+                                        <rect key="frame" x="325" y="5" width="50" height="50"/>
                                         <state key="normal" image="close"/>
                                         <connections>
                                             <action selector="dismissAction:" destination="WAO-F0-Dug" eventType="touchUpInside" id="SUq-5D-5xu"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="y5C-10-7fZ">
-                                        <rect key="frame" x="187.5" y="27.5" width="0.0" height="0.0"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y6M-vA-JhX">
+                                        <rect key="frame" x="8" y="9.5" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="EjM-jF-2Qy"/>
+                                            <constraint firstAttribute="width" constant="40" id="wJ0-6V-OW7"/>
+                                        </constraints>
+                                        <state key="normal" image="settings"/>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="chapter title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y5C-10-7fZ">
+                                        <rect key="frame" x="149.5" y="21" width="76" height="18"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="3zQ-Vu-wMS" secondAttribute="bottom" id="4VM-Yd-BVp"/>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="y5C-10-7fZ" secondAttribute="trailing" priority="751" constant="60" id="GGp-fK-MV4"/>
-                                    <constraint firstItem="y5C-10-7fZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8R0-Lf-v1o" secondAttribute="leading" priority="751" constant="10" id="Gaw-aE-t6S"/>
-                                    <constraint firstAttribute="height" constant="55" id="NlA-M2-IPl"/>
-                                    <constraint firstItem="3zQ-Vu-wMS" firstAttribute="leading" secondItem="8R0-Lf-v1o" secondAttribute="leading" id="Ozg-7k-1Rc"/>
-                                    <constraint firstItem="3zQ-Vu-wMS" firstAttribute="top" secondItem="8R0-Lf-v1o" secondAttribute="top" id="QC3-zV-7Jv"/>
-                                    <constraint firstItem="y5C-10-7fZ" firstAttribute="centerX" secondItem="8R0-Lf-v1o" secondAttribute="centerX" id="QE8-oF-vlM"/>
+                                    <constraint firstItem="4lD-Ie-a08" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="y5C-10-7fZ" secondAttribute="trailing" constant="10" id="8X9-YB-d4P"/>
+                                    <constraint firstAttribute="bottom" secondItem="bIv-9m-46V" secondAttribute="bottom" id="9j9-Kc-4NN"/>
+                                    <constraint firstItem="y5C-10-7fZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Y6M-vA-JhX" secondAttribute="trailing" constant="10" id="HuL-oH-1eg"/>
+                                    <constraint firstItem="bIv-9m-46V" firstAttribute="leading" secondItem="8R0-Lf-v1o" secondAttribute="leading" id="LaR-Lt-Jw5"/>
+                                    <constraint firstItem="bIv-9m-46V" firstAttribute="top" secondItem="8R0-Lf-v1o" secondAttribute="top" id="MQ7-Ig-XXE"/>
+                                    <constraint firstAttribute="height" constant="60" id="NlA-M2-IPl"/>
+                                    <constraint firstAttribute="trailing" secondItem="bIv-9m-46V" secondAttribute="trailing" id="Zxl-Be-jSy"/>
                                     <constraint firstAttribute="trailing" secondItem="4lD-Ie-a08" secondAttribute="trailing" id="a9a-TF-aNg"/>
                                     <constraint firstItem="y5C-10-7fZ" firstAttribute="centerY" secondItem="8R0-Lf-v1o" secondAttribute="centerY" id="dfG-nC-x1F"/>
-                                    <constraint firstAttribute="trailing" secondItem="3zQ-Vu-wMS" secondAttribute="trailing" id="hFe-Yb-Osa"/>
                                     <constraint firstItem="4lD-Ie-a08" firstAttribute="centerY" secondItem="8R0-Lf-v1o" secondAttribute="centerY" id="mdG-hu-UvR"/>
+                                    <constraint firstItem="Y6M-vA-JhX" firstAttribute="centerY" secondItem="8R0-Lf-v1o" secondAttribute="centerY" id="tNd-9E-Vgs"/>
+                                    <constraint firstItem="y5C-10-7fZ" firstAttribute="centerX" secondItem="8R0-Lf-v1o" secondAttribute="centerX" id="vvc-Fi-le5"/>
+                                    <constraint firstItem="Y6M-vA-JhX" firstAttribute="leading" secondItem="8R0-Lf-v1o" secondAttribute="leading" constant="8" id="xlY-Gc-ftX"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ocL-ZX-4Cr">
-                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="607" width="375" height="60"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gradient_reverse" translatesAutoresizingMaskIntoConstraints="NO" id="OMo-4J-aVZ">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                    </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dEd-p0-eKZ">
-                                        <rect key="frame" x="10" y="7.5" width="112" height="29"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
-                                        <state key="normal" title="Previous Chapter">
+                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TfZ-Kx-bXc">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                                        <items/>
+                                    </toolbar>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dEd-p0-eKZ">
+                                        <rect key="frame" x="10" y="8.5" width="44" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="44" id="2Pz-I1-q8t"/>
+                                            <constraint firstAttribute="height" constant="44" id="4VF-wJ-st5"/>
+                                        </constraints>
+                                        <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" image="backward">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
                                             <action selector="gotoPreviousChapterAction:" destination="WAO-F0-Dug" eventType="touchUpInside" id="9yM-zQ-KFU"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="72h-Br-5G9">
-                                        <rect key="frame" x="279" y="7" width="86" height="29"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
-                                        <state key="normal" title="Next Chapter">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="72h-Br-5G9">
+                                        <rect key="frame" x="321" y="8" width="44" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="44" id="WTA-9y-lyG"/>
+                                            <constraint firstAttribute="height" constant="44" id="heg-dr-Uc7"/>
+                                        </constraints>
+                                        <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" image="forward">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
                                             <action selector="gotoNextChapterAction:" destination="WAO-F0-Dug" eventType="touchUpInside" id="ku8-aH-YT6"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="currentPage/TotalPage" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="211-Cg-tKh">
+                                        <rect key="frame" x="114" y="21.5" width="147.5" height="18"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                                        <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="OMo-4J-aVZ" secondAttribute="trailing" id="LqN-mn-4bA"/>
+                                    <constraint firstAttribute="bottom" secondItem="TfZ-Kx-bXc" secondAttribute="bottom" id="6kG-eo-jub"/>
+                                    <constraint firstAttribute="trailing" secondItem="TfZ-Kx-bXc" secondAttribute="trailing" id="E3V-Gl-wJs"/>
+                                    <constraint firstItem="211-Cg-tKh" firstAttribute="centerX" secondItem="ocL-ZX-4Cr" secondAttribute="centerX" id="Kp5-BI-rDf"/>
                                     <constraint firstAttribute="trailing" secondItem="72h-Br-5G9" secondAttribute="trailing" constant="10" id="Mq6-fb-5g2"/>
-                                    <constraint firstItem="OMo-4J-aVZ" firstAttribute="top" secondItem="ocL-ZX-4Cr" secondAttribute="top" id="OX1-IX-PG7"/>
-                                    <constraint firstAttribute="height" constant="44" id="SFa-k9-1zX"/>
-                                    <constraint firstAttribute="bottom" secondItem="OMo-4J-aVZ" secondAttribute="bottom" id="alA-Sc-MNi"/>
+                                    <constraint firstItem="211-Cg-tKh" firstAttribute="centerY" secondItem="ocL-ZX-4Cr" secondAttribute="centerY" id="OXD-fJ-ylq"/>
+                                    <constraint firstAttribute="height" constant="60" id="SFa-k9-1zX"/>
                                     <constraint firstItem="dEd-p0-eKZ" firstAttribute="leading" secondItem="ocL-ZX-4Cr" secondAttribute="leading" constant="10" id="eo0-f5-Uux"/>
                                     <constraint firstItem="72h-Br-5G9" firstAttribute="centerY" secondItem="ocL-ZX-4Cr" secondAttribute="centerY" id="oUR-ne-Hl4"/>
-                                    <constraint firstItem="OMo-4J-aVZ" firstAttribute="leading" secondItem="ocL-ZX-4Cr" secondAttribute="leading" id="q4a-MU-Sv6"/>
+                                    <constraint firstItem="TfZ-Kx-bXc" firstAttribute="leading" secondItem="ocL-ZX-4Cr" secondAttribute="leading" id="pKP-pN-qaU"/>
+                                    <constraint firstItem="TfZ-Kx-bXc" firstAttribute="top" secondItem="ocL-ZX-4Cr" secondAttribute="top" id="pp9-zt-5Cf"/>
                                     <constraint firstItem="dEd-p0-eKZ" firstAttribute="centerY" secondItem="ocL-ZX-4Cr" secondAttribute="centerY" id="ygq-fS-YIG"/>
                                 </constraints>
                             </view>
@@ -214,6 +243,7 @@
                         <outlet property="buttonNextChapter" destination="72h-Br-5G9" id="xaj-44-K7j"/>
                         <outlet property="buttonPreviousChapter" destination="dEd-p0-eKZ" id="Vlk-SF-UHT"/>
                         <outlet property="labelInfo" destination="y5C-10-7fZ" id="FsZ-a1-eMq"/>
+                        <outlet property="labelPageInfo" destination="211-Cg-tKh" id="roe-G3-fNm"/>
                         <outlet property="topNavigationView" destination="8R0-Lf-v1o" id="hDv-PC-QVD"/>
                     </connections>
                 </viewController>
@@ -241,8 +271,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="backward" width="50" height="50"/>
         <image name="close" width="50" height="50"/>
-        <image name="gradient" width="10" height="50"/>
-        <image name="gradient_reverse" width="10" height="50"/>
+        <image name="forward" width="50" height="50"/>
+        <image name="settings" width="50" height="50"/>
     </resources>
 </document>

@@ -26,6 +26,7 @@ class ChapterReadViewController: UIViewController {
     @IBOutlet weak var bottomToolView: UIView!
     @IBOutlet weak var buttonPreviousChapter: UIButton!
     @IBOutlet weak var buttonNextChapter: UIButton!
+    @IBOutlet weak var labelPageInfo: UILabel!
     
     
     var imageViewControllers: [ImageViewController] = [ImageViewController]()
@@ -189,7 +190,8 @@ class ChapterReadViewController: UIViewController {
         }
         
         let chapterName = chapterObject?.title ?? String(chapterObject?.number ?? 0)
-        labelInfo.text = "Chapte - '\(chapterName)' \n\(index + 1)/\(imageViewControllers.count)"
+        labelInfo.text = "Chapte - '\(chapterName)'"
+        labelPageInfo.text = "\(index + 1)/\(imageViewControllers.count)"
     }
     
     func updateChapterButtons() {
