@@ -27,6 +27,8 @@ class ChapterReadViewController: UIViewController {
     @IBOutlet weak var buttonPreviousChapter: UIButton!
     @IBOutlet weak var buttonNextChapter: UIButton!
     @IBOutlet weak var labelPageInfo: UILabel!
+    @IBOutlet weak var settingPanelView: UIToolbar!
+    @IBOutlet weak var settingView: UIView!
     
     
     var imageViewControllers: [ImageViewController] = [ImageViewController]()
@@ -39,6 +41,21 @@ class ChapterReadViewController: UIViewController {
         
         loadImages()
         installPageViewController()
+        
+        customizeSettingView()
+    }
+    
+    func customizeSettingView() {
+        //        settingView.layer.cornerRadius = 5
+        settingView.layer.shadowRadius = 50
+        settingView.layer.shadowColor = UIColor.black.cgColor
+        settingView.layer.shadowOpacity = 0.9
+        settingView.layer.shadowOffset = CGSize(width: 1, height: 1)
+        settingPanelView.layer.cornerRadius = 2
+        settingPanelView.clipsToBounds = true
+        settingPanelView.layer.borderColor = UIColor.white.cgColor
+        settingPanelView.layer.borderWidth = 1
+        settingView.alpha = 0
     }
     
     func installPageViewController() {
@@ -220,6 +237,20 @@ class ChapterReadViewController: UIViewController {
         
         return nil;
     }
+    
+    @IBAction func switchSettingPanel(_ sender: Any) {
+        UIView.animate(withDuration: 0.3) {
+            self.settingView.alpha = 1 - self.settingView.alpha
+        }
+    }
+    
+    @IBAction func closeSettingView(_ sender: Any) {
+        
+        UIView.animate(withDuration: 0.3) {
+            self.settingView.alpha = 0
+        }
+    }
+    
 }
 
 extension ChapterReadViewController: UIPageViewControllerDataSource {
