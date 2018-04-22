@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class MangaDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -14,28 +15,58 @@ class MangaDetailViewController: UIViewController, UITableViewDataSource, UITabl
     
     @IBOutlet weak var chaptersTableview: UITableView!
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return mangaDetail?.chapters?.count ?? 0
+        if section == 0 {
+            return 1
+        } else if section == 1 {
+            return mangaDetail?.chapters?.count ?? 0
+        }
+        
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "chapterCell", for: indexPath)
-        
-        if let chapter = mangaDetail?.chapterObjects?[indexPath.item] {
-            let chapterTitle = chapter.title ?? "\(chapter.number ?? 0)"
-            cell.textLabel?.text = "[Chapter] \(chapterTitle)"
+        if indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "MangaDetailHeaderTableViewCell", for: indexPath) as! MangaDetailHeaderTableViewCell
+            
+            cell.labelBookTitle.text = mangaDetail?.title
+            cell.labelAuthorName.text = mangaDetail?.author
+            cell.labelStatus.text = ((mangaDetail?.status ?? 0) == 1) ? "Completed" : "Ongoing"
+            cell.labelChapterInfo.text = "\((mangaDetail?.chapters?.count ?? 0)) Chapters"
+            if let imageURL = DataRequester.getImageUrl(withImagePath: mangaDetail?.image)
+            , let url = URL(string: imageURL){
+                cell.imageViewCover.af_setImage(withURL: url)
+            }
+            
+            return cell
+            
+        } else if indexPath.section == 1 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "chapterCell", for: indexPath)
+            
+            if let chapter = mangaDetail?.chapterObjects?[indexPath.item] {
+                let chapterTitle = chapter.title ?? "\(chapter.number ?? 0)"
+                cell.textLabel?.text = "[Chapter] \(chapterTitle)"
+            }
+            
+            return cell
         }
         
-        return cell
+        return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let _ = mangaDetail?.chapterObjects?[indexPath.item] else {
-            return
-        }
-        
-        if let cell = tableView.cellForRow(at: indexPath) {
-            performSegue(withIdentifier: "readChapter", sender: cell)
+        if indexPath.section == 1 {
+            guard let _ = mangaDetail?.chapterObjects?[indexPath.item] else {
+                return
+            }
+            
+            if let cell = tableView.cellForRow(at: indexPath) {
+                performSegue(withIdentifier: "readChapter", sender: cell)
+            }
         }
     }
     
@@ -59,6 +90,10 @@ class MangaDetailViewController: UIViewController, UITableViewDataSource, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        chaptersTableview.rowHeight = UITableViewAutomaticDimension
+        
+        let nibHeader = UINib(nibName: "MangaDetailHeaderTableViewCell", bundle: nil)
+        chaptersTableview.register(nibHeader, forCellReuseIdentifier: "MangaDetailHeaderTableViewCell")
         chaptersTableview.register(UITableViewCell.self, forCellReuseIdentifier: "chapterCell")
         
         DataRequester.getMangaDetail(mangaID: mangaID) { [weak self] (mangaDetail) in
