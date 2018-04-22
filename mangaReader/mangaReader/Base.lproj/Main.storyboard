@@ -82,7 +82,7 @@
         <!--Manga Detail View Controller-->
         <scene sceneID="piO-KY-rZ7">
             <objects>
-                <viewController storyboardIdentifier="MangaDetailViewController" id="rWd-yO-dM8" customClass="MangaDetailViewController" customModule="mangaReader" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MangaDetailViewController" automaticallyAdjustsScrollViewInsets="NO" id="rWd-yO-dM8" customClass="MangaDetailViewController" customModule="mangaReader" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="evA-0Y-q4U">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

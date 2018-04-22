@@ -207,7 +207,7 @@ class ChapterReadViewController: UIViewController {
         }
         
         let chapterName = chapterObject?.title ?? String(chapterObject?.number ?? 0)
-        labelInfo.text = "Chapte - '\(chapterName)'"
+        labelInfo.text = "Chapter - '\(chapterName)'"
         labelPageInfo.text = "\(index + 1)/\(imageViewControllers.count)"
     }
     
