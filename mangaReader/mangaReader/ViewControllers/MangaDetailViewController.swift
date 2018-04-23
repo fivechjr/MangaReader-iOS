@@ -8,6 +8,7 @@
 
 import UIKit
 import AlamofireImage
+import RealmSwift
 
 class MangaDetailViewController: UIViewController {
     
@@ -86,6 +87,7 @@ extension MangaDetailViewController: UITableViewDataSource {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "MangaDetailHeaderTableViewCell", for: indexPath) as! MangaDetailHeaderTableViewCell
             
+            cell.delegate = self
             cell.labelBookTitle.text = mangaDetail?.title
             cell.labelAuthorName.text = mangaDetail?.author
             cell.labelStatus.text = ((mangaDetail?.status ?? 0) == 1) ? "Completed" : "Ongoing"
@@ -94,6 +96,10 @@ extension MangaDetailViewController: UITableViewDataSource {
                 , let url = URL(string: imageURL){
                 cell.imageViewCover.af_setImage(withURL: url)
             }
+            
+            let realm = try! Realm()
+            let favObjects = realm.objects(FavoriteManga.self).filter("id = %@", mangaID)
+            cell.buttonFavorite.isSelected = (favObjects.count > 0)
             
             return cell
             
@@ -163,6 +169,34 @@ extension MangaDetailViewController: UITableViewDelegate {
 extension MangaDetailViewController: MangaDetailTabViewDelegate {
     func tabIndexChanged(index: Int, control: UISegmentedControl) {
         showInfo = (index == 1)
+        chaptersTableview.reloadData()
+    }
+}
+
+extension MangaDetailViewController: MangaDetailHeaderTableViewCellDelegate {
+    func startReading(cell: MangaDetailHeaderTableViewCell) {
+        
+    }
+    
+    func addFavorite(cell: MangaDetailHeaderTableViewCell) {
+        let realm = try! Realm()
+        let favObjects = realm.objects(FavoriteManga.self).filter("id = %@", mangaID)
+        if favObjects.count > 0 {
+            try! realm.write {
+                realm.delete(favObjects)
+            }
+        } else {
+            
+            let favManga = FavoriteManga()
+            favManga.id = mangaID
+            favManga.name = mangaDetail?.title ?? ""
+            favManga.imagePath = mangaDetail?.image ?? ""
+            
+            try! realm.write {
+                realm.add(favManga)
+            }
+        }
+        
         chaptersTableview.reloadData()
     }
 }
