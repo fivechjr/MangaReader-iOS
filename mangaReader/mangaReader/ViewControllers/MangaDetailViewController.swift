@@ -15,7 +15,11 @@ class MangaDetailViewController: UIViewController {
     
     var mangaID: String!
     
+    var showInfo: Bool = false
+    
     @IBOutlet weak var chaptersTableview: UITableView!
+    
+    var mangaDetailTabView: MangaDetailTabView!
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let id = segue.identifier, id == "readChapter"
@@ -36,10 +40,20 @@ class MangaDetailViewController: UIViewController {
         
         chaptersTableview.rowHeight = UITableViewAutomaticDimension
         
+        // Manga tab view
+        mangaDetailTabView = MangaDetailTabView()
+        mangaDetailTabView.delegate = self
+        
+        // table view register cells
         let nibHeader = UINib(nibName: "MangaDetailHeaderTableViewCell", bundle: nil)
         chaptersTableview.register(nibHeader, forCellReuseIdentifier: "MangaDetailHeaderTableViewCell")
+        
+        let nibInfo = UINib(nibName: "MangaDetailTableViewCell", bundle: nil)
+        chaptersTableview.register(nibInfo, forCellReuseIdentifier: "MangaDetailTableViewCell")
+        
         chaptersTableview.register(UITableViewCell.self, forCellReuseIdentifier: "chapterCell")
         
+        // Request detail data
         DataRequester.getMangaDetail(mangaID: mangaID) { [weak self] (mangaDetail) in
             self?.mangaDetail = mangaDetail
             
@@ -56,8 +70,12 @@ extension MangaDetailViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return 1
-        } else if section == 1 {
-            return mangaDetail?.chapters?.count ?? 0
+        } else if section == 1  {
+            if (showInfo) {
+                return 1
+            } else {
+                return mangaDetail?.chapters?.count ?? 0
+            }
         }
         
         return 0
@@ -65,6 +83,7 @@ extension MangaDetailViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: "MangaDetailHeaderTableViewCell", for: indexPath) as! MangaDetailHeaderTableViewCell
             
             cell.labelBookTitle.text = mangaDetail?.title
@@ -79,14 +98,32 @@ extension MangaDetailViewController: UITableViewDataSource {
             return cell
             
         } else if indexPath.section == 1 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "chapterCell", for: indexPath)
-            
-            if let chapter = mangaDetail?.chapterObjects?[indexPath.item] {
-                let chapterTitle = chapter.title ?? "\(chapter.number ?? 0)"
-                cell.textLabel?.text = "[Chapter] \(chapterTitle)"
+            if (showInfo) {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "MangaDetailTableViewCell", for: indexPath) as! MangaDetailTableViewCell
+                
+                cell.labelDescription.text = mangaDetail?.description
+                
+                let formatter = DateFormatter()
+                formatter.dateFormat = "yyyy-MM-dd"
+                
+                let lastUpdateDate = Date(timeIntervalSince1970: mangaDetail?.last_chapter_date ?? 0)
+                let firstCreatedDate = Date(timeIntervalSince1970: mangaDetail?.created ?? 0)
+                
+                cell.labelLastUpdated.text = formatter.string(from: lastUpdateDate)
+                cell.labelDateCreated.text = formatter.string(from: firstCreatedDate)
+                cell.labelGenres.text = mangaDetail?.categories?.joined(separator: ", ")
+                
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "chapterCell", for: indexPath)
+                
+                if let chapter = mangaDetail?.chapterObjects?[indexPath.item] {
+                    let chapterTitle = chapter.title ?? "\(chapter.number ?? 0)"
+                    cell.textLabel?.text = "[Chapter] \(chapterTitle)"
+                }
+                
+                return cell
             }
-            
-            return cell
         }
         
         return UITableViewCell()
@@ -94,10 +131,7 @@ extension MangaDetailViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if (section == 1) {
-            let tabView = MangaDetailTabView()
-            tabView.delegate = self
-            
-            return tabView
+            return mangaDetailTabView
         }
         
         return UIView()
@@ -106,7 +140,7 @@ extension MangaDetailViewController: UITableViewDataSource {
 
 extension MangaDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 1 {
+        if indexPath.section == 1 && !showInfo {
             guard let _ = mangaDetail?.chapterObjects?[indexPath.item] else {
                 return
             }
@@ -128,6 +162,7 @@ extension MangaDetailViewController: UITableViewDelegate {
 
 extension MangaDetailViewController: MangaDetailTabViewDelegate {
     func tabIndexChanged(index: Int, control: UISegmentedControl) {
-        print("select tab index: \(index)")
+        showInfo = (index == 1)
+        chaptersTableview.reloadData()
     }
 }

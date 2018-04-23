@@ -21,8 +21,4 @@ class MangaDetailHeaderTableViewCell: UITableViewCell {
         
         selectionStyle = .none
     }
-    
-    static func defaultHeight() -> Double {
-        return 137
-    }
 }
