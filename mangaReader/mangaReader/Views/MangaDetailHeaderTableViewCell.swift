@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol MangaDetailHeaderTableViewCellDelegate {
+protocol MangaDetailHeaderTableViewCellDelegate: class {
     func startReading(cell: MangaDetailHeaderTableViewCell)
     func addFavorite(cell: MangaDetailHeaderTableViewCell)
 }
@@ -22,6 +22,8 @@ class MangaDetailHeaderTableViewCell: UITableViewCell {
     @IBOutlet weak var buttonStart: UIButton!
     @IBOutlet weak var buttonFavorite: UIButton!
     
+    weak var delegate: MangaDetailHeaderTableViewCellDelegate?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -33,9 +35,11 @@ class MangaDetailHeaderTableViewCell: UITableViewCell {
     }
 
     @IBAction func addFavoriteAction(_ sender: Any) {
+        delegate?.addFavorite(cell: self)
     }
     
     @IBAction func startReadingAction(_ sender: Any) {
+        delegate?.startReading(cell: self)
     }
     
 }
