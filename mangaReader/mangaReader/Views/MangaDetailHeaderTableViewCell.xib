@@ -41,25 +41,39 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100 Chapters" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UJo-da-c9y">
-                        <rect key="frame" x="120" y="75" width="190" height="14.5"/>
+                        <rect key="frame" x="120" y="74.5" width="190" height="14.5"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="12"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f8f-0m-38c">
-                        <rect key="frame" x="120" y="144.5" width="70" height="30"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="70" id="Mj1-Zg-S8r"/>
-                            <constraint firstAttribute="height" constant="30" id="W6S-EC-dS7"/>
-                        </constraints>
-                        <state key="normal" title="Start"/>
-                    </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status: Ongoing" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Agu-hd-YSs">
-                        <rect key="frame" x="120" y="60" width="190" height="14.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Status: Ongoing" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Agu-hd-YSs">
+                        <rect key="frame" x="120" y="58" width="190" height="14.5"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="12"/>
                         <color key="textColor" red="0.2054849691" green="0.5" blue="0.43892485879999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FIF-k6-b7D">
+                        <rect key="frame" x="270" y="134" width="40" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="O1G-ON-llQ"/>
+                            <constraint firstAttribute="width" constant="40" id="UMA-Xp-wAH"/>
+                        </constraints>
+                        <state key="normal" title="Button" image="favorite"/>
+                        <state key="selected" image="favorite_ok"/>
+                        <connections>
+                            <action selector="addFavoriteAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Vlr-Lf-xDp"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f8f-0m-38c">
+                        <rect key="frame" x="120" y="134" width="130" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="W6S-EC-dS7"/>
+                        </constraints>
+                        <state key="normal" title="Start Reading"/>
+                        <connections>
+                            <action selector="startReadingAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="jD7-vt-qba"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="MTg-oc-NyC" secondAttribute="bottom" constant="10" id="1vJ-k6-b4j"/>
@@ -72,6 +86,8 @@
                     <constraint firstItem="f8f-0m-38c" firstAttribute="leading" secondItem="MTg-oc-NyC" secondAttribute="trailing" constant="10" id="E0U-nk-tku"/>
                     <constraint firstAttribute="bottom" secondItem="f8f-0m-38c" secondAttribute="bottom" constant="10" id="Esl-e1-jLf"/>
                     <constraint firstItem="Agu-hd-YSs" firstAttribute="leading" secondItem="MTg-oc-NyC" secondAttribute="trailing" constant="10" id="GCg-mH-Si9"/>
+                    <constraint firstItem="FIF-k6-b7D" firstAttribute="leading" secondItem="f8f-0m-38c" secondAttribute="trailing" constant="20" id="I9a-bu-M5d"/>
+                    <constraint firstItem="FIF-k6-b7D" firstAttribute="centerY" secondItem="f8f-0m-38c" secondAttribute="centerY" id="LoF-g6-2Qb"/>
                     <constraint firstAttribute="trailing" secondItem="UJo-da-c9y" secondAttribute="trailing" constant="10" id="TKb-Om-MEo"/>
                     <constraint firstItem="Agu-hd-YSs" firstAttribute="top" secondItem="hxM-Zq-JMj" secondAttribute="bottom" constant="10" id="W9T-sv-SNk"/>
                     <constraint firstItem="UJo-da-c9y" firstAttribute="top" secondItem="Agu-hd-YSs" secondAttribute="bottom" id="Wl2-iY-P35"/>
@@ -80,10 +96,13 @@
                     <constraint firstItem="MTg-oc-NyC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="pRw-61-ujS"/>
                     <constraint firstAttribute="trailing" secondItem="Agu-hd-YSs" secondAttribute="trailing" constant="10" id="pSL-zV-pd2"/>
                     <constraint firstItem="WYl-U9-ZPu" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="tEd-G6-3cV"/>
+                    <constraint firstItem="f8f-0m-38c" firstAttribute="top" relation="greaterThanOrEqual" secondItem="UJo-da-c9y" secondAttribute="bottom" constant="10" id="uiC-cb-Iph"/>
+                    <constraint firstAttribute="trailing" secondItem="FIF-k6-b7D" secondAttribute="trailing" constant="10" id="vgr-47-85g"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="buttonFavorite" destination="FIF-k6-b7D" id="AlE-ia-Ae0"/>
                 <outlet property="buttonStart" destination="f8f-0m-38c" id="UR6-y2-kkY"/>
                 <outlet property="imageViewCover" destination="MTg-oc-NyC" id="Ot4-Qt-9h1"/>
                 <outlet property="labelAuthorName" destination="hxM-Zq-JMj" id="rQS-sN-j7Z"/>
@@ -94,4 +113,8 @@
             <point key="canvasLocation" x="40" y="124.5"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="favorite" width="50" height="50"/>
+        <image name="favorite_ok" width="50" height="50"/>
+    </resources>
 </document>
