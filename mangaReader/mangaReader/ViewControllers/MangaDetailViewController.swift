@@ -9,12 +9,46 @@
 import UIKit
 import AlamofireImage
 
-class MangaDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class MangaDetailViewController: UIViewController {
     
     var mangaDetail: MangaDetailResponse?
     
+    var mangaID: String!
+    
     @IBOutlet weak var chaptersTableview: UITableView!
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let id = segue.identifier, id == "readChapter"
+        , let destination = segue.destination as? ChapterReadViewController
+        , let cell = sender as? UITableViewCell
+        , let indexPath = chaptersTableview.indexPath(for: cell)
+        , let chapterID = mangaDetail?.chapterObjects?[indexPath.item].id else {
+            return
+        }
+        
+        destination.chapterID = chapterID
+        destination.chapterObject = mangaDetail?.chapterObjects?[indexPath.item]
+        destination.mangaDetail = mangaDetail
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        chaptersTableview.rowHeight = UITableViewAutomaticDimension
+        
+        let nibHeader = UINib(nibName: "MangaDetailHeaderTableViewCell", bundle: nil)
+        chaptersTableview.register(nibHeader, forCellReuseIdentifier: "MangaDetailHeaderTableViewCell")
+        chaptersTableview.register(UITableViewCell.self, forCellReuseIdentifier: "chapterCell")
+        
+        DataRequester.getMangaDetail(mangaID: mangaID) { [weak self] (mangaDetail) in
+            self?.mangaDetail = mangaDetail
+            
+            self?.chaptersTableview.reloadData()
+        }
+    }
+}
+
+extension MangaDetailViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
@@ -38,7 +72,7 @@ class MangaDetailViewController: UIViewController, UITableViewDataSource, UITabl
             cell.labelStatus.text = ((mangaDetail?.status ?? 0) == 1) ? "Completed" : "Ongoing"
             cell.labelChapterInfo.text = "\((mangaDetail?.chapters?.count ?? 0)) Chapters"
             if let imageURL = DataRequester.getImageUrl(withImagePath: mangaDetail?.image)
-            , let url = URL(string: imageURL){
+                , let url = URL(string: imageURL){
                 cell.imageViewCover.af_setImage(withURL: url)
             }
             
@@ -58,6 +92,19 @@ class MangaDetailViewController: UIViewController, UITableViewDataSource, UITabl
         return UITableViewCell()
     }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if (section == 1) {
+            let tabView = MangaDetailTabView()
+            tabView.delegate = self
+            
+            return tabView
+        }
+        
+        return UIView()
+    }
+}
+
+extension MangaDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1 {
             guard let _ = mangaDetail?.chapterObjects?[indexPath.item] else {
@@ -70,36 +117,17 @@ class MangaDetailViewController: UIViewController, UITableViewDataSource, UITabl
         }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let id = segue.identifier, id == "readChapter"
-        , let destination = segue.destination as? ChapterReadViewController
-        , let cell = sender as? UITableViewCell
-        , let indexPath = chaptersTableview.indexPath(for: cell)
-        , let chapterID = mangaDetail?.chapterObjects?[indexPath.item].id else {
-            return
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if (section == 1) {
+            return 60
         }
         
-        destination.chapterID = chapterID
-        destination.chapterObject = mangaDetail?.chapterObjects?[indexPath.item]
-        destination.mangaDetail = mangaDetail
+        return 1
     }
-    
+}
 
-    var mangaID: String!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        chaptersTableview.rowHeight = UITableViewAutomaticDimension
-        
-        let nibHeader = UINib(nibName: "MangaDetailHeaderTableViewCell", bundle: nil)
-        chaptersTableview.register(nibHeader, forCellReuseIdentifier: "MangaDetailHeaderTableViewCell")
-        chaptersTableview.register(UITableViewCell.self, forCellReuseIdentifier: "chapterCell")
-        
-        DataRequester.getMangaDetail(mangaID: mangaID) { [weak self] (mangaDetail) in
-            self?.mangaDetail = mangaDetail
-            
-            self?.chaptersTableview.reloadData()
-        }
+extension MangaDetailViewController: MangaDetailTabViewDelegate {
+    func tabIndexChanged(index: Int, control: UISegmentedControl) {
+        print("select tab index: \(index)")
     }
 }

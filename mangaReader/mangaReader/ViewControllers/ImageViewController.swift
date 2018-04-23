@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import NVActivityIndicatorView
 
-protocol ImageViewControllerDelegate {
+protocol ImageViewControllerDelegate: class {
     func topAreaTapped(imageViewController: ImageViewController!)
     func centerAreaTapped(imageViewController: ImageViewController!)
     func bottomAreaTapped(imageViewController: ImageViewController!)
@@ -22,7 +22,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     var imageScrollView: UIScrollView!
     var indicatorView: NVActivityIndicatorView!
     
-    var delegate: ImageViewControllerDelegate?
+    weak var delegate: ImageViewControllerDelegate?
     
     var chapterImage: ChapterImage?
     

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8C4EFCDF208CD0B5007D342C /* MangaDetailHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4EFCDD208CD0B5007D342C /* MangaDetailHeaderTableViewCell.swift */; };
 		8C4EFCE0208CD0B5007D342C /* MangaDetailHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C4EFCDE208CD0B5007D342C /* MangaDetailHeaderTableViewCell.xib */; };
+		8C4EFCE2208D47DE007D342C /* MangaDetailTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4EFCE1208D47DE007D342C /* MangaDetailTabView.swift */; };
 		8C8EAC7F206A141900803BD1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8EAC7E206A141900803BD1 /* AppDelegate.swift */; };
 		8C8EAC81206A141900803BD1 /* MangaListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8EAC80206A141900803BD1 /* MangaListViewController.swift */; };
 		8C8EAC84206A141900803BD1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C8EAC82206A141900803BD1 /* Main.storyboard */; };
@@ -33,6 +34,7 @@
 		65171A2F5A9EBB700F64B9D3 /* Pods-mangaReader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mangaReader.release.xcconfig"; path = "Pods/Target Support Files/Pods-mangaReader/Pods-mangaReader.release.xcconfig"; sourceTree = "<group>"; };
 		8C4EFCDD208CD0B5007D342C /* MangaDetailHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaDetailHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		8C4EFCDE208CD0B5007D342C /* MangaDetailHeaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MangaDetailHeaderTableViewCell.xib; sourceTree = "<group>"; };
+		8C4EFCE1208D47DE007D342C /* MangaDetailTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaDetailTabView.swift; sourceTree = "<group>"; };
 		8C8EAC7B206A141900803BD1 /* mangaReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mangaReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C8EAC7E206A141900803BD1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8C8EAC80206A141900803BD1 /* MangaListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaListViewController.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				8C904D762085D1BB00A599E9 /* MangaListCollectionViewCell.swift */,
 				8C4EFCDD208CD0B5007D342C /* MangaDetailHeaderTableViewCell.swift */,
 				8C4EFCDE208CD0B5007D342C /* MangaDetailHeaderTableViewCell.xib */,
+				8C4EFCE1208D47DE007D342C /* MangaDetailTabView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 				8CF7EFAD2084565000E6AB6C /* MangaListResponse.swift in Sources */,
 				8CF7EFAF208456FB00E6AB6C /* MangaResonse.swift in Sources */,
 				8C8EAC7F206A141900803BD1 /* AppDelegate.swift in Sources */,
+				8C4EFCE2208D47DE007D342C /* MangaDetailTabView.swift in Sources */,
 				8C4EFCDF208CD0B5007D342C /* MangaDetailHeaderTableViewCell.swift in Sources */,
 				8C904D892088BB7F00A599E9 /* ImageViewController.swift in Sources */,
 				8CF7EFAA208450D400E6AB6C /* DataRequester.swift in Sources */,
