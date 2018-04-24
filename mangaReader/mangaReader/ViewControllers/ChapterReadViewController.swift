@@ -10,12 +10,14 @@ import UIKit
 import AlamofireImage
 import SnapKit
 import NVActivityIndicatorView
+import RealmSwift
 
 class ChapterReadViewController: UIViewController {
     
     var chapterID: String!
     var chapterObject: Chapter?
     var mangaDetail: MangaDetailResponse?
+    var mangaID: String!
 
     var chapterDetail: ChapterDetailResponse?
     
@@ -103,8 +105,20 @@ class ChapterReadViewController: UIViewController {
                 self?.pageViewController.setViewControllers([firstImageViewController], direction: .forward, animated: false, completion: { (completed) in
                     self?.updateInfoLabel()
                     self?.updateChapterButtons()
+                    self?.recordCurrentChapter(chapterID: self?.chapterID)
                 })
             }
+        }
+    }
+    
+    private func recordCurrentChapter(chapterID: String!) {
+        let realm = try! Realm()
+        let manChapter = MangaCurrentChapter()
+        manChapter.mangaID = mangaID
+        manChapter.chapterID = chapterID
+        manChapter.readTime = Date()
+        try! realm.write {
+            realm.add(manChapter, update:true)
         }
     }
     

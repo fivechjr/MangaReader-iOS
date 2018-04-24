@@ -20,6 +20,9 @@ class MangaDetailViewController: UIViewController {
     
     var currentChapterID: String?
     
+    // if the user has started reading in this page
+    var didStartReading = false
+    
     @IBOutlet weak var chaptersTableview: UITableView!
     
     var mangaDetailTabView: MangaDetailTabView!
@@ -30,13 +33,32 @@ class MangaDetailViewController: UIViewController {
         }
         
         var theChapter: Chapter? = nil
-        chapterObjects.forEach { (chapter) in
+        
+        for (_, chapter) in chapterObjects.enumerated() {
             if let id = chapter.id, id == chapterID {
                 theChapter = chapter
+                break
             }
         }
         
         return theChapter
+    }
+    
+    private func getChapterIndex(withID chapterID: String?) ->Int? {
+        guard let chapterID = chapterID, let chapterObjects = mangaDetail?.chapterObjects else {
+            return nil
+        }
+        
+        var theChapterIndex: Int? = nil
+        
+        for (index, chapter) in chapterObjects.enumerated() {
+            if let id = chapter.id, id == chapterID {
+                theChapterIndex = index
+                break
+            }
+        }
+        
+        return theChapterIndex
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -53,14 +75,17 @@ class MangaDetailViewController: UIViewController {
                 destination.chapterID = currentChapterID
                 destination.chapterObject = getChapter(withID: currentChapterID)
                 destination.mangaDetail = mangaDetail
+                destination.mangaID = mangaID
             } else if let chapterID = mangaDetail?.chapterObjects?.last?.id {
                 destination.chapterID = chapterID
                 destination.chapterObject = getChapter(withID: chapterID)
                 destination.mangaDetail = mangaDetail
+                destination.mangaID = mangaID
                 
                 recordCurrentChapter(chapterID: chapterID)
             }
             
+            didStartReading = true
             return
         }
         
@@ -72,8 +97,11 @@ class MangaDetailViewController: UIViewController {
         destination.chapterID = chapterID
         destination.chapterObject = mangaDetail?.chapterObjects?[indexPath.item]
         destination.mangaDetail = mangaDetail
+        destination.mangaID = mangaID
         
         recordCurrentChapter(chapterID: chapterID)
+        
+        didStartReading = true
     }
     
     private func recordCurrentChapter(chapterID: String!) {
@@ -96,6 +124,23 @@ class MangaDetailViewController: UIViewController {
         }
         
         chaptersTableview.reloadData()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        guard didStartReading else {
+            return
+        }
+        
+        if showInfo {
+            chaptersTableview.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+        } else {
+            if let currentChapterIndex = getChapterIndex(withID: currentChapterID) {
+                chaptersTableview.scrollToRow(at: IndexPath(row: currentChapterIndex, section: 1), at: .middle, animated: true)
+            } else {
+                chaptersTableview.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+            }
+        }
     }
     
     override func viewDidLoad() {
@@ -198,7 +243,7 @@ extension MangaDetailViewController: UITableViewDataSource {
                     cell.textLabel?.text = "[Chapter] \(chapterTitle)"
                     
                     if let chapterID = chapter.id, chapterID == currentChapterID {
-                        cell.textLabel?.textColor = UIColor.darkGray
+                        cell.textLabel?.textColor = UIColor(red: 21/255.0, green: 126/255.0, blue: 251/255.0, alpha: 1)
                     } else {
                         cell.textLabel?.textColor = UIColor.black
                     }
