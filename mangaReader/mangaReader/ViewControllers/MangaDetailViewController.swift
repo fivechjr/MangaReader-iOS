@@ -18,15 +18,53 @@ class MangaDetailViewController: UIViewController {
     
     var showInfo: Bool = false
     
+    var currentChapterID: String?
+    
     @IBOutlet weak var chaptersTableview: UITableView!
     
     var mangaDetailTabView: MangaDetailTabView!
     
+    private func getChapter(withID chapterID: String?) ->Chapter? {
+        guard let chapterID = chapterID, let chapterObjects = mangaDetail?.chapterObjects else {
+            return nil
+        }
+        
+        var theChapter: Chapter? = nil
+        chapterObjects.forEach { (chapter) in
+            if let id = chapter.id, id == chapterID {
+                theChapter = chapter
+            }
+        }
+        
+        return theChapter
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let id = segue.identifier, id == "readChapter"
-        , let destination = segue.destination as? ChapterReadViewController
-        , let cell = sender as? UITableViewCell
-        , let indexPath = chaptersTableview.indexPath(for: cell)
+        
+        guard let id = segue.identifier, id == "readChapter" else {
+            return
+        }
+        
+        let destination = segue.destination as! ChapterReadViewController
+        
+        guard let cell = sender as? UITableViewCell else {
+            
+            if let currentChapterID = currentChapterID {
+                destination.chapterID = currentChapterID
+                destination.chapterObject = getChapter(withID: currentChapterID)
+                destination.mangaDetail = mangaDetail
+            } else if let chapterID = mangaDetail?.chapterObjects?.last?.id {
+                destination.chapterID = chapterID
+                destination.chapterObject = getChapter(withID: chapterID)
+                destination.mangaDetail = mangaDetail
+                
+                recordCurrentChapter(chapterID: chapterID)
+            }
+            
+            return
+        }
+        
+        guard let indexPath = chaptersTableview.indexPath(for: cell)
         , let chapterID = mangaDetail?.chapterObjects?[indexPath.item].id else {
             return
         }
@@ -34,6 +72,30 @@ class MangaDetailViewController: UIViewController {
         destination.chapterID = chapterID
         destination.chapterObject = mangaDetail?.chapterObjects?[indexPath.item]
         destination.mangaDetail = mangaDetail
+        
+        recordCurrentChapter(chapterID: chapterID)
+    }
+    
+    private func recordCurrentChapter(chapterID: String!) {
+        let realm = try! Realm()
+        let manChapter = MangaCurrentChapter()
+        manChapter.mangaID = mangaID
+        manChapter.chapterID = chapterID
+        manChapter.readTime = Date()
+        try! realm.write {
+            realm.add(manChapter, update:true)
+        }
+        
+        currentChapterID = chapterID
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        let realm = try! Realm()
+        if let currentChapter = realm.objects(MangaCurrentChapter.self).filter("mangaID = %@", mangaID).first {
+            currentChapterID = currentChapter.chapterID
+        }
+        
+        chaptersTableview.reloadData()
     }
     
     override func viewDidLoad() {
@@ -97,6 +159,14 @@ extension MangaDetailViewController: UITableViewDataSource {
                 cell.imageViewCover.af_setImage(withURL: url)
             }
             
+            // Update reading button
+            if let _ = currentChapterID {
+                cell.buttonStart.setTitle("Continue Reading", for: .normal)
+            } else {
+                cell.buttonStart.setTitle("Start Reading", for: .normal)
+            }
+            
+            // Update Favorite button
             let realm = try! Realm()
             let favObjects = realm.objects(FavoriteManga.self).filter("id = %@", mangaID)
             cell.buttonFavorite.isSelected = (favObjects.count > 0)
@@ -126,6 +196,12 @@ extension MangaDetailViewController: UITableViewDataSource {
                 if let chapter = mangaDetail?.chapterObjects?[indexPath.item] {
                     let chapterTitle = chapter.title ?? "\(chapter.number ?? 0)"
                     cell.textLabel?.text = "[Chapter] \(chapterTitle)"
+                    
+                    if let chapterID = chapter.id, chapterID == currentChapterID {
+                        cell.textLabel?.textColor = UIColor.darkGray
+                    } else {
+                        cell.textLabel?.textColor = UIColor.black
+                    }
                 }
                 
                 return cell
@@ -146,6 +222,9 @@ extension MangaDetailViewController: UITableViewDataSource {
 
 extension MangaDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+        
         if indexPath.section == 1 && !showInfo {
             guard let _ = mangaDetail?.chapterObjects?[indexPath.item] else {
                 return
@@ -175,7 +254,7 @@ extension MangaDetailViewController: MangaDetailTabViewDelegate {
 
 extension MangaDetailViewController: MangaDetailHeaderTableViewCellDelegate {
     func startReading(cell: MangaDetailHeaderTableViewCell) {
-        
+        performSegue(withIdentifier: "readChapter", sender: nil)
     }
     
     func addFavorite(cell: MangaDetailHeaderTableViewCell) {
