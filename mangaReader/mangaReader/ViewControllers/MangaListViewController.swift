@@ -36,6 +36,9 @@ class MangaListViewController: UIViewController {
         let searchButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchAction))
         navigationItem.rightBarButtonItem = searchButton
         
+        let nibCell = UINib(nibName: "MangaListCollectionViewCell", bundle: nil)
+        mangaListCollectionView.register(nibCell, forCellWithReuseIdentifier: "MangaListCollectionViewCell")
+        
         loadMangaData()
     }
     
@@ -98,6 +101,8 @@ class MangaListViewController: UIViewController {
         
         sortManga()
         mangaListCollectionView.reloadData()
+        
+        mangaListCollectionView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
     }
     
 }
@@ -122,6 +127,11 @@ extension MangaListViewController: UICollectionViewDataSource, UICollectionViewD
         }
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath)
+        performSegue(withIdentifier: "showMangaDetail", sender: cell)
     }
 }
 
