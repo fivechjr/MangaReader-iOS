@@ -8,7 +8,8 @@
 
 import UIKit
 
-class MangaListViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class MangaListViewController: UIViewController
+, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     @IBOutlet weak var mangaListCollectionView: UICollectionView!
     
@@ -54,6 +55,20 @@ class MangaListViewController: UIViewController, UICollectionViewDataSource, UIC
         navigationItem.rightBarButtonItem = searchButton
         
         loadMangaData()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        let layout = mangaListCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        let sectionInsets = layout.sectionInset
+        let itemSpacing = layout.minimumInteritemSpacing
+        
+        let itemCountPerRow = (UI_USER_INTERFACE_IDIOM() == .pad) ? 5 : 3
+        
+        let colletionViewWidth = mangaListCollectionView.frame.size.width
+        let gap = (sectionInsets.left + sectionInsets.right) + itemSpacing * CGFloat(itemCountPerRow - 1)
+        let itemWidth = (colletionViewWidth - gap) / CGFloat(itemCountPerRow)
+        let itemHeight = itemWidth * 1.4
+        layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
     }
     
     @objc func searchAction() {

@@ -28,7 +28,7 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="A3i-Gy-NIq">
                                 <rect key="frame" x="0.0" y="119" width="375" height="499"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="1" id="QfK-74-wuR">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="QfK-74-wuR">
                                     <size key="itemSize" width="120" height="150"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -46,12 +46,15 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="120" height="150"/>
                                                 </imageView>
                                                 <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9cn-lU-mRl" userLabel="labelBgView">
-                                                    <rect key="frame" x="0.0" y="132" width="120" height="18"/>
+                                                    <rect key="frame" x="0.0" y="129" width="120" height="21"/>
                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="B93-iR-BUr" userLabel="labelTitle">
-                                                    <rect key="frame" x="0.0" y="132" width="120" height="18"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                                                    <rect key="frame" x="0.0" y="129" width="120" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="36" id="tKm-sv-hYt"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="KohinoorBangla-Light" family="Kohinoor Bangla" pointSize="15"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -449,7 +452,7 @@
         <image name="compass" width="33" height="33"/>
         <image name="favorite_tab" width="33" height="33"/>
         <image name="forward" width="50" height="50"/>
-        <image name="recent" width="33" height="33"/>
+        <image name="recent" width="28" height="28"/>
         <image name="settings" width="50" height="50"/>
     </resources>
 </document>

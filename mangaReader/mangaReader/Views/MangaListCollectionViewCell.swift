@@ -12,4 +12,11 @@ class MangaListCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var labelTitle: UILabel!
     @IBOutlet weak var imageViewCover: UIImageView!
     
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        imageViewCover.layer.borderColor = UIColor(white: 0.85, alpha: 1).cgColor
+        imageViewCover.layer.borderWidth = 0.5
+    }
 }
