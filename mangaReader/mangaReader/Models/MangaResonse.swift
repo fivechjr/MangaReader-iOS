@@ -15,6 +15,7 @@ class MangaResponse: Mappable {
     var imagePath: String?
     var id: String?
     var hitCount: Int?
+    var categories: [String]?
     
     required init?(map: Map) {
         
@@ -26,6 +27,7 @@ class MangaResponse: Mappable {
         imagePath <- map["im"]
         id <- map["i"]
         hitCount <- map["h"]
+        categories <- map["c"]
     }
 }
 

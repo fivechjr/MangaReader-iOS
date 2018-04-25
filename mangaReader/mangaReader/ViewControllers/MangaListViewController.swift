@@ -12,6 +12,9 @@ class MangaListViewController: UIViewController
 , UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     @IBOutlet weak var mangaListCollectionView: UICollectionView!
+    @IBOutlet weak var mangaSwithControl: UISegmentedControl!
+    
+    var sortByRecentUpdate = false
     
     var mangas:[MangaResponse]?
     
@@ -78,9 +81,41 @@ class MangaListViewController: UIViewController
     func loadMangaData() {
         DataRequester.getMangaListFromCache(completion: {[weak self] (response) in
             self?.mangas = response?.mangas
-            self?.mangas?.sort(by: { ($0.hitCount ?? 0) > ($1.hitCount ?? 0) })
+            self?.mangas = self?.mangas?.filter({ (manga) -> Bool in
+                var canPublish = true
+                if let categories = manga.categories, categories.contains("Adult") {
+                    canPublish = false
+                }
+                
+                if let title = manga.title {
+                    if title.lowercased().contains("sex") || title == "High School DxD" {
+                        canPublish = false
+                    }
+                }
+                
+                return canPublish
+            })
+            
+            self?.sortManga()
             self?.mangaListCollectionView.reloadData()
         })
     }
+    
+    func sortManga() {
+        if (sortByRecentUpdate) {
+            mangas?.sort(by: { ($0.updateTime ?? 0) > ($1.updateTime ?? 0) })
+        } else {
+            mangas?.sort(by: { ($0.hitCount ?? 0) > ($1.hitCount ?? 0) })
+        }
+    }
+    
+    @IBAction func mangaSwitchAction(_ sender: UISegmentedControl) {
+        
+        sortByRecentUpdate = (sender.selectedSegmentIndex == 1)
+        
+        sortManga()
+        mangaListCollectionView.reloadData()
+    }
+    
 }
 

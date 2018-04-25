@@ -24,6 +24,9 @@
                                     <segment title="All Manga"/>
                                     <segment title="Latest Update"/>
                                 </segments>
+                                <connections>
+                                    <action selector="mangaSwitchAction:" destination="BYZ-38-t0r" eventType="valueChanged" id="zTJ-8h-peg"/>
+                                </connections>
                             </segmentedControl>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="A3i-Gy-NIq">
                                 <rect key="frame" x="0.0" y="119" width="375" height="499"/>
@@ -45,7 +48,7 @@
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6JZ-BE-L5g">
                                                     <rect key="frame" x="0.0" y="0.0" width="120" height="150"/>
                                                 </imageView>
-                                                <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9cn-lU-mRl" userLabel="labelBgView">
+                                                <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9cn-lU-mRl" userLabel="labelBgView">
                                                     <rect key="frame" x="0.0" y="129" width="120" height="21"/>
                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
@@ -103,6 +106,7 @@
                     <navigationItem key="navigationItem" title="Discovery" id="GDZ-0N-bTk"/>
                     <connections>
                         <outlet property="mangaListCollectionView" destination="A3i-Gy-NIq" id="fAj-15-cPv"/>
+                        <outlet property="mangaSwithControl" destination="48D-JG-BAt" id="yP4-G1-qfZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
