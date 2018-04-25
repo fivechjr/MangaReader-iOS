@@ -8,8 +8,7 @@
 
 import UIKit
 
-class MangaListViewController: UIViewController
-, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class MangaListViewController: UIViewController {
     
     @IBOutlet weak var mangaListCollectionView: UICollectionView!
     @IBOutlet weak var mangaSwithControl: UISegmentedControl!
@@ -17,26 +16,6 @@ class MangaListViewController: UIViewController
     var sortByRecentUpdate = false
     
     var mangas:[MangaResponse]?
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return mangas?.count ?? 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MangaListCollectionViewCell", for: indexPath) as! MangaListCollectionViewCell
-        
-        let manga = mangas?[indexPath.item]
-        cell.labelTitle.text = manga?.title
-        
-        let placeholderImage = UIImage(named: "manga_default")
-        cell.imageViewCover.image = placeholderImage
-        if let imageURL = DataRequester.getImageUrl(withImagePath: manga?.imagePath)
-            , let url = URL(string: imageURL){
-            cell.imageViewCover.af_setImage(withURL: url, placeholderImage: placeholderImage)
-        }
-        
-        return cell
-    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == "showMangaDetail"
@@ -75,7 +54,11 @@ class MangaListViewController: UIViewController
     }
     
     @objc func searchAction() {
-        print("search")
+        if let navigationVC = SearchViewController.createFromStoryboard() {
+            let searchVC = navigationVC.viewControllers.first as! SearchViewController
+            searchVC.mangas = mangas
+            present(navigationVC, animated: true, completion: nil)
+        }
     }
     
     func loadMangaData() {
@@ -117,5 +100,28 @@ class MangaListViewController: UIViewController
         mangaListCollectionView.reloadData()
     }
     
+}
+
+extension MangaListViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return mangas?.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MangaListCollectionViewCell", for: indexPath) as! MangaListCollectionViewCell
+        
+        let manga = mangas?[indexPath.item]
+        cell.labelTitle.text = manga?.title
+        
+        let placeholderImage = UIImage(named: "manga_default")
+        cell.imageViewCover.image = placeholderImage
+        if let imageURL = DataRequester.getImageUrl(withImagePath: manga?.imagePath)
+            , let url = URL(string: imageURL){
+            cell.imageViewCover.af_setImage(withURL: url, placeholderImage: placeholderImage)
+        }
+        
+        return cell
+    }
 }
 

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MangaListCollectionViewCell" id="6f0-7O-1Bl" customClass="MangaListCollectionViewCell" customModule="mangaReader" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="120" height="150"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                <rect key="frame" x="0.0" y="0.0" width="120" height="150"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MFu-6Z-Vmc">
+                        <rect key="frame" x="0.0" y="0.0" width="120" height="150"/>
+                    </imageView>
+                    <view alpha="0.60000002384185791" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CUs-2c-q0l" userLabel="labelBgView">
+                        <rect key="frame" x="0.0" y="129" width="120" height="21"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="O90-li-j5B" userLabel="labelTitle">
+                        <rect key="frame" x="10" y="129" width="100" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="36" id="YEk-0w-2c5"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="KohinoorBangla-Light" family="Kohinoor Bangla" pointSize="15"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <color key="backgroundColor" red="0.97431590030000004" green="0.97431590030000004" blue="0.97431590030000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="MFu-6Z-Vmc" firstAttribute="top" secondItem="6f0-7O-1Bl" secondAttribute="top" id="6P6-2t-gWO"/>
+                <constraint firstItem="O90-li-j5B" firstAttribute="leading" secondItem="6f0-7O-1Bl" secondAttribute="leading" constant="10" id="GwD-1K-XTC"/>
+                <constraint firstItem="CUs-2c-q0l" firstAttribute="top" secondItem="O90-li-j5B" secondAttribute="top" id="IE0-5n-0kC"/>
+                <constraint firstAttribute="bottom" secondItem="MFu-6Z-Vmc" secondAttribute="bottom" id="IcV-8t-Ckq"/>
+                <constraint firstAttribute="bottom" secondItem="O90-li-j5B" secondAttribute="bottom" id="TVz-67-mbv"/>
+                <constraint firstAttribute="trailing" secondItem="O90-li-j5B" secondAttribute="trailing" constant="10" id="W84-px-LvH"/>
+                <constraint firstAttribute="trailing" secondItem="CUs-2c-q0l" secondAttribute="trailing" id="Z89-be-Bxz"/>
+                <constraint firstAttribute="trailing" secondItem="MFu-6Z-Vmc" secondAttribute="trailing" id="fVT-6g-Mcw"/>
+                <constraint firstAttribute="bottom" secondItem="CUs-2c-q0l" secondAttribute="bottom" id="fb0-W7-9sG"/>
+                <constraint firstItem="MFu-6Z-Vmc" firstAttribute="leading" secondItem="6f0-7O-1Bl" secondAttribute="leading" id="gXX-v0-9h7"/>
+                <constraint firstItem="CUs-2c-q0l" firstAttribute="leading" secondItem="6f0-7O-1Bl" secondAttribute="leading" id="wSB-qA-rAF"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="cBt-Ph-t9b"/>
+            <connections>
+                <outlet property="imageViewCover" destination="MFu-6Z-Vmc" id="G6B-mn-sqU"/>
+                <outlet property="labelTitle" destination="O90-li-j5B" id="sP9-3P-oOS"/>
+            </connections>
+        </collectionViewCell>
+    </objects>
+</document>
