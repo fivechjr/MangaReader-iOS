@@ -24,6 +24,13 @@ class MangaListViewController: UIViewController, UICollectionViewDataSource, UIC
         let manga = mangas?[indexPath.item]
         cell.labelTitle.text = manga?.title
         
+        let placeholderImage = UIImage(named: "manga_default")
+        cell.imageViewCover.image = placeholderImage
+        if let imageURL = DataRequester.getImageUrl(withImagePath: manga?.imagePath)
+            , let url = URL(string: imageURL){
+            cell.imageViewCover.af_setImage(withURL: url, placeholderImage: placeholderImage)
+        }
+        
         return cell
     }
     
@@ -43,7 +50,14 @@ class MangaListViewController: UIViewController, UICollectionViewDataSource, UIC
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let searchButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchAction))
+        navigationItem.rightBarButtonItem = searchButton
+        
         loadMangaData()
+    }
+    
+    @objc func searchAction() {
+        print("search")
     }
     
     func loadMangaData() {

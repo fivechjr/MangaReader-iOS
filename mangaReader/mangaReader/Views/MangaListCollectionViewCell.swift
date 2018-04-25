@@ -10,5 +10,6 @@ import UIKit
 
 class MangaListCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var labelTitle: UILabel!
+    @IBOutlet weak var imageViewCover: UIImageView!
     
 }

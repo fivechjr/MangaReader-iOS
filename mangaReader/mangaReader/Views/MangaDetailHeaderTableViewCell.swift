@@ -30,7 +30,7 @@ class MangaDetailHeaderTableViewCell: UITableViewCell {
         selectionStyle = .none
         
         buttonStart.layer.cornerRadius = 5
-        buttonStart.layer.borderColor = UIColor(red: 21/255.0, green: 126/255.0, blue: 251/255.0, alpha: 1).cgColor
+        buttonStart.layer.borderColor = Color.blue.cgColor
         buttonStart.layer.borderWidth = 0.5
     }
 

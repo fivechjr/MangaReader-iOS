@@ -243,7 +243,7 @@ extension MangaDetailViewController: UITableViewDataSource {
                     cell.textLabel?.text = "[Chapter] \(chapterTitle)"
                     
                     if let chapterID = chapter.id, chapterID == currentChapterID {
-                        cell.textLabel?.textColor = UIColor(red: 21/255.0, green: 126/255.0, blue: 251/255.0, alpha: 1)
+                        cell.textLabel?.textColor = Color.blue
                     } else {
                         cell.textLabel?.textColor = UIColor.black
                     }
