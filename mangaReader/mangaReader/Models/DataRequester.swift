@@ -16,9 +16,22 @@ enum MangaEdenAPI: String {
 
 class DataRequester {
     
-    private static var mangaListCacheFileName:String = "mangaList"
+    private static var mangaListCacheFileName:String = "mangaList.json"
     private static var cacheDateKey = "cacheDate"
     private static var updateInterval:Double = 86400
+    
+    static func copyCacheFileFromBundleIfNotExist() {
+        guard let filePath = Bundle.main.path(forResource: "mangaList", ofType: "json")
+            , let cachePath = mangaListCachePath() else {
+                return
+        }
+        
+        let cacheExists = FileManager.default.fileExists(atPath: cachePath.absoluteString)
+        let fileExists = FileManager.default.fileExists(atPath: filePath)
+        if !cacheExists && fileExists {
+            try? FileManager.default.copyItem(atPath: filePath, toPath: cachePath.path)
+        }
+    }
     
     static func getImageUrl(withImagePath path: String?) -> String? {
         if let path = path {

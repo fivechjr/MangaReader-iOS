@@ -16,16 +16,17 @@ class MangaDetailViewController: UIViewController {
     
     var mangaID: String!
     
-    var showInfo: Bool = false
+//    var showInfo: Bool = false
     
     var currentChapterID: String?
     
-    // if the user has started reading in this page
-    var didStartReading = false
+    var chaptersContentOffset: CGPoint = CGPoint.zero
     
     @IBOutlet weak var chaptersTableview: UITableView!
+    @IBOutlet weak var infoTableView: UITableView!
     
     var mangaDetailTabView: MangaDetailTabView!
+    var mangaDetailTabViewInfo: MangaDetailTabView!
     
     private func getChapter(withID chapterID: String?) ->Chapter? {
         guard let chapterID = chapterID, let chapterObjects = mangaDetail?.chapterObjects else {
@@ -85,7 +86,7 @@ class MangaDetailViewController: UIViewController {
                 recordCurrentChapter(chapterID: chapterID)
             }
             
-            didStartReading = true
+//            didStartReading = true
             return
         }
         
@@ -101,7 +102,7 @@ class MangaDetailViewController: UIViewController {
         
         recordCurrentChapter(chapterID: chapterID)
         
-        didStartReading = true
+//        didStartReading = true
     }
     
     private func recordCurrentChapter(chapterID: String!) {
@@ -124,23 +125,7 @@ class MangaDetailViewController: UIViewController {
         }
         
         chaptersTableview.reloadData()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        
-        guard didStartReading else {
-            return
-        }
-        
-        if showInfo {
-            chaptersTableview.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
-        } else {
-            if let currentChapterIndex = getChapterIndex(withID: currentChapterID) {
-                chaptersTableview.scrollToRow(at: IndexPath(row: currentChapterIndex, section: 1), at: .middle, animated: true)
-            } else {
-                chaptersTableview.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
-            }
-        }
+        infoTableView.reloadData()
     }
     
     override func viewDidLoad() {
@@ -151,13 +136,16 @@ class MangaDetailViewController: UIViewController {
         // Manga tab view
         mangaDetailTabView = MangaDetailTabView()
         mangaDetailTabView.delegate = self
+        mangaDetailTabViewInfo = MangaDetailTabView()
+        mangaDetailTabViewInfo.delegate = self
         
         // table view register cells
         let nibHeader = UINib(nibName: "MangaDetailHeaderTableViewCell", bundle: nil)
         chaptersTableview.register(nibHeader, forCellReuseIdentifier: "MangaDetailHeaderTableViewCell")
+        infoTableView.register(nibHeader, forCellReuseIdentifier: "MangaDetailHeaderTableViewCell")
         
         let nibInfo = UINib(nibName: "MangaDetailTableViewCell", bundle: nil)
-        chaptersTableview.register(nibInfo, forCellReuseIdentifier: "MangaDetailTableViewCell")
+        infoTableView.register(nibInfo, forCellReuseIdentifier: "MangaDetailTableViewCell")
         
         chaptersTableview.register(UITableViewCell.self, forCellReuseIdentifier: "chapterCell")
         
@@ -166,6 +154,7 @@ class MangaDetailViewController: UIViewController {
             self?.mangaDetail = mangaDetail
             
             self?.chaptersTableview.reloadData()
+            self?.infoTableView.reloadData()
         }
     }
 }
@@ -176,10 +165,11 @@ extension MangaDetailViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         if section == 0 {
             return 1
         } else if section == 1  {
-            if (showInfo) {
+            if (tableView == infoTableView) {
                 return 1
             } else {
                 return mangaDetail?.chapters?.count ?? 0
@@ -190,6 +180,7 @@ extension MangaDetailViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         if indexPath.section == 0 {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "MangaDetailHeaderTableViewCell", for: indexPath) as! MangaDetailHeaderTableViewCell
@@ -219,7 +210,7 @@ extension MangaDetailViewController: UITableViewDataSource {
             return cell
             
         } else if indexPath.section == 1 {
-            if (showInfo) {
+            if (tableView == infoTableView) {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "MangaDetailTableViewCell", for: indexPath) as! MangaDetailTableViewCell
                 
                 cell.labelDescription.text = mangaDetail?.description
@@ -258,7 +249,7 @@ extension MangaDetailViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if (section == 1) {
-            return mangaDetailTabView
+            return (tableView == chaptersTableview) ? mangaDetailTabView : mangaDetailTabViewInfo
         }
         
         return UIView()
@@ -270,7 +261,7 @@ extension MangaDetailViewController: UITableViewDelegate {
         
         tableView.deselectRow(at: indexPath, animated: true)
         
-        if indexPath.section == 1 && !showInfo {
+        if indexPath.section == 1 && tableView == chaptersTableview {
             guard let _ = mangaDetail?.chapterObjects?[indexPath.item] else {
                 return
             }
@@ -292,8 +283,19 @@ extension MangaDetailViewController: UITableViewDelegate {
 
 extension MangaDetailViewController: MangaDetailTabViewDelegate {
     func tabIndexChanged(index: Int, control: UISegmentedControl) {
-        showInfo = (index == 1)
-        chaptersTableview.reloadData()
+        
+        mangaDetailTabViewInfo.segmentControl.selectedSegmentIndex = index
+        mangaDetailTabView.segmentControl.selectedSegmentIndex = index
+        
+        if (index == 1) {
+            view.bringSubview(toFront: infoTableView)
+            view.sendSubview(toBack: chaptersTableview)
+            
+        } else {
+            
+            view.bringSubview(toFront: chaptersTableview)
+            view.sendSubview(toBack: infoTableView)
+        }
     }
 }
 
@@ -322,5 +324,6 @@ extension MangaDetailViewController: MangaDetailHeaderTableViewCellDelegate {
         }
         
         chaptersTableview.reloadData()
+        infoTableView.reloadData()
     }
 }

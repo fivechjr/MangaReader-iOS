@@ -32,6 +32,9 @@ class MangaDetailHeaderTableViewCell: UITableViewCell {
         buttonStart.layer.cornerRadius = 5
         buttonStart.layer.borderColor = Color.blue.cgColor
         buttonStart.layer.borderWidth = 0.5
+        
+        imageViewCover.layer.borderColor = UIColor(white: 0.8, alpha: 1).cgColor
+        imageViewCover.layer.borderWidth = 0.5
     }
 
     @IBAction func addFavoriteAction(_ sender: Any) {

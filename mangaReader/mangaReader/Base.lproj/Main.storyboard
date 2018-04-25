@@ -126,6 +126,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ah6-of-E5w">
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="rWd-yO-dM8" id="lO9-E9-0NU"/>
+                                    <outlet property="delegate" destination="rWd-yO-dM8" id="T3V-3w-BWF"/>
+                                </connections>
+                            </tableView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cex-0C-UsJ">
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -137,8 +145,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="ah6-of-E5w" firstAttribute="leading" secondItem="BSu-0f-eB5" secondAttribute="leading" id="6Oc-6b-Sw5"/>
                             <constraint firstItem="cex-0C-UsJ" firstAttribute="leading" secondItem="BSu-0f-eB5" secondAttribute="leading" id="FfP-tx-c85"/>
+                            <constraint firstItem="ah6-of-E5w" firstAttribute="top" secondItem="BSu-0f-eB5" secondAttribute="top" id="Ofv-N3-tu7"/>
                             <constraint firstItem="cex-0C-UsJ" firstAttribute="bottom" secondItem="BSu-0f-eB5" secondAttribute="bottom" id="ahf-pz-Xhd"/>
+                            <constraint firstItem="ah6-of-E5w" firstAttribute="trailing" secondItem="BSu-0f-eB5" secondAttribute="trailing" id="jw6-8D-H2z"/>
+                            <constraint firstItem="ah6-of-E5w" firstAttribute="bottom" secondItem="BSu-0f-eB5" secondAttribute="bottom" id="kUR-yw-tnx"/>
                             <constraint firstItem="cex-0C-UsJ" firstAttribute="top" secondItem="BSu-0f-eB5" secondAttribute="top" id="nsI-G9-jbz"/>
                             <constraint firstItem="cex-0C-UsJ" firstAttribute="trailing" secondItem="BSu-0f-eB5" secondAttribute="trailing" id="u3k-it-l12"/>
                         </constraints>
@@ -146,6 +158,7 @@
                     </view>
                     <connections>
                         <outlet property="chaptersTableview" destination="cex-0C-UsJ" id="B5m-tM-2WP"/>
+                        <outlet property="infoTableView" destination="ah6-of-E5w" id="RQ0-ye-ost"/>
                         <segue destination="WAO-F0-Dug" kind="presentation" identifier="readChapter" modalTransitionStyle="coverVertical" id="TIO-hv-shb"/>
                     </connections>
                 </viewController>

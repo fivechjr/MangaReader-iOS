@@ -154,7 +154,7 @@ open class ImageDownloader {
     open class func defaultURLCache() -> URLCache {
         return URLCache(
             memoryCapacity: 20 * 1024 * 1024, // 20 MB
-            diskCapacity: 150 * 1024 * 1024,  // 150 MB
+            diskCapacity: 1500 * 1024 * 1024,  // 150 MB
             diskPath: "org.alamofire.imagedownloader"
         )
     }

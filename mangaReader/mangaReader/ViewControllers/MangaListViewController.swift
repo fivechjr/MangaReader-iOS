@@ -102,7 +102,7 @@ class MangaListViewController: UIViewController {
         sortManga()
         mangaListCollectionView.reloadData()
         
-        mangaListCollectionView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
+        mangaListCollectionView.setContentOffset(CGPoint.zero, animated: true)
     }
     
 }

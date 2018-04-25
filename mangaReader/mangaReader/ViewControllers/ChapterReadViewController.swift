@@ -23,6 +23,8 @@ class ChapterReadViewController: UIViewController {
     
     var pageViewController: UIPageViewController!
     
+    let downloader = ImageDownloader()
+    
     @IBOutlet weak var topNavigationView: UIView!
     @IBOutlet weak var labelInfo: UILabel!
     @IBOutlet weak var bottomToolView: UIView!
@@ -108,7 +110,25 @@ class ChapterReadViewController: UIViewController {
                     self?.recordCurrentChapter(chapterID: self?.chapterID)
                 })
             }
+            
+            self?.downloadImages()
         }
+    }
+    
+    func downloadImages() {
+        
+        chapterDetail?.imageObjets?.forEach({ (chapterImage) in
+            if let imagePath = chapterImage.imagePath
+                , let urlString = DataRequester.getImageUrl(withImagePath: imagePath)
+                , let url = URL(string: urlString) {
+                
+                let urlRequest = URLRequest(url: url)
+                
+                downloader.download(urlRequest) { response in
+//                    print("finish image download")
+                }
+            }
+        })
     }
     
     private func recordCurrentChapter(chapterID: String!) {
