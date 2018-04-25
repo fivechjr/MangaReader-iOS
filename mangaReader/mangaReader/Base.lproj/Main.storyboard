@@ -295,6 +295,9 @@
                                             <segment title="Vertical"/>
                                             <segment title="Book Mode"/>
                                         </segments>
+                                        <connections>
+                                            <action selector="renderModeChanged:" destination="WAO-F0-Dug" eventType="valueChanged" id="Vwv-f3-5Cb"/>
+                                        </connections>
                                     </segmentedControl>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8vh-N1-Fcd">
                                         <rect key="frame" x="10" y="150" width="280" height="30"/>
@@ -350,6 +353,7 @@
                         <outlet property="buttonPreviousChapter" destination="dEd-p0-eKZ" id="Vlk-SF-UHT"/>
                         <outlet property="labelInfo" destination="y5C-10-7fZ" id="FsZ-a1-eMq"/>
                         <outlet property="labelPageInfo" destination="211-Cg-tKh" id="roe-G3-fNm"/>
+                        <outlet property="renderModeSegmentControl" destination="Sw1-aI-KiE" id="NdL-Bd-Gkc"/>
                         <outlet property="settingPanelView" destination="tKp-r4-BMy" id="P5N-lY-PmX"/>
                         <outlet property="settingView" destination="SdE-Sj-n28" id="jsA-GQ-02y"/>
                         <outlet property="topNavigationView" destination="8R0-Lf-v1o" id="hDv-PC-QVD"/>

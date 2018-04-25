@@ -23,7 +23,10 @@ class ChapterReadViewController: UIViewController {
     
     var pageViewController: UIPageViewController!
     
+    var currentImageViewController: ImageViewController?
+    
     let downloader = ImageDownloader()
+    private var receipts: [RequestReceipt] = []
     
     @IBOutlet weak var topNavigationView: UIView!
     @IBOutlet weak var labelInfo: UILabel!
@@ -33,6 +36,7 @@ class ChapterReadViewController: UIViewController {
     @IBOutlet weak var labelPageInfo: UILabel!
     @IBOutlet weak var settingPanelView: UIToolbar!
     @IBOutlet weak var settingView: UIView!
+    @IBOutlet weak var renderModeSegmentControl: UISegmentedControl!
     
     
     var imageViewControllers: [ImageViewController] = [ImageViewController]()
@@ -43,10 +47,17 @@ class ChapterReadViewController: UIViewController {
         topNavigationView.alpha = 0
         bottomToolView.alpha = 0
         
-        loadImages()
+        let selectedRenderMode = UserDefaults.standard.value(forKey: "renderMode") as? Int ?? 0
+        renderModeSegmentControl.selectedSegmentIndex = selectedRenderMode
+        
         installPageViewController()
+        loadImages()
         
         customizeSettingView()
+    }
+    
+    deinit {
+        cancelDownload()
     }
     
     func customizeSettingView() {
@@ -62,17 +73,31 @@ class ChapterReadViewController: UIViewController {
         settingView.alpha = 0
     }
     
-    func installPageViewController() {
+    func installPageViewController(sameChapter: Bool = false) {
         
         // Remove first
         if pageViewController != nil {
+            if (sameChapter) {
+                currentImageViewController = pageViewController.viewControllers?.first as? ImageViewController
+            } else {
+                currentImageViewController = nil
+            }
             pageViewController.willMove(toParentViewController: nil)
             pageViewController.view.removeFromSuperview()
             pageViewController.removeFromParentViewController()
+            pageViewController = nil
         }
         
         // Creation
-        pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .vertical, options: nil)
+        let selectedRenderMode = UserDefaults.standard.value(forKey: "renderMode") as? Int ?? 0
+        if selectedRenderMode == 0 {
+            pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+        } else if selectedRenderMode == 1 {
+            pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .vertical, options: nil)
+        } else if selectedRenderMode == 2 {
+            pageViewController = UIPageViewController(transitionStyle: .pageCurl, navigationOrientation: .horizontal, options: nil)
+        }
+        
         pageViewController.dataSource = self
         pageViewController.delegate = self
         
@@ -83,6 +108,8 @@ class ChapterReadViewController: UIViewController {
             maker.edges.equalToSuperview()
         }
         pageViewController.didMove(toParentViewController: self)
+        
+        startPageViewController()
     }
     
     func loadImages() {
@@ -103,19 +130,44 @@ class ChapterReadViewController: UIViewController {
                 self?.imageViewControllers.append(imageVC)
             })
             
-            if let firstImageViewController = self?.imageViewControllers.first {
-                self?.pageViewController.setViewControllers([firstImageViewController], direction: .forward, animated: false, completion: { (completed) in
-                    self?.updateInfoLabel()
-                    self?.updateChapterButtons()
-                    self?.recordCurrentChapter(chapterID: self?.chapterID)
-                })
-            }
+//            if let firstImageViewController = self?.imageViewControllers.first {
+//                self?.pageViewController.setViewControllers([firstImageViewController], direction: .forward, animated: false, completion: { (completed) in
+//                    self?.updateInfoLabel()
+//                    self?.updateChapterButtons()
+//                    self?.recordCurrentChapter(chapterID: self?.chapterID)
+//                })
+//            }
+            self?.startPageViewController()
             
             self?.downloadImages()
         }
     }
     
+    func startPageViewController() {
+        var imageViewController: ImageViewController? = nil
+        if let currentImageViewController = currentImageViewController {
+            imageViewController = currentImageViewController
+        } else {
+            imageViewController = imageViewControllers.first
+        }
+        
+        if let imageViewController = imageViewController {
+            pageViewController.setViewControllers([imageViewController], direction: .forward, animated: false, completion: { [weak self] (completed) in
+                self?.updateInfoLabel()
+                self?.updateChapterButtons()
+                self?.recordCurrentChapter(chapterID: self?.chapterID)
+            })
+        }
+    }
+    
+    func cancelDownload() {
+        receipts.forEach { downloader.cancelRequest(with: $0) }
+        receipts.removeAll()
+    }
+    
     func downloadImages() {
+        
+        cancelDownload()
         
         chapterDetail?.imageObjets?.forEach({ (chapterImage) in
             if let imagePath = chapterImage.imagePath
@@ -124,8 +176,12 @@ class ChapterReadViewController: UIViewController {
                 
                 let urlRequest = URLRequest(url: url)
                 
-                downloader.download(urlRequest) { response in
-//                    print("finish image download")
+                let receipt = downloader.download(urlRequest) { response in
+                    print("Download:\(urlRequest.url?.absoluteString ?? "") - Success: \(response.result.isSuccess)")
+                }
+                
+                if let receipt = receipt {
+                    receipts.append(receipt)
                 }
             }
         })
@@ -196,7 +252,6 @@ class ChapterReadViewController: UIViewController {
             }
         }
     }
-    
     
     // MARK: page navigation
     func gotoPreviousPage() {
@@ -285,6 +340,13 @@ class ChapterReadViewController: UIViewController {
         }
     }
     
+    @IBAction func renderModeChanged(_ sender: UISegmentedControl) {
+//        print("segment control index: \(sender.selectedSegmentIndex)")
+        UserDefaults.standard.set(sender.selectedSegmentIndex, forKey: "renderMode")
+        UserDefaults.standard.synchronize()
+        
+        installPageViewController(sameChapter: true)
+    }
 }
 
 extension ChapterReadViewController: UIPageViewControllerDataSource {
@@ -319,6 +381,8 @@ extension ChapterReadViewController: UIPageViewControllerDataSource {
 extension ChapterReadViewController: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         updateInfoLabel()
+        
+        currentImageViewController = pageViewController.viewControllers?.first as? ImageViewController
     }
 }
 
@@ -334,6 +398,4 @@ extension ChapterReadViewController: ImageViewControllerDelegate {
     func bottomAreaTapped(imageViewController: ImageViewController!) {
         gotoNextPage()
     }
-    
-    
 }

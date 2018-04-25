@@ -57,7 +57,7 @@ class DataRequester {
                         imageObjects.append(imageObj)
                     }
                 })
-                detail?.imageObjets = imageObjects
+                detail?.imageObjets = imageObjects.reversed()
             }
             
             completion(detail)
