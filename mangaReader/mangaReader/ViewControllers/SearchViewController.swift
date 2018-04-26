@@ -33,6 +33,20 @@ class SearchViewController: UIViewController {
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SearchViewController") as? UINavigationController
         return vc
     }
+    
+    override func viewDidLayoutSubviews() {
+        let layout = resultCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        let sectionInsets = layout.sectionInset
+        let itemSpacing = layout.minimumInteritemSpacing
+        
+        let itemCountPerRow = (UI_USER_INTERFACE_IDIOM() == .pad) ? 5 : 3
+        
+        let colletionViewWidth = resultCollectionView.frame.size.width
+        let gap = (sectionInsets.left + sectionInsets.right) + itemSpacing * CGFloat(itemCountPerRow - 1)
+        let itemWidth = (colletionViewWidth - gap) / CGFloat(itemCountPerRow)
+        let itemHeight = itemWidth * 1.4
+        layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
+    }
 }
 
 extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -55,6 +69,15 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
         }
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let manga = mangas?[indexPath.item], let mangaID = manga.id {
+            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MangaDetailViewController") as! MangaDetailViewController
+            vc.mangaID = mangaID
+            
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }
 

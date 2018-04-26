@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Search View Controller-->
+        <!--Search-->
         <scene sceneID="WIt-Wf-4H2">
             <objects>
                 <viewController id="9J1-9r-2An" customClass="SearchViewController" customModule="mangaReader" customModuleProvider="target" sceneMemberID="viewController">
@@ -25,15 +25,14 @@
                                     <outlet property="delegate" destination="9J1-9r-2An" id="Ziz-aK-Ldu"/>
                                 </connections>
                             </searchBar>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="cnO-PG-qcv">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="cnO-PG-qcv">
                                 <rect key="frame" x="0.0" y="120" width="375" height="547"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="9be-hh-50t">
                                     <size key="itemSize" width="120" height="150"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <inset key="sectionInset" minX="5" minY="5" maxX="5" maxY="5"/>
                                 </collectionViewFlowLayout>
                                 <cells/>
                                 <connections>
@@ -46,11 +45,17 @@
                         <constraints>
                             <constraint firstItem="9A9-Af-8Tm" firstAttribute="leading" secondItem="TT5-vi-OcC" secondAttribute="leading" id="67Y-zJ-LZI"/>
                             <constraint firstItem="9A9-Af-8Tm" firstAttribute="trailing" secondItem="TT5-vi-OcC" secondAttribute="trailing" id="8mh-Eu-vTS"/>
+                            <constraint firstItem="cnO-PG-qcv" firstAttribute="leading" secondItem="TT5-vi-OcC" secondAttribute="leading" id="HsH-YE-j6B"/>
+                            <constraint firstItem="cnO-PG-qcv" firstAttribute="bottom" secondItem="TT5-vi-OcC" secondAttribute="bottom" id="LoN-H6-8X3"/>
+                            <constraint firstItem="cnO-PG-qcv" firstAttribute="trailing" secondItem="TT5-vi-OcC" secondAttribute="trailing" id="Oy5-Gi-HDd"/>
+                            <constraint firstItem="cnO-PG-qcv" firstAttribute="top" secondItem="9A9-Af-8Tm" secondAttribute="bottom" id="oY5-xe-AuX"/>
                             <constraint firstItem="9A9-Af-8Tm" firstAttribute="top" secondItem="TT5-vi-OcC" secondAttribute="top" id="r3V-3t-oxT"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="TT5-vi-OcC"/>
                     </view>
-                    <navigationItem key="navigationItem" id="ACq-2m-IZf"/>
+                    <navigationItem key="navigationItem" title="Search" id="ACq-2m-IZf">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="xf0-51-HED"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="resultCollectionView" destination="cnO-PG-qcv" id="yqX-ZQ-ESY"/>
                         <outlet property="searchBar" destination="9A9-Af-8Tm" id="Msv-R9-N0U"/>
