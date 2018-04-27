@@ -9,6 +9,7 @@
 import UIKit
 import AlamofireImage
 import RealmSwift
+import NVActivityIndicatorView
 
 class MangaDetailViewController: UIViewController {
     
@@ -27,6 +28,17 @@ class MangaDetailViewController: UIViewController {
     
     var mangaDetailTabView: MangaDetailTabView!
     var mangaDetailTabViewInfo: MangaDetailTabView!
+    var indicatorView: NVActivityIndicatorView!
+    
+    func installIndicatorView() {
+        indicatorView = NVActivityIndicatorView(frame: CGRect.zero, type: .ballSpinFadeLoader, color: UIColor.black)
+        view.addSubview(indicatorView)
+        indicatorView.snp.makeConstraints { (maker) in
+            maker.center.equalToSuperview()
+            maker.width.equalTo(50)
+            maker.height.equalTo(50)
+        }
+    }
     
     private func getChapter(withID chapterID: String?) ->Chapter? {
         guard let chapterID = chapterID, let chapterObjects = mangaDetail?.chapterObjects else {
@@ -149,9 +161,18 @@ class MangaDetailViewController: UIViewController {
         
         chaptersTableview.register(UITableViewCell.self, forCellReuseIdentifier: "chapterCell")
         
+        installIndicatorView()
+        
         // Request detail data
+        indicatorView.startAnimating()
+        chaptersTableview.isHidden = true
+        infoTableView.isHidden = true
         DataRequester.getMangaDetail(mangaID: mangaID) { [weak self] (mangaDetail) in
+            self?.indicatorView.stopAnimating()
             self?.mangaDetail = mangaDetail
+            
+            self?.chaptersTableview.isHidden = false
+            self?.infoTableView.isHidden = false
             
             self?.chaptersTableview.reloadData()
             self?.infoTableView.reloadData()

@@ -14,6 +14,8 @@ class SearchViewController: UIViewController {
     
     var mangas:[MangaResponse]?
     
+    var mangasFiltered:[MangaResponse]?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -23,6 +25,9 @@ class SearchViewController: UIViewController {
         
         let nibCell = UINib(nibName: "MangaListCollectionViewCell", bundle: nil)
         resultCollectionView.register(nibCell, forCellWithReuseIdentifier: "MangaListCollectionViewCell")
+        
+        mangasFiltered = mangas
+        sortManga()
     }
     
     @objc func dismissMe() {
@@ -47,18 +52,57 @@ class SearchViewController: UIViewController {
         let itemHeight = itemWidth * 1.4
         layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
     }
+    
+    func search() {
+        filterManga(withKeyword: searchBar.text)
+        sortManga()
+        resultCollectionView.reloadData()
+    }
+    
+    func sortManga() {
+        mangasFiltered?.sort(by: { ($0.hitCount ?? 0) > ($1.hitCount ?? 0) })
+    }
+    
+    func filterManga(withKeyword keyword: String?) {
+        
+        guard let keyword = keyword, keyword.count > 0 else {
+            mangasFiltered = mangas
+            sortManga()
+            return
+        }
+        
+        mangasFiltered = mangas?.filter({ (manga) -> Bool in
+            var canPublish = true
+            
+            if let title = manga.title {
+                canPublish = title.lowercased().contains(keyword.lowercased())
+            }
+            
+            if let categories = manga.categories, categories.contains("Adult") {
+                canPublish = false
+            }
+            
+            if let title = manga.title {
+                if title.lowercased().contains("sex") || title == "High School DxD" {
+                    canPublish = false
+                }
+            }
+            
+            return canPublish
+        })
+    }
 }
 
 extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return mangas?.count ?? 0
+        return mangasFiltered?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MangaListCollectionViewCell", for: indexPath) as! MangaListCollectionViewCell
         
-        let manga = mangas?[indexPath.item]
+        let manga = mangasFiltered?[indexPath.item]
         cell.labelTitle.text = manga?.title
         
         let placeholderImage = UIImage(named: "manga_default")
@@ -72,25 +116,31 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let manga = mangas?[indexPath.item], let mangaID = manga.id {
+        if let manga = mangasFiltered?[indexPath.item], let mangaID = manga.id {
             let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MangaDetailViewController") as! MangaDetailViewController
             vc.mangaID = mangaID
             
             navigationController?.pushViewController(vc, animated: true)
         }
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        searchBar.resignFirstResponder()
+    }
 }
 
 extension SearchViewController: UISearchBarDelegate {
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        print("searchBarTextDidEndEditing")
-    }
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        print("searchBarSearchButtonClicked")
-    }
+//    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+//        search()
+//    }
+//
+//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+//        search()
+//        searchBar.resignFirstResponder()
+//    }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print("searchBar textDidChange")
+        print("searchBar textDidChange: \(searchText)")
+        search()
     }
 }
