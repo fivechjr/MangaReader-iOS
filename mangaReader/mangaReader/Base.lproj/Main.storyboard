@@ -109,7 +109,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="48D-JG-BAt">
-                                <rect key="frame" x="20" y="74" width="335" height="36"/>
+                                <rect key="frame" x="20" y="74" width="335" height="29"/>
                                 <segments>
                                     <segment title="All Manga"/>
                                     <segment title="Latest Update"/>
@@ -119,13 +119,13 @@
                                 </connections>
                             </segmentedControl>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="A3i-Gy-NIq">
-                                <rect key="frame" x="0.0" y="119" width="375" height="499"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="0.0" y="144" width="375" height="474"/>
+                                <color key="backgroundColor" red="0.97237289507772018" green="0.97237289507772018" blue="0.97237289507772018" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="QfK-74-wuR">
                                     <size key="itemSize" width="120" height="150"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="5" minY="5" maxX="5" maxY="5"/>
+                                    <inset key="sectionInset" minX="5" minY="1" maxX="5" maxY="5"/>
                                 </collectionViewFlowLayout>
                                 <cells/>
                                 <connections>
@@ -133,22 +133,62 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="3t0-yv-a0n"/>
                                 </connections>
                             </collectionView>
+                            <view contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="XMD-hj-1IT" customClass="TagListView" customModule="TagListView">
+                                <rect key="frame" x="20" y="107" width="375" height="32"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="tagBackgroundColor">
+                                        <color key="value" red="0.1155257853" green="0.3594085648" blue="0.59081525260000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="tagHighlightedBackgroundColor">
+                                        <color key="value" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="tagSelectedBackgroundColor">
+                                        <color key="value" red="0.1155257853" green="0.3594085648" blue="0.59081525260000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="enableRemoveButton" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="removeButtonIconSize">
+                                        <real key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="removeIconLineWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedTextColor">
+                                        <color key="value" red="0.94871275906735753" green="0.94871275906735753" blue="0.94871275906735753" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="paddingY">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="paddingX">
+                                        <real key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="48D-JG-BAt" secondAttribute="trailing" constant="20" id="IXq-HV-pdD"/>
-                            <constraint firstItem="A3i-Gy-NIq" firstAttribute="top" secondItem="48D-JG-BAt" secondAttribute="bottom" constant="10" id="MhD-eJ-EFb"/>
-                            <constraint firstItem="A3i-Gy-NIq" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="55" id="UG9-d6-8yw"/>
+                            <constraint firstItem="XMD-hj-1IT" firstAttribute="top" secondItem="48D-JG-BAt" secondAttribute="bottom" constant="5" id="QT6-IT-PBz"/>
                             <constraint firstItem="A3i-Gy-NIq" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="UZd-iw-aa8"/>
                             <constraint firstItem="48D-JG-BAt" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="WJz-Am-nPD"/>
                             <constraint firstItem="A3i-Gy-NIq" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="XZh-nm-01G"/>
+                            <constraint firstItem="XMD-hj-1IT" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="b7e-Za-U2v"/>
                             <constraint firstItem="A3i-Gy-NIq" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="cWs-SB-XiT"/>
                             <constraint firstItem="48D-JG-BAt" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="dUi-C2-L7E"/>
+                            <constraint firstItem="XMD-hj-1IT" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" constant="20" id="jB3-di-ZUf"/>
+                            <constraint firstItem="A3i-Gy-NIq" firstAttribute="top" secondItem="XMD-hj-1IT" secondAttribute="bottom" constant="5" id="zek-yX-3GO"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="Discovery" id="GDZ-0N-bTk"/>
                     <connections>
+                        <outlet property="genresTagListView" destination="XMD-hj-1IT" id="m8x-6U-4gi"/>
                         <outlet property="mangaListCollectionView" destination="A3i-Gy-NIq" id="fAj-15-cPv"/>
                         <outlet property="mangaSwithControl" destination="48D-JG-BAt" id="yP4-G1-qfZ"/>
                         <segue destination="rWd-yO-dM8" kind="show" identifier="showMangaDetail" id="8ng-VW-RUk"/>

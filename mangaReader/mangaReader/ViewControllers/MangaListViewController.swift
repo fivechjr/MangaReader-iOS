@@ -7,36 +7,59 @@
 //
 
 import UIKit
+import TagListView
 
-class MangaListViewController: UIViewController {
+class MangaListViewController: UIViewController, GenresListViewControllerDelegate {
     
     @IBOutlet weak var mangaListCollectionView: UICollectionView!
     @IBOutlet weak var mangaSwithControl: UISegmentedControl!
+    @IBOutlet weak var genresTagListView: TagListView!
     
     var sortByRecentUpdate = false
     
     var mangas:[MangaResponse]?
+    
+    var mangasFiltered:[MangaResponse]?
+    
+    var selectedGenres: [String] = []
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == "showMangaDetail"
             , let mangaDetailVC = segue.destination as? MangaDetailViewController
             , let cell = sender as? MangaListCollectionViewCell
             , let indexPath = mangaListCollectionView.indexPath(for: cell)
-            , let manga = mangas?[indexPath.item] else {
+            , let manga = mangasFiltered?[indexPath.item] else {
             return
         }
         
         mangaDetailVC.mangaID = manga.id
     }
     
+    // MARK: GenresListViewControllerDelegate
+    func didSelectGenre(genre: String!) {
+        
+        if selectedGenres.index(of: genre) == nil {
+            selectedGenres.append(genre)
+            
+            genresTagListView.removeAllTags()
+            genresTagListView.addTags(selectedGenres)
+            
+            filterManga()
+            sortManga()
+            mangaListCollectionView.reloadData()
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        genresTagListView.delegate = self
+        genresTagListView.textFont = UIFont.systemFont(ofSize: 14)
+        
         let searchButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchAction))
         navigationItem.rightBarButtonItem = searchButton
         
-        let genresImage = UIImage(named: "genres")
+        let genresImage = UIImage(named: "filter")
         let genresButton = UIBarButtonItem(image: genresImage, style: .plain, target: self, action: #selector(genresAction))
         navigationItem.leftBarButtonItem = genresButton
         
@@ -64,6 +87,7 @@ class MangaListViewController: UIViewController {
         if let navigationVC = GenresListViewController.createFromStoryboard() {
             let genresVC = navigationVC.viewControllers.first as! GenresListViewController
             genresVC.mangas = mangas
+            genresVC.delegate = self
             present(navigationVC, animated: true, completion: nil)
         }
     }
@@ -79,31 +103,45 @@ class MangaListViewController: UIViewController {
     func loadMangaData() {
         DataRequester.getMangaListFromCache(completion: {[weak self] (response) in
             self?.mangas = response?.mangas
-            self?.mangas = self?.mangas?.filter({ (manga) -> Bool in
-                var canPublish = true
-                if let categories = manga.categories, categories.contains("Adult") {
-                    canPublish = false
-                }
-                
-                if let title = manga.title {
-                    if title.lowercased().contains("sex") || title == "High School DxD" {
-                        canPublish = false
-                    }
-                }
-                
-                return canPublish
-            })
-            
+            self?.filterManga()
             self?.sortManga()
             self?.mangaListCollectionView.reloadData()
         })
     }
     
+    func filterManga() {
+        mangasFiltered = mangas?.filter({ (manga) -> Bool in
+            var canPublish = true
+            
+            if selectedGenres.count > 0 {
+                canPublish = selectedGenres.reduce(true, { (result, genre) -> Bool in
+                    if let categories = manga.categories, categories.contains(genre) {
+                        return result && true
+                    } else {
+                        return false
+                    }
+                })
+            }
+            
+            if let categories = manga.categories, categories.contains("Adult") {
+                canPublish = false
+            }
+            
+            if let title = manga.title {
+                if title.lowercased().contains("sex") || title == "High School DxD" {
+                    canPublish = false
+                }
+            }
+            
+            return canPublish
+        })
+    }
+    
     func sortManga() {
         if (sortByRecentUpdate) {
-            mangas?.sort(by: { ($0.updateTime ?? 0) > ($1.updateTime ?? 0) })
+            mangasFiltered?.sort(by: { ($0.updateTime ?? 0) > ($1.updateTime ?? 0) })
         } else {
-            mangas?.sort(by: { ($0.hitCount ?? 0) > ($1.hitCount ?? 0) })
+            mangasFiltered?.sort(by: { ($0.hitCount ?? 0) > ($1.hitCount ?? 0) })
         }
     }
     
@@ -122,13 +160,13 @@ class MangaListViewController: UIViewController {
 extension MangaListViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return mangas?.count ?? 0
+        return mangasFiltered?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MangaListCollectionViewCell", for: indexPath) as! MangaListCollectionViewCell
         
-        let manga = mangas?[indexPath.item]
+        let manga = mangasFiltered?[indexPath.item]
         cell.labelTitle.text = manga?.title
         
         let placeholderImage = UIImage(named: "manga_default")
@@ -144,6 +182,19 @@ extension MangaListViewController: UICollectionViewDataSource, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)
         performSegue(withIdentifier: "showMangaDetail", sender: cell)
+    }
+}
+
+extension MangaListViewController: TagListViewDelegate {
+    @objc func tagRemoveButtonPressed(_ title: String, tagView: TagView, sender: TagListView) -> Void {
+        genresTagListView.removeTag(title)
+        if let index = selectedGenres.index(of: title) {
+            selectedGenres.remove(at: index)
+            
+            filterManga()
+            sortManga()
+            mangaListCollectionView.reloadData()
+        }
     }
 }
 

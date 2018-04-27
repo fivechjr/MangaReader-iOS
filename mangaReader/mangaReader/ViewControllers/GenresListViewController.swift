@@ -8,9 +8,15 @@
 
 import UIKit
 
+protocol GenresListViewControllerDelegate: class {
+    func didSelectGenre(genre: String!)
+}
+
 class GenresListViewController: UIViewController {
     
     var mangas:[MangaResponse]?
+    
+    weak var delegate: GenresListViewControllerDelegate?
     
     @IBOutlet weak var genresTableView: UITableView!
     
@@ -50,5 +56,9 @@ extension GenresListViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        delegate?.didSelectGenre(genre: genresData[indexPath.row])
+        
+        dismissMe()
+    }
 }
