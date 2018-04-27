@@ -111,6 +111,11 @@ class MangaListViewController: UIViewController, GenresListViewControllerDelegat
     
     func filterManga() {
         mangasFiltered = mangas?.filter({ (manga) -> Bool in
+            
+            guard manga.canPublish() else {
+                return false
+            }
+            
             var canPublish = true
             
             if selectedGenres.count > 0 {
@@ -121,16 +126,6 @@ class MangaListViewController: UIViewController, GenresListViewControllerDelegat
                         return false
                     }
                 })
-            }
-            
-            if let categories = manga.categories, categories.contains("Adult") {
-                canPublish = false
-            }
-            
-            if let title = manga.title {
-                if title.lowercased().contains("sex") || title == "High School DxD" {
-                    canPublish = false
-                }
             }
             
             return canPublish

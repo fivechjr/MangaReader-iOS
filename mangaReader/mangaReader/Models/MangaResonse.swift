@@ -29,6 +29,21 @@ class MangaResponse: Mappable {
         hitCount <- map["h"]
         categories <- map["c"]
     }
+    
+    func canPublish() -> Bool {
+        var canPublish = true
+        if let categories = categories, categories.contains("Adult") {
+            canPublish = false
+        }
+        
+        if let title = title {
+            if title.lowercased().contains("sex") || title == "High School DxD" {
+                canPublish = false
+            }
+        }
+        
+        return canPublish
+    }
 }
 
 /*

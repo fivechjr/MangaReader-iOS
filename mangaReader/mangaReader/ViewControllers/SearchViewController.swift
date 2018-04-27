@@ -72,20 +72,15 @@ class SearchViewController: UIViewController {
         }
         
         mangasFiltered = mangas?.filter({ (manga) -> Bool in
+            
+            guard manga.canPublish() else {
+                return false
+            }
+            
             var canPublish = true
             
             if let title = manga.title {
                 canPublish = title.lowercased().contains(keyword.lowercased())
-            }
-            
-            if let categories = manga.categories, categories.contains("Adult") {
-                canPublish = false
-            }
-            
-            if let title = manga.title {
-                if title.lowercased().contains("sex") || title == "High School DxD" {
-                    canPublish = false
-                }
             }
             
             return canPublish
