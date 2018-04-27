@@ -36,6 +36,10 @@ class MangaListViewController: UIViewController {
         let searchButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchAction))
         navigationItem.rightBarButtonItem = searchButton
         
+        let genresImage = UIImage(named: "genres")
+        let genresButton = UIBarButtonItem(image: genresImage, style: .plain, target: self, action: #selector(genresAction))
+        navigationItem.leftBarButtonItem = genresButton
+        
         let nibCell = UINib(nibName: "MangaListCollectionViewCell", bundle: nil)
         mangaListCollectionView.register(nibCell, forCellWithReuseIdentifier: "MangaListCollectionViewCell")
         
@@ -54,6 +58,10 @@ class MangaListViewController: UIViewController {
         let itemWidth = (colletionViewWidth - gap) / CGFloat(itemCountPerRow)
         let itemHeight = itemWidth * 1.4
         layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
+    }
+    
+    @objc func genresAction() {
+        
     }
     
     @objc func searchAction() {

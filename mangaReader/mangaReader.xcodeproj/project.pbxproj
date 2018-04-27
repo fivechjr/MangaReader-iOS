@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C2250052092E1BD00C8E160 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2250042092E1BD00C8E160 /* SettingsViewController.swift */; };
 		8C39477F208E1AB900344FCF /* FavoriteManga.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C39477E208E1AB900344FCF /* FavoriteManga.swift */; };
 		8C394781208E2AA200344FCF /* Document.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8C394780208E2AA200344FCF /* Document.txt */; };
 		8C4EFCDF208CD0B5007D342C /* MangaDetailHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4EFCDD208CD0B5007D342C /* MangaDetailHeaderTableViewCell.swift */; };
@@ -41,6 +42,7 @@
 /* Begin PBXFileReference section */
 		1A55816C541577B20C9EA282 /* Pods-mangaReader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mangaReader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-mangaReader/Pods-mangaReader.debug.xcconfig"; sourceTree = "<group>"; };
 		65171A2F5A9EBB700F64B9D3 /* Pods-mangaReader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mangaReader.release.xcconfig"; path = "Pods/Target Support Files/Pods-mangaReader/Pods-mangaReader.release.xcconfig"; sourceTree = "<group>"; };
+		8C2250042092E1BD00C8E160 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		8C39477E208E1AB900344FCF /* FavoriteManga.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteManga.swift; sourceTree = "<group>"; };
 		8C394780208E2AA200344FCF /* Document.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Document.txt; sourceTree = "<group>"; };
 		8C4EFCDD208CD0B5007D342C /* MangaDetailHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaDetailHeaderTableViewCell.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 				8C904D8520887D4800A599E9 /* ChapterReadViewController.swift */,
 				8C904D882088BB7F00A599E9 /* ImageViewController.swift */,
 				8C88E388209042FF004B54D9 /* SearchViewController.swift */,
+				8C2250042092E1BD00C8E160 /* SettingsViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -347,6 +350,7 @@
 			files = (
 				8C904D8620887D4800A599E9 /* ChapterReadViewController.swift in Sources */,
 				8CA66E47208FFFF10014DB39 /* Constants.swift in Sources */,
+				8C2250052092E1BD00C8E160 /* SettingsViewController.swift in Sources */,
 				8C8EAC81206A141900803BD1 /* MangaListViewController.swift in Sources */,
 				8C58A54F208EAD4100FF71B2 /* MangaCurrentChapter.swift in Sources */,
 				8C39477F208E1AB900344FCF /* FavoriteManga.swift in Sources */,
