@@ -10,6 +10,41 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Genres List View Controller-->
+        <scene sceneID="lOn-Dm-qGd">
+            <objects>
+                <viewController storyboardIdentifier="GenresListViewController" id="uit-3q-90x" customClass="GenresListViewController" customModule="mangaReader" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gqQ-MX-eye">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="El8-Ss-zlt">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="uit-3q-90x" id="QkJ-eY-M0Z"/>
+                                    <outlet property="delegate" destination="uit-3q-90x" id="Wn0-2w-nbU"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="El8-Ss-zlt" firstAttribute="leading" secondItem="Ksd-Eb-hWt" secondAttribute="leading" id="DJq-45-9Ib"/>
+                            <constraint firstItem="El8-Ss-zlt" firstAttribute="top" secondItem="gqQ-MX-eye" secondAttribute="top" id="Izp-TD-eBd"/>
+                            <constraint firstItem="El8-Ss-zlt" firstAttribute="trailing" secondItem="Ksd-Eb-hWt" secondAttribute="trailing" id="ROB-CW-oQK"/>
+                            <constraint firstItem="El8-Ss-zlt" firstAttribute="bottom" secondItem="Ksd-Eb-hWt" secondAttribute="bottom" id="jie-Jy-fJt"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Ksd-Eb-hWt"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="XQh-8v-sgz"/>
+                    <connections>
+                        <outlet property="genresTableView" destination="El8-Ss-zlt" id="SvU-xt-t6I"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="S7Y-9T-Shs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2703" y="-1346"/>
+        </scene>
         <!--Search-->
         <scene sceneID="WIt-Wf-4H2">
             <objects>
@@ -529,6 +564,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c70-lO-iAA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="12" y="2288.9055472263872"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="qMe-2M-OWA">
+            <objects>
+                <navigationController storyboardIdentifier="GenresListNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="30V-Zn-VNb" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="1qh-rG-SEI">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="uit-3q-90x" kind="relationship" relationship="rootViewController" id="iqc-ef-n0i"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="evT-Ga-9Rh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1783" y="-1346"/>
         </scene>
     </scenes>
     <resources>

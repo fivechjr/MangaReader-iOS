@@ -61,7 +61,11 @@ class MangaListViewController: UIViewController {
     }
     
     @objc func genresAction() {
-        
+        if let navigationVC = GenresListViewController.createFromStoryboard() {
+            let genresVC = navigationVC.viewControllers.first as! GenresListViewController
+            genresVC.mangas = mangas
+            present(navigationVC, animated: true, completion: nil)
+        }
     }
     
     @objc func searchAction() {
