@@ -21,6 +21,7 @@
 		8C60C962209427920069EFDB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C60C961209427920069EFDB /* Assets.xcassets */; };
 		8C60C964209428380069EFDB /* EmptyInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C60C963209428380069EFDB /* EmptyInfoView.swift */; };
 		8C60C9662094A4FE0069EFDB /* RecentManga.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C60C9652094A4FE0069EFDB /* RecentManga.swift */; };
+		8C60C9682094A8B20069EFDB /* RecentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C60C9672094A8B20069EFDB /* RecentViewController.swift */; };
 		8C88E389209042FF004B54D9 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C88E388209042FF004B54D9 /* SearchViewController.swift */; };
 		8C88E38B209045A8004B54D9 /* MangaListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C88E38A209045A8004B54D9 /* MangaListCollectionViewCell.xib */; };
 		8C88E38D20905DD0004B54D9 /* mangaList.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C88E38C20905DD0004B54D9 /* mangaList.json */; };
@@ -60,6 +61,7 @@
 		8C60C961209427920069EFDB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8C60C963209428380069EFDB /* EmptyInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyInfoView.swift; sourceTree = "<group>"; };
 		8C60C9652094A4FE0069EFDB /* RecentManga.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentManga.swift; sourceTree = "<group>"; };
+		8C60C9672094A8B20069EFDB /* RecentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentViewController.swift; sourceTree = "<group>"; };
 		8C88E388209042FF004B54D9 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		8C88E38A209045A8004B54D9 /* MangaListCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MangaListCollectionViewCell.xib; sourceTree = "<group>"; };
 		8C88E38C20905DD0004B54D9 /* mangaList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mangaList.json; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				8C2250042092E1BD00C8E160 /* SettingsViewController.swift */,
 				8C60C95D2092E5AA0069EFDB /* GenresListViewController.swift */,
 				8C60C95F209414350069EFDB /* FavoritesViewController.swift */,
+				8C60C9672094A8B20069EFDB /* RecentViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -367,6 +370,7 @@
 				8C2250052092E1BD00C8E160 /* SettingsViewController.swift in Sources */,
 				8C8EAC81206A141900803BD1 /* MangaListViewController.swift in Sources */,
 				8C58A54F208EAD4100FF71B2 /* MangaCurrentChapter.swift in Sources */,
+				8C60C9682094A8B20069EFDB /* RecentViewController.swift in Sources */,
 				8C39477F208E1AB900344FCF /* FavoriteManga.swift in Sources */,
 				8C904D822088783000A599E9 /* ChapterDetailResponse.swift in Sources */,
 				8C4EFCE5208DA61D007D342C /* MangaDetailTableViewCell.swift in Sources */,
