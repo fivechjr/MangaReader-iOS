@@ -98,7 +98,7 @@ class MangaDetailViewController: UIViewController {
                 recordCurrentChapter(chapterID: chapterID)
             }
             
-//            didStartReading = true
+            recordRecentManga(mangaID: mangaID, mangaDetail: mangaDetail)
             return
         }
         
@@ -114,7 +114,7 @@ class MangaDetailViewController: UIViewController {
         
         recordCurrentChapter(chapterID: chapterID)
         
-//        didStartReading = true
+        recordRecentManga(mangaID: mangaID, mangaDetail: mangaDetail)
     }
     
     private func recordCurrentChapter(chapterID: String!) {
@@ -128,6 +128,23 @@ class MangaDetailViewController: UIViewController {
         }
         
         currentChapterID = chapterID
+    }
+    
+    private func recordRecentManga(mangaID: String!, mangaDetail: MangaDetailResponse?) {
+        
+        guard let mangaDetail = mangaDetail, let title = mangaDetail.title, let imagePath = mangaDetail.image else {
+            return
+        }
+        
+        let realm = try! Realm()
+        let recentManga = RecentManga()
+        recentManga.id = mangaID
+        recentManga.name = title
+        recentManga.imagePath = imagePath
+        recentManga.readTime = Date()
+        try! realm.write {
+            realm.add(recentManga, update:true)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
