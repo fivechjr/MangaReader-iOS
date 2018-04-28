@@ -142,7 +142,7 @@ class MangaDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        title = "Manga Detail"
         chaptersTableview.rowHeight = UITableViewAutomaticDimension
         
         // Manga tab view
