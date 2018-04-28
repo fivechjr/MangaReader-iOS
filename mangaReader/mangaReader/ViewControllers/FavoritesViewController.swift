@@ -70,6 +70,8 @@ extension FavoritesViewController: UICollectionViewDataSource, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MangaListCollectionViewCell", for: indexPath) as! MangaListCollectionViewCell
         
+        cell.tag = indexPath.item
+        
         if let manga = favoriteManga?[indexPath.item] {
             cell.labelTitle.text = manga.name
             
@@ -81,7 +83,31 @@ extension FavoritesViewController: UICollectionViewDataSource, UICollectionViewD
             }
         }
         
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(cellLongPressAction))
+        cell.addGestureRecognizer(longPressGesture)
+        
         return cell
+    }
+    
+    @objc func cellLongPressAction(recgnizer: UILongPressGestureRecognizer) {
+        guard recgnizer.state == .began, let index = recgnizer.view?.tag, let manga = favoriteManga?[index] else {
+                return
+            }
+        let message = "Do you want to unfavorite '\(manga.name)'?"
+        let alertVC = UIAlertController(title: "Unfavorite", message: message, preferredStyle: .actionSheet)
+        let okAction = UIAlertAction(title: "Yes", style: .default) { (action) in
+            let realm = try! Realm()
+            let favObjects = realm.objects(FavoriteManga.self).filter("id = %@", manga.id)
+            try! realm.write {
+                realm.delete(favObjects)
+            }
+            self.favoritesCollectionView.reloadData()
+        }
+        let cancelAction = UIAlertAction(title: "No", style: .cancel, handler: nil)
+        alertVC.addAction(okAction)
+        alertVC.addAction(cancelAction)
+        
+        present(alertVC, animated: true, completion: nil)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
