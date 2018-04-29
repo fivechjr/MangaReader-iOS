@@ -50,6 +50,8 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             sendFeedBack()
         case "Share This App":
             shareApp()
+        case "About Us":
+            SettingsViewController.aboutApp()
         default:
             print("Not an option")
         }
@@ -77,6 +79,23 @@ extension SettingsViewController: MFMailComposeViewControllerDelegate {
                 UIApplication.shared.openURL(url)
             }
         }
+    }
+    
+    static func aboutApp() {
+        var message = "This is an awesome manga app."
+        if let bundleName = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String
+            , let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+            message = "\(bundleName) v\(version)"
+        }
+        
+        let alertVC = UIAlertController(title: "About", message: message, preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "Okay", style: .default) { (action) in
+        }
+        
+        alertVC.addAction(okAction)
+        
+        UIApplication.shared.keyWindow?.rootViewController?.present(alertVC, animated: true, completion: nil)
     }
     
     static func showDisclaimer() {
