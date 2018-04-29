@@ -61,9 +61,7 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
 extension SettingsViewController: MFMailComposeViewControllerDelegate {
     static func rateApp() {
         
-        guard let appId = Bundle.main.bundleIdentifier else {
-            return
-        }
+        let appId = "1378089411"
         
         let templateReviewURLiOS8 = "itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=DYM_APP_ID&onlyLatestVersion=true&pageNumber=0&sortOrdering=1&type=Purple+Software"
         var reviewURL = templateReviewURLiOS8.replacingOccurrences(of: "DYM_APP_ID", with: appId)
