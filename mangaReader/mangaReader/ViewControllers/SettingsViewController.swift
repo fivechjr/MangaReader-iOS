@@ -19,7 +19,60 @@ class SettingsViewController: UIViewController {
         tableView.tableFooterView = UIView()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
     }
+}
 
+extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return settingItems.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        
+        cell.textLabel?.text = settingItems[indexPath.row]
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let title = settingItems[indexPath.row]
+        
+        switch title {
+        case "Disclaimer":
+            SettingsViewController.showDisclaimer()
+        case "Rate Us":
+            SettingsViewController.rateApp()
+        default:
+            print("Not an option")
+        }
+    }
+}
+
+extension SettingsViewController {
+    static func rateApp() {
+        
+        guard let appId = Bundle.main.bundleIdentifier else {
+            return
+        }
+        
+        let templateReviewURLiOS8 = "itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=DYM_APP_ID&onlyLatestVersion=true&pageNumber=0&sortOrdering=1&type=Purple+Software"
+        var reviewURL = templateReviewURLiOS8.replacingOccurrences(of: "DYM_APP_ID", with: appId)
+        
+        if #available(iOS 11.0, *) {
+            reviewURL = "https://itunes.apple.com/app/id\(appId)"
+        }
+        
+        if let url = URL(string: reviewURL) {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
+        }
+    }
+    
     static func showDisclaimer() {
         let message = "All manga, characters and logos belong to their respective copyrights owners. Manga Monster is developed independently and does not have any affiliation with the content providers. We reserve the right to change the source of manga without prior notice."
         
@@ -50,32 +103,5 @@ class SettingsViewController: UIViewController {
         alertVC.addAction(cancelAction)
         
         UIApplication.shared.keyWindow?.rootViewController?.present(alertVC, animated: true, completion: nil)
-    }
-}
-
-extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return settingItems.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        
-        cell.textLabel?.text = settingItems[indexPath.row]
-        
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        
-        let title = settingItems[indexPath.row]
-        
-        switch title {
-        case "Disclaimer":
-            SettingsViewController.showDisclaimer()
-        default:
-            print("Not an option")
-        }
     }
 }
