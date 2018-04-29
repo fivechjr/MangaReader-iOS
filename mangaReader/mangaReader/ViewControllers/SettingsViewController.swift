@@ -48,6 +48,8 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             SettingsViewController.rateApp()
         case "Feedback":
             sendFeedBack()
+        case "Share This App":
+            shareApp()
         default:
             print("Not an option")
         }
@@ -144,5 +146,32 @@ extension SettingsViewController: MFMailComposeViewControllerDelegate {
         }
         
         controller.presentingViewController?.dismiss(animated: true, completion: nil)
+    }
+    
+    func shareApp() {
+        let textToShare = "I'm reading my favorite manga with Manga Monster! It's an awesome app, you should download it if you love reading manga!"
+    
+        var objectsToShare: [Any] = [textToShare]
+        
+        if let appId = Bundle.main.bundleIdentifier
+            , let reviewURL = URL(string: "https://itunes.apple.com/app/id\(appId)") {
+            
+            objectsToShare.append(reviewURL)
+        }
+        
+        if let iconImage = UIImage(named: "icon_share") {
+            objectsToShare.append(iconImage)
+        }
+        
+        let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+        
+        //New Excluded Activities Code
+        activityVC.excludedActivityTypes = [.airDrop, .addToReadingList, .openInIBooks]
+        //
+        
+        activityVC.popoverPresentationController?.sourceView = view
+        activityVC.popoverPresentationController?.sourceRect = CGRect(x: view.frame.size.width * 0.5, y: view.frame.size.height * 0.5, width: 1.0, height: 1.0)
+        
+        present(activityVC, animated: true, completion: nil)
     }
 }

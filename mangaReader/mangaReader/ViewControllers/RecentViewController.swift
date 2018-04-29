@@ -52,6 +52,9 @@ class RecentViewController: UIViewController {
         alertVC.addAction(okAction)
         alertVC.addAction(cancelAction)
         
+        alertVC.popoverPresentationController?.sourceView = view
+        alertVC.popoverPresentationController?.sourceRect = CGRect(x: view.frame.size.width * 0.5, y: view.frame.size.height * 0.5, width: 1.0, height: 1.0)
+        
         present(alertVC, animated: true, completion: nil)
     }
     
@@ -126,6 +129,9 @@ extension RecentViewController: UICollectionViewDelegate, UICollectionViewDataSo
         let cancelAction = UIAlertAction(title: "No", style: .cancel, handler: nil)
         alertVC.addAction(okAction)
         alertVC.addAction(cancelAction)
+        
+        alertVC.popoverPresentationController?.sourceView = recgnizer.view!
+        alertVC.popoverPresentationController?.sourceRect = CGRect(x: recgnizer.view!.frame.size.width * 0.5, y: recgnizer.view!.frame.size.height * 0.5, width: 1.0, height: 1.0)
         
         present(alertVC, animated: true, completion: nil)
     }
