@@ -8,6 +8,8 @@
 
 import UIKit
 import RealmSwift
+import MessageUI
+import Toast_Swift
 
 class SettingsViewController: UIViewController {
 
@@ -44,13 +46,15 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             SettingsViewController.showDisclaimer()
         case "Rate Us":
             SettingsViewController.rateApp()
+        case "Feedback":
+            sendFeedBack()
         default:
             print("Not an option")
         }
     }
 }
 
-extension SettingsViewController {
+extension SettingsViewController: MFMailComposeViewControllerDelegate {
     static func rateApp() {
         
         guard let appId = Bundle.main.bundleIdentifier else {
@@ -103,5 +107,42 @@ extension SettingsViewController {
         alertVC.addAction(cancelAction)
         
         UIApplication.shared.keyWindow?.rootViewController?.present(alertVC, animated: true, completion: nil)
+    }
+    
+    func sendFeedBack() {
+        
+        guard MFMailComposeViewController.canSendMail() else {
+            view.makeToast("Sorry, Your device can not send a email.", position: .center)
+//            BPStatusBarAlert.show(withMessage: "Sorry, Your device can not send a email.")
+            return
+        }
+        
+        let mailVC = MFMailComposeViewController()
+        mailVC.mailComposeDelegate = self
+//        mailVC.navigationBar.tintColor = UIColor.black
+        
+        mailVC.setSubject("Feedback")
+        
+        var bundleDisplayName = "This App"
+        if let bundleName = Bundle.main.infoDictionary?[kCFBundleNameKey as String] as? String {
+            bundleDisplayName = bundleName
+        }
+        mailVC.setMessageBody("Please write your feedback for '\(bundleDisplayName)'：\n\n", isHTML: false)
+        mailVC.setToRecipients(["dymx103@gmail.com"])
+        
+        present(mailVC, animated: true, completion: nil)
+    }
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        switch result {
+        case .sent:
+            view.makeToast("Feedback has been sent, thank you!", position: .center)
+        case .failed:
+            view.makeToast("Feedback failed.", position: .center)
+        default:
+            break
+        }
+        
+        controller.presentingViewController?.dismiss(animated: true, completion: nil)
     }
 }

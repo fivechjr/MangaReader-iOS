@@ -16,6 +16,7 @@ PODS:
     - Realm (= 3.1.1)
   - SnapKit (4.0.0)
   - TagListView (1.3.0)
+  - Toast-Swift (3.0.1)
 
 DEPENDENCIES:
   - Alamofire (~> 4.6.0)
@@ -25,6 +26,7 @@ DEPENDENCIES:
   - RealmSwift (~> 3.1.1)
   - SnapKit (~> 4.0.0)
   - TagListView (~> 1.3.0)
+  - Toast-Swift (~> 3.0.1)
 
 SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
@@ -36,7 +38,8 @@ SPEC CHECKSUMS:
   RealmSwift: d31937ca6a6ee54acde64ec839523c0a3c04924b
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   TagListView: 669f7d4455003c877655875d34829731c4191528
+  Toast-Swift: ba0b01b095aada709d915f9beb1d38184a2721c3
 
-PODFILE CHECKSUM: eea51aea3ccf453ee5191e218754f2e06e44aa96
+PODFILE CHECKSUM: 94a607b2e2f9b381604de000ca23078c088b4a52
 
 COCOAPODS: 1.3.1
