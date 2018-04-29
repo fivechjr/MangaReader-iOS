@@ -18,7 +18,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         DataRequester.copyCacheFileFromBundleIfNotExist()
         
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.checkDisclaimer()
+        }
+        
         return true
+    }
+    
+    func checkDisclaimer() {
+        let agreedDisclaimer = UserDefaults.standard.bool(forKey: "agreedDisclaimer")
+        if (!agreedDisclaimer) {
+            SettingsViewController.showDisclaimer()
+        }
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

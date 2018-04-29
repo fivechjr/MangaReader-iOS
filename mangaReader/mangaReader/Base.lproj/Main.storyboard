@@ -588,14 +588,35 @@
         <!--Settings-->
         <scene sceneID="dEz-Hk-Z0R">
             <objects>
-                <viewController storyboardIdentifier="SettingsViewController" id="nY8-sX-Bsj" customClass="SettingsViewController" customModule="mangaReader" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SettingsViewController" automaticallyAdjustsScrollViewInsets="NO" id="nY8-sX-Bsj" customClass="SettingsViewController" customModule="mangaReader" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6TF-Ii-Vo9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.33691078928884999" green="0.40207514335608241" blue="0.59081525260000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vPC-Wj-GMQ">
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <sections/>
+                                <connections>
+                                    <outlet property="dataSource" destination="nY8-sX-Bsj" id="LFT-6V-Rgf"/>
+                                    <outlet property="delegate" destination="nY8-sX-Bsj" id="uhg-bi-9yX"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="vPC-Wj-GMQ" firstAttribute="trailing" secondItem="E2v-dl-deF" secondAttribute="trailing" id="HOW-yd-zXz"/>
+                            <constraint firstItem="vPC-Wj-GMQ" firstAttribute="leading" secondItem="E2v-dl-deF" secondAttribute="leading" id="fyx-xW-YiP"/>
+                            <constraint firstItem="vPC-Wj-GMQ" firstAttribute="top" secondItem="E2v-dl-deF" secondAttribute="top" id="kEi-Ot-DKN"/>
+                            <constraint firstItem="vPC-Wj-GMQ" firstAttribute="bottom" secondItem="E2v-dl-deF" secondAttribute="bottom" id="vuK-44-2fK"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="E2v-dl-deF"/>
                     </view>
                     <navigationItem key="navigationItem" title="Settings" id="zDS-pi-trc"/>
+                    <connections>
+                        <outlet property="tableView" destination="vPC-Wj-GMQ" id="JSE-Az-YRa"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aEY-rm-61x" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
