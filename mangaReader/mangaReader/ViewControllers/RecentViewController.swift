@@ -26,8 +26,8 @@ class RecentViewController: UIViewController {
         emptyInfoView = EmptyInfoView(frame: CGRect.zero)
         emptyInfoView.backgroundColor = UIColor(white: 250/255.0, alpha: 1)
         emptyInfoView.emptyImageView.image = UIImage(named: "recent_empty")
-        emptyInfoView.titleLabel.text = "NO RECENTLY READ MANGA"
-        emptyInfoView.messageLabel.text = "Recent shows your reading history. To continue reading from where you left off, just tap the manga listed here."
+        emptyInfoView.titleLabel.text = NSLocalizedString("NO RECENTLY READ MANGA", comment: "")
+        emptyInfoView.messageLabel.text = NSLocalizedString("no_recent_message", comment: "")
         view.addSubview(emptyInfoView)
         emptyInfoView.snp.makeConstraints { (maker) in
             maker.edges.equalToSuperview()
@@ -38,9 +38,9 @@ class RecentViewController: UIViewController {
     }
     
     @objc func clearAction() {
-        let message = "Do you want to clear all recent read manga?"
-        let alertVC = UIAlertController(title: "Clear Read History", message: message, preferredStyle: .actionSheet)
-        let okAction = UIAlertAction(title: "Yes", style: .default) { (action) in
+        let message = NSLocalizedString("Do you want to clear all recent read manga?", comment: "")
+        let alertVC = UIAlertController(title: NSLocalizedString("Clear Read History", comment: ""), message: message, preferredStyle: .actionSheet)
+        let okAction = UIAlertAction(title: NSLocalizedString("Yes", comment: ""), style: .default) { (action) in
             let realm = try! Realm()
             let favObjects = realm.objects(RecentManga.self)
             try! realm.write {
@@ -48,7 +48,7 @@ class RecentViewController: UIViewController {
             }
             self.recentCollectionView.reloadData()
         }
-        let cancelAction = UIAlertAction(title: "No", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: NSLocalizedString("No", comment: ""), style: .cancel, handler: nil)
         alertVC.addAction(okAction)
         alertVC.addAction(cancelAction)
         
@@ -116,9 +116,9 @@ extension RecentViewController: UICollectionViewDelegate, UICollectionViewDataSo
         guard recgnizer.state == .began, let index = recgnizer.view?.tag, let manga = recentManga?[index] else {
             return
         }
-        let message = "Do you want to remove '\(manga.name)' from recent?"
-        let alertVC = UIAlertController(title: "Remove From Recent", message: message, preferredStyle: .actionSheet)
-        let okAction = UIAlertAction(title: "Yes", style: .default) { (action) in
+        let message = "\(NSLocalizedString("Do you want to remove", comment: "")) '\(manga.name)'?"
+        let alertVC = UIAlertController(title: NSLocalizedString("Remove From Recent", comment: ""), message: message, preferredStyle: .actionSheet)
+        let okAction = UIAlertAction(title: NSLocalizedString("Yes", comment: ""), style: .default) { (action) in
             let realm = try! Realm()
             let favObjects = realm.objects(RecentManga.self).filter("id = %@", manga.id)
             try! realm.write {
@@ -126,7 +126,7 @@ extension RecentViewController: UICollectionViewDelegate, UICollectionViewDataSo
             }
             self.recentCollectionView.reloadData()
         }
-        let cancelAction = UIAlertAction(title: "No", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: NSLocalizedString("No", comment: ""), style: .cancel, handler: nil)
         alertVC.addAction(okAction)
         alertVC.addAction(cancelAction)
         

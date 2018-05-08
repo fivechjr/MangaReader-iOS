@@ -23,8 +23,8 @@ class FavoritesViewController: UIViewController {
         emptyInfoView = EmptyInfoView(frame: CGRect.zero)
         emptyInfoView.backgroundColor = UIColor(white: 250/255.0, alpha: 1)
         emptyInfoView.emptyImageView.image = UIImage(named: "favorite_empty")
-        emptyInfoView.titleLabel.text = "NO FAVORITED MANGA"
-        emptyInfoView.messageLabel.text = "To favorite manga, tap the “Favorite” button in the manga info."
+        emptyInfoView.titleLabel.text = NSLocalizedString("NO FAVORITED MANGA", comment: "")
+        emptyInfoView.messageLabel.text = NSLocalizedString("no_fav_message", comment: "")
         view.addSubview(emptyInfoView)
         emptyInfoView.snp.makeConstraints { (maker) in
             maker.edges.equalToSuperview()
@@ -92,9 +92,9 @@ extension FavoritesViewController: UICollectionViewDataSource, UICollectionViewD
         guard recgnizer.state == .began, let index = recgnizer.view?.tag, let manga = favoriteManga?[index] else {
                 return
             }
-        let message = "Do you want to unfavorite '\(manga.name)'?"
-        let alertVC = UIAlertController(title: "Unfavorite", message: message, preferredStyle: .actionSheet)
-        let okAction = UIAlertAction(title: "Yes", style: .default) { (action) in
+        let message = "\(NSLocalizedString("Do you want to unfavorite", comment: "")) '\(manga.name)'?"
+        let alertVC = UIAlertController(title: NSLocalizedString("Unfavorite", comment: ""), message: message, preferredStyle: .actionSheet)
+        let okAction = UIAlertAction(title: NSLocalizedString("Yes", comment: ""), style: .default) { (action) in
             let realm = try! Realm()
             let favObjects = realm.objects(FavoriteManga.self).filter("id = %@", manga.id)
             try! realm.write {
@@ -102,7 +102,7 @@ extension FavoritesViewController: UICollectionViewDataSource, UICollectionViewD
             }
             self.favoritesCollectionView.reloadData()
         }
-        let cancelAction = UIAlertAction(title: "No", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: NSLocalizedString("No", comment: ""), style: .cancel, handler: nil)
         alertVC.addAction(okAction)
         alertVC.addAction(cancelAction)
         

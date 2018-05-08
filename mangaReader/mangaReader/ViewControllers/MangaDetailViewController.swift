@@ -159,7 +159,7 @@ class MangaDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Manga Detail"
+        title = NSLocalizedString("Manga Detail", comment: "")
         chaptersTableview.rowHeight = UITableViewAutomaticDimension
         
         // Manga tab view
@@ -226,8 +226,8 @@ extension MangaDetailViewController: UITableViewDataSource {
             cell.delegate = self
             cell.labelBookTitle.text = mangaDetail?.title
             cell.labelAuthorName.text = mangaDetail?.author
-            cell.labelStatus.text = ((mangaDetail?.status ?? 0) == 1) ? "Completed" : "Ongoing"
-            cell.labelChapterInfo.text = "\((mangaDetail?.chapters?.count ?? 0)) Chapters"
+            cell.labelStatus.text = ((mangaDetail?.status ?? 0) == 1) ? NSLocalizedString("Completed", comment: "") : NSLocalizedString("Ongoing", comment: "")
+            cell.labelChapterInfo.text = "\((mangaDetail?.chapters?.count ?? 0)) \(NSLocalizedString("Chapters", comment: ""))"
             if let imageURL = DataRequester.getImageUrl(withImagePath: mangaDetail?.image)
                 , let url = URL(string: imageURL){
                 cell.imageViewCover.af_setImage(withURL: url)
@@ -235,9 +235,9 @@ extension MangaDetailViewController: UITableViewDataSource {
             
             // Update reading button
             if let _ = currentChapterID {
-                cell.buttonStart.setTitle("Continue Reading", for: .normal)
+                cell.buttonStart.setTitle(NSLocalizedString("Continue Reading", comment: ""), for: .normal)
             } else {
-                cell.buttonStart.setTitle("Start Reading", for: .normal)
+                cell.buttonStart.setTitle(NSLocalizedString("Start Reading", comment: ""), for: .normal)
             }
             
             // Update Favorite button
@@ -269,7 +269,7 @@ extension MangaDetailViewController: UITableViewDataSource {
                 
                 if let chapter = mangaDetail?.chapterObjects?[indexPath.item] {
                     let chapterTitle = chapter.title ?? "\(chapter.number ?? 0)"
-                    cell.textLabel?.text = "[Chapter] \(chapterTitle)"
+                    cell.textLabel?.text = "[\(NSLocalizedString("Chapter", comment: ""))] \(chapterTitle)"
                     
                     if let chapterID = chapter.id, chapterID == currentChapterID {
                         cell.textLabel?.textColor = Color.blue

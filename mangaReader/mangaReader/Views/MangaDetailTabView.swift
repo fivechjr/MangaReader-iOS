@@ -35,7 +35,7 @@ class MangaDetailTabView: UIView {
             maker.edges.equalToSuperview()
         }
         
-        segmentControl = UISegmentedControl(items: ["Chapter", "Info"])
+        segmentControl = UISegmentedControl(items: [NSLocalizedString("Chapter", comment: ""), NSLocalizedString("Info", comment: "")])
         segmentControl.addTarget(self, action: #selector(MangaDetailTabView.indexChanged(_:)), for: .valueChanged)
         segmentControl.selectedSegmentIndex = 0
 //        let attr = NSDictionary(object: UIFont(name: "HelveticaNeue", size: 15.0)!, forKey: kCTFontAttributeName as! NSCopying)

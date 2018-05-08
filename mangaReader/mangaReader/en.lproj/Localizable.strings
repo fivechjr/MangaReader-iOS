@@ -1,0 +1,59 @@
+/* 
+  Localizable.strings
+  mangaReader
+
+  Created by Yiming Dong on 2018/5/8.
+  Copyright © 2018 Yiming Dong. All rights reserved.
+*/
+"Continue Reading" = "Continue Reading";
+"Start Reading" = "Start Reading";
+"Completed" = "Completed";
+"Ongoing" = "Ongoing";
+"Manga Detail" = "Manga Detail";
+"Chapters" = "Chapters";
+"Chapter" = "Chapter";
+"Info" = "Info";
+"Disclaimer" = "Disclaimer";
+"Feedback" = "Feedback";
+"Rate Us" = "Rate Us";
+"Share This App" = "Share This App";
+"About Us" = "About Us";
+"This is an awesome manga app." = "This is an awesome manga app.";
+"About" = "About";
+"Okay" = "Okay";
+"disclaimer_message" = "All manga, characters and logos belong to their respective copyrights owners. Manga Monster is developed independently and does not have any affiliation with the content providers. We reserve the right to change the source of manga without prior notice.";
+"Agree" = "Agree";
+"Disagree" = "Disagree";
+"close_app_message" = "Sorry, we have to close the app because you disagreed with the disclaimer.";
+"cant_send_email_message" = "Sorry, Your device can not send a email.";
+"This App" = "This App";
+"Please write your feedback" = "Please write your feedback";
+"feedback_success_message" = "Feedback has been sent, thank you!";
+"feedback_failed_message" = "Feedback failed.";
+"share_message" = "I'm reading my favorite manga with Manga Monster! It's an awesome app, you should download it if you love reading manga!";
+"Genres" = "Genres";
+"Action" = "Action";
+"Adventure" = "Adventure";
+"Comedy" = "Comedy";
+"Horror" = "Horror";
+"Supernatural" = "Supernatural";
+"Mystery" = "Mystery";
+"Psychological" = "Psychological";
+"Romance" = "Romance";
+"Drama" = "Drama";
+"Fantasy" = "Fantasy";
+"Seinen" = "Seinen";
+"Martial Arts" = "Martial Arts";
+"Shoujo" = "Shoujo";
+"NO FAVORITED MANGA" = "NO FAVORITED MANGA";
+"no_fav_message" = "To favorite manga, tap the “Favorite” button in the manga info.";
+"Do you want to unfavorite" = "Do you want to unfavorite";
+"Unfavorite" = "Unfavorite";
+"Yes" = "Yes";
+"No" = "No";
+"NO RECENTLY READ MANGA" = "NO RECENTLY READ MANGA";
+"no_recent_message" = "Recent shows your reading history. To continue reading from where you left off, just tap the manga listed here.";
+"Do you want to clear all recent read manga?" = "Do you want to clear all recent read manga?";
+"Clear Read History" = "Clear Read History";
+"Do you want to remove" = "Do you want to remove";
+"Remove From Recent" = "Remove From Recent";

@@ -1,0 +1,59 @@
+/* 
+  Localizable.strings
+  mangaReader
+
+  Created by Yiming Dong on 2018/5/8.
+  Copyright © 2018 Yiming Dong. All rights reserved.
+*/
+"Continue Reading" = "继续阅读";
+"Start Reading" = "开始阅读";
+"Completed" = "完结";
+"Ongoing" = "连载";
+"Manga Detail" = "漫画详情";
+"Chapters" = "章节";
+"Chapter" = "章节";
+"Info" = "详情";
+"Disclaimer" = "免责声明";
+"Feedback" = "用户反馈";
+"Rate Us" = "评价App";
+"Share This App" = "分享App";
+"About Us" = "关于我们";
+"This is an awesome manga app." = "这是一款超酷的漫画App.";
+"About" = "关于";
+"Okay" = "好的";
+"disclaimer_message" = "所有漫画、文字和徽标属于他们各自的版权所有者。《漫画怪兽》是独立开发的，不与任何内容提供商有任何联系。本公司保留更改漫画来源的权利，恕不另行通知。";
+"Agree" = "同意";
+"Disagree" = "不同意";
+"close_app_message" = "抱歉，因为您不同意免责声明，我们不得不关闭APP。";
+"cant_send_email_message" = "抱歉，您的设备不能发送邮件。";
+"This App" = "本应用";
+"Please write your feedback" = "请写下您的意见或建议";
+"feedback_success_message" = "发送成功！";
+"feedback_failed_message" = "发送失败！";
+"share_message" = "我在用《漫画怪兽》看我最喜欢的漫画！这是一个超酷的漫画应用，如果你是漫画迷，我推荐你赶快下载，上万部经典日式漫画等你来看哦！";
+"Genres" = "漫画流派";
+"Action" = "动作";
+"Adventure" = "冒险";
+"Comedy" = "喜剧";
+"Horror" = "惊悚";
+"Supernatural" = "超自然";
+"Mystery" = "神秘";
+"Psychological" = "心理学";
+"Romance" = "浪漫";
+"Drama" = "戏剧";
+"Fantasy" = "幻想";
+"Seinen" = "青年";
+"Martial Arts" = "武术";
+"Shoujo" = "少女";
+"NO FAVORITED MANGA" = "收藏夹是空的";
+"no_fav_message" = "要收藏您喜爱漫画, 请点击漫画详情中的‘收藏’按钮.";
+"Do you want to unfavorite" = "您是否想要取消收藏";
+"Unfavorite" = "取消收藏";
+"Yes" = "是的";
+"No" = "不";
+"NO RECENTLY READ MANGA" = "没有最近阅读记录";
+"no_recent_message" = "最近阅读显示您的阅读历史。如果想从上次的位置继续阅读，可以点击这里的漫画列表哦～";
+"Do you want to clear all recent read manga?" = "您是否想要清楚最近阅读的记录呢?";
+"Clear Read History" = "清楚阅读记录";
+"Do you want to remove" = "您是否想删除";
+"Remove From Recent" = "从最近阅读删除";

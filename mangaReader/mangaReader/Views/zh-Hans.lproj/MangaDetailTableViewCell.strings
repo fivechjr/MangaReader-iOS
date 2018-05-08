@@ -1,0 +1,24 @@
+
+/* Class = "UILabel"; text = "Genres"; ObjectID = "8fY-Lj-rQt"; */
+"8fY-Lj-rQt.text" = "漫画流派";
+
+/* Class = "UILabel"; text = "Description"; ObjectID = "9YP-bO-jZb"; */
+"9YP-bO-jZb.text" = "简介";
+
+/* Class = "UILabel"; text = "Last Updated:"; ObjectID = "Lwz-nt-Bac"; */
+"Lwz-nt-Bac.text" = "更新时间:";
+
+/* Class = "UILabel"; text = "Date Created"; ObjectID = "UGw-Fv-Iaw"; */
+"UGw-Fv-Iaw.text" = "创建时间:";
+
+/* Class = "UILabel"; text = "2000-01-01"; ObjectID = "f1N-Uo-90D"; */
+"f1N-Uo-90D.text" = "2000-01-01";
+
+/* Class = "UILabel"; text = "Description Description Description Description Description Description Description Description Description Description Description Description "; ObjectID = "gAX-qG-Ncq"; */
+"gAX-qG-Ncq.text" = "Description Description Description Description Description Description Description Description Description Description Description Description ";
+
+/* Class = "UILabel"; text = "2000-01-01"; ObjectID = "jjN-aB-5Nj"; */
+"jjN-aB-5Nj.text" = "2000-01-01";
+
+/* Class = "UILabel"; text = "Description Description Description Description Description Description Description Description Description Description Description Description "; ObjectID = "qbX-hd-Mx0"; */
+"qbX-hd-Mx0.text" = "Description Description Description Description Description Description Description Description Description Description Description Description ";

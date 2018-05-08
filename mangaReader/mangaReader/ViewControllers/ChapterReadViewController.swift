@@ -296,7 +296,7 @@ class ChapterReadViewController: UIViewController {
         }
         
         let chapterName = chapterObject?.title ?? String(chapterObject?.number ?? 0)
-        labelInfo.text = "Chapter - '\(chapterName)'"
+        labelInfo.text = "\(NSLocalizedString("Chapter", comment: "")) - '\(chapterName)'"
         labelPageInfo.text = "\(index + 1)/\(imageViewControllers.count)"
     }
     

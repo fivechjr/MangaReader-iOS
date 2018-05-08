@@ -24,7 +24,7 @@ class GenresListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Genres"
+        title = NSLocalizedString("Genres", comment: "")
 
         let closeImage = UIImage(named: "close")
         let closeButton = UIBarButtonItem(image: closeImage, style: .plain, target: self, action: #selector(dismissMe))
@@ -51,7 +51,7 @@ extension GenresListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         
-        cell.textLabel?.text = genresData[indexPath.row]
+        cell.textLabel?.text = NSLocalizedString(genresData[indexPath.row], comment: "")
         
         return cell
     }

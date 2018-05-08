@@ -13,7 +13,12 @@ import Toast_Swift
 
 class SettingsViewController: UIViewController {
 
-    var settingItems: [String] = ["Disclaimer", "Feedback", "Rate Us", "Share This App", "About Us"]
+    var settingItems: [String] = [
+        NSLocalizedString("Disclaimer", comment: "")
+        , NSLocalizedString("Feedback", comment: "")
+        , NSLocalizedString("Rate Us", comment: "")
+        , NSLocalizedString("Share This App", comment: "")
+        , NSLocalizedString("About Us", comment: "")]
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,15 +47,15 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         let title = settingItems[indexPath.row]
         
         switch title {
-        case "Disclaimer":
+        case NSLocalizedString("Disclaimer", comment: ""):
             SettingsViewController.showDisclaimer()
-        case "Rate Us":
+        case NSLocalizedString("Rate Us", comment: ""):
             SettingsViewController.rateApp()
-        case "Feedback":
+        case NSLocalizedString("Feedback", comment: ""):
             sendFeedBack()
-        case "Share This App":
+        case NSLocalizedString("Share This App", comment: ""):
             shareApp()
-        case "About Us":
+        case NSLocalizedString("About Us", comment: ""):
             SettingsViewController.aboutApp()
         default:
             print("Not an option")
@@ -80,15 +85,15 @@ extension SettingsViewController: MFMailComposeViewControllerDelegate {
     }
     
     static func aboutApp() {
-        var message = "This is an awesome manga app."
+        var message = NSLocalizedString("This is an awesome manga app.", comment: "")
         if let bundleName = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String
             , let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
             message = "\(bundleName) v\(version)"
         }
         
-        let alertVC = UIAlertController(title: "About", message: message, preferredStyle: .alert)
+        let alertVC = UIAlertController(title: NSLocalizedString("About", comment: ""), message: message, preferredStyle: .alert)
         
-        let okAction = UIAlertAction(title: "Okay", style: .default) { (action) in
+        let okAction = UIAlertAction(title: NSLocalizedString("Okay", comment: ""), style: .default) { (action) in
         }
         
         alertVC.addAction(okAction)
@@ -97,23 +102,23 @@ extension SettingsViewController: MFMailComposeViewControllerDelegate {
     }
     
     static func showDisclaimer() {
-        let message = "All manga, characters and logos belong to their respective copyrights owners. Manga Monster is developed independently and does not have any affiliation with the content providers. We reserve the right to change the source of manga without prior notice."
+        let message = NSLocalizedString("disclaimer_message", comment: "")
         
-        let alertVC = UIAlertController(title: "Disclaimer", message: message, preferredStyle: .alert)
+        let alertVC = UIAlertController(title: NSLocalizedString("Disclaimer", comment: ""), message: message, preferredStyle: .alert)
         
-        let okAction = UIAlertAction(title: "Agree", style: .default) { (action) in
+        let okAction = UIAlertAction(title: NSLocalizedString("Agree", comment: ""), style: .default) { (action) in
             UserDefaults.standard.set(true, forKey: "agreedDisclaimer")
             UserDefaults.standard.synchronize()
         }
         
-        let cancelAction = UIAlertAction(title: "Disagree", style: .cancel) { _ in
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Disagree", comment: ""), style: .cancel) { _ in
             
             UserDefaults.standard.set(false, forKey: "agreedDisclaimer")
             UserDefaults.standard.synchronize()
             
-            let message2 = "Sorry, we have to close the app because you disagreed with the disclaimer."
+            let message2 = NSLocalizedString("close_app_message", comment: "")
             let alertVC2 = UIAlertController(title: "", message: message2, preferredStyle: .alert)
-            let okAction2 = UIAlertAction(title: "Okay", style: .default) { _ in
+            let okAction2 = UIAlertAction(title: NSLocalizedString("Okay", comment: ""), style: .default) { _ in
                 exit(0)
             }
             
@@ -131,7 +136,7 @@ extension SettingsViewController: MFMailComposeViewControllerDelegate {
     func sendFeedBack() {
         
         guard MFMailComposeViewController.canSendMail() else {
-            view.makeToast("Sorry, Your device can not send a email.", position: .center)
+            view.makeToast(NSLocalizedString("cant_send_email_message", comment: ""), position: .center)
 //            BPStatusBarAlert.show(withMessage: "Sorry, Your device can not send a email.")
             return
         }
@@ -140,13 +145,13 @@ extension SettingsViewController: MFMailComposeViewControllerDelegate {
         mailVC.mailComposeDelegate = self
 //        mailVC.navigationBar.tintColor = UIColor.black
         
-        mailVC.setSubject("Feedback")
+        mailVC.setSubject(NSLocalizedString("Feedback", comment: ""))
         
-        var bundleDisplayName = "This App"
+        var bundleDisplayName = NSLocalizedString("This App", comment: "")
         if let bundleName = Bundle.main.infoDictionary?[kCFBundleNameKey as String] as? String {
             bundleDisplayName = bundleName
         }
-        mailVC.setMessageBody("Please write your feedback for '\(bundleDisplayName)'：\n\n", isHTML: false)
+        mailVC.setMessageBody("\(NSLocalizedString("Please write your feedback", comment: "")) - '\(bundleDisplayName)'：\n\n", isHTML: false)
         mailVC.setToRecipients(["dymx103@gmail.com"])
         
         present(mailVC, animated: true, completion: nil)
@@ -155,9 +160,9 @@ extension SettingsViewController: MFMailComposeViewControllerDelegate {
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         switch result {
         case .sent:
-            view.makeToast("Feedback has been sent, thank you!", position: .center)
+            view.makeToast(NSLocalizedString("feedback_success_message", comment: ""), position: .center)
         case .failed:
-            view.makeToast("Feedback failed.", position: .center)
+            view.makeToast(NSLocalizedString("feedback_failed_message", comment: ""), position: .center)
         default:
             break
         }
@@ -166,7 +171,7 @@ extension SettingsViewController: MFMailComposeViewControllerDelegate {
     }
     
     func shareApp() {
-        let textToShare = "I'm reading my favorite manga with Manga Monster! It's an awesome app, you should download it if you love reading manga!"
+        let textToShare = NSLocalizedString("share_message", comment: "")
     
         var objectsToShare: [Any] = [textToShare]
         

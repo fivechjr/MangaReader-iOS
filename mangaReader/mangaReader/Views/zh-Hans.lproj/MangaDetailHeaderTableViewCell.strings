@@ -1,0 +1,18 @@
+
+/* Class = "UILabel"; text = "Status: Ongoing"; ObjectID = "Agu-hd-YSs"; */
+"Agu-hd-YSs.text" = "Status: Ongoing";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "FIF-k6-b7D"; */
+"FIF-k6-b7D.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "100 Chapters"; ObjectID = "UJo-da-c9y"; */
+"UJo-da-c9y.text" = "100 Chapters";
+
+/* Class = "UILabel"; text = "Book Title"; ObjectID = "WYl-U9-ZPu"; */
+"WYl-U9-ZPu.text" = "Book Title";
+
+/* Class = "UIButton"; normalTitle = "Start Reading"; ObjectID = "f8f-0m-38c"; */
+"f8f-0m-38c.normalTitle" = "Start Reading";
+
+/* Class = "UILabel"; text = "Author Name"; ObjectID = "hxM-Zq-JMj"; */
+"hxM-Zq-JMj.text" = "Author Name";
