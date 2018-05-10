@@ -1,0 +1,60 @@
+
+/* Class = "UILabel"; text = "currentPage/TotalPage"; ObjectID = "211-Cg-tKh"; */
+"211-Cg-tKh.text" = "currentPage/TotalPage";
+
+/* Class = "UISegmentedControl"; 48D-JG-BAt.segmentTitles[0] = "All Manga"; ObjectID = "48D-JG-BAt"; */
+"48D-JG-BAt.segmentTitles[0]" = "すべての漫画";
+
+/* Class = "UISegmentedControl"; 48D-JG-BAt.segmentTitles[1] = "Latest Update"; ObjectID = "48D-JG-BAt"; */
+"48D-JG-BAt.segmentTitles[1]" = "最近更新";
+
+/* Class = "UIButton"; normalTitle = "Close"; ObjectID = "8vh-N1-Fcd"; */
+"8vh-N1-Fcd.normalTitle" = "閉じる";
+
+/* Class = "UISearchBar"; placeholder = "Search for Manga"; ObjectID = "9A9-Af-8Tm"; */
+"9A9-Af-8Tm.placeholder" = "漫画検索";
+
+/* Class = "UINavigationItem"; title = "Favorites"; ObjectID = "A92-5H-nmO"; */
+"A92-5H-nmO.title" = "私のコレクション";
+
+/* Class = "UINavigationItem"; title = "Search"; ObjectID = "ACq-2m-IZf"; */
+"ACq-2m-IZf.title" = "検索";
+
+/* Class = "UINavigationItem"; title = "Discovery"; ObjectID = "GDZ-0N-bTk"; */
+"GDZ-0N-bTk.title" = "発見";
+
+/* Class = "UITabBarItem"; title = "Favorites"; ObjectID = "KrZ-vI-RQh"; */
+"KrZ-vI-RQh.title" = "コレクション";
+
+/* Class = "UISegmentedControl"; Sw1-aI-KiE.segmentTitles[0] = "Horizontal"; ObjectID = "Sw1-aI-KiE"; */
+"Sw1-aI-KiE.segmentTitles[0]" = "レベルドール";
+
+/* Class = "UISegmentedControl"; Sw1-aI-KiE.segmentTitles[1] = "Vertical"; ObjectID = "Sw1-aI-KiE"; */
+"Sw1-aI-KiE.segmentTitles[1]" = "垂直回転ページ";
+
+/* Class = "UISegmentedControl"; Sw1-aI-KiE.segmentTitles[2] = "Book Mode"; ObjectID = "Sw1-aI-KiE"; */
+"Sw1-aI-KiE.segmentTitles[2]" = "真似るページ";
+
+/* Class = "UITabBarItem"; title = "Recent"; ObjectID = "bKT-l8-V39"; */
+"bKT-l8-V39.title" = "最近";
+
+/* Class = "UITabBarItem"; title = "Discovery"; ObjectID = "cii-mp-qTi"; */
+"cii-mp-qTi.title" = "発見";
+
+/* Class = "UITabBarItem"; title = "Settings"; ObjectID = "hjP-bl-ZSG"; */
+"hjP-bl-ZSG.title" = "設定";
+
+/* Class = "UILabel"; text = "Reading Mode"; ObjectID = "hpn-FM-ex0"; */
+"hpn-FM-ex0.text" = "読解モード";
+
+/* Class = "UINavigationItem"; title = "Recent"; ObjectID = "waV-fj-CQ2"; */
+"waV-fj-CQ2.title" = "最近";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "xf0-51-HED"; */
+"xf0-51-HED.title" = "戻る";
+
+/* Class = "UILabel"; text = "chapter title"; ObjectID = "y5C-10-7fZ"; */
+"y5C-10-7fZ.text" = "chapter title";
+
+/* Class = "UINavigationItem"; title = "Settings"; ObjectID = "zDS-pi-trc"; */
+"zDS-pi-trc.title" = "設定";

@@ -1,0 +1,59 @@
+/* 
+  Localizable.strings
+  mangaReader
+
+  Created by Yiming Dong on 2018/5/8.
+  Copyright © 2018 Yiming Dong. All rights reserved.
+*/
+"Continue Reading" = "続けて読む";
+"Start Reading" = "読み始める";
+"Completed" = "状態：終わった";
+"Ongoing" = "状態：連載中";
+"Manga Detail" = "漫画の詳細";
+"Chapters" = "章節";
+"Chapter" = "章節";
+"Info" = "詳細";
+"Disclaimer" = "免責声明";
+"Feedback" = "フィードバック";
+"Rate Us" = "評価App";
+"Share This App" = "Appを共有する";
+"About Us" = "私たちについて";
+"This is an awesome manga app." = "超クールな漫画App。";
+"About" = "つい";
+"Okay" = "いい";
+"disclaimer_message" = "すべての漫画、文字、ロゴは、それぞれの著作権所有者に属している。「漫画モンスター」は、独立して開発されたもので、いかなるコンテンツ提供者と何の関係もありません。当社は漫画の出所を変更する権利を保留しております。";
+"Agree" = "同意";
+"Disagree" = "同意しない";
+"close_app_message" = "申し訳ありませんが、あなたが責任を免れることに同意しないため、私たちはAPPを閉鎖しなければなりません。";
+"cant_send_email_message" = "申し訳ございませんが、あなたのデバイスはメールを送信できません。";
+"This App" = "本アプリケーション";
+"Please write your feedback" = "ご意見やアドバイスをお願いします";
+"feedback_success_message" = "送信成功！";
+"feedback_failed_message" = "送信失敗！";
+"share_message" = "「漫画モンスター」で一番好きな漫画を見ています！これは超クールな漫画のアプリケーションで、もしあなたが漫画のファンならば、私はあなたが早くダウンロードすることをお勧めします。";
+"Genres" = "漫画の流派";
+"Action" = "動作";
+"Adventure" = "冒険";
+"Comedy" = "コメディ";
+"Horror" = "スリラー";
+"Supernatural" = "超自然";
+"Mystery" = "神秘";
+"Psychological" = "心理学";
+"Romance" = "ロマンチック";
+"Drama" = "芝居";
+"Fantasy" = "幻想";
+"Seinen" = "青年";
+"Martial Arts" = "武術";
+"Shoujo" = "少女";
+"NO FAVORITED MANGA" = "コレクションは空";
+"no_fav_message" = "あなたの漫画好きなので、漫画の詳細にある「コレクション」ボタンをクリックしてください。";
+"Do you want to unfavorite" = "コレクションをキャンセルしたい";
+"Unfavorite" = "コレクションをキャンセル";
+"Yes" = "はい";
+"No" = "いいえ";
+"NO RECENTLY READ MANGA" = "最近の読書記録はない";
+"no_recent_message" = "最近読んで、あなたの読みの歴史を表示します。前回の位置から読み続けたいなら、ここの漫画のリストをクリックしてください。";
+"Do you want to clear all recent read manga?" = "最近読んでいる記録をよく知っていますか？";
+"Clear Read History" = "読み切り記録";
+"Do you want to remove" = "削除したいのですか";
+"Remove From Recent" = "最近の読みから削除";
