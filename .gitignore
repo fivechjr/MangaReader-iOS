@@ -67,3 +67,5 @@ fastlane/screenshots
 fastlane/test_output
 /mangaReader/.DS_Store
 /mangaReader/mangaReader/Assets.xcassets/.DS_Store
+/mangaReader/mangaReader/AdsFramework/.DS_Store
+/mangaReader/mangaReader/.DS_Store

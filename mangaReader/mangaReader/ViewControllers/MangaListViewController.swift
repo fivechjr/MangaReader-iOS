@@ -22,6 +22,7 @@ class MangaListViewController: UIViewController, GenresListViewControllerDelegat
     var mangasFiltered:[MangaResponse]?
     
     var selectedGenres: [String] = []
+    var selectedGenresLocalized: [String] = []
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == "showMangaDetail"
@@ -40,9 +41,10 @@ class MangaListViewController: UIViewController, GenresListViewControllerDelegat
         
         if selectedGenres.index(of: genre) == nil {
             selectedGenres.append(genre)
+            selectedGenresLocalized.append(NSLocalizedString(genre, comment: ""))
             
             genresTagListView.removeAllTags()
-            genresTagListView.addTags(selectedGenres)
+            genresTagListView.addTags(selectedGenresLocalized)
             
             filterManga()
             sortManga()
@@ -182,14 +184,19 @@ extension MangaListViewController: UICollectionViewDataSource, UICollectionViewD
 
 extension MangaListViewController: TagListViewDelegate {
     @objc func tagRemoveButtonPressed(_ title: String, tagView: TagView, sender: TagListView) -> Void {
+        
         genresTagListView.removeTag(title)
-        if let index = selectedGenres.index(of: title) {
-            selectedGenres.remove(at: index)
-            
-            filterManga()
-            sortManga()
-            mangaListCollectionView.reloadData()
+        
+        guard let indexOfGenre = selectedGenresLocalized.index(of: title), indexOfGenre < selectedGenres.count else {
+            return
         }
+        
+        selectedGenres.remove(at: indexOfGenre)
+        selectedGenresLocalized.remove(at: indexOfGenre)
+        
+        filterManga()
+        sortManga()
+        mangaListCollectionView.reloadData()
     }
 }
 
