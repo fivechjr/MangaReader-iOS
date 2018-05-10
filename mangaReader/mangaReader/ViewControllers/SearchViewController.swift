@@ -28,6 +28,8 @@ class SearchViewController: UIViewController {
         
         mangasFiltered = mangas
         sortManga()
+        
+        AdsManager.sharedInstance.showRandomAdsIfComfortable()
     }
     
     @objc func dismissMe() {

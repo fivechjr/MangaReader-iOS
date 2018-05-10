@@ -7,8 +7,8 @@
 */
 "Continue Reading" = "继续阅读";
 "Start Reading" = "开始阅读";
-"Completed" = "完结";
-"Ongoing" = "连载";
+"Completed" = "状态:已完结";
+"Ongoing" = "状态:连载中";
 "Manga Detail" = "漫画详情";
 "Chapters" = "章节";
 "Chapter" = "章节";

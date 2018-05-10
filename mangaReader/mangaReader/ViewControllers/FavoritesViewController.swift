@@ -37,6 +37,8 @@ class FavoritesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         loadFavorites()
         favoritesCollectionView.reloadData()
+        
+        AdsManager.sharedInstance.showRandomAdsIfComfortable()
     }
     
     override func viewDidLayoutSubviews() {

@@ -31,6 +31,8 @@ class GenresListViewController: UIViewController {
         navigationItem.rightBarButtonItem = closeButton
         
         genresTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        
+        AdsManager.sharedInstance.showRandomAdsIfComfortable()
     }
 
     @objc func dismissMe() {

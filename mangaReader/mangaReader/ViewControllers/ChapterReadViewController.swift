@@ -140,6 +140,8 @@ class ChapterReadViewController: UIViewController {
             self?.startPageViewController()
             
             self?.downloadImages()
+            
+            AdsManager.sharedInstance.showRandomAdsIfComfortable()
         }
     }
     

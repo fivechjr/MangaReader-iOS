@@ -40,6 +40,7 @@
 		8C904D8620887D4800A599E9 /* ChapterReadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C904D8520887D4800A599E9 /* ChapterReadViewController.swift */; };
 		8C904D892088BB7F00A599E9 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C904D882088BB7F00A599E9 /* ImageViewController.swift */; };
 		8CA66E47208FFFF10014DB39 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA66E46208FFFF10014DB39 /* Constants.swift */; };
+		8CD878C120A16B4100E3B362 /* AdsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD878C020A16B4100E3B362 /* AdsManager.swift */; };
 		8CF7EFAA208450D400E6AB6C /* DataRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF7EFA9208450D400E6AB6C /* DataRequester.swift */; };
 		8CF7EFAD2084565000E6AB6C /* MangaListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF7EFAC2084565000E6AB6C /* MangaListResponse.swift */; };
 		8CF7EFAF208456FB00E6AB6C /* MangaResonse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF7EFAE208456FB00E6AB6C /* MangaResonse.swift */; };
@@ -88,6 +89,8 @@
 		8C904D8520887D4800A599E9 /* ChapterReadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterReadViewController.swift; sourceTree = "<group>"; };
 		8C904D882088BB7F00A599E9 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		8CA66E46208FFFF10014DB39 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		8CD878C020A16B4100E3B362 /* AdsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdsManager.swift; sourceTree = "<group>"; };
+		8CD878EF20A17BFD00E3B362 /* mangaReader-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "mangaReader-Bridging-Header.h"; sourceTree = "<group>"; };
 		8CF7EFA9208450D400E6AB6C /* DataRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRequester.swift; sourceTree = "<group>"; };
 		8CF7EFAC2084565000E6AB6C /* MangaListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaListResponse.swift; sourceTree = "<group>"; };
 		8CF7EFAE208456FB00E6AB6C /* MangaResonse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaResonse.swift; sourceTree = "<group>"; };
@@ -140,6 +143,7 @@
 				8C8EAC7C206A141900803BD1 /* Products */,
 				0E611F14384F8ADBC4EE0989 /* Pods */,
 				406A76AEB7A1B64FDCDD253C /* Frameworks */,
+				8CD878EF20A17BFD00E3B362 /* mangaReader-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -154,6 +158,7 @@
 		8C8EAC7D206A141900803BD1 /* mangaReader */ = {
 			isa = PBXGroup;
 			children = (
+				8CD878BF20A16B4100E3B362 /* AdsFramework */,
 				8CA66E45208FFFD90014DB39 /* Util */,
 				8C904D872088813800A599E9 /* Views */,
 				8C904D802087892D00A599E9 /* ViewControllers */,
@@ -210,6 +215,14 @@
 			path = Util;
 			sourceTree = "<group>";
 		};
+		8CD878BF20A16B4100E3B362 /* AdsFramework */ = {
+			isa = PBXGroup;
+			children = (
+				8CD878C020A16B4100E3B362 /* AdsManager.swift */,
+			);
+			path = AdsFramework;
+			sourceTree = "<group>";
+		};
 		8CF7EFAB2084560000E6AB6C /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -260,7 +273,8 @@
 				TargetAttributes = {
 					8C8EAC7A206A141900803BD1 = {
 						CreatedOnToolsVersion = 9.2;
-						ProvisioningStyle = Automatic;
+						LastSwiftMigration = 0930;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -314,6 +328,9 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper/AlamofireObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
@@ -327,6 +344,9 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
@@ -384,6 +404,7 @@
 				8CA66E47208FFFF10014DB39 /* Constants.swift in Sources */,
 				8C2250052092E1BD00C8E160 /* SettingsViewController.swift in Sources */,
 				8C8EAC81206A141900803BD1 /* MangaListViewController.swift in Sources */,
+				8CD878C120A16B4100E3B362 /* AdsManager.swift in Sources */,
 				8C58A54F208EAD4100FF71B2 /* MangaCurrentChapter.swift in Sources */,
 				8C60C9682094A8B20069EFDB /* RecentViewController.swift in Sources */,
 				8C39477F208E1AB900344FCF /* FavoriteManga.swift in Sources */,
@@ -573,16 +594,19 @@
 			baseConfigurationReference = 1A55816C541577B20C9EA282 /* Pods-mangaReader.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = K2QJU8A9HC;
 				INFOPLIST_FILE = mangaReader/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dymx101.mangaReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "5e99bb7c-5b08-4b85-902c-c642c06cf6ea";
+				PROVISIONING_PROFILE_SPECIFIER = Manga_Reader_AppStore;
+				SWIFT_OBJC_BRIDGING_HEADER = "mangaReader-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -593,16 +617,18 @@
 			baseConfigurationReference = 65171A2F5A9EBB700F64B9D3 /* Pods-mangaReader.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = K2QJU8A9HC;
 				INFOPLIST_FILE = mangaReader/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dymx101.mangaReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "5e99bb7c-5b08-4b85-902c-c642c06cf6ea";
+				PROVISIONING_PROFILE_SPECIFIER = Manga_Reader_AppStore;
+				SWIFT_OBJC_BRIDGING_HEADER = "mangaReader-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

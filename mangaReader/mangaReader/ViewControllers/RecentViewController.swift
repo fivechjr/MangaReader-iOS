@@ -61,6 +61,8 @@ class RecentViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         loadRecentData()
         recentCollectionView.reloadData()
+        
+        AdsManager.sharedInstance.showRandomAdsIfComfortable()
     }
     
     override func viewDidLayoutSubviews() {
