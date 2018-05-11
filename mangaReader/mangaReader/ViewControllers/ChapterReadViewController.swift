@@ -12,7 +12,7 @@ import SnapKit
 import NVActivityIndicatorView
 import RealmSwift
 
-class ChapterReadViewController: UIViewController {
+class ChapterReadViewController: UIViewController, GuideViewDelegate {
     
     var chapterID: String!
     var chapterObject: Chapter?
@@ -38,14 +38,16 @@ class ChapterReadViewController: UIViewController {
     @IBOutlet weak var settingView: UIView!
     @IBOutlet weak var renderModeSegmentControl: UISegmentedControl!
     
+    var guideView: GuideView!
+    
     
     var imageViewControllers: [ImageViewController] = [ImageViewController]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        topNavigationView.alpha = 0
-        bottomToolView.alpha = 0
+        topNavigationView.alpha = 1
+        bottomToolView.alpha = 1
         
         let selectedRenderMode = UserDefaults.standard.value(forKey: "renderMode") as? Int ?? 0
         renderModeSegmentControl.selectedSegmentIndex = selectedRenderMode
@@ -54,10 +56,25 @@ class ChapterReadViewController: UIViewController {
         loadImages()
         
         customizeSettingView()
+        
+        installGuideViewIfNeeded()
     }
     
     deinit {
         cancelDownload()
+    }
+    
+    func installGuideViewIfNeeded() {
+        let userSeeGuide = UserDefaults.standard.bool(forKey: "userSeeGuide")
+        
+        if (!userSeeGuide) {
+            guideView = Bundle.main.loadNibNamed("GuideView", owner: self, options: nil)?.first as! GuideView
+            guideView.delegate = self
+            view.addSubview(guideView)
+            guideView.snp.makeConstraints { (maker) in
+                maker.edges.equalToSuperview()
+            }
+        }
     }
     
     func customizeSettingView() {
@@ -348,6 +365,16 @@ class ChapterReadViewController: UIViewController {
         UserDefaults.standard.synchronize()
         
         installPageViewController(sameChapter: true)
+    }
+    
+    func didTapGuidView(guideView: GuideView) {
+        
+        UserDefaults.standard.set(true, forKey: "userSeeGuide")
+        UserDefaults.standard.synchronize()
+        
+        UIView.animate(withDuration: 0.3) {
+            guideView.alpha = 0
+        }
     }
 }
 

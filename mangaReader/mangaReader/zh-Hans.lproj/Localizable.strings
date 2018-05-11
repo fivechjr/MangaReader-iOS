@@ -57,3 +57,7 @@
 "Clear Read History" = "清楚阅读记录";
 "Do you want to remove" = "您是否想删除";
 "Remove From Recent" = "从最近阅读删除";
+
+"message_top_guide" = "点击上面的区域，翻到前一页";
+"message_center_guide" = "点击中间区域，显示工具条";
+"message_bottom_guide" = "点击下面的区域，翻到后一页";

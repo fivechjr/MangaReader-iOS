@@ -57,3 +57,7 @@
 "Clear Read History" = "読み切り記録";
 "Do you want to remove" = "削除したいのですか";
 "Remove From Recent" = "最近の読みから削除";
+
+"message_top_guide" = "上の領域をクリックして、前のページにひっくり返します。";
+"message_center_guide" = "中間領域をクリックして、ツールを表示する";
+"message_bottom_guide" = "次のページをクリックして、次のページをクリックします。";
