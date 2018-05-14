@@ -175,8 +175,9 @@ extension SettingsViewController: MFMailComposeViewControllerDelegate {
     
         var objectsToShare: [Any] = [textToShare]
         
-        if let appId = Bundle.main.bundleIdentifier
-            , let reviewURL = URL(string: "https://itunes.apple.com/app/id\(appId)") {
+        let appId = "1378089411"
+        
+        if let reviewURL = URL(string: "https://itunes.apple.com/app/id\(appId)") {
             
             objectsToShare.append(reviewURL)
         }
