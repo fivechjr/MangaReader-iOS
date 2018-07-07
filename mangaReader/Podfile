@@ -17,4 +17,5 @@ target 'mangaReader' do
     pod 'UnityAds', '~> 2.1.0'
     
     pod 'FacebookCore'
+    pod 'PersonalizedAdConsent'
 end
