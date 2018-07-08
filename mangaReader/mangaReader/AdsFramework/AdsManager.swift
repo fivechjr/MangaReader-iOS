@@ -459,7 +459,13 @@ extension AdsManager {
                 self.appInfo = thisAppInfo as? [String: AnyObject];
                 self.updateAdsSettingsWithAppInfo(self.appInfo)
                 
-                self.requestAdmobInterstitial()
+                
+                self.consentManager.requestConsentInfoUpdate({ (success) in
+                    if success {
+                        self.requestAdmobInterstitial()
+                    }
+                })
+                
                 self.initVungle()
                 self.initUnity()
             })

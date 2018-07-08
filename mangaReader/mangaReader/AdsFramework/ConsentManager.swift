@@ -15,36 +15,38 @@ class ConsentManager {
     private var adRetryDelay = 1.0
     private var allowPersonalizedAds = true
     
-    func requestConsentInfoUpdate() {
-        PACConsentInformation.sharedInstance.requestConsentInfoUpdate(forPublisherIdentifiers: ["pub-0123456789012345"])
+    func requestConsentInfoUpdate(_ completion:@escaping (Bool)-> Void) {
+        PACConsentInformation.sharedInstance.requestConsentInfoUpdate(forPublisherIdentifiers: ["pub-7635376757557763"])
         {(_ error: Error?) -> Void in
             if let _ = error {
-                DispatchQueue.main.asyncAfter(delay: self.adRetryDelay, closure: self.requestConsentInfoUpdate)
+                DispatchQueue.main.async {
+                    completion(false)
+                }
             } else {
                 if PACConsentInformation.sharedInstance.isRequestLocationInEEAOrUnknown {
                     let consent = PACConsentInformation.sharedInstance.consentStatus
                     if consent == .unknown {
                         DispatchQueue.main.async {
-                            self.collectAdsConsent()
+                            self.collectAdsConsent(completion)
                         }
                     } else {
                         self.allowPersonalizedAds = consent == .personalized
                         DispatchQueue.main.async {
-                            self.loadAd()
+                            completion(true)
                         }
                     }
                 } else {
                     self.allowPersonalizedAds = true
                     DispatchQueue.main.async {
-                        self.loadAd()
+                        completion(true)
                     }
                 }
             }
         }
     }
     
-    private func collectAdsConsent() {
-        guard let privacyUrl = URL(string: "https://github.com/piscoTech/Workout/blob/master/PRIVACY.md"),
+    private func collectAdsConsent(_ completion:@escaping (Bool)-> Void) {
+        guard let privacyUrl = URL(string: "https://github.com/dymx101/Workout/blob/master/PRIVACY.md"),
             let form = PACConsentForm(applicationPrivacyPolicyURL: privacyUrl) else {
                 fatalError("Incorrect privacy URL.")
         }
@@ -55,31 +57,35 @@ class ConsentManager {
         
         form.load { err in
             if err != nil {
-                DispatchQueue.main.asyncAfter(delay: self.adRetryDelay, closure: self.requestConsentInfoUpdate)
+                DispatchQueue.main.async {
+                    completion(false)
+                }
             } else {
                 DispatchQueue.main.async {
                     guard let viewController = UIApplication.shared.keyWindow?.rootViewController else {return}
                     
                     form.present(from: viewController) { err, adsFree in
                         if err != nil {
-                            DispatchQueue.main.asyncAfter(delay: self.adRetryDelay, closure: self.requestConsentInfoUpdate)
+                            DispatchQueue.main.async {
+                                completion(false)
+                            }
                         } else {
                             self.allowPersonalizedAds = !adsFree && PACConsentInformation.sharedInstance.consentStatus == .personalized
                             DispatchQueue.main.async {
-                                self.loadAd()
-                                if adsFree {
-                                    // 用户想使用“去广告版本”
+                                
+                                DispatchQueue.main.async {
+                                    completion(true)
                                 }
+                                
+//                                if adsFree {
+//                                    // 用户想使用“去广告版本”
+//                                }
                             }
                         }
                     }
                 }
             }
         }
-    }
-    
-    private func loadAd() {
-        
     }
     
     func getAdRequest() -> GADRequest {
