@@ -68,7 +68,7 @@ class ChapterReadViewController: UIViewController, GuideViewDelegate {
         let userSeeGuide = UserDefaults.standard.bool(forKey: "userSeeGuide")
         
         if (!userSeeGuide) {
-            guideView = Bundle.main.loadNibNamed("GuideView", owner: self, options: nil)?.first as! GuideView
+            guideView = (Bundle.main.loadNibNamed("GuideView", owner: self, options: nil)?.first as! GuideView)
             guideView.delegate = self
             view.addSubview(guideView)
             guideView.snp.makeConstraints { (maker) in
