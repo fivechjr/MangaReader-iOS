@@ -40,6 +40,7 @@
 		8C904D84208878E100A599E9 /* ChapterImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C904D83208878E100A599E9 /* ChapterImage.swift */; };
 		8C904D8620887D4800A599E9 /* ChapterReadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C904D8520887D4800A599E9 /* ChapterReadViewController.swift */; };
 		8C904D892088BB7F00A599E9 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C904D882088BB7F00A599E9 /* ImageViewController.swift */; };
+		8C96735B21679AA200DE5D69 /* MangaEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C96735A21679AA200DE5D69 /* MangaEndpoint.swift */; };
 		8CA66E47208FFFF10014DB39 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA66E46208FFFF10014DB39 /* Constants.swift */; };
 		8CD878C120A16B4100E3B362 /* AdsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD878C020A16B4100E3B362 /* AdsManager.swift */; };
 		8CD98FA320A52B23002C448F /* GuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD98FA220A52B23002C448F /* GuideView.swift */; };
@@ -92,6 +93,7 @@
 		8C904D882088BB7F00A599E9 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		8C9673572167926500DE5D69 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/MangaDetailTableViewCell.strings"; sourceTree = "<group>"; };
 		8C9673582167926900DE5D69 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MangaDetailTableViewCell.xib; sourceTree = "<group>"; };
+		8C96735A21679AA200DE5D69 /* MangaEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaEndpoint.swift; sourceTree = "<group>"; };
 		8CA66E46208FFFF10014DB39 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		8CD878C020A16B4100E3B362 /* AdsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdsManager.swift; sourceTree = "<group>"; };
 		8CD878EF20A17BFD00E3B362 /* mangaReader-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "mangaReader-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -218,6 +220,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		8C96735921679A6C00DE5D69 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				8C96735A21679AA200DE5D69 /* MangaEndpoint.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		8CA66E45208FFFD90014DB39 /* Util */ = {
 			isa = PBXGroup;
 			children = (
@@ -238,6 +248,7 @@
 		8CF7EFAB2084560000E6AB6C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8C96735921679A6C00DE5D69 /* Network */,
 				8C39477D208E1A6C00344FCF /* RealmObjects */,
 				8CF7EFA9208450D400E6AB6C /* DataRequester.swift */,
 				8C904D7C2086017100A599E9 /* Chapter.swift */,
@@ -429,6 +440,7 @@
 				8C60C960209414350069EFDB /* FavoritesViewController.swift in Sources */,
 				8C904D7F2087892500A599E9 /* MangaDetailViewController.swift in Sources */,
 				8C904D7D2086017100A599E9 /* Chapter.swift in Sources */,
+				8C96735B21679AA200DE5D69 /* MangaEndpoint.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

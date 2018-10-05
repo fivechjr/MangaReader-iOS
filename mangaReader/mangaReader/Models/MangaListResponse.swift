@@ -10,7 +10,7 @@ import Foundation
 import ObjectMapper
 
 class MangaListResponse: Mappable {
-    
+    var result: Int?
     var mangas: [MangaResponse]?
     var start: Int?
     var end: Int?
@@ -22,6 +22,7 @@ class MangaListResponse: Mappable {
     }
     
     func mapping(map: Map) {
+        result <- map["result"]
         mangas <- map["manga"]
         start <- map["start"]
         end <- map["end"]

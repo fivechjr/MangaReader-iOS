@@ -10,10 +10,6 @@ import Foundation
 import Alamofire
 import AlamofireObjectMapper
 
-enum MangaEdenAPI: String {
-    case mangaList = "https://www.mangaeden.com/api/list/0/"
-}
-
 class DataRequester {
     
     private static var mangaListCacheFileName:String = "mangaList.json"
@@ -105,7 +101,8 @@ class DataRequester {
     
     static func getFullMangaList(completion:@escaping (MangaListResponse?)->Void) {
         
-        Alamofire.request(MangaEdenAPI.mangaList.rawValue).responseObject { (response: DataResponse<MangaListResponse>) in
+        let path = MangaEndpoint.mangaList(pageIndex: 0, pageSize: 20).path
+        Alamofire.request(path).responseObject { (response: DataResponse<MangaListResponse>) in
             
             completion(response.result.value);
             
@@ -117,12 +114,8 @@ class DataRequester {
     }
     
     static func getMangaList(page:Int, size:Int, completion:@escaping (MangaListResponse?)->Void) {
-        let manager = Alamofire.SessionManager.default;
-        manager.session.configuration.timeoutIntervalForRequest = 120
-        let params: Parameters = ["p":page, "l":size]
-        Alamofire.request(MangaEdenAPI.mangaList.rawValue, parameters: params, encoding: URLEncoding.queryString)
-            
-            .responseObject { (response: DataResponse<MangaListResponse>) in
+        let path = MangaEndpoint.mangaList(pageIndex: page, pageSize: size).path
+        Alamofire.request(path).responseObject { (response: DataResponse<MangaListResponse>) in
             
             completion(response.result.value);
             
