@@ -104,7 +104,7 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
         
         let placeholderImage = UIImage(named: "manga_default")
         cell.imageViewCover.image = placeholderImage
-        if let imageURL = DataRequester.getImageUrl(withImagePath: manga?.image)
+        if let imageURL = manga?.imagePath
             , let url = URL(string: imageURL){
             cell.imageViewCover.af_setImage(withURL: url, placeholderImage: placeholderImage)
         }

@@ -228,7 +228,7 @@ extension MangaDetailViewController: UITableViewDataSource {
             cell.labelAuthorName.text = mangaDetail?.author
             cell.labelStatus.text = ((mangaDetail?.status ?? 0) == 1) ? NSLocalizedString("Completed", comment: "") : NSLocalizedString("Ongoing", comment: "")
             cell.labelChapterInfo.text = "\((mangaDetail?.chapters?.count ?? 0)) \(NSLocalizedString("Chapters", comment: ""))"
-            if let imageURL = DataRequester.getImageUrl(withImagePath: mangaDetail?.image)
+            if let imageURL = mangaDetail?.imagePath
                 , let url = URL(string: imageURL){
                 cell.imageViewCover.af_setImage(withURL: url)
             }

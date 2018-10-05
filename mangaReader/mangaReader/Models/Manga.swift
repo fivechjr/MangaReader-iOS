@@ -50,40 +50,9 @@ class Manga: Codable {
         return chapters?.map {Chapter(datas: $0)}
     }
     
-//    required init?(map: Map) {}
-//
-//    func mapping(map: Map) {
-//        aka <- map["aka"]
-//        aka_alias <- map["aka-alias"]
-//
-//        alias <- map["alias"]
-//        artist <- map["artist"]
-//        artist_kw <- map["artist_kw"]
-//        author <- map["author"]
-//        author_kw <- map["author_kw"]
-//        autoManga <- map["autoManga"]
-//        baka <- map["baka"]
-//        categories <- map["categories"]
-//        chapters <- map["chapters"]
-//        chapters_len <- map["chapters_len"]
-//
-//        created <- map["created"]
-//        description <- map["description"]
-//        hits <- map["hits"]
-//        image <- map["image"]
-//        imageURL <- map["imageURL"]
-//        language <- map["language"]
-//        last_chapter_date <- map["last_chapter_date"]
-//        released <- map["released"]
-//        startsWith <- map["startsWith"]
-//
-//        status <- map["status"]
-//        title <- map["title"]
-//        title_kw <- map["title_kw"]
-//        type <- map["type"]
-//        updatedKeywords <- map["updatedKeywords"]
-//        url <- map["url"]
-//    }
+    var imagePath: String? {
+        return imageURL ?? DataRequester.getImageUrl(withImagePath: image)
+    }
     
     func canPublish() -> Bool {
         var canPublish = true
