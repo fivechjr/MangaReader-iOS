@@ -8,7 +8,7 @@
 
 import Foundation
 import Alamofire
-import AlamofireObjectMapper
+//import AlamofireObjectMapper
 
 class DataRequester {
     
@@ -38,89 +38,96 @@ class DataRequester {
     }
     
     static func getChapterDetail(chapterID: String?, completion:@escaping (ChapterDetailResponse?)->Void) {
-        guard let chapterID = chapterID else {
-            completion(nil)
-            return
-        }
-        let urlString = "https://www.mangaeden.com/api/chapter/\(chapterID)/"
-        Alamofire.request(urlString).responseObject { (respObject: DataResponse<ChapterDetailResponse>) in
-            let detail = respObject.result.value
-            if let images = detail?.images {
-                var imageObjects = [ChapterImage]()
-                images.forEach({ (image) in
-                    if let imageData = image as? [Any] {
-                        let imageObj = ChapterImage(arrayData: imageData)
-                        imageObjects.append(imageObj)
-                    }
-                })
-                detail?.imageObjets = imageObjects.reversed()
-            }
-            
-            completion(detail)
-        }
+//        guard let chapterID = chapterID else {
+//            completion(nil)
+//            return
+//        }
+//        let urlString = "https://www.mangaeden.com/api/chapter/\(chapterID)/"
+//        Alamofire.request(urlString).responseObject { (respObject: DataResponse<ChapterDetailResponse>) in
+//            let detail = respObject.result.value
+//            if let images = detail?.images {
+//                var imageObjects = [ChapterImage]()
+//                images.forEach({ (image) in
+//                    if let imageData = image as? [Any] {
+//                        let imageObj = ChapterImage(arrayData: imageData)
+//                        imageObjects.append(imageObj)
+//                    }
+//                })
+//                detail?.imageObjets = imageObjects.reversed()
+//            }
+//
+//            completion(detail)
+//        }
     }
     
-    static func getMangaDetail(mangaID: String?, completion:@escaping (MangaDetailResponse?)->Void) {
-        guard let mangaID = mangaID else {
-            completion(nil)
-            return
-        }
-        let urlString = "https://www.mangaeden.com/api/manga/\(mangaID)/"
-        Alamofire.request(urlString).responseObject { (respObject: DataResponse<MangaDetailResponse>) in
-            let detail = respObject.result.value
-            if let chapters = detail?.chapters {
-                var chapterObjects = [Chapter]()
-                chapters.forEach({ (chapter) in
-                    if let chapterData = chapter as? [Any] {
-                        let chapterObj = Chapter(arrayData: chapterData)
-                        chapterObjects.append(chapterObj)
-                    }
-                })
-                detail?.chapterObjects = chapterObjects
-            }
-            
-            completion(detail)
-        }
+    static func getMangaDetail(mangaID: String?, completion:@escaping (Manga?)->Void) {
+//        guard let mangaID = mangaID else {
+//            completion(nil)
+//            return
+//        }
+//        let urlString = "https://www.mangaeden.com/api/manga/\(mangaID)/"
+//        Alamofire.request(urlString).responseObject { (respObject: DataResponse<MangaDetailResponse>) in
+//            let detail = respObject.result.value
+//            if let chapters = detail?.chapters {
+//                var chapterObjects = [Chapter]()
+//                chapters.forEach({ (chapter) in
+//                    if let chapterData = chapter as? [Any] {
+//                        let chapterObj = Chapter(arrayData: chapterData)
+//                        chapterObjects.append(chapterObj)
+//                    }
+//                })
+//                detail?.chapterObjects = chapterObjects
+//            }
+//
+//            completion(detail)
+//        }
     }
     
     static func getMangaListFromCache(completion:@escaping (MangaListResponse?)->Void) {
-        guard  let url = mangaListCachePath(), let mangaListString = try? String(contentsOf: url, encoding: String.Encoding.utf8) else {
-            getFullMangaList(completion: completion)
-            return
-        }
-        
-        let mangaListResponse = MangaListResponse(JSONString: mangaListString)
-        completion(mangaListResponse)
-        
-        let now = Date()
-        if let cacheDate = UserDefaults.standard.object(forKey: cacheDateKey) as? Date
-            , now.timeIntervalSince(cacheDate) > updateInterval {
-            getFullMangaList(completion: completion)
-        }
+//        guard  let url = mangaListCachePath(), let mangaListString = try? String(contentsOf: url, encoding: String.Encoding.utf8) else {
+//            getFullMangaList(completion: completion)
+//            return
+//        }
+//
+//        let mangaListResponse = MangaListResponse(JSONString: mangaListString)
+//        completion(mangaListResponse)
+//
+//        let now = Date()
+//        if let cacheDate = UserDefaults.standard.object(forKey: cacheDateKey) as? Date
+//            , now.timeIntervalSince(cacheDate) > updateInterval {
+//            getFullMangaList(completion: completion)
+//        }
     }
     
-    static func getFullMangaList(completion:@escaping (MangaListResponse?)->Void) {
-        
-        let path = MangaEndpoint.mangaList(pageIndex: 0, pageSize: 20).path
-        Alamofire.request(path).responseObject { (response: DataResponse<MangaListResponse>) in
-            
-            completion(response.result.value);
-            
-            }.responseData { (responseData) in
-                if responseData.result.isSuccess, let data = responseData.result.value {
-                    cacheMangaListData(data)
-                }
-        }
-    }
+//    static func getFullMangaList(completion:@escaping (MangaListResponse?)->Void) {
+//
+//        let path = MangaEndpoint.mangaList(pageIndex: 0, pageSize: 20).path
+//        Alamofire.request(path).responseObject { (response: DataResponse<MangaListResponse>) in
+//
+//            completion(response.result.value);
+//
+//            }.responseData { (responseData) in
+//                if responseData.result.isSuccess, let data = responseData.result.value {
+//                    cacheMangaListData(data)
+//                }
+//        }
+//    }
     
-    static func getMangaList(page:Int, size:Int, completion:@escaping (MangaListResponse?)->Void) {
+    static func getMangaList(page:Int, size:Int, completion:@escaping (MangaListResponse?, Error?)->Void) {
         let path = MangaEndpoint.mangaList(pageIndex: page, pageSize: size).path
-        Alamofire.request(path).responseObject { (response: DataResponse<MangaListResponse>) in
+        guard let url = URL(string: path) else {return}
+        Alamofire.request(url).responseData { (response) in
+            guard let data = response.result.value else {
+                completion(nil, response.result.error)
+                return
+            }
             
-            completion(response.result.value);
-            
-            }.responseString { (responseString) in
-                
+            do {
+                let object = try JSONDecoder().decode(MangaListResponse.self, from: data)
+                completion(object, nil)
+            } catch let error {
+                completion(nil, error)
+            }
         }
     }
     

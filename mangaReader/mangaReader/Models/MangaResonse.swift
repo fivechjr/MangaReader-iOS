@@ -6,45 +6,45 @@
 //  Copyright © 2018 Yiming Dong. All rights reserved.
 //
 
-import Foundation
-import ObjectMapper
-
-class MangaResponse: Mappable {
-    var title: String?
-    var updateTime: Float?
-    var imagePath: String?
-    var id: String?
-    var hitCount: Int?
-    var categories: [String]?
-    
-    required init?(map: Map) {
-        
-    }
-    
-    func mapping(map: Map) {
-        title <- map["t"]
-        updateTime <- map["ld"]
-        imagePath <- map["im"]
-        id <- map["i"]
-        hitCount <- map["h"]
-        categories <- map["c"]
-    }
-    
-    func canPublish() -> Bool {
-        var canPublish = true
-        if let categories = categories, categories.contains("Adult") {
-            canPublish = false
-        }
-        
-        if let title = title {
-            if title.lowercased().contains("sex") || title == "High School DxD" {
-                canPublish = false
-            }
-        }
-        
-        return canPublish
-    }
-}
+//import Foundation
+//import ObjectMapper
+//
+//class MangaResponse: Mappable {
+//    var title: String?
+//    var updateTime: Float?
+//    var imagePath: String?
+//    var id: String?
+//    var hitCount: Int?
+//    var categories: [String]?
+//    
+//    required init?(map: Map) {
+//        
+//    }
+//    
+//    func mapping(map: Map) {
+//        title <- map["t"]
+//        updateTime <- map["ld"]
+//        imagePath <- map["im"]
+//        id <- map["i"]
+//        hitCount <- map["h"]
+//        categories <- map["c"]
+//    }
+//    
+//    func canPublish() -> Bool {
+//        var canPublish = true
+//        if let categories = categories, categories.contains("Adult") {
+//            canPublish = false
+//        }
+//        
+//        if let title = title {
+//            if title.lowercased().contains("sex") || title == "High School DxD" {
+//                canPublish = false
+//            }
+//        }
+//        
+//        return canPublish
+//    }
+//}
 
 /*
  "a": "has-the-rain-stopped",

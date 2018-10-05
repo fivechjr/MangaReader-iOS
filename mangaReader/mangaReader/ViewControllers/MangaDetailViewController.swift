@@ -13,7 +13,7 @@ import NVActivityIndicatorView
 
 class MangaDetailViewController: UIViewController {
     
-    var mangaDetail: MangaDetailResponse?
+    var mangaDetail: Manga?
     
     var mangaID: String!
     
@@ -130,7 +130,7 @@ class MangaDetailViewController: UIViewController {
         currentChapterID = chapterID
     }
     
-    private func recordRecentManga(mangaID: String!, mangaDetail: MangaDetailResponse?) {
+    private func recordRecentManga(mangaID: String!, mangaDetail: Manga?) {
         
         guard let mangaDetail = mangaDetail, let title = mangaDetail.title, let imagePath = mangaDetail.image else {
             return
@@ -300,7 +300,7 @@ extension MangaDetailViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         
         if indexPath.section == 1 && tableView == chaptersTableview {
-            guard let _ = mangaDetail?.chapterObjects?[indexPath.item] else {
+            guard let _ = mangaDetail?.chapters?[indexPath.item] else {
                 return
             }
             

@@ -8,28 +8,28 @@
 
 import Foundation
 
-class Chapter {
+class Chapter: Codable {
     var id: String?
     var number: Int?
     var updateTime: Double?
     var title: String?
     
-    init(arrayData: [Any]?) {
-        if let data = arrayData, data.count == 4 {
-            
-            if let number = data[0] as? Int {
+    init(datas: [CodableValue?]?) {
+        if let datas = datas, datas.count == 4 {
+
+            if let data = datas[0], case let CodableValue.int(number) = data {
                 self.number = number
             }
-            
-            if let updateTime = data[1] as? Double {
+
+            if let data = datas[1], case let CodableValue.double(updateTime) = data {
                 self.updateTime = updateTime
             }
-            
-            if let title = data[2] as? String {
+
+            if let data = datas[2], case let CodableValue.string(title) = data {
                 self.title = title
             }
-            
-            if let id = data[3] as? String {
+
+            if let data = datas[3], case let CodableValue.string(id) = data {
                 self.id = id
             }
         }

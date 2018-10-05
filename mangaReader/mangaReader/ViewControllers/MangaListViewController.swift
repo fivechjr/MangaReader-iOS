@@ -17,9 +17,9 @@ class MangaListViewController: UIViewController, GenresListViewControllerDelegat
     
     var sortByRecentUpdate = false
     
-    var mangas:[MangaResponse]?
+    var mangas:[Manga]?
     
-    var mangasFiltered:[MangaResponse]?
+    var mangasFiltered:[Manga]?
     
     var selectedGenres: [String] = []
     var selectedGenresLocalized: [String] = []
@@ -33,7 +33,7 @@ class MangaListViewController: UIViewController, GenresListViewControllerDelegat
             return
         }
         
-        mangaDetailVC.mangaID = manga.id
+        mangaDetailVC.mangaID = manga._id
     }
     
     // MARK: GenresListViewControllerDelegate
@@ -103,12 +103,12 @@ class MangaListViewController: UIViewController, GenresListViewControllerDelegat
     }
     
     func loadMangaData() {
-        DataRequester.getMangaListFromCache(completion: {[weak self] (response) in
-            self?.mangas = response?.mangas
+        DataRequester.getMangaList(page: 0, size: 20) { [weak self] (response, error) in
+            self?.mangas = response?.mangalist
             self?.filterManga()
             self?.sortManga()
             self?.mangaListCollectionView.reloadData()
-        })
+        }
     }
     
     func filterManga() {
@@ -136,9 +136,9 @@ class MangaListViewController: UIViewController, GenresListViewControllerDelegat
     
     func sortManga() {
         if (sortByRecentUpdate) {
-            mangasFiltered?.sort(by: { ($0.updateTime ?? 0) > ($1.updateTime ?? 0) })
+            mangasFiltered?.sort(by: { ($0.last_chapter_date ?? 0) > ($1.last_chapter_date ?? 0) })
         } else {
-            mangasFiltered?.sort(by: { ($0.hitCount ?? 0) > ($1.hitCount ?? 0) })
+            mangasFiltered?.sort(by: { ($0.hits ?? 0) > ($1.hits ?? 0) })
         }
     }
     
@@ -168,7 +168,7 @@ extension MangaListViewController: UICollectionViewDataSource, UICollectionViewD
         
         let placeholderImage = UIImage(named: "manga_default")
         cell.imageViewCover.image = placeholderImage
-        if let imageURL = DataRequester.getImageUrl(withImagePath: manga?.imagePath)
+        if let imageURL = DataRequester.getImageUrl(withImagePath: manga?.image)
             , let url = URL(string: imageURL){
             cell.imageViewCover.af_setImage(withURL: url, placeholderImage: placeholderImage)
         }

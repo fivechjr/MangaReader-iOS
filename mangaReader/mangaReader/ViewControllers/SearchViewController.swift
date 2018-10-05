@@ -12,9 +12,9 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var resultCollectionView: UICollectionView!
     
-    var mangas:[MangaResponse]?
+    var mangas:[Manga]?
     
-    var mangasFiltered:[MangaResponse]?
+    var mangasFiltered:[Manga]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,7 +62,7 @@ class SearchViewController: UIViewController {
     }
     
     func sortManga() {
-        mangasFiltered?.sort(by: { ($0.hitCount ?? 0) > ($1.hitCount ?? 0) })
+        mangasFiltered?.sort(by: { ($0.hits ?? 0) > ($1.hits ?? 0) })
     }
     
     func filterManga(withKeyword keyword: String?) {
@@ -104,7 +104,7 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
         
         let placeholderImage = UIImage(named: "manga_default")
         cell.imageViewCover.image = placeholderImage
-        if let imageURL = DataRequester.getImageUrl(withImagePath: manga?.imagePath)
+        if let imageURL = DataRequester.getImageUrl(withImagePath: manga?.image)
             , let url = URL(string: imageURL){
             cell.imageViewCover.af_setImage(withURL: url, placeholderImage: placeholderImage)
         }
@@ -113,7 +113,7 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let manga = mangasFiltered?[indexPath.item], let mangaID = manga.id {
+        if let manga = mangasFiltered?[indexPath.item], let mangaID = manga._id {
             let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MangaDetailViewController") as! MangaDetailViewController
             vc.mangaID = mangaID
             

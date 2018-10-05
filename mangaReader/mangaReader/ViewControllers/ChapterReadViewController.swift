@@ -16,7 +16,7 @@ class ChapterReadViewController: UIViewController, GuideViewDelegate {
     
     var chapterID: String!
     var chapterObject: Chapter?
-    var mangaDetail: MangaDetailResponse?
+    var mangaDetail: Manga?
     var mangaID: String!
 
     var chapterDetail: ChapterDetailResponse?
@@ -320,7 +320,7 @@ class ChapterReadViewController: UIViewController, GuideViewDelegate {
     }
     
     func updateChapterButtons() {
-        guard let chapterObjects = mangaDetail?.chapterObjects else {
+        guard let chapterObjects = mangaDetail?.chapters else {
             return
         }
         

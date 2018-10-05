@@ -14,7 +14,7 @@ protocol GenresListViewControllerDelegate: class {
 
 class GenresListViewController: UIViewController {
     
-    var mangas:[MangaResponse]?
+    var mangas:[Manga]?
     
     weak var delegate: GenresListViewControllerDelegate?
     
