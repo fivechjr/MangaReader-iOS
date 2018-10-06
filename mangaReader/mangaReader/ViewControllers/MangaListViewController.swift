@@ -9,6 +9,7 @@
 import UIKit
 import TagListView
 import RxSwift
+import SVPullToRefresh
 
 class MangaListViewController: UIViewController, GenresListViewControllerDelegate {
     
@@ -62,15 +63,28 @@ class MangaListViewController: UIViewController, GenresListViewControllerDelegat
         let nibCell = UINib(nibName: "MangaListCollectionViewCell", bundle: nil)
         mangaListCollectionView.register(nibCell, forCellWithReuseIdentifier: "MangaListCollectionViewCell")
         
-        showLoading()
-        viewModel.loadFirstPage { [weak self] (_, _) in
-            self?.hideLoading()
-        }
-        
+        // Observe manga data change
         viewModel.mangasSignal.asObservable()
             .subscribe(onNext: { [weak self] _ in
               self?.mangaListCollectionView.reloadData()
             }).disposed(by: bag)
+        
+        // pull to refresh
+        mangaListCollectionView.addPullToRefresh { [weak self] in
+            self?.viewModel.loadFirstPage(completion: { (_, _) in
+                self?.mangaListCollectionView.pullToRefreshView.stopAnimating()
+            })
+        }
+        
+        // load more
+        mangaListCollectionView.addInfiniteScrolling { [weak self] in
+            self?.viewModel.loadNextPage(completion: { (_, _) in
+                self?.mangaListCollectionView.infiniteScrollingView.stopAnimating()
+            })
+        }
+        
+        // Load data
+        mangaListCollectionView.triggerPullToRefresh()
     }
     
     override func viewDidLayoutSubviews() {
