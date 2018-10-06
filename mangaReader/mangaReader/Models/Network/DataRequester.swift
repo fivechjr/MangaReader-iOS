@@ -83,36 +83,6 @@ class DataRequester {
 //        }
     }
     
-    static func getMangaListFromCache(completion:@escaping (MangaListResponse?)->Void) {
-//        guard  let url = mangaListCachePath(), let mangaListString = try? String(contentsOf: url, encoding: String.Encoding.utf8) else {
-//            getFullMangaList(completion: completion)
-//            return
-//        }
-//
-//        let mangaListResponse = MangaListResponse(JSONString: mangaListString)
-//        completion(mangaListResponse)
-//
-//        let now = Date()
-//        if let cacheDate = UserDefaults.standard.object(forKey: cacheDateKey) as? Date
-//            , now.timeIntervalSince(cacheDate) > updateInterval {
-//            getFullMangaList(completion: completion)
-//        }
-    }
-    
-//    static func getFullMangaList(completion:@escaping (MangaListResponse?)->Void) {
-//
-//        let path = MangaEndpoint.mangaList(pageIndex: 0, pageSize: 20).path
-//        Alamofire.request(path).responseObject { (response: DataResponse<MangaListResponse>) in
-//
-//            completion(response.result.value);
-//
-//            }.responseData { (responseData) in
-//                if responseData.result.isSuccess, let data = responseData.result.value {
-//                    cacheMangaListData(data)
-//                }
-//        }
-//    }
-    
     static func getMangaList(page:Int, size:Int, completion:@escaping (MangaListResponse?, Error?)->Void) {
         let path = MangaEndpoint.mangaList(pageIndex: page, pageSize: size).path
         guard let url = URL(string: path) else {return}

@@ -2,9 +2,6 @@ PODS:
   - Alamofire (4.6.0)
   - AlamofireImage (3.3.0):
     - Alamofire (~> 4.5)
-  - AlamofireObjectMapper (5.1.0):
-    - Alamofire (~> 4.1)
-    - ObjectMapper (~> 3.3)
   - Bolts (1.9.0):
     - Bolts/AppLinks (= 1.9.0)
     - Bolts/Tasks (= 1.9.0)
@@ -20,7 +17,6 @@ PODS:
   - NVActivityIndicatorView (4.1.1):
     - NVActivityIndicatorView/Presenter (= 4.1.1)
   - NVActivityIndicatorView/Presenter (4.1.1)
-  - ObjectMapper (3.3.0)
   - PersonalizedAdConsent (1.0.1)
   - Realm (3.7.4):
     - Realm/Headers (= 3.7.4)
@@ -36,7 +32,6 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 4.6.0)
   - AlamofireImage (~> 3.3)
-  - AlamofireObjectMapper (~> 5.1.0)
   - FacebookCore (~> 0.3.1)
   - Google-Mobile-Ads-SDK (~> 7.23.0)
   - NVActivityIndicatorView (~> 4.1.1)
@@ -52,13 +47,11 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - AlamofireImage
-    - AlamofireObjectMapper
     - Bolts
     - FacebookCore
     - FBSDKCoreKit
     - Google-Mobile-Ads-SDK
     - NVActivityIndicatorView
-    - ObjectMapper
     - PersonalizedAdConsent
     - Realm
     - RealmSwift
@@ -71,13 +64,11 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
   AlamofireImage: 2e784dc5d00f04903a52c1d169181469c805c3df
-  AlamofireObjectMapper: 3395e698901d8b0e6f48b7d0c43bd47875325102
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   FacebookCore: 33078ef1d7d76b73f7e8c990dca7d3ea6db8d22f
   FBSDKCoreKit: 0ff57f093b85c8c9d5aba697d3edf68a8960ce78
   Google-Mobile-Ads-SDK: a43dc8efdb566c74d00ac6934c781de969348d80
   NVActivityIndicatorView: 60109b9bf46efc2e71ab81453196ccdfdfeea870
-  ObjectMapper: b612bf8c8e99c4dc0bb6013a51f7c27966ed5da9
   PersonalizedAdConsent: d42d32065787eca61a9a334d2f786e6f81ebb4c7
   Realm: a469bb59e33f9926102ccaea4349822c53b9117e
   RealmSwift: a45861b21c180f5cf0f122144b9759fa8dde3e9e
@@ -87,6 +78,6 @@ SPEC CHECKSUMS:
   UnityAds: 7ff4f1f17ab02b50f92646a353db25d23a4694af
   VungleSDK-iOS: a8665f4e826ad688135429f4618df4235f8738c7
 
-PODFILE CHECKSUM: 086f59425663ee57bf354146c66c4a2c461d8a8b
+PODFILE CHECKSUM: d6ff24afd8d5b8b3207e57577e60a4b9c8c289ee
 
 COCOAPODS: 1.5.3
