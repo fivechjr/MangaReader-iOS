@@ -8,7 +8,8 @@
 
 import Foundation
 import Alamofire
-//import AlamofireObjectMapper
+
+typealias MangaListResponseHandler = (MangaListResponse?, Error?) -> Void
 
 class DataRequester {
     
@@ -26,7 +27,7 @@ class DataRequester {
         get(urlString: path, responseType: ChapterDetailResponse.self, completion: completion)
     }
     
-    static func getMangaList(page:Int, size:Int, completion:@escaping (MangaListResponse?, Error?)->Void) {
+    static func getMangaList(page:Int, size:Int, completion:@escaping MangaListResponseHandler) {
         let path = MangaEndpoint.mangaList(pageIndex: page, pageSize: size).path
         get(urlString: path, responseType: MangaListResponse.self, completion: completion)
     }

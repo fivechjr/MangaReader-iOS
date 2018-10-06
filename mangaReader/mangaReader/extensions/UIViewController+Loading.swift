@@ -10,12 +10,12 @@ import Foundation
 import NVActivityIndicatorView
 
 extension UIViewController {
-    func startLoading() {
+    func showLoading() {
         let activityData = ActivityData(size:CGSize(width: 35, height: 35), type: .ballPulse, color: UIColor.black)
         NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData)
     }
     
-    func stopLoading() {
+    func hideLoading() {
         NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
     }
 }

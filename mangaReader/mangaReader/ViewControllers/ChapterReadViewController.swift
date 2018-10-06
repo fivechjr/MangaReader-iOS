@@ -131,12 +131,11 @@ class ChapterReadViewController: UIViewController, GuideViewDelegate {
     func loadImages() {
         guard let mangaId = mangaDetail?.id else {return}
         
-        startLoading()
-        
+        showLoading()
         DataRequester.getChapterDetail(mangaId: mangaId, chapterId: chapterID) { [weak self] (chapterDetail, error) in
             self?.chapterDetail = chapterDetail
             
-            self?.stopLoading()
+            self?.hideLoading()
             
             self?.imageViewControllers.removeAll()
             chapterDetail?.chapter?.imageObjets?.forEach({ (chapterImage) in

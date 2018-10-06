@@ -8,6 +8,7 @@
 
 import UIKit
 import TagListView
+import RxSwift
 
 class MangaListViewController: UIViewController, GenresListViewControllerDelegate {
     
@@ -16,13 +17,14 @@ class MangaListViewController: UIViewController, GenresListViewControllerDelegat
     @IBOutlet weak var genresTagListView: TagListView!
     
     var viewModel = MangaListViewModel()
+    let bag = DisposeBag()
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == "showMangaDetail"
             , let mangaDetailVC = segue.destination as? MangaDetailViewController
             , let cell = sender as? MangaListCollectionViewCell
             , let indexPath = mangaListCollectionView.indexPath(for: cell)
-            , let manga = viewModel.mangasFiltered?[indexPath.item] else {
+            , let manga = viewModel.manga(atIndex: indexPath.item) else {
             return
         }
         
@@ -39,8 +41,7 @@ class MangaListViewController: UIViewController, GenresListViewControllerDelegat
             genresTagListView.removeAllTags()
             genresTagListView.addTags(viewModel.selectedGenresLocalized)
             
-            filterManga()
-            sortManga()
+            viewModel.refreshManga()
             mangaListCollectionView.reloadData()
         }
     }
@@ -61,7 +62,15 @@ class MangaListViewController: UIViewController, GenresListViewControllerDelegat
         let nibCell = UINib(nibName: "MangaListCollectionViewCell", bundle: nil)
         mangaListCollectionView.register(nibCell, forCellWithReuseIdentifier: "MangaListCollectionViewCell")
         
-        loadMangaData()
+        showLoading()
+        viewModel.loadFirstPage { [weak self] (_, _) in
+            self?.hideLoading()
+        }
+        
+        viewModel.mangasSignal.asObservable()
+            .subscribe(onNext: { [weak self] _ in
+              self?.mangaListCollectionView.reloadData()
+            }).disposed(by: bag)
     }
     
     override func viewDidLayoutSubviews() {
@@ -81,7 +90,6 @@ class MangaListViewController: UIViewController, GenresListViewControllerDelegat
     @objc func genresAction() {
         if let navigationVC = GenresListViewController.createFromStoryboard() {
             let genresVC = navigationVC.viewControllers.first as! GenresListViewController
-            genresVC.mangas = viewModel.mangas
             genresVC.delegate = self
             present(navigationVC, animated: true, completion: nil)
         }
@@ -89,42 +97,8 @@ class MangaListViewController: UIViewController, GenresListViewControllerDelegat
     
     @objc func searchAction() {
         if let navigationVC = SearchViewController.createFromStoryboard() {
-            let searchVC = navigationVC.viewControllers.first as! SearchViewController
-            searchVC.mangas = viewModel.mangas
+//            let searchVC = navigationVC.viewControllers.first as! SearchViewController
             present(navigationVC, animated: true, completion: nil)
-        }
-    }
-    
-    
-    
-    func filterManga() {
-        viewModel.mangasFiltered = viewModel.mangas?.filter({ (manga) -> Bool in
-            
-            guard manga.canPublish() else {
-                return false
-            }
-            
-            var canPublish = true
-            
-            if viewModel.selectedGenres.count > 0 {
-                canPublish = viewModel.selectedGenres.reduce(true, { (result, genre) -> Bool in
-                    if let categories = manga.categories, categories.contains(genre) {
-                        return result && true
-                    } else {
-                        return false
-                    }
-                })
-            }
-            
-            return canPublish
-        })
-    }
-    
-    func sortManga() {
-        if (viewModel.sortByRecentUpdate) {
-            viewModel.mangasFiltered?.sort(by: { ($0.last_chapter_date ?? 0) > ($1.last_chapter_date ?? 0) })
-        } else {
-            viewModel.mangasFiltered?.sort(by: { ($0.hits ?? 0) > ($1.hits ?? 0) })
         }
     }
     
@@ -132,7 +106,8 @@ class MangaListViewController: UIViewController, GenresListViewControllerDelegat
         
         viewModel.sortByRecentUpdate = (sender.selectedSegmentIndex == 1)
         
-        sortManga()
+        viewModel.refreshManga()
+        
         mangaListCollectionView.reloadData()
         
         mangaListCollectionView.setContentOffset(CGPoint.zero, animated: true)
@@ -143,13 +118,13 @@ class MangaListViewController: UIViewController, GenresListViewControllerDelegat
 extension MangaListViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.mangasFiltered?.count ?? 0
+        return viewModel.mangasShowing.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MangaListCollectionViewCell", for: indexPath) as! MangaListCollectionViewCell
         
-        let manga = viewModel.mangasFiltered?[indexPath.item]
+        let manga = viewModel.manga(atIndex: indexPath.item)
         cell.labelTitle.text = manga?.title
         
         let placeholderImage = UIImage(named: "manga_default")
@@ -180,8 +155,7 @@ extension MangaListViewController: TagListViewDelegate {
         viewModel.selectedGenres.remove(at: indexOfGenre)
         viewModel.selectedGenresLocalized.remove(at: indexOfGenre)
         
-        filterManga()
-        sortManga()
+        viewModel.refreshManga()
         mangaListCollectionView.reloadData()
     }
 }
