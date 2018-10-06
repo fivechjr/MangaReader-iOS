@@ -33,7 +33,7 @@ class MangaListViewController: UIViewController, GenresListViewControllerDelegat
             return
         }
         
-        mangaDetailVC.mangaID = manga._id
+        mangaDetailVC.mangaDetail = manga
     }
     
     // MARK: GenresListViewControllerDelegate
@@ -103,7 +103,9 @@ class MangaListViewController: UIViewController, GenresListViewControllerDelegat
     }
     
     func loadMangaData() {
+        startLoading()
         DataRequester.getMangaList(page: 0, size: 20) { [weak self] (response, error) in
+            self?.stopLoading()
             self?.mangas = response?.mangalist
             self?.filterManga()
             self?.sortManga()

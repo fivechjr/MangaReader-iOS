@@ -113,9 +113,9 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let manga = mangasFiltered?[indexPath.item], let mangaID = manga._id {
+        if let manga = mangasFiltered?[indexPath.item] {
             let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MangaDetailViewController") as! MangaDetailViewController
-            vc.mangaID = mangaID
+            vc.mangaDetail = manga
             
             navigationController?.pushViewController(vc, animated: true)
         }

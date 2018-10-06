@@ -8,28 +8,29 @@
 
 import Foundation
 
-class ChapterImage {
+class ChapterImage: Codable {
     var number: Int?
     var imagePath: String?
     var chapterNumber: Int?
     var hitCount: Int?
     
-    init(arrayData: [Any]?) {
-        if let data = arrayData, data.count == 4 {
+    init(datas: [CodableValue?]?) {
+        
+        if let datas = datas, datas.count == 4 {
             
-            if let number = data[0] as? Int {
+            if let data = datas[0], case let CodableValue.int(number) = data {
                 self.number = number
             }
             
-            if let imagePath = data[1] as? String {
+            if let data = datas[1], case let CodableValue.string(imagePath) = data {
                 self.imagePath = imagePath
             }
             
-            if let chapterNumber = data[2] as? Int {
+            if let data = datas[2], case let CodableValue.int(chapterNumber) = data {
                 self.chapterNumber = chapterNumber
             }
             
-            if let hitCount = data[3] as? Int {
+            if let data = datas[3], case let CodableValue.int(hitCount) = data {
                 self.hitCount = hitCount
             }
         }

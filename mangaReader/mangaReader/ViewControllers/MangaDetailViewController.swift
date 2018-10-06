@@ -15,7 +15,7 @@ class MangaDetailViewController: UIViewController {
     
     var mangaDetail: Manga?
     
-    var mangaID: String!
+//    var mangaID: String!
     
 //    var showInfo: Bool = false
     
@@ -88,17 +88,17 @@ class MangaDetailViewController: UIViewController {
                 destination.chapterID = currentChapterID
                 destination.chapterObject = getChapter(withID: currentChapterID)
                 destination.mangaDetail = mangaDetail
-                destination.mangaID = mangaID
+//                destination.mangaID = mangaID
             } else if let chapterID = mangaDetail?.chapterObjects?.last?.id {
                 destination.chapterID = chapterID
                 destination.chapterObject = getChapter(withID: chapterID)
                 destination.mangaDetail = mangaDetail
-                destination.mangaID = mangaID
+//                destination.mangaID = mangaID
                 
                 recordCurrentChapter(chapterID: chapterID)
             }
             
-            recordRecentManga(mangaID: mangaID, mangaDetail: mangaDetail)
+            recordRecentManga(mangaID: mangaDetail?.id, mangaDetail: mangaDetail)
             return
         }
         
@@ -110,17 +110,17 @@ class MangaDetailViewController: UIViewController {
         destination.chapterID = chapterID
         destination.chapterObject = mangaDetail?.chapterObjects?[indexPath.item]
         destination.mangaDetail = mangaDetail
-        destination.mangaID = mangaID
+//        destination.mangaID = mangaID
         
         recordCurrentChapter(chapterID: chapterID)
         
-        recordRecentManga(mangaID: mangaID, mangaDetail: mangaDetail)
+        recordRecentManga(mangaID: mangaDetail?.id, mangaDetail: mangaDetail)
     }
     
     private func recordCurrentChapter(chapterID: String!) {
         let realm = try! Realm()
         let manChapter = MangaCurrentChapter()
-        manChapter.mangaID = mangaID
+//        manChapter.mangaID = mangaID
         manChapter.chapterID = chapterID
         manChapter.readTime = Date()
         try! realm.write {
@@ -149,9 +149,9 @@ class MangaDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         let realm = try! Realm()
-        if let currentChapter = realm.objects(MangaCurrentChapter.self).filter("mangaID = %@", mangaID).first {
-            currentChapterID = currentChapter.chapterID
-        }
+//        if let currentChapter = realm.objects(MangaCurrentChapter.self).filter("mangaID = %@", mangaDetail?._id).first {
+//            currentChapterID = currentChapter.chapterID
+//        }
         
         chaptersTableview.reloadData()
         infoTableView.reloadData()
@@ -181,19 +181,19 @@ class MangaDetailViewController: UIViewController {
         installIndicatorView()
         
         // Request detail data
-        indicatorView.startAnimating()
-        chaptersTableview.isHidden = true
-        infoTableView.isHidden = true
-        DataRequester.getMangaDetail(mangaID: mangaID) { [weak self] (mangaDetail) in
-            self?.indicatorView.stopAnimating()
-            self?.mangaDetail = mangaDetail
-            
-            self?.chaptersTableview.isHidden = false
-            self?.infoTableView.isHidden = false
-            
-            self?.chaptersTableview.reloadData()
-            self?.infoTableView.reloadData()
-        }
+//        indicatorView.startAnimating()
+//        chaptersTableview.isHidden = true
+//        infoTableView.isHidden = true
+//        DataRequester.getMangaDetail(mangaID: mangaID) { [weak self] (mangaDetail) in
+//            self?.indicatorView.stopAnimating()
+//            self?.mangaDetail = mangaDetail
+//
+//            self?.chaptersTableview.isHidden = false
+//            self?.infoTableView.isHidden = false
+//
+//            self?.chaptersTableview.reloadData()
+//            self?.infoTableView.reloadData()
+//        }
     }
 }
 
@@ -241,9 +241,9 @@ extension MangaDetailViewController: UITableViewDataSource {
             }
             
             // Update Favorite button
-            let realm = try! Realm()
-            let favObjects = realm.objects(FavoriteManga.self).filter("id = %@", mangaID)
-            cell.buttonFavorite.isSelected = (favObjects.count > 0)
+//            let realm = try! Realm()
+//            let favObjects = realm.objects(FavoriteManga.self).filter("id = %@", mangaID)
+//            cell.buttonFavorite.isSelected = (favObjects.count > 0)
             
             return cell
             
@@ -343,25 +343,25 @@ extension MangaDetailViewController: MangaDetailHeaderTableViewCellDelegate {
     }
     
     func addFavorite(cell: MangaDetailHeaderTableViewCell) {
-        let realm = try! Realm()
-        let favObjects = realm.objects(FavoriteManga.self).filter("id = %@", mangaID)
-        if favObjects.count > 0 {
-            try! realm.write {
-                realm.delete(favObjects)
-            }
-        } else {
-            
-            let favManga = FavoriteManga()
-            favManga.id = mangaID
-            favManga.name = mangaDetail?.title ?? ""
-            favManga.imagePath = mangaDetail?.image ?? ""
-            
-            try! realm.write {
-                realm.add(favManga)
-            }
-        }
-        
-        chaptersTableview.reloadData()
-        infoTableView.reloadData()
+//        let realm = try! Realm()
+//        let favObjects = realm.objects(FavoriteManga.self).filter("id = %@", mangaID)
+//        if favObjects.count > 0 {
+//            try! realm.write {
+//                realm.delete(favObjects)
+//            }
+//        } else {
+//
+//            let favManga = FavoriteManga()
+//            favManga.id = mangaID
+//            favManga.name = mangaDetail?.title ?? ""
+//            favManga.imagePath = mangaDetail?.image ?? ""
+//
+//            try! realm.write {
+//                realm.add(favManga)
+//            }
+//        }
+//
+//        chaptersTableview.reloadData()
+//        infoTableView.reloadData()
     }
 }

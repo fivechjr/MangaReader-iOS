@@ -7,11 +7,13 @@
 //
 
 import Foundation
-//import ObjectMapper
 
 class Manga: Codable {
+    var id: String? {
+        return mangaedenid
+    }
     var mangaedenid: String?
-    var _id: String?
+    private var _id: String?
     
     var aka:[String]?
     var aka_alias:[String]?

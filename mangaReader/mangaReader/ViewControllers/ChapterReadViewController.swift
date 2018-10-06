@@ -9,7 +9,6 @@
 import UIKit
 import AlamofireImage
 import SnapKit
-import NVActivityIndicatorView
 import RealmSwift
 
 class ChapterReadViewController: UIViewController, GuideViewDelegate {
@@ -17,7 +16,7 @@ class ChapterReadViewController: UIViewController, GuideViewDelegate {
     var chapterID: String!
     var chapterObject: Chapter?
     var mangaDetail: Manga?
-    var mangaID: String!
+//    var mangaID: String!
 
     var chapterDetail: ChapterDetailResponse?
     
@@ -130,17 +129,17 @@ class ChapterReadViewController: UIViewController, GuideViewDelegate {
     }
     
     func loadImages() {
+        guard let mangaId = mangaDetail?.id else {return}
         
-        let activityData = ActivityData(size:CGSize(width: 35, height: 35), type: .ballPulse, color: UIColor.black)
-        NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData)
+        startLoading()
         
-        DataRequester.getChapterDetail(chapterID: chapterID) { [weak self] (chapterDetail) in
+        DataRequester.getChapterDetail(mangaId: mangaId, chapterId: chapterID) { [weak self] (chapterDetail, error) in
             self?.chapterDetail = chapterDetail
             
-            NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+            self?.stopLoading()
             
             self?.imageViewControllers.removeAll()
-            chapterDetail?.imageObjets?.forEach({ (chapterImage) in
+            chapterDetail?.chapter?.imageObjets?.forEach({ (chapterImage) in
                 let imageVC = ImageViewController()
                 imageVC.chapterImage = chapterImage
                 imageVC.delegate = self
@@ -188,7 +187,7 @@ class ChapterReadViewController: UIViewController, GuideViewDelegate {
         
         cancelDownload()
         
-        chapterDetail?.imageObjets?.forEach({ (chapterImage) in
+        chapterDetail?.chapter?.imageObjets?.forEach({ (chapterImage) in
             if let imagePath = chapterImage.imagePath
                 , let urlString = DataRequester.getImageUrl(withImagePath: imagePath)
                 , let url = URL(string: urlString) {
@@ -207,9 +206,11 @@ class ChapterReadViewController: UIViewController, GuideViewDelegate {
     }
     
     private func recordCurrentChapter(chapterID: String!) {
+        guard let mangaId = mangaDetail?.id else {return}
+        
         let realm = try! Realm()
         let manChapter = MangaCurrentChapter()
-        manChapter.mangaID = mangaID
+        manChapter.mangaID = mangaId
         manChapter.chapterID = chapterID
         manChapter.readTime = Date()
         try! realm.write {

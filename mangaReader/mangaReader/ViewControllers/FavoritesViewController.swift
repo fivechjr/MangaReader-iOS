@@ -117,7 +117,7 @@ extension FavoritesViewController: UICollectionViewDataSource, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let manga = favoriteManga?[indexPath.item], manga.id.count > 0 {
             let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MangaDetailViewController") as! MangaDetailViewController
-            vc.mangaID = manga.id
+//            vc.mangaDetail = manga
             
             navigationController?.pushViewController(vc, animated: true)
         }

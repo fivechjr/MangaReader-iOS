@@ -7,39 +7,20 @@
 //
 
 import Foundation
-import ObjectMapper
 
-class ChapterDetailResponse: Mappable {
-    
-    var images:[Any]?
-    var imageObjets:[ChapterImage]?
-    
-    required init?(map: Map) {
-        
-    }
-    
-    func mapping(map: Map) {
-        images <- map["images"]
-    }
-    
-    
+class ChapterDetailResponse: Codable {
+    var result: Int?
+    var chapter: ChapterDetail?
 }
 
-/*
- {
- "images": [
- [
- 1,
- "42/42afe7a499ced293a5f197165c39e137f579e816ef352e7a2b1fad14.jpg",
- 760,
- 1721
- ],
- [
- 0,
- "f7/f7ed3e4565d66326151fe31e1d2c8d3700072c4641bb222382f12875.jpg",
- 700,
- 665
- ]
- ]
- }
- */
+class ChapterDetail: Codable {
+    var _id: String?
+    var chapterid: String?
+    var mangaedenid: String?
+    var url: String?
+    
+    var images:[[CodableValue?]]?
+    var imageObjets:[ChapterImage]? {
+        return images?.map {ChapterImage(datas: $0)}
+    }
+}

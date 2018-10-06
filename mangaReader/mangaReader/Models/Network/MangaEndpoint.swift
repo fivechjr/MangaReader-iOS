@@ -18,6 +18,10 @@ import Foundation
 
 enum MangaEndpoint {
     case mangaList(pageIndex: Int, pageSize: Int)
+    case searchManga(keyword: String, pageIndex: Int, pageSize: Int)
+    case chapter(mangaId: String, chapterId: String)
+    case categoryManga(categoryName: String, pageIndex: Int, pageSize: Int)
+    case categories
     
     var baseUrl: String {
         return "http://dym1.com:8000/api/"
@@ -27,6 +31,14 @@ enum MangaEndpoint {
         switch self {
         case .mangaList(let pageIndex, let pageSize):
             return baseUrl + "mangaList/pageIndex/\(pageIndex)/pageSize/\(pageSize)"
+        case .searchManga(let keyword, let pageIndex, let pageSize):
+            return baseUrl + "searchMangaList/keyword/\(keyword)/pageIndex/\(pageIndex)/pageSize/\(pageSize)"
+        case .chapter(let mangaId, let chapterId):
+            return baseUrl + "mangaid/\(mangaId)/chapterid/\(chapterId)"
+        case .categoryManga(let categoryName, let pageIndex, let pageSize):
+            return baseUrl + "manga/categoryName/\(categoryName)/pageIndex/\(pageIndex)/pageSize/\(pageSize)"
+        case .categories:
+            return baseUrl + "manga/categoryNames"
         }
     }
 }

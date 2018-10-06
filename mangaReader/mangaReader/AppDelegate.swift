@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         AdsManager.sharedInstance.initAdsConfig()
         
-        DataRequester.copyCacheFileFromBundleIfNotExist()
+//        DataRequester.copyCacheFileFromBundleIfNotExist()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.checkDisclaimer()

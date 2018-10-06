@@ -7,3 +7,15 @@
 //
 
 import Foundation
+import NVActivityIndicatorView
+
+extension UIViewController {
+    func startLoading() {
+        let activityData = ActivityData(size:CGSize(width: 35, height: 35), type: .ballPulse, color: UIColor.black)
+        NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData)
+    }
+    
+    func stopLoading() {
+        NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+    }
+}
