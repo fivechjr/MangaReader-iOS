@@ -43,6 +43,7 @@
 		8C96735B21679AA200DE5D69 /* MangaEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C96735A21679AA200DE5D69 /* MangaEndpoint.swift */; };
 		8C96735D2167BEA700DE5D69 /* CodableValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C96735C2167BEA700DE5D69 /* CodableValue.swift */; };
 		8C96736021686A5D00DE5D69 /* UIViewController+Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C96735F21686A5D00DE5D69 /* UIViewController+Loading.swift */; };
+		8C96736321686F0600DE5D69 /* MangaListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C96736221686F0600DE5D69 /* MangaListViewModel.swift */; };
 		8CA66E47208FFFF10014DB39 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA66E46208FFFF10014DB39 /* Constants.swift */; };
 		8CD878C120A16B4100E3B362 /* AdsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD878C020A16B4100E3B362 /* AdsManager.swift */; };
 		8CD98FA320A52B23002C448F /* GuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD98FA220A52B23002C448F /* GuideView.swift */; };
@@ -98,6 +99,7 @@
 		8C96735A21679AA200DE5D69 /* MangaEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaEndpoint.swift; sourceTree = "<group>"; };
 		8C96735C2167BEA700DE5D69 /* CodableValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableValue.swift; sourceTree = "<group>"; };
 		8C96735F21686A5D00DE5D69 /* UIViewController+Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Loading.swift"; sourceTree = "<group>"; };
+		8C96736221686F0600DE5D69 /* MangaListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaListViewModel.swift; sourceTree = "<group>"; };
 		8CA66E46208FFFF10014DB39 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		8CD878C020A16B4100E3B362 /* AdsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdsManager.swift; sourceTree = "<group>"; };
 		8CD878EF20A17BFD00E3B362 /* mangaReader-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "mangaReader-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 				8CA66E45208FFFD90014DB39 /* Util */,
 				8C904D872088813800A599E9 /* Views */,
 				8C904D802087892D00A599E9 /* ViewControllers */,
+				8C96736121686EE500DE5D69 /* ViewModels */,
 				8CF7EFAB2084560000E6AB6C /* Models */,
 				8C8EAC7E206A141900803BD1 /* AppDelegate.swift */,
 				8C16A8E720A134CD009D5692 /* InfoPlist.strings */,
@@ -240,6 +243,14 @@
 				8C96735F21686A5D00DE5D69 /* UIViewController+Loading.swift */,
 			);
 			path = extensions;
+			sourceTree = "<group>";
+		};
+		8C96736121686EE500DE5D69 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				8C96736221686F0600DE5D69 /* MangaListViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		8CA66E45208FFFD90014DB39 /* Util */ = {
@@ -372,6 +383,8 @@
 				"${BUILT_PRODUCTS_DIR}/PersonalizedAdConsent/PersonalizedAdConsent.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/TagListView/TagListView.framework",
 				"${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework",
@@ -387,6 +400,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PersonalizedAdConsent.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TagListView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast_Swift.framework",
@@ -435,6 +450,7 @@
 				8CF7EFAD2084565000E6AB6C /* MangaListResponse.swift in Sources */,
 				8CD98FA320A52B23002C448F /* GuideView.swift in Sources */,
 				8CF7EFAF208456FB00E6AB6C /* MangaResonse.swift in Sources */,
+				8C96736321686F0600DE5D69 /* MangaListViewModel.swift in Sources */,
 				8C5EA97120F0AF0A007E8A7D /* ConsentManager.swift in Sources */,
 				8C8EAC7F206A141900803BD1 /* AppDelegate.swift in Sources */,
 				8C88E389209042FF004B54D9 /* SearchViewController.swift in Sources */,
