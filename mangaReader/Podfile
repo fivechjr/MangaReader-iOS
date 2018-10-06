@@ -14,7 +14,7 @@ target 'mangaReader' do
     pod 'Toast-Swift', '~> 3.0.1'
     
     pod 'VungleSDK-iOS', '~> 6.2.0'
-    pod 'Google-Mobile-Ads-SDK', '~> 7.23.0'
+    pod 'Google-Mobile-Ads-SDK', '~> 7.31.0'
     pod 'UnityAds', '~> 2.1.0'
     
     pod 'FacebookCore', '~> 0.3.1'

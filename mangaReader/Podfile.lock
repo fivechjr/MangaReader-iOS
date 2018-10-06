@@ -13,7 +13,7 @@ PODS:
     - FBSDKCoreKit (~> 4.33)
   - FBSDKCoreKit (4.34.0):
     - Bolts (~> 1.7)
-  - Google-Mobile-Ads-SDK (7.23.0)
+  - Google-Mobile-Ads-SDK (7.31.0)
   - NVActivityIndicatorView (4.1.1):
     - NVActivityIndicatorView/Presenter (= 4.1.1)
   - NVActivityIndicatorView/Presenter (4.1.1)
@@ -33,7 +33,7 @@ DEPENDENCIES:
   - Alamofire (~> 4.6.0)
   - AlamofireImage (~> 3.3)
   - FacebookCore (~> 0.3.1)
-  - Google-Mobile-Ads-SDK (~> 7.23.0)
+  - Google-Mobile-Ads-SDK (~> 7.31.0)
   - NVActivityIndicatorView (~> 4.1.1)
   - PersonalizedAdConsent
   - RealmSwift (~> 3.7.4)
@@ -67,7 +67,7 @@ SPEC CHECKSUMS:
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   FacebookCore: 33078ef1d7d76b73f7e8c990dca7d3ea6db8d22f
   FBSDKCoreKit: 0ff57f093b85c8c9d5aba697d3edf68a8960ce78
-  Google-Mobile-Ads-SDK: a43dc8efdb566c74d00ac6934c781de969348d80
+  Google-Mobile-Ads-SDK: 6e529e748b45507a2ca904e0b5a52669ba3920c4
   NVActivityIndicatorView: 60109b9bf46efc2e71ab81453196ccdfdfeea870
   PersonalizedAdConsent: d42d32065787eca61a9a334d2f786e6f81ebb4c7
   Realm: a469bb59e33f9926102ccaea4349822c53b9117e
@@ -78,6 +78,6 @@ SPEC CHECKSUMS:
   UnityAds: 7ff4f1f17ab02b50f92646a353db25d23a4694af
   VungleSDK-iOS: a8665f4e826ad688135429f4618df4235f8738c7
 
-PODFILE CHECKSUM: d6ff24afd8d5b8b3207e57577e60a4b9c8c289ee
+PODFILE CHECKSUM: 811428f646e98f9906c2667d1366c54e003483f1
 
 COCOAPODS: 1.5.3
