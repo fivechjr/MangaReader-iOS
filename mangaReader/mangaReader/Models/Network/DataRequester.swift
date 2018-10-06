@@ -10,6 +10,8 @@ import Foundation
 import Alamofire
 
 typealias MangaListResponseHandler = (MangaListResponse?, Error?) -> Void
+typealias CategoryNamesResponseHandler = (CategoryNamesResponse?, Error?) -> Void
+typealias ChapterDetailResponseHandler = (ChapterDetailResponse?, Error?) -> Void
 
 class DataRequester {
     
@@ -21,8 +23,7 @@ class DataRequester {
         return nil
     }
     
-    static func getChapterDetail(mangaId: String, chapterId: String, completion:@escaping (ChapterDetailResponse?, Error?)->Void) {
-        
+    static func getChapterDetail(mangaId: String, chapterId: String, completion:@escaping ChapterDetailResponseHandler) {
         let path = MangaEndpoint.chapter(mangaId: mangaId, chapterId: chapterId).path
         get(urlString: path, responseType: ChapterDetailResponse.self, completion: completion)
     }
@@ -30,6 +31,11 @@ class DataRequester {
     static func getMangaList(page:Int, size:Int, completion:@escaping MangaListResponseHandler) {
         let path = MangaEndpoint.mangaList(pageIndex: page, pageSize: size).path
         get(urlString: path, responseType: MangaListResponse.self, completion: completion)
+    }
+    
+    static func getCategories(completion:@escaping CategoryNamesResponseHandler) {
+        let path = MangaEndpoint.categories.path
+        get(urlString: path, responseType: CategoryNamesResponse.self, completion: completion)
     }
 }
 

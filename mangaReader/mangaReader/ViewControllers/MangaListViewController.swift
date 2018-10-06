@@ -19,6 +19,7 @@ class MangaListViewController: UIViewController, GenresListViewControllerDelegat
     
     var viewModel = MangaListViewModel()
     let bag = DisposeBag()
+    let refreshControl = UIRefreshControl()
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == "showMangaDetail"
@@ -69,13 +70,6 @@ class MangaListViewController: UIViewController, GenresListViewControllerDelegat
               self?.mangaListCollectionView.reloadData()
             }).disposed(by: bag)
         
-        // pull to refresh
-        mangaListCollectionView.addPullToRefresh { [weak self] in
-            self?.viewModel.loadFirstPage(completion: { (_, _) in
-                self?.mangaListCollectionView.pullToRefreshView.stopAnimating()
-            })
-        }
-        
         // load more
         mangaListCollectionView.addInfiniteScrolling { [weak self] in
             self?.viewModel.loadNextPage(completion: { (_, _) in
@@ -83,8 +77,19 @@ class MangaListViewController: UIViewController, GenresListViewControllerDelegat
             })
         }
         
-        // Load data
-        mangaListCollectionView.triggerPullToRefresh()
+        // Pull to refresh
+        mangaListCollectionView.addSubview(refreshControl)
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        refreshControl.beginRefreshing()
+        viewModel.loadFirstPage(completion: { [weak self] (_, _) in
+            self?.refreshControl.endRefreshing()
+        })
+    }
+    
+    @objc func refresh() {
+        viewModel.loadFirstPage(completion: { [weak self] (_, _) in
+            self?.refreshControl.endRefreshing()
+        })
     }
     
     override func viewDidLayoutSubviews() {

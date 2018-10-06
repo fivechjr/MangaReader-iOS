@@ -42,3 +42,7 @@ enum MangaEndpoint {
         }
     }
 }
+
+/*
+ http://dym1.com:8000/api/manga/categoryNames
+ */
