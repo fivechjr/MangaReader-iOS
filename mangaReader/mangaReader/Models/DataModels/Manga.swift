@@ -58,14 +58,13 @@ class Manga: Codable {
     
     func canPublish() -> Bool {
         var canPublish = true
-        if let categories = categories, categories.contains("Adult") {
+        
+        if let categories = categories, Utility.strings(categories, containsAny: SensitiveData.categories) {
             canPublish = false
         }
         
-        if let title = title {
-            if title.lowercased().contains("sex") || title == "High School DxD" {
-                canPublish = false
-            }
+        if let title = title, Utility.string(title, containsAny: SensitiveData.titles) {
+            canPublish = false
         }
         
         return canPublish

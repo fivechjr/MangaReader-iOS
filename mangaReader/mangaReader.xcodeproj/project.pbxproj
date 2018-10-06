@@ -49,6 +49,7 @@
 		8C96736C216915D700DE5D69 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C96736B216915D700DE5D69 /* Utility.swift */; };
 		8C96736E2169175100DE5D69 /* UIViewController+Extra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C96736D2169175100DE5D69 /* UIViewController+Extra.swift */; };
 		8C967370216918D800DE5D69 /* GenresListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C96736F216918D800DE5D69 /* GenresListViewModel.swift */; };
+		8C9673722169217700DE5D69 /* SensitiveData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9673712169217700DE5D69 /* SensitiveData.swift */; };
 		8CA66E47208FFFF10014DB39 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA66E46208FFFF10014DB39 /* Constants.swift */; };
 		8CD878C120A16B4100E3B362 /* AdsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD878C020A16B4100E3B362 /* AdsManager.swift */; };
 		8CD98FA320A52B23002C448F /* GuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD98FA220A52B23002C448F /* GuideView.swift */; };
@@ -109,6 +110,7 @@
 		8C96736B216915D700DE5D69 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		8C96736D2169175100DE5D69 /* UIViewController+Extra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extra.swift"; sourceTree = "<group>"; };
 		8C96736F216918D800DE5D69 /* GenresListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenresListViewModel.swift; sourceTree = "<group>"; };
+		8C9673712169217700DE5D69 /* SensitiveData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensitiveData.swift; sourceTree = "<group>"; };
 		8CA66E46208FFFF10014DB39 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		8CD878C020A16B4100E3B362 /* AdsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdsManager.swift; sourceTree = "<group>"; };
 		8CD878EF20A17BFD00E3B362 /* mangaReader-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "mangaReader-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -289,6 +291,7 @@
 			isa = PBXGroup;
 			children = (
 				8C96736B216915D700DE5D69 /* Utility.swift */,
+				8C9673712169217700DE5D69 /* SensitiveData.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -496,6 +499,7 @@
 				8C8EAC7F206A141900803BD1 /* AppDelegate.swift in Sources */,
 				8C88E389209042FF004B54D9 /* SearchViewController.swift in Sources */,
 				8C60C964209428380069EFDB /* EmptyInfoView.swift in Sources */,
+				8C9673722169217700DE5D69 /* SensitiveData.swift in Sources */,
 				8C4EFCE2208D47DE007D342C /* MangaDetailTabView.swift in Sources */,
 				8C4EFCDF208CD0B5007D342C /* MangaDetailHeaderTableViewCell.swift in Sources */,
 				8C60C95E2092E5AA0069EFDB /* GenresListViewController.swift in Sources */,

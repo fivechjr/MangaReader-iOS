@@ -10,7 +10,7 @@ import Foundation
 
 class GenresListViewModel {
     var genres: [String] {
-        return DataManager.shared.categories
+        return DataManager.shared.legalCategories
     }
     
     func title(atIndex index: Int) -> String? {
