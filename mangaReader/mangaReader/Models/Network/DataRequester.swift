@@ -37,6 +37,11 @@ class DataRequester {
         let path = MangaEndpoint.categories.path
         get(urlString: path, responseType: CategoryNamesResponse.self, completion: completion)
     }
+    
+    static func searchManga(withKeyword keyword: String, page:Int, size:Int, completion:@escaping MangaListResponseHandler) {
+        let path = MangaEndpoint.searchManga(keyword: keyword, pageIndex: page, pageSize: size).path
+        get(urlString: path, responseType: MangaListResponse.self, completion: completion)
+    }
 }
 
 extension DataRequester {

@@ -23,7 +23,7 @@ class MangaListViewModel {
     var selectedGenresLocalized: [String] = []
     
     var currentPage: Int = 0
-    let pageSize: Int = 20
+    let pageSize: Int = 21
     
     func manga(atIndex index: Int) -> Manga? {
         if index < mangasShowing.count {
