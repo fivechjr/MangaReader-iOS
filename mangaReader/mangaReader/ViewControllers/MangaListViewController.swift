@@ -143,15 +143,10 @@ extension MangaListViewController: UICollectionViewDataSource, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MangaListCollectionViewCell", for: indexPath) as! MangaListCollectionViewCell
         
-        let manga = viewModel.manga(atIndex: indexPath.item)
-        cell.labelTitle.text = manga?.title
+        guard let manga = viewModel.manga(atIndex: indexPath.row) else {return cell}
         
-        let placeholderImage = UIImage(named: "manga_default")
-        cell.imageViewCover.image = placeholderImage
-        if let imageURL = manga?.imagePath
-            , let url = URL(string: imageURL){
-            cell.imageViewCover.af_setImage(withURL: url, placeholderImage: placeholderImage)
-        }
+        let cellViewModel = MangaListCollectionCellViewModel(manga: manga)
+        cell.viewModel = cellViewModel
         
         return cell
     }

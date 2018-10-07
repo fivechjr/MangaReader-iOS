@@ -228,6 +228,7 @@
 		8C904D872088813800A599E9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8C9673752169CFB600DE5D69 /* ViewModels */,
 				8C904D762085D1BB00A599E9 /* MangaListCollectionViewCell.swift */,
 				8C88E38A209045A8004B54D9 /* MangaListCollectionViewCell.xib */,
 				8C4EFCDD208CD0B5007D342C /* MangaDetailHeaderTableViewCell.swift */,
@@ -297,6 +298,13 @@
 				8C9673712169217700DE5D69 /* SensitiveData.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		8C9673752169CFB600DE5D69 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		8CA66E45208FFFD90014DB39 /* Util */ = {

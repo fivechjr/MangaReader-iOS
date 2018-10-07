@@ -79,24 +79,21 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MangaListCollectionViewCell", for: indexPath) as! MangaListCollectionViewCell
         
-        let manga = viewModel.manga(atIndex: indexPath.row)
-        cell.labelTitle.text = manga?.title
+        guard let manga = viewModel.manga(atIndex: indexPath.row) else {return cell}
         
-        let placeholderImage = UIImage(named: "manga_default")
-        cell.imageViewCover.image = placeholderImage
-        if let imageURL = manga?.imagePath
-            , let url = URL(string: imageURL){
-            cell.imageViewCover.af_setImage(withURL: url, placeholderImage: placeholderImage)
-        }
+        let cellViewModel = MangaListCollectionCellViewModel(manga: manga)
+        cell.viewModel = cellViewModel
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        guard let manga = viewModel.manga(atIndex: indexPath.row) else {return}
+        
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MangaDetailViewController") as! MangaDetailViewController
         
-        vc.mangaDetail = viewModel.manga(atIndex: indexPath.row)
+        vc.mangaDetail = manga
         
         navigationController?.pushViewController(vc, animated: true)
     }
