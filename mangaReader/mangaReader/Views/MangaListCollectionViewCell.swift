@@ -32,24 +32,3 @@ class MangaListCollectionViewCell: UICollectionViewCell {
         imageViewCover.af_setImage(withURL: imageURL, placeholderImage: viewModel?.placeHolderImage)
     }
 }
-
-class MangaListCollectionCellViewModel {
-    private var manga: Manga
-    
-    init(manga: Manga) {
-        self.manga = manga
-    }
-    
-    var title: String? {
-        return manga.title
-    }
-    
-    var placeHolderImage: UIImage? {
-        return UIImage(named: "manga_default")
-    }
-    
-    var imageURL: URL? {
-        guard let imageURL = manga.imagePath else { return nil }
-        return URL(string: imageURL)
-    }
-}

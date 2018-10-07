@@ -8,7 +8,6 @@
 
 import UIKit
 import AlamofireImage
-import RealmSwift
 import NVActivityIndicatorView
 
 class MangaDetailViewController: UIViewController {
@@ -32,40 +31,6 @@ class MangaDetailViewController: UIViewController {
         }
     }
     
-    private func getChapter(withID chapterID: String?) ->Chapter? {
-        guard let chapterID = chapterID, let chapterObjects = viewModel.manga.chapterObjects else {
-            return nil
-        }
-        
-        var theChapter: Chapter? = nil
-        
-        for (_, chapter) in chapterObjects.enumerated() {
-            if let id = chapter.id, id == chapterID {
-                theChapter = chapter
-                break
-            }
-        }
-        
-        return theChapter
-    }
-    
-    private func getChapterIndex(withID chapterID: String?) ->Int? {
-        guard let chapterID = chapterID, let chapterObjects = viewModel.manga.chapterObjects else {
-            return nil
-        }
-        
-        var theChapterIndex: Int? = nil
-        
-        for (index, chapter) in chapterObjects.enumerated() {
-            if let id = chapter.id, id == chapterID {
-                theChapterIndex = index
-                break
-            }
-        }
-        
-        return theChapterIndex
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         guard let id = segue.identifier, id == "readChapter" else {
@@ -74,26 +39,28 @@ class MangaDetailViewController: UIViewController {
         
         let destination = segue.destination as! ChapterReadViewController
         
+        // If sender is not from cell
         guard let cell = sender as? UITableViewCell else {
-            
+            // if has recorded current chapter, read the current chapter
             if let currentChapterID = viewModel.currentChapterID {
                 destination.chapterID = currentChapterID
-                destination.chapterObject = getChapter(withID: currentChapterID)
+                destination.chapterObject = viewModel.getChapter(withID: currentChapterID)
                 destination.mangaDetail = viewModel.manga
-//                destination.mangaID = mangaID
+
             } else if let chapterID = viewModel.manga.chapterObjects?.last?.id {
+                // else, read the last chapter
                 destination.chapterID = chapterID
-                destination.chapterObject = getChapter(withID: chapterID)
+                destination.chapterObject = viewModel.getChapter(withID: chapterID)
                 destination.mangaDetail = viewModel.manga
-//                destination.mangaID = mangaID
                 
-                recordCurrentChapter(chapterID: chapterID)
+                viewModel.recordCurrentChapter(chapterId: chapterID)
             }
             
-            recordRecentManga(mangaID: viewModel.manga.id, mangaDetail: viewModel.manga)
+            viewModel.recordRecentManga()
             return
         }
         
+        // If sender is from cell, read the chapter related to the cell
         guard let indexPath = chaptersTableview.indexPath(for: cell)
             , let chapterID = viewModel.manga.chapterObjects?[indexPath.item].id else {
             return
@@ -102,48 +69,14 @@ class MangaDetailViewController: UIViewController {
         destination.chapterID = chapterID
         destination.chapterObject = viewModel.manga.chapterObjects?[indexPath.item]
         destination.mangaDetail = viewModel.manga
-//        destination.mangaID = mangaID
         
-        recordCurrentChapter(chapterID: chapterID)
-        
-        recordRecentManga(mangaID: viewModel.manga.id, mangaDetail: viewModel.manga)
-    }
-    
-    private func recordCurrentChapter(chapterID: String!) {
-        let realm = try! Realm()
-        let manChapter = MangaCurrentChapter()
-//        manChapter.mangaID = mangaID
-        manChapter.chapterID = chapterID
-        manChapter.readTime = Date()
-        try! realm.write {
-            realm.add(manChapter, update:true)
-        }
-        
-        viewModel.currentChapterID = chapterID
-    }
-    
-    private func recordRecentManga(mangaID: String!, mangaDetail: Manga?) {
-        
-        guard let mangaDetail = mangaDetail, let title = mangaDetail.title, let imagePath = mangaDetail.image else {
-            return
-        }
-        
-        let realm = try! Realm()
-        let recentManga = RecentManga()
-        recentManga.id = mangaID
-        recentManga.name = title
-        recentManga.imagePath = imagePath
-        recentManga.readTime = Date()
-        try! realm.write {
-            realm.add(recentManga, update:true)
-        }
+        viewModel.recordCurrentChapter(chapterId: chapterID)
+        viewModel.recordRecentManga()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        let realm = try! Realm()
-        if let mangaId = viewModel.manga.id, let currentChapter = realm.objects(MangaCurrentChapter.self).filter("mangaID = %@", mangaId).first {
-            viewModel.currentChapterID = currentChapter.chapterID
-        }
+        super.viewWillAppear(animated)
+        viewModel.getCurrentChapterID()
         
         chaptersTableview.reloadData()
         infoTableView.reloadData()
@@ -172,7 +105,7 @@ class MangaDetailViewController: UIViewController {
         
         installIndicatorView()
         
-        // Request detail data
+        // TODO: if no manga data, Request detail data
 //        indicatorView.startAnimating()
 //        chaptersTableview.isHidden = true
 //        infoTableView.isHidden = true
@@ -216,26 +149,7 @@ extension MangaDetailViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "MangaDetailHeaderTableViewCell", for: indexPath) as! MangaDetailHeaderTableViewCell
             
             cell.delegate = self
-            cell.labelBookTitle.text = viewModel.manga.title
-            cell.labelAuthorName.text = viewModel.manga.author
-            cell.labelStatus.text = ((viewModel.manga.status ?? 0) == 1) ? NSLocalizedString("Completed", comment: "") : NSLocalizedString("Ongoing", comment: "")
-            cell.labelChapterInfo.text = "\((viewModel.manga.chapters?.count ?? 0)) \(NSLocalizedString("Chapters", comment: ""))"
-            if let imageURL = viewModel.manga.imagePath
-                , let url = URL(string: imageURL){
-                cell.imageViewCover.af_setImage(withURL: url)
-            }
-            
-            // Update reading button
-            if let _ = viewModel.currentChapterID {
-                cell.buttonStart.setTitle(NSLocalizedString("Continue Reading", comment: ""), for: .normal)
-            } else {
-                cell.buttonStart.setTitle(NSLocalizedString("Start Reading", comment: ""), for: .normal)
-            }
-            
-            // Update Favorite button
-//            let realm = try! Realm()
-//            let favObjects = realm.objects(FavoriteManga.self).filter("id = %@", mangaID)
-//            cell.buttonFavorite.isSelected = (favObjects.count > 0)
+            cell.viewModel = MangaDetailHeaderCellModel(manga: viewModel.manga, currentChapterId: viewModel.currentChapterID, isFavorite: viewModel.isFavorite)
             
             return cell
             
@@ -335,25 +249,9 @@ extension MangaDetailViewController: MangaDetailHeaderTableViewCellDelegate {
     }
     
     func addFavorite(cell: MangaDetailHeaderTableViewCell) {
-//        let realm = try! Realm()
-//        let favObjects = realm.objects(FavoriteManga.self).filter("id = %@", mangaID)
-//        if favObjects.count > 0 {
-//            try! realm.write {
-//                realm.delete(favObjects)
-//            }
-//        } else {
-//
-//            let favManga = FavoriteManga()
-//            favManga.id = mangaID
-//            favManga.name = mangaDetail?.title ?? ""
-//            favManga.imagePath = mangaDetail?.image ?? ""
-//
-//            try! realm.write {
-//                realm.add(favManga)
-//            }
-//        }
-//
-//        chaptersTableview.reloadData()
-//        infoTableView.reloadData()
+        viewModel.addFavorite()
+
+        chaptersTableview.reloadData()
+        infoTableView.reloadData()
     }
 }

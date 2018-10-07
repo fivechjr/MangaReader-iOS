@@ -11,3 +11,7 @@ import UIKit
 struct Color {
     static let blue = UIColor(red: 21/255.0, green: 126/255.0, blue: 251/255.0, alpha: 1)
 }
+
+enum ImageConstant: String {
+    case placeHolder = "manga_default"
+}

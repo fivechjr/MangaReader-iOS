@@ -24,6 +24,27 @@ class MangaDetailHeaderTableViewCell: UITableViewCell {
     
     weak var delegate: MangaDetailHeaderTableViewCellDelegate?
     
+    var viewModel: MangaDetailHeaderCellModel! {
+        didSet {
+            updateUI()
+        }
+    }
+    
+    func updateUI() {
+        labelBookTitle.text = viewModel.bookTitle
+        labelAuthorName.text = viewModel.authorName
+        labelStatus.text = viewModel.statusText
+        labelChapterInfo.text = viewModel.chapterCountText
+        if let imageURL = viewModel.imagePath
+            , let url = URL(string: imageURL){
+            imageViewCover.af_setImage(withURL: url, placeholderImage: viewModel.placeHolderImage)
+        }
+        
+        buttonStart.setTitle(viewModel.startButtonText, for: .normal)
+        
+        buttonFavorite.isSelected = viewModel.isFavorite
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -44,5 +65,4 @@ class MangaDetailHeaderTableViewCell: UITableViewCell {
     @IBAction func startReadingAction(_ sender: Any) {
         delegate?.startReading(cell: self)
     }
-    
 }

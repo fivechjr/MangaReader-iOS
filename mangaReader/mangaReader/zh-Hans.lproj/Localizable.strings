@@ -10,8 +10,11 @@
 "Completed" = "状态:已完结";
 "Ongoing" = "状态:连载中";
 "Manga Detail" = "漫画详情";
+
+"No Chapters" = "没有章节";
 "Chapters" = "章节";
 "Chapter" = "章节";
+
 "Info" = "详情";
 "Disclaimer" = "免责声明";
 "Feedback" = "用户反馈";

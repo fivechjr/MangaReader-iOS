@@ -10,8 +10,11 @@
 "Completed" = "状態：終わった";
 "Ongoing" = "状態：連載中";
 "Manga Detail" = "漫画の詳細";
+
+"No Chapters" = "章なし";
 "Chapters" = "章節";
 "Chapter" = "章節";
+
 "Info" = "詳細";
 "Disclaimer" = "免責声明";
 "Feedback" = "フィードバック";

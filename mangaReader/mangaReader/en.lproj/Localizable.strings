@@ -10,8 +10,11 @@
 "Completed" = "Completed";
 "Ongoing" = "Ongoing";
 "Manga Detail" = "Manga Detail";
+
+"No Chapters" = "No Chapters";
 "Chapters" = "Chapters";
 "Chapter" = "Chapter";
+
 "Info" = "Info";
 "Disclaimer" = "Disclaimer";
 "Feedback" = "Feedback";

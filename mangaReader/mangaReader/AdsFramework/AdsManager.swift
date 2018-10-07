@@ -236,7 +236,7 @@ extension AdsManager {
     
     func showRandomAdsIfComfortable() {
         if isComfortableToShowAds() {
-            showRandomAds()
+//            showRandomAds()
         }
     }
     

@@ -48,6 +48,11 @@ class Manga: Codable {
     
     var random: [Double]?
     
+    var isCompleted: Bool {
+        guard let status = status else {return false}
+        return status == 1
+    }
+    
     var chapterObjects: [Chapter]? {
         return chapters?.map {Chapter(datas: $0)}
     }
