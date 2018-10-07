@@ -93,7 +93,7 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
         
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MangaDetailViewController") as! MangaDetailViewController
         
-        vc.mangaDetail = manga
+        vc.viewModel = MangaDetailViewModel(manga: manga)
         
         navigationController?.pushViewController(vc, animated: true)
     }

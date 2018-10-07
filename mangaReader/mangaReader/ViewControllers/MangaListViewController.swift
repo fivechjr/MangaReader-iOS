@@ -30,7 +30,7 @@ class MangaListViewController: UIViewController, GenresListViewControllerDelegat
             return
         }
         
-        mangaDetailVC.mangaDetail = manga
+        mangaDetailVC.viewModel = MangaDetailViewModel(manga: manga)
     }
     
     // MARK: GenresListViewControllerDelegate

@@ -21,6 +21,7 @@ class DataManager {
     func loadData() {
         DataRequester.getCategories { [weak self] (response, error) in
             guard let `self` = self else {return}
+            self.categories.removeAll()
             self.categories.append(contentsOf: response?.categoryNames ?? [])
             self.legalCategories = self.categories.compactMap { Utility.string($0, containsAny: SensitiveData.categories) ? nil : $0}
             

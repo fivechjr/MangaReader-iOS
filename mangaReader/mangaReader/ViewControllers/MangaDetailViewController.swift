@@ -13,15 +13,7 @@ import NVActivityIndicatorView
 
 class MangaDetailViewController: UIViewController {
     
-    var mangaDetail: Manga?
-    
-//    var mangaID: String!
-    
-//    var showInfo: Bool = false
-    
-    var currentChapterID: String?
-    
-    var chaptersContentOffset: CGPoint = CGPoint.zero
+    var viewModel: MangaDetailViewModel!
     
     @IBOutlet weak var chaptersTableview: UITableView!
     @IBOutlet weak var infoTableView: UITableView!
@@ -41,7 +33,7 @@ class MangaDetailViewController: UIViewController {
     }
     
     private func getChapter(withID chapterID: String?) ->Chapter? {
-        guard let chapterID = chapterID, let chapterObjects = mangaDetail?.chapterObjects else {
+        guard let chapterID = chapterID, let chapterObjects = viewModel.manga.chapterObjects else {
             return nil
         }
         
@@ -58,7 +50,7 @@ class MangaDetailViewController: UIViewController {
     }
     
     private func getChapterIndex(withID chapterID: String?) ->Int? {
-        guard let chapterID = chapterID, let chapterObjects = mangaDetail?.chapterObjects else {
+        guard let chapterID = chapterID, let chapterObjects = viewModel.manga.chapterObjects else {
             return nil
         }
         
@@ -84,37 +76,37 @@ class MangaDetailViewController: UIViewController {
         
         guard let cell = sender as? UITableViewCell else {
             
-            if let currentChapterID = currentChapterID {
+            if let currentChapterID = viewModel.currentChapterID {
                 destination.chapterID = currentChapterID
                 destination.chapterObject = getChapter(withID: currentChapterID)
-                destination.mangaDetail = mangaDetail
+                destination.mangaDetail = viewModel.manga
 //                destination.mangaID = mangaID
-            } else if let chapterID = mangaDetail?.chapterObjects?.last?.id {
+            } else if let chapterID = viewModel.manga.chapterObjects?.last?.id {
                 destination.chapterID = chapterID
                 destination.chapterObject = getChapter(withID: chapterID)
-                destination.mangaDetail = mangaDetail
+                destination.mangaDetail = viewModel.manga
 //                destination.mangaID = mangaID
                 
                 recordCurrentChapter(chapterID: chapterID)
             }
             
-            recordRecentManga(mangaID: mangaDetail?.id, mangaDetail: mangaDetail)
+            recordRecentManga(mangaID: viewModel.manga.id, mangaDetail: viewModel.manga)
             return
         }
         
         guard let indexPath = chaptersTableview.indexPath(for: cell)
-        , let chapterID = mangaDetail?.chapterObjects?[indexPath.item].id else {
+            , let chapterID = viewModel.manga.chapterObjects?[indexPath.item].id else {
             return
         }
         
         destination.chapterID = chapterID
-        destination.chapterObject = mangaDetail?.chapterObjects?[indexPath.item]
-        destination.mangaDetail = mangaDetail
+        destination.chapterObject = viewModel.manga.chapterObjects?[indexPath.item]
+        destination.mangaDetail = viewModel.manga
 //        destination.mangaID = mangaID
         
         recordCurrentChapter(chapterID: chapterID)
         
-        recordRecentManga(mangaID: mangaDetail?.id, mangaDetail: mangaDetail)
+        recordRecentManga(mangaID: viewModel.manga.id, mangaDetail: viewModel.manga)
     }
     
     private func recordCurrentChapter(chapterID: String!) {
@@ -127,7 +119,7 @@ class MangaDetailViewController: UIViewController {
             realm.add(manChapter, update:true)
         }
         
-        currentChapterID = chapterID
+        viewModel.currentChapterID = chapterID
     }
     
     private func recordRecentManga(mangaID: String!, mangaDetail: Manga?) {
@@ -149,9 +141,9 @@ class MangaDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         let realm = try! Realm()
-//        if let currentChapter = realm.objects(MangaCurrentChapter.self).filter("mangaID = %@", mangaDetail?._id).first {
-//            currentChapterID = currentChapter.chapterID
-//        }
+        if let mangaId = viewModel.manga.id, let currentChapter = realm.objects(MangaCurrentChapter.self).filter("mangaID = %@", mangaId).first {
+            viewModel.currentChapterID = currentChapter.chapterID
+        }
         
         chaptersTableview.reloadData()
         infoTableView.reloadData()
@@ -210,7 +202,7 @@ extension MangaDetailViewController: UITableViewDataSource {
             if (tableView == infoTableView) {
                 return 1
             } else {
-                return mangaDetail?.chapters?.count ?? 0
+                return viewModel.manga.chapters?.count ?? 0
             }
         }
         
@@ -224,17 +216,17 @@ extension MangaDetailViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "MangaDetailHeaderTableViewCell", for: indexPath) as! MangaDetailHeaderTableViewCell
             
             cell.delegate = self
-            cell.labelBookTitle.text = mangaDetail?.title
-            cell.labelAuthorName.text = mangaDetail?.author
-            cell.labelStatus.text = ((mangaDetail?.status ?? 0) == 1) ? NSLocalizedString("Completed", comment: "") : NSLocalizedString("Ongoing", comment: "")
-            cell.labelChapterInfo.text = "\((mangaDetail?.chapters?.count ?? 0)) \(NSLocalizedString("Chapters", comment: ""))"
-            if let imageURL = mangaDetail?.imagePath
+            cell.labelBookTitle.text = viewModel.manga.title
+            cell.labelAuthorName.text = viewModel.manga.author
+            cell.labelStatus.text = ((viewModel.manga.status ?? 0) == 1) ? NSLocalizedString("Completed", comment: "") : NSLocalizedString("Ongoing", comment: "")
+            cell.labelChapterInfo.text = "\((viewModel.manga.chapters?.count ?? 0)) \(NSLocalizedString("Chapters", comment: ""))"
+            if let imageURL = viewModel.manga.imagePath
                 , let url = URL(string: imageURL){
                 cell.imageViewCover.af_setImage(withURL: url)
             }
             
             // Update reading button
-            if let _ = currentChapterID {
+            if let _ = viewModel.currentChapterID {
                 cell.buttonStart.setTitle(NSLocalizedString("Continue Reading", comment: ""), for: .normal)
             } else {
                 cell.buttonStart.setTitle(NSLocalizedString("Start Reading", comment: ""), for: .normal)
@@ -251,27 +243,27 @@ extension MangaDetailViewController: UITableViewDataSource {
             if (tableView == infoTableView) {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "MangaDetailTableViewCell", for: indexPath) as! MangaDetailTableViewCell
                 
-                cell.labelDescription.text = mangaDetail?.description
+                cell.labelDescription.text = viewModel.manga.description
                 
                 let formatter = DateFormatter()
                 formatter.dateFormat = "yyyy-MM-dd"
                 
-                let lastUpdateDate = Date(timeIntervalSince1970: mangaDetail?.last_chapter_date ?? 0)
-                let firstCreatedDate = Date(timeIntervalSince1970: mangaDetail?.created ?? 0)
+                let lastUpdateDate = Date(timeIntervalSince1970: viewModel.manga.last_chapter_date ?? 0)
+                let firstCreatedDate = Date(timeIntervalSince1970: viewModel.manga.created ?? 0)
                 
                 cell.labelLastUpdated.text = formatter.string(from: lastUpdateDate)
                 cell.labelDateCreated.text = formatter.string(from: firstCreatedDate)
-                cell.labelGenres.text = mangaDetail?.categories?.joined(separator: ", ")
+                cell.labelGenres.text = viewModel.manga.categories?.joined(separator: ", ")
                 
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "chapterCell", for: indexPath)
                 
-                if let chapter = mangaDetail?.chapterObjects?[indexPath.item] {
+                if let chapter = viewModel.manga.chapterObjects?[indexPath.item] {
                     let chapterTitle = chapter.title ?? "\(chapter.number ?? 0)"
                     cell.textLabel?.text = "[\(NSLocalizedString("Chapter", comment: ""))] \(chapterTitle)"
                     
-                    if let chapterID = chapter.id, chapterID == currentChapterID {
+                    if let chapterID = chapter.id, chapterID == viewModel.currentChapterID {
                         cell.textLabel?.textColor = Color.blue
                     } else {
                         cell.textLabel?.textColor = UIColor.black
@@ -300,7 +292,7 @@ extension MangaDetailViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         
         if indexPath.section == 1 && tableView == chaptersTableview {
-            guard let _ = mangaDetail?.chapters?[indexPath.item] else {
+            guard let _ = viewModel.manga.chapters?[indexPath.item] else {
                 return
             }
             
