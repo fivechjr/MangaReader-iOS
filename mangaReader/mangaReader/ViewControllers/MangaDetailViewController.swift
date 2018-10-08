@@ -43,15 +43,17 @@ class MangaDetailViewController: UIViewController {
         guard let cell = sender as? UITableViewCell else {
             // if has recorded current chapter, read the current chapter
             if let currentChapterID = viewModel.currentChapterID {
-                destination.chapterID = currentChapterID
-                destination.chapterObject = viewModel.getChapter(withID: currentChapterID)
-                destination.mangaDetail = viewModel.manga
+                if let chapter = viewModel.getChapter(withID: currentChapterID) {
+                    let readViewModel = ChapterReadViewModel(chapterObject: chapter, manga: viewModel.manga)
+                    destination.viewModel = readViewModel
+                }
 
             } else if let chapterID = viewModel.manga.chapterObjects?.last?.id {
                 // else, read the last chapter
-                destination.chapterID = chapterID
-                destination.chapterObject = viewModel.getChapter(withID: chapterID)
-                destination.mangaDetail = viewModel.manga
+                if let chapter = viewModel.getChapter(withID: chapterID) {
+                    let readViewModel = ChapterReadViewModel(chapterObject: chapter, manga: viewModel.manga)
+                    destination.viewModel = readViewModel
+                }
                 
                 viewModel.recordCurrentChapter(chapterId: chapterID)
             }
@@ -66,9 +68,10 @@ class MangaDetailViewController: UIViewController {
             return
         }
         
-        destination.chapterID = chapterID
-        destination.chapterObject = viewModel.manga.chapterObjects?[indexPath.item]
-        destination.mangaDetail = viewModel.manga
+        if let chapter = viewModel.manga.chapterObjects?[indexPath.item] {
+            let readViewModel = ChapterReadViewModel(chapterObject: chapter, manga: viewModel.manga)
+            destination.viewModel = readViewModel
+        }
         
         viewModel.recordCurrentChapter(chapterId: chapterID)
         viewModel.recordRecentManga()
