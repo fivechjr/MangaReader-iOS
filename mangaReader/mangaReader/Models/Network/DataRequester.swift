@@ -14,13 +14,10 @@ typealias CategoryNamesResponseHandler = (CategoryNamesResponse?, Error?) -> Voi
 typealias ChapterDetailResponseHandler = (ChapterDetailResponse?, Error?) -> Void
 
 class DataRequester {
-    
-    static func getImageUrl(withImagePath path: String?) -> String? {
-        if let path = path {
-            return "https://cdn.mangaeden.com/mangasimg/\(path)"
-        }
-        
-        return nil
+    static func getMangaDetail(mangaIds: [String], completion:@escaping MangaListResponseHandler) {
+        let path = MangaEndpoint.manga.path
+        let parameters = ["mangaedenid": mangaIds]
+        post(urlString: path, parameters: parameters, responseType: MangaListResponse.self, completion: completion)
     }
     
     static func getChapterDetail(mangaId: String, chapterId: String, completion:@escaping ChapterDetailResponseHandler) {
@@ -60,5 +57,30 @@ extension DataRequester {
                 completion(nil, error)
             }
         }
+    }
+    
+    fileprivate static func post<T>(urlString: String?, parameters: Parameters? = nil, responseType: T.Type, completion: @escaping (T?, Error?) -> Void) where T: Codable {
+        guard let urlString = urlString, let url = URL(string: urlString) else {return}
+        Alamofire.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default).responseData { (response) in
+            guard let data = response.result.value else {
+                completion(nil, response.result.error)
+                return
+            }
+            
+            do {
+                let object = try JSONDecoder().decode(responseType, from: data)
+                completion(object, nil)
+            } catch let error {
+                completion(nil, error)
+            }
+        }
+    }
+    
+    static func getImageUrl(withImagePath path: String?) -> String? {
+        if let path = path {
+            return "https://cdn.mangaeden.com/mangasimg/\(path)"
+        }
+        
+        return nil
     }
 }

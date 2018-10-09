@@ -20,6 +20,19 @@ class MangaDetailViewModel {
     
     var chaptersContentOffset: CGPoint = CGPoint.zero
     
+    func getManga(completion: @escaping MangaListResponseHandler) {
+        guard let mangaId = manga.id else {return}
+        DataRequester.getMangaDetail(mangaIds: [mangaId], completion: { [weak self] (response, error) in
+            guard let manga = response?.mangalist?.first else {
+                completion(nil, error)
+                return
+            }
+            
+            self?.manga = manga
+            completion(response, error)
+        })
+    }
+    
     /// get chapter by id
     func getChapter(withID chapterID: String?) ->Chapter? {
         guard let chapterID = chapterID, let chapterObjects = manga.chapterObjects else {

@@ -109,6 +109,9 @@ class MangaDetailViewController: UIViewController {
         installIndicatorView()
         
         // TODO: if no manga data, Request detail data
+        viewModel.getManga { (_, _) in
+            
+        }
 //        indicatorView.startAnimating()
 //        chaptersTableview.isHidden = true
 //        infoTableView.isHidden = true
