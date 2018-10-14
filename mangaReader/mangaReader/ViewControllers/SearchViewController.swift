@@ -91,7 +91,7 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
         
         guard let manga = viewModel.manga(atIndex: indexPath.row) else {return}
         
-        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MangaDetailViewController") as! MangaDetailViewController
+        let vc = MangaDetailViewController.newInstance() as! MangaDetailViewController
         
         vc.viewModel = MangaDetailViewModel(manga: manga)
         

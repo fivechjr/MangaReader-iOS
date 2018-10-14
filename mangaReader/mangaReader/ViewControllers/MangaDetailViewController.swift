@@ -10,7 +10,7 @@ import UIKit
 import AlamofireImage
 import NVActivityIndicatorView
 
-class MangaDetailViewController: UIViewController {
+class MangaDetailViewController: BaseViewController {
     
     var viewModel: MangaDetailViewModel!
     
@@ -20,6 +20,10 @@ class MangaDetailViewController: UIViewController {
     var mangaDetailTabView: MangaDetailTabView!
     var mangaDetailTabViewInfo: MangaDetailTabView!
     var indicatorView: NVActivityIndicatorView!
+    
+    override class var storyboardId: String? {
+        return "MangaDetailViewController"
+    }
     
     func installIndicatorView() {
         indicatorView = NVActivityIndicatorView(frame: CGRect.zero, type: .ballSpinFadeLoader, color: UIColor.black)
@@ -81,13 +85,22 @@ class MangaDetailViewController: UIViewController {
         super.viewWillAppear(animated)
         viewModel.getCurrentChapterID()
         
+        reload()
+    }
+    
+    func setContentHidden(_ hidden: Bool) {
+        chaptersTableview.isHidden = hidden
+        infoTableView.isHidden = hidden
+    }
+    
+    func reload() {
         chaptersTableview.reloadData()
         infoTableView.reloadData()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = NSLocalizedString("Manga Detail", comment: "")
+        title = LocalizedString("Manga Detail")
         chaptersTableview.rowHeight = UITableViewAutomaticDimension
         
         // Manga tab view
@@ -108,23 +121,15 @@ class MangaDetailViewController: UIViewController {
         
         installIndicatorView()
         
-        // TODO: if no manga data, Request detail data
-        viewModel.getManga { (_, _) in
-            
+        
+        if (viewModel.getMangaIfNeeded { [weak self] (_, _) in
+            self?.hideLoading()
+            self?.setContentHidden(false)
+            self?.reload()
+            }) {
+            showLoading()
+            setContentHidden(true)
         }
-//        indicatorView.startAnimating()
-//        chaptersTableview.isHidden = true
-//        infoTableView.isHidden = true
-//        DataRequester.getMangaDetail(mangaID: mangaID) { [weak self] (mangaDetail) in
-//            self?.indicatorView.stopAnimating()
-//            self?.mangaDetail = mangaDetail
-//
-//            self?.chaptersTableview.isHidden = false
-//            self?.infoTableView.isHidden = false
-//
-//            self?.chaptersTableview.reloadData()
-//            self?.infoTableView.reloadData()
-//        }
     }
 }
 
@@ -257,7 +262,6 @@ extension MangaDetailViewController: MangaDetailHeaderTableViewCellDelegate {
     func addFavorite(cell: MangaDetailHeaderTableViewCell) {
         viewModel.addFavorite()
 
-        chaptersTableview.reloadData()
-        infoTableView.reloadData()
+        reload()
     }
 }

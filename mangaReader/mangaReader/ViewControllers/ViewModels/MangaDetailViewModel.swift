@@ -16,9 +16,23 @@ class MangaDetailViewModel {
         self.manga = manga
     }
     
+    init(mangaId: String) {
+        manga = Manga()
+        manga.id = mangaId
+    }
+    
     var currentChapterID: String?
     
     var chaptersContentOffset: CGPoint = CGPoint.zero
+    
+    func getMangaIfNeeded(completion: @escaping MangaListResponseHandler) -> Bool {
+        guard manga.chapters == nil else {
+            return false
+        }
+        
+        getManga(completion: completion)
+        return true
+    }
     
     func getManga(completion: @escaping MangaListResponseHandler) {
         guard let mangaId = manga.id else {return}

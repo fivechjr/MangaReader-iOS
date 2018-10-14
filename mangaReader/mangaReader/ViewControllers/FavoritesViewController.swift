@@ -78,8 +78,8 @@ extension FavoritesViewController: UICollectionViewDataSource, UICollectionViewD
             
             let placeholderImage = UIImage(named: "manga_default")
             cell.imageViewCover.image = placeholderImage
-            if let imageURL = DataRequester.getImageUrl(withImagePath: manga.imagePath)
-                , let url = URL(string: imageURL){
+             let imageURL = manga.imagePath
+            if let url = URL(string: imageURL){
                 cell.imageViewCover.af_setImage(withURL: url, placeholderImage: placeholderImage)
             }
         }
@@ -116,8 +116,8 @@ extension FavoritesViewController: UICollectionViewDataSource, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let manga = favoriteManga?[indexPath.item], manga.id.count > 0 {
-            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MangaDetailViewController") as! MangaDetailViewController
-//            vc.mangaDetail = manga
+            let vc = MangaDetailViewController.newInstance() as! MangaDetailViewController
+            vc.viewModel = MangaDetailViewModel(mangaId: manga.id)
             
             navigationController?.pushViewController(vc, animated: true)
         }

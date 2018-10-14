@@ -10,7 +10,12 @@ import Foundation
 
 class Manga: Codable {
     var id: String? {
-        return mangaedenid
+        get {
+            return mangaedenid
+        }
+        set {
+            mangaedenid = newValue
+        }
     }
     var mangaedenid: String?
     private var _id: String?
