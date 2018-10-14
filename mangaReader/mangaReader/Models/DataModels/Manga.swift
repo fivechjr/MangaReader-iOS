@@ -17,9 +17,12 @@ class Manga: Codable {
             mangaedenid = newValue
         }
     }
+    
+    /// manga id
     var mangaedenid: String?
     private var _id: String?
     
+    /// other names in different languages
     var aka:[String]?
     var aka_alias:[String]?
     var alias: String?
@@ -33,6 +36,7 @@ class Manga: Codable {
     var categoriesstr: String?
     var chapters:[[CodableValue?]]?
     var chapters_len: Int?
+    /// create time
     var created: Double?
     var description: String?
     var hits: Int?
@@ -43,8 +47,11 @@ class Manga: Codable {
     
     var language: Int?
     var last_chapter_date: Double?
+    /// released year
     var released: Int?
+    /// the first letter of the title
     var startsWith: String?
+    /// status 0-uncomplete, 1-complete
     var status: Int?
     var title: String?
     var title_kw: [String]?
