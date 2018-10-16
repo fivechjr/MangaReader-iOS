@@ -104,6 +104,11 @@ extension DataManager {
         return realm.objects(FavoriteManga.self).filter("id = %@", mangaId)
     }
     
+    func getAllFavorites() -> Results<FavoriteManga> {
+        let realm = try! Realm()
+        return realm.objects(FavoriteManga.self)
+    }
+    
     func addFavorite(manga: Manga) {
         guard let mangaId = manga.id else {return}
         
@@ -123,6 +128,14 @@ extension DataManager {
             try! realm.write {
                 realm.add(favManga)
             }
+        }
+    }
+    
+    func deleteFavorite(mangaId: String) {
+        let realm = try! Realm()
+        let favObjects = realm.objects(FavoriteManga.self).filter("id = %@", mangaId)
+        try! realm.write {
+            realm.delete(favObjects)
         }
     }
 }
