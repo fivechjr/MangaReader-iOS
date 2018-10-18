@@ -15,6 +15,18 @@ class MangaListCollectionCellViewModel {
         self.manga = manga
     }
     
+    init (recentManga: RecentManga) {
+        manga = Manga()
+        manga.title = recentManga.name
+        manga.imageURL = recentManga.imagePath
+    }
+    
+    init(favoriteManga: FavoriteManga) {
+        manga = Manga()
+        manga.title = favoriteManga.name
+        manga.imageURL = favoriteManga.imagePath
+    }
+    
     var title: String? {
         return manga.title
     }

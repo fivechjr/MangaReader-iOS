@@ -57,6 +57,7 @@
 		8C96737F216AD96400DE5D69 /* ChapterReadViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C96737E216AD96400DE5D69 /* ChapterReadViewModel.swift */; };
 		8C9673812172F61300DE5D69 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9673802172F61300DE5D69 /* BaseViewController.swift */; };
 		8C96738321756F2700DE5D69 /* FavoritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C96738221756F2700DE5D69 /* FavoritesViewModel.swift */; };
+		8C9673852178169E00DE5D69 /* RecentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9673842178169E00DE5D69 /* RecentViewModel.swift */; };
 		8CA66E47208FFFF10014DB39 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA66E46208FFFF10014DB39 /* Constants.swift */; };
 		8CD878C120A16B4100E3B362 /* AdsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD878C020A16B4100E3B362 /* AdsManager.swift */; };
 		8CD98FA320A52B23002C448F /* GuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD98FA220A52B23002C448F /* GuideView.swift */; };
@@ -125,6 +126,7 @@
 		8C96737E216AD96400DE5D69 /* ChapterReadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterReadViewModel.swift; sourceTree = "<group>"; };
 		8C9673802172F61300DE5D69 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		8C96738221756F2700DE5D69 /* FavoritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewModel.swift; sourceTree = "<group>"; };
+		8C9673842178169E00DE5D69 /* RecentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentViewModel.swift; sourceTree = "<group>"; };
 		8CA66E46208FFFF10014DB39 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		8CD878C020A16B4100E3B362 /* AdsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdsManager.swift; sourceTree = "<group>"; };
 		8CD878EF20A17BFD00E3B362 /* mangaReader-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "mangaReader-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -283,6 +285,7 @@
 				8C967376216A32C700DE5D69 /* MangaDetailViewModel.swift */,
 				8C96737E216AD96400DE5D69 /* ChapterReadViewModel.swift */,
 				8C96738221756F2700DE5D69 /* FavoritesViewModel.swift */,
+				8C9673842178169E00DE5D69 /* RecentViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -545,6 +548,7 @@
 				8C96737F216AD96400DE5D69 /* ChapterReadViewModel.swift in Sources */,
 				8C904D792085F78300A599E9 /* Manga.swift in Sources */,
 				8C904D772085D1BB00A599E9 /* MangaListCollectionViewCell.swift in Sources */,
+				8C9673852178169E00DE5D69 /* RecentViewModel.swift in Sources */,
 				8C60C960209414350069EFDB /* FavoritesViewController.swift in Sources */,
 				8C96736E2169175100DE5D69 /* UIViewController+Extra.swift in Sources */,
 				8C904D7F2087892500A599E9 /* MangaDetailViewController.swift in Sources */,

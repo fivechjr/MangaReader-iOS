@@ -24,10 +24,6 @@ class FavoritesViewController: UIViewController {
         emptyInfoView.emptyImageView.image = UIImage(named: "favorite_empty")
         emptyInfoView.titleLabel.text = NSLocalizedString("NO FAVORITED MANGA", comment: "")
         emptyInfoView.messageLabel.text = NSLocalizedString("no_fav_message", comment: "")
-        view.addSubview(emptyInfoView)
-        emptyInfoView.snp.makeConstraints { (maker) in
-            maker.edges.equalToSuperview()
-        }
         
         let nibCell = UINib(nibName: "MangaListCollectionViewCell", bundle: nil)
         favoritesCollectionView.register(nibCell, forCellWithReuseIdentifier: "MangaListCollectionViewCell")
@@ -60,7 +56,7 @@ class FavoritesViewController: UIViewController {
 extension FavoritesViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let count = viewModel.count
-        emptyInfoView.isHidden = (count > 0)
+        collectionView.backgroundView = (count > 0) ? nil : emptyInfoView
         return count
     }
     
@@ -70,14 +66,7 @@ extension FavoritesViewController: UICollectionViewDataSource, UICollectionViewD
         cell.tag = indexPath.item
         
         if let manga = viewModel[indexPath.item] {
-            cell.labelTitle.text = manga.name
-            
-            let placeholderImage = UIImage(named: "manga_default")
-            cell.imageViewCover.image = placeholderImage
-             let imageURL = manga.imagePath
-            if let url = URL(string: imageURL){
-                cell.imageViewCover.af_setImage(withURL: url, placeholderImage: placeholderImage)
-            }
+            cell.viewModel = MangaListCollectionCellViewModel(favoriteManga: manga)
         }
         
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(cellLongPressAction))
@@ -90,13 +79,13 @@ extension FavoritesViewController: UICollectionViewDataSource, UICollectionViewD
         guard recgnizer.state == .began, let index = recgnizer.view?.tag, let manga = viewModel[index] else {
                 return
             }
-        let message = "\(NSLocalizedString("Do you want to unfavorite", comment: "")) '\(manga.name)'?"
-        let alertVC = UIAlertController(title: NSLocalizedString("Unfavorite", comment: ""), message: message, preferredStyle: .actionSheet)
-        let okAction = UIAlertAction(title: NSLocalizedString("Yes", comment: ""), style: .default) { (action) in
+        let message = "\(LocalizedString("Do you want to unfavorite")) '\(manga.name)'?"
+        let alertVC = UIAlertController(title: LocalizedString("Unfavorite"), message: message, preferredStyle: .actionSheet)
+        let okAction = UIAlertAction(title: LocalizedString("Yes"), style: .default) { (action) in
             self.viewModel.deleteFavorite(mangaId: manga.id)
             self.favoritesCollectionView.reloadData()
         }
-        let cancelAction = UIAlertAction(title: NSLocalizedString("No", comment: ""), style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: LocalizedString("No"), style: .cancel, handler: nil)
         alertVC.addAction(okAction)
         alertVC.addAction(cancelAction)
         
