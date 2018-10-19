@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func checkDisclaimer() {
         let agreedDisclaimer = UserDefaults.standard.bool(forKey: "agreedDisclaimer")
         if (!agreedDisclaimer) {
-            SettingsViewController.showDisclaimer()
+            Utility.showDisclaimer()
         }
     }
 
