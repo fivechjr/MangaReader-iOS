@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 import Toast_Swift
 
-class SettingsViewController: UIViewController {
+class SettingsViewController: BaseViewController {
 
     var viewModel = SettingsViewModel()
     
@@ -52,6 +52,8 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             shareApp()
         case .aboutUs:
             Utility.aboutApp()
+        case .changeTheme:
+            ThemeManager.shared.currentTheme = (ThemeManager.shared.currentTheme == .light) ? .dark: .light
         }
     }
 }

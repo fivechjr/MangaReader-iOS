@@ -12,7 +12,7 @@ protocol GenresListViewControllerDelegate: class {
     func didSelectGenre(genre: String!)
 }
 
-class GenresListViewController: UIViewController {
+class GenresListViewController: BaseViewController {
     
     weak var delegate: GenresListViewControllerDelegate?
     

@@ -11,7 +11,7 @@ import TagListView
 import RxSwift
 import SVPullToRefresh
 
-class MangaListViewController: UIViewController, GenresListViewControllerDelegate {
+class MangaListViewController: BaseViewController, GenresListViewControllerDelegate {
     
     @IBOutlet weak var mangaListCollectionView: UICollectionView!
     @IBOutlet weak var mangaSwithControl: UISegmentedControl!

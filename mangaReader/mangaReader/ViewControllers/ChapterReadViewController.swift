@@ -11,7 +11,7 @@ import UIKit
 import SnapKit
 import RealmSwift
 
-class ChapterReadViewController: UIViewController, GuideViewDelegate {
+class ChapterReadViewController: BaseViewController, GuideViewDelegate {
 
     var viewModel: ChapterReadViewModel!
     

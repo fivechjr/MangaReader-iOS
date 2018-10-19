@@ -64,3 +64,5 @@
 "message_top_guide" = "上の領域をクリックして、前のページにひっくり返します。";
 "message_center_guide" = "中間領域をクリックして、ツールを表示する";
 "message_bottom_guide" = "次のページをクリックして、次のページをクリックします。";
+
+"Change Theme" = "インタフェース色の切り替え";

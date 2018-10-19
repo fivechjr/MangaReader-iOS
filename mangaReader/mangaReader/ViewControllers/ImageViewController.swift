@@ -16,7 +16,7 @@ protocol ImageViewControllerDelegate: class {
     func bottomAreaTapped(imageViewController: ImageViewController!)
 }
 
-class ImageViewController: UIViewController, UIScrollViewDelegate {
+class ImageViewController: BaseViewController, UIScrollViewDelegate {
     
     var imageView: UIImageView!
     var imageScrollView: UIScrollView!

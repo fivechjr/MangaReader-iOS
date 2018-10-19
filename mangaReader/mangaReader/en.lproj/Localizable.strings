@@ -64,3 +64,5 @@
 "message_top_guide" = "Tap the upper area to go to the previous page.";
 "message_center_guide" = "Tap the center area to show the toolbars.";
 "message_bottom_guide" = "Tap the lower area to go to the next page.";
+
+"Change Theme" = "Change Theme";

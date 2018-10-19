@@ -64,3 +64,5 @@
 "message_top_guide" = "点击上面的区域，翻到前一页";
 "message_center_guide" = "点击中间区域，显示工具条";
 "message_bottom_guide" = "点击下面的区域，翻到后一页";
+
+"Change Theme" = "切换界面颜色";

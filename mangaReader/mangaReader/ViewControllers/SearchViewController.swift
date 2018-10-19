@@ -9,7 +9,7 @@
 import UIKit
 import SVPullToRefresh
 
-class SearchViewController: UIViewController {
+class SearchViewController: BaseViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var resultCollectionView: UICollectionView!
     

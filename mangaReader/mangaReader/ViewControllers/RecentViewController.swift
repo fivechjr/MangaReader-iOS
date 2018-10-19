@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RecentViewController: UIViewController {
+class RecentViewController: BaseViewController {
     
     var viewModel = RecentViewModel()
     

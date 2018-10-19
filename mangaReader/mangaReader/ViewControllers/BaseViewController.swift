@@ -12,6 +12,13 @@ class BaseViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleThemeChanged(notification:)), name: NSNotification.Name.themeChanged, object: nil)
+    }
+    
+    @objc public func handleThemeChanged(notification: Notification) {
+        let theme = notification.object as? Theme
+        view.backgroundColor = theme?.backgroundColor
     }
 
     private class var storyboardName: String {

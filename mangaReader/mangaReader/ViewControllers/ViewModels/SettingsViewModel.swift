@@ -14,6 +14,7 @@ enum SettingItem {
     case rateUs
     case shareApp
     case aboutUs
+    case changeTheme
     
     var localizedTitle: String {
         switch self {
@@ -27,13 +28,15 @@ enum SettingItem {
             return LocalizedString("Share This App")
         case .aboutUs:
             return LocalizedString("About Us")
+        case .changeTheme:
+            return LocalizedString("Change Theme")
         }
     }
 }
 
 class SettingsViewModel {
     
-    var settingItems: [SettingItem] = [.disclaimer, .feedback, .rateUs, .shareApp, .aboutUs]
+    var settingItems: [SettingItem] = [.disclaimer, .feedback, .rateUs, .shareApp, .aboutUs, .changeTheme]
     
     var count: Int {
         return settingItems.count
