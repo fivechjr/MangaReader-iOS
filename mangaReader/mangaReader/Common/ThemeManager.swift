@@ -47,17 +47,27 @@ enum Theme: Int {
             return .lightContent
         }
     }
+    
+    var activityIndicatorStyle: UIActivityIndicatorViewStyle {
+        switch self {
+        case .light:
+            return UIActivityIndicatorViewStyle.gray
+        case .dark:
+            return UIActivityIndicatorViewStyle.white
+        }
+    }
 }
 
 class ThemeManager {
-    private init(){
-        let savedThemeId = (UserDefaults.standard.value(forKey: key_currentTheme) as? Int) ?? Theme.light.rawValue
-        let savedTheme = Theme(rawValue: savedThemeId) ?? Theme.light
-        currentTheme = savedTheme
-    }
+    private init(){}
     static var shared = ThemeManager()
     
     let key_currentTheme = "currentTheme"
+    
+    func load() {
+        let savedThemeId = (UserDefaults.standard.value(forKey: key_currentTheme) as? Int) ?? Theme.light.rawValue
+        currentTheme = Theme(rawValue: savedThemeId) ?? Theme.light
+    }
     
     var currentTheme: Theme = .light {
         didSet {
@@ -68,19 +78,24 @@ class ThemeManager {
     
     func handleThemeChanged(currentTheme: Theme) {
 
+        updateAppearance()
+
+        updateScreenUI()
+    }
+    
+    func updateAppearance() {
         UINavigationBar.appearance().barTintColor = currentTheme.backgroundColor
         UINavigationBar.appearance().tintColor = currentTheme.tintColor
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor: currentTheme.textColor]
         
         UIApplication.shared.statusBarStyle = currentTheme.statusBarStyle
-//        switch currentTheme {
-//        case .light:
-//            UINavigationBar.appearance().backgroundColor = .white
-//            UINavigationBar.appearance().barTintColor = .white
-//        case .dark:
-//            UINavigationBar.appearance().backgroundColor = .black
-//            UINavigationBar.appearance().barTintColor = .black
-//        }
+    }
+    
+    func updateScreenUI() {
+        let tabbar = (UIApplication.shared.keyWindow?.rootViewController as? UITabBarController)?.tabBar
+        tabbar?.tintColor = currentTheme.tintColor
+        tabbar?.barTintColor = currentTheme.backgroundColor
+        
         NotificationCenter.default.post(name: NSNotification.Name.themeChanged, object: currentTheme)
     }
 }

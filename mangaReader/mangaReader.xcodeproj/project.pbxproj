@@ -62,6 +62,7 @@
 		8C96738B217964D200DE5D69 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C96738A217964D200DE5D69 /* ThemeManager.swift */; };
 		8C96738D2179664800DE5D69 /* Notification+Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C96738C2179664800DE5D69 /* Notification+Name.swift */; };
 		8C96738F217C51F500DE5D69 /* Color+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C96738E217C51F500DE5D69 /* Color+Utilities.swift */; };
+		8C967392217C6ED200DE5D69 /* BetterRefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C967391217C6ED200DE5D69 /* BetterRefreshControl.swift */; };
 		8CA66E47208FFFF10014DB39 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA66E46208FFFF10014DB39 /* Constants.swift */; };
 		8CD878C120A16B4100E3B362 /* AdsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD878C020A16B4100E3B362 /* AdsManager.swift */; };
 		8CD98FA320A52B23002C448F /* GuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD98FA220A52B23002C448F /* GuideView.swift */; };
@@ -135,6 +136,7 @@
 		8C96738A217964D200DE5D69 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		8C96738C2179664800DE5D69 /* Notification+Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Name.swift"; sourceTree = "<group>"; };
 		8C96738E217C51F500DE5D69 /* Color+Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color+Utilities.swift"; sourceTree = "<group>"; };
+		8C967391217C6ED200DE5D69 /* BetterRefreshControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetterRefreshControl.swift; sourceTree = "<group>"; };
 		8CA66E46208FFFF10014DB39 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		8CD878C020A16B4100E3B362 /* AdsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdsManager.swift; sourceTree = "<group>"; };
 		8CD878EF20A17BFD00E3B362 /* mangaReader-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "mangaReader-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -251,6 +253,7 @@
 		8C904D872088813800A599E9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8C967390217C6EAA00DE5D69 /* CustomViews */,
 				8C9673752169CFB600DE5D69 /* ViewModels */,
 				8C904D762085D1BB00A599E9 /* MangaListCollectionViewCell.swift */,
 				8C88E38A209045A8004B54D9 /* MangaListCollectionViewCell.xib */,
@@ -338,6 +341,14 @@
 				8C96737C216A5B1A00DE5D69 /* MangaListCollectionCellViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		8C967390217C6EAA00DE5D69 /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				8C967391217C6ED200DE5D69 /* BetterRefreshControl.swift */,
+			);
+			path = CustomViews;
 			sourceTree = "<group>";
 		};
 		8CA66E45208FFFD90014DB39 /* Util */ = {
@@ -552,6 +563,7 @@
 				8C60C964209428380069EFDB /* EmptyInfoView.swift in Sources */,
 				8C9673722169217700DE5D69 /* SensitiveData.swift in Sources */,
 				8C4EFCE2208D47DE007D342C /* MangaDetailTabView.swift in Sources */,
+				8C967392217C6ED200DE5D69 /* BetterRefreshControl.swift in Sources */,
 				8C4EFCDF208CD0B5007D342C /* MangaDetailHeaderTableViewCell.swift in Sources */,
 				8C60C95E2092E5AA0069EFDB /* GenresListViewController.swift in Sources */,
 				8C96738D2179664800DE5D69 /* Notification+Name.swift in Sources */,

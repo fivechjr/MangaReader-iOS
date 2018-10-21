@@ -23,7 +23,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.checkDisclaimer()
+            ThemeManager.shared.updateScreenUI()
         }
+        
+        ThemeManager.shared.load()
         
         return true
     }

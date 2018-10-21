@@ -19,6 +19,11 @@ class BaseViewController: UIViewController {
     @objc public func handleThemeChanged(notification: Notification) {
         let theme = notification.object as? Theme
         view.backgroundColor = theme?.backgroundColor
+        updateTheme()
+    }
+    
+    func updateTheme() {
+        
     }
 
     private class var storyboardName: String {

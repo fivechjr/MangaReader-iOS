@@ -19,13 +19,15 @@ class MangaListViewController: BaseViewController, GenresListViewControllerDeleg
     
     var viewModel = MangaListViewModel()
     let bag = DisposeBag()
-    let refreshControl = UIRefreshControl()
+    let refreshControl = BetterRefreshControl()
     
-    override func handleThemeChanged(notification: Notification) {
-        super.handleThemeChanged(notification: notification)
-        guard let theme = notification.object as? Theme else {return}
+    override func updateTheme() {
+        let theme = ThemeManager.shared.currentTheme
         mangaSwithControl.tintColor = theme.tintColor
         mangaSwithControl.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: theme.textColor], for: .normal)
+        mangaListCollectionView.backgroundColor = theme.backgroundColor
+        refreshControl.tintColor = theme.textColor
+        mangaListCollectionView.infiniteScrollingView.activityIndicatorViewStyle = theme.activityIndicatorStyle
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -86,16 +88,30 @@ class MangaListViewController: BaseViewController, GenresListViewControllerDeleg
         
         // Pull to refresh
         mangaListCollectionView.addSubview(refreshControl)
+        refreshControl.scrollView = mangaListCollectionView
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
-        refreshControl.beginRefreshing()
+        
+        refreshControl.start()
         viewModel.loadFirstPage(completion: { [weak self] (_, _) in
-            self?.refreshControl.endRefreshing()
+            self?.refreshControl.stop()
         })
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        refreshControl.stop(shouldAdjustOffset: true)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if viewModel.isLoading && !refreshControl.isRefreshing {
+            refreshControl.start(shouldAdjustOffset: true)
+        }
     }
     
     @objc func refresh() {
         viewModel.loadFirstPage(completion: { [weak self] (_, _) in
-            self?.refreshControl.endRefreshing()
+            self?.refreshControl.stop()
         })
     }
     

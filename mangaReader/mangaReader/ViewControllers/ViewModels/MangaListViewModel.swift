@@ -12,6 +12,8 @@ import RxSwift
 class MangaListViewModel {
     var sortByRecentUpdate = false
     
+    var isLoading: Bool = false
+    
     var mangasSignal = Variable<[Manga]>([])
     var mangasShowing: [Manga] {
         return mangasSignal.value
@@ -34,33 +36,39 @@ class MangaListViewModel {
     }
     
     func loadFirstPage(completion: @escaping MangaListResponseHandler) {
-        currentPage = 0
-        loadManga(completion: completion)
+        loadManga(page: 0, completion: completion)
     }
     
     func loadNextPage(completion: @escaping MangaListResponseHandler) {
-        currentPage += 1
-        loadManga(completion: completion)
+        loadManga(page: currentPage + 1, completion: completion)
     }
     
     func refreshManga() {
-        mangasSignal.value = sortManga(filterManga(mangas))
+        mangasSignal.value = filterManga(mangas)
     }
 }
 
 extension MangaListViewModel {
     
-    fileprivate func loadManga(completion: @escaping MangaListResponseHandler) {
+    fileprivate func loadManga(page: Int, completion: @escaping MangaListResponseHandler) {
+        guard !isLoading else {
+            completion(nil, nil)
+            return
+        }
+        
+        currentPage = page
         if currentPage <= 0 {
             currentPage = 0
             mangas.removeAll()
         }
         
+        isLoading = true
         DataRequester.getMangaList(page: currentPage, size: pageSize) { [weak self] (response, error) in
             guard let `self` = self else {return}
             self.mangas.append(contentsOf: response?.mangalist ?? [])
             self.refreshManga()
             completion(response, error)
+            self.isLoading = false
         }
     }
     
