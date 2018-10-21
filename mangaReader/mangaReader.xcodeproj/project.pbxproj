@@ -61,6 +61,7 @@
 		8C96738721795B3A00DE5D69 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C96738621795B3A00DE5D69 /* SettingsViewModel.swift */; };
 		8C96738B217964D200DE5D69 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C96738A217964D200DE5D69 /* ThemeManager.swift */; };
 		8C96738D2179664800DE5D69 /* Notification+Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C96738C2179664800DE5D69 /* Notification+Name.swift */; };
+		8C96738F217C51F500DE5D69 /* Color+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C96738E217C51F500DE5D69 /* Color+Utilities.swift */; };
 		8CA66E47208FFFF10014DB39 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA66E46208FFFF10014DB39 /* Constants.swift */; };
 		8CD878C120A16B4100E3B362 /* AdsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD878C020A16B4100E3B362 /* AdsManager.swift */; };
 		8CD98FA320A52B23002C448F /* GuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD98FA220A52B23002C448F /* GuideView.swift */; };
@@ -133,6 +134,7 @@
 		8C96738621795B3A00DE5D69 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		8C96738A217964D200DE5D69 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		8C96738C2179664800DE5D69 /* Notification+Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Name.swift"; sourceTree = "<group>"; };
+		8C96738E217C51F500DE5D69 /* Color+Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color+Utilities.swift"; sourceTree = "<group>"; };
 		8CA66E46208FFFF10014DB39 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		8CD878C020A16B4100E3B362 /* AdsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdsManager.swift; sourceTree = "<group>"; };
 		8CD878EF20A17BFD00E3B362 /* mangaReader-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "mangaReader-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -276,6 +278,7 @@
 		8C96735E21686A4B00DE5D69 /* extensions */ = {
 			isa = PBXGroup;
 			children = (
+				8C96738E217C51F500DE5D69 /* Color+Utilities.swift */,
 				8C96735F21686A5D00DE5D69 /* UIViewController+Loading.swift */,
 				8C96736D2169175100DE5D69 /* UIViewController+Extra.swift */,
 				8C96738C2179664800DE5D69 /* Notification+Name.swift */,
@@ -528,6 +531,7 @@
 				8C58A54F208EAD4100FF71B2 /* MangaCurrentChapter.swift in Sources */,
 				8C60C9682094A8B20069EFDB /* RecentViewController.swift in Sources */,
 				8C96738B217964D200DE5D69 /* ThemeManager.swift in Sources */,
+				8C96738F217C51F500DE5D69 /* Color+Utilities.swift in Sources */,
 				8C39477F208E1AB900344FCF /* FavoriteManga.swift in Sources */,
 				8C967367216911EA00DE5D69 /* DataManager.swift in Sources */,
 				8C904D822088783000A599E9 /* ChapterDetailResponse.swift in Sources */,
