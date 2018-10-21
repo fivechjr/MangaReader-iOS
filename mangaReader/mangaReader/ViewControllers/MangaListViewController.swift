@@ -21,6 +21,13 @@ class MangaListViewController: BaseViewController, GenresListViewControllerDeleg
     let bag = DisposeBag()
     let refreshControl = UIRefreshControl()
     
+    override func handleThemeChanged(notification: Notification) {
+        super.handleThemeChanged(notification: notification)
+        guard let theme = notification.object as? Theme else {return}
+        mangaSwithControl.tintColor = theme.tintColor
+        mangaSwithControl.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: theme.textColor], for: .normal)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == "showMangaDetail"
             , let mangaDetailVC = segue.destination as? MangaDetailViewController
