@@ -25,6 +25,12 @@ class MangaDetailViewController: BaseViewController {
         return "MangaDetailViewController"
     }
     
+    override func updateTheme() {
+        let theme = ThemeManager.shared.currentTheme
+        chaptersTableview.backgroundColor = theme.backgroundColor
+        infoTableView.backgroundColor = theme.backgroundColor
+    }
+    
     func installIndicatorView() {
         indicatorView = NVActivityIndicatorView(frame: CGRect.zero, type: .ballSpinFadeLoader, color: UIColor.black)
         view.addSubview(indicatorView)

@@ -86,7 +86,7 @@ class ThemeManager {
     func updateAppearance() {
         UINavigationBar.appearance().barTintColor = currentTheme.backgroundColor
         UINavigationBar.appearance().tintColor = currentTheme.tintColor
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor: currentTheme.textColor]
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.font: UIFont.heading!, NSAttributedStringKey.foregroundColor: currentTheme.textColor]
         
         UIApplication.shared.statusBarStyle = currentTheme.statusBarStyle
     }

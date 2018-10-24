@@ -28,7 +28,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         ThemeManager.shared.load()
         
+        customizeUI()
+        
         return true
+    }
+    
+    func customizeUI() {
     }
     
     func checkDisclaimer() {
