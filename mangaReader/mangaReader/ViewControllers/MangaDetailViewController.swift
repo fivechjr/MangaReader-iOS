@@ -116,14 +116,11 @@ class MangaDetailViewController: BaseViewController {
         mangaDetailTabViewInfo.delegate = self
         
         // table view register cells
-        let nibHeader = UINib(nibName: "MangaDetailHeaderTableViewCell", bundle: nil)
-        chaptersTableview.register(nibHeader, forCellReuseIdentifier: "MangaDetailHeaderTableViewCell")
-        infoTableView.register(nibHeader, forCellReuseIdentifier: "MangaDetailHeaderTableViewCell")
-        
-        let nibInfo = UINib(nibName: "MangaDetailTableViewCell", bundle: nil)
-        infoTableView.register(nibInfo, forCellReuseIdentifier: "MangaDetailTableViewCell")
-        
+        chaptersTableview.ezRegisterNib(cellType: MangaDetailHeaderTableViewCell.self)
         chaptersTableview.register(UITableViewCell.self, forCellReuseIdentifier: "chapterCell")
+        
+        infoTableView.ezRegisterNib(cellType: MangaDetailHeaderTableViewCell.self)
+        infoTableView.ezRegisterNib(cellType: MangaDetailTableViewCell.self)
         
         installIndicatorView()
         
