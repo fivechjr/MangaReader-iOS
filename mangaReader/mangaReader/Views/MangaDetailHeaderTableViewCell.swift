@@ -18,7 +18,6 @@ class MangaDetailHeaderTableViewCell: UITableViewCell {
     @IBOutlet weak var labelBookTitle: UILabel!
     @IBOutlet weak var labelAuthorName: UILabel!
     @IBOutlet weak var labelStatus: UILabel!
-    @IBOutlet weak var labelChapterInfo: UILabel!
     @IBOutlet weak var buttonStart: UIButton!
     @IBOutlet weak var buttonFavorite: UIButton!
     
@@ -31,10 +30,16 @@ class MangaDetailHeaderTableViewCell: UITableViewCell {
     }
     
     func updateUI() {
+        let theme = ThemeManager.shared.currentTheme
+        backgroundColor = theme.backgroundSecondColor
+        labelBookTitle.textColor = theme.textColor
+        labelAuthorName.textColor = theme.textSecondColor
+        labelStatus.textColor = theme.textSecondColor
+        
         labelBookTitle.text = viewModel.bookTitle
         labelAuthorName.text = viewModel.authorName
-        labelStatus.text = viewModel.statusText
-        labelChapterInfo.text = viewModel.chapterCountText
+        labelStatus.text = viewModel.statusText + "\n" + viewModel.chapterCountText
+        
         if let imageURL = viewModel.imagePath
             , let url = URL(string: imageURL){
             imageViewCover.af_setImage(withURL: url, placeholderImage: viewModel.placeHolderImage)
@@ -50,9 +55,7 @@ class MangaDetailHeaderTableViewCell: UITableViewCell {
         
         selectionStyle = .none
         
-        buttonStart.layer.cornerRadius = 5
-        buttonStart.layer.borderColor = Color.blue.cgColor
-        buttonStart.layer.borderWidth = 0.5
+        buttonStart.layer.cornerRadius = 4.0
         
         imageViewCover.layer.borderColor = UIColor(white: 0.8, alpha: 1).cgColor
         imageViewCover.layer.borderWidth = 0.5

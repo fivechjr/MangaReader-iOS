@@ -21,14 +21,14 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="191" id="KGk-i7-Jjw" customClass="MangaDetailHeaderTableViewCell" customModule="mangaReader" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="185"/>
+            <rect key="frame" x="0.0" y="0.0" width="455" height="185"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="184.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="455" height="184.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="MTg-oc-NyC">
-                        <rect key="frame" x="10" y="17.5" width="100" height="150"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="MTg-oc-NyC">
+                        <rect key="frame" x="16" y="17.5" width="100" height="150"/>
                         <color key="backgroundColor" red="0.95767891839378239" green="0.95767891839378239" blue="0.95767891839378239" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="100" id="c5h-LU-Nho"/>
@@ -36,31 +36,25 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Book Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WYl-U9-ZPu">
-                        <rect key="frame" x="120" y="10" width="190" height="21.5"/>
+                        <rect key="frame" x="132" y="16" width="307" height="21.5"/>
                         <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="18"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Author Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hxM-Zq-JMj">
-                        <rect key="frame" x="120" y="36.5" width="190" height="17"/>
+                        <rect key="frame" x="132" y="41.5" width="307" height="17"/>
                         <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="14"/>
-                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100 Chapters" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UJo-da-c9y">
-                        <rect key="frame" x="120" y="80.5" width="190" height="17"/>
-                        <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="14"/>
-                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="textColor" white="0.25" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status: Ongoing" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Agu-hd-YSs">
-                        <rect key="frame" x="120" y="63.5" width="190" height="17"/>
+                        <rect key="frame" x="132" y="74.5" width="307" height="17"/>
                         <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="14"/>
-                        <color key="textColor" red="0.2054849691" green="0.5" blue="0.43892485879999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="textColor" white="0.25" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FIF-k6-b7D">
-                        <rect key="frame" x="270" y="134.5" width="40" height="40"/>
+                        <rect key="frame" x="399" y="128.5" width="40" height="40"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="O1G-ON-llQ"/>
                             <constraint firstAttribute="width" constant="40" id="UMA-Xp-wAH"/>
@@ -72,40 +66,40 @@
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f8f-0m-38c">
-                        <rect key="frame" x="120" y="134.5" width="130" height="40"/>
+                        <rect key="frame" x="132" y="128.5" width="247" height="40"/>
+                        <color key="backgroundColor" red="0.24313725489999999" green="0.4941176471" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="W6S-EC-dS7"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="16"/>
-                        <state key="normal" title="Start Reading"/>
+                        <state key="normal" title="Start Reading">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
                         <connections>
                             <action selector="startReadingAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="jD7-vt-qba"/>
                         </connections>
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="MTg-oc-NyC" secondAttribute="bottom" constant="10" id="1vJ-k6-b4j"/>
-                    <constraint firstItem="UJo-da-c9y" firstAttribute="leading" secondItem="MTg-oc-NyC" secondAttribute="trailing" constant="10" id="2Tw-Jy-YXj"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="MTg-oc-NyC" secondAttribute="bottom" constant="16" id="1vJ-k6-b4j"/>
                     <constraint firstItem="MTg-oc-NyC" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="2tb-58-1j9"/>
-                    <constraint firstItem="MTg-oc-NyC" firstAttribute="top" relation="greaterThanOrEqual" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="3M9-1c-Hqt"/>
-                    <constraint firstItem="WYl-U9-ZPu" firstAttribute="leading" secondItem="MTg-oc-NyC" secondAttribute="trailing" constant="10" id="5pQ-xR-mFw"/>
-                    <constraint firstAttribute="trailing" secondItem="hxM-Zq-JMj" secondAttribute="trailing" constant="10" id="785-ek-Czw"/>
-                    <constraint firstItem="hxM-Zq-JMj" firstAttribute="leading" secondItem="MTg-oc-NyC" secondAttribute="trailing" constant="10" id="AOr-hg-duW"/>
-                    <constraint firstItem="f8f-0m-38c" firstAttribute="leading" secondItem="MTg-oc-NyC" secondAttribute="trailing" constant="10" id="E0U-nk-tku"/>
-                    <constraint firstAttribute="bottom" secondItem="f8f-0m-38c" secondAttribute="bottom" constant="10" id="Esl-e1-jLf"/>
-                    <constraint firstItem="Agu-hd-YSs" firstAttribute="leading" secondItem="MTg-oc-NyC" secondAttribute="trailing" constant="10" id="GCg-mH-Si9"/>
+                    <constraint firstItem="MTg-oc-NyC" firstAttribute="top" relation="greaterThanOrEqual" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="3M9-1c-Hqt"/>
+                    <constraint firstItem="WYl-U9-ZPu" firstAttribute="leading" secondItem="MTg-oc-NyC" secondAttribute="trailing" constant="16" id="5pQ-xR-mFw"/>
+                    <constraint firstAttribute="trailing" secondItem="hxM-Zq-JMj" secondAttribute="trailing" constant="16" id="785-ek-Czw"/>
+                    <constraint firstItem="hxM-Zq-JMj" firstAttribute="leading" secondItem="MTg-oc-NyC" secondAttribute="trailing" constant="16" id="AOr-hg-duW"/>
+                    <constraint firstItem="f8f-0m-38c" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Agu-hd-YSs" secondAttribute="bottom" constant="16" id="AbP-tK-xDW"/>
+                    <constraint firstItem="f8f-0m-38c" firstAttribute="leading" secondItem="MTg-oc-NyC" secondAttribute="trailing" constant="16" id="E0U-nk-tku"/>
+                    <constraint firstAttribute="bottom" secondItem="f8f-0m-38c" secondAttribute="bottom" constant="16" id="Esl-e1-jLf"/>
+                    <constraint firstItem="Agu-hd-YSs" firstAttribute="leading" secondItem="MTg-oc-NyC" secondAttribute="trailing" constant="16" id="GCg-mH-Si9"/>
                     <constraint firstItem="FIF-k6-b7D" firstAttribute="leading" secondItem="f8f-0m-38c" secondAttribute="trailing" constant="20" id="I9a-bu-M5d"/>
                     <constraint firstItem="FIF-k6-b7D" firstAttribute="centerY" secondItem="f8f-0m-38c" secondAttribute="centerY" id="LoF-g6-2Qb"/>
-                    <constraint firstAttribute="trailing" secondItem="UJo-da-c9y" secondAttribute="trailing" constant="10" id="TKb-Om-MEo"/>
-                    <constraint firstItem="Agu-hd-YSs" firstAttribute="top" secondItem="hxM-Zq-JMj" secondAttribute="bottom" constant="10" id="W9T-sv-SNk"/>
-                    <constraint firstItem="UJo-da-c9y" firstAttribute="top" secondItem="Agu-hd-YSs" secondAttribute="bottom" id="Wl2-iY-P35"/>
-                    <constraint firstAttribute="trailing" secondItem="WYl-U9-ZPu" secondAttribute="trailing" constant="10" id="aEY-0x-7zP"/>
-                    <constraint firstItem="hxM-Zq-JMj" firstAttribute="top" secondItem="WYl-U9-ZPu" secondAttribute="bottom" constant="5" id="lVE-vp-gez"/>
-                    <constraint firstItem="MTg-oc-NyC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="pRw-61-ujS"/>
-                    <constraint firstAttribute="trailing" secondItem="Agu-hd-YSs" secondAttribute="trailing" constant="10" id="pSL-zV-pd2"/>
-                    <constraint firstItem="WYl-U9-ZPu" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="tEd-G6-3cV"/>
-                    <constraint firstItem="f8f-0m-38c" firstAttribute="top" relation="greaterThanOrEqual" secondItem="UJo-da-c9y" secondAttribute="bottom" constant="10" id="uiC-cb-Iph"/>
-                    <constraint firstAttribute="trailing" secondItem="FIF-k6-b7D" secondAttribute="trailing" constant="10" id="vgr-47-85g"/>
+                    <constraint firstItem="Agu-hd-YSs" firstAttribute="top" secondItem="hxM-Zq-JMj" secondAttribute="bottom" constant="16" id="W9T-sv-SNk"/>
+                    <constraint firstAttribute="trailing" secondItem="WYl-U9-ZPu" secondAttribute="trailing" constant="16" id="aEY-0x-7zP"/>
+                    <constraint firstItem="hxM-Zq-JMj" firstAttribute="top" secondItem="WYl-U9-ZPu" secondAttribute="bottom" constant="4" id="lVE-vp-gez"/>
+                    <constraint firstItem="MTg-oc-NyC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="pRw-61-ujS"/>
+                    <constraint firstAttribute="trailing" secondItem="Agu-hd-YSs" secondAttribute="trailing" constant="16" id="pSL-zV-pd2"/>
+                    <constraint firstItem="WYl-U9-ZPu" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="tEd-G6-3cV"/>
+                    <constraint firstAttribute="trailing" secondItem="FIF-k6-b7D" secondAttribute="trailing" constant="16" id="vgr-47-85g"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -115,10 +109,9 @@
                 <outlet property="imageViewCover" destination="MTg-oc-NyC" id="Ot4-Qt-9h1"/>
                 <outlet property="labelAuthorName" destination="hxM-Zq-JMj" id="rQS-sN-j7Z"/>
                 <outlet property="labelBookTitle" destination="WYl-U9-ZPu" id="lol-CU-Ba9"/>
-                <outlet property="labelChapterInfo" destination="UJo-da-c9y" id="UUq-Vx-NLV"/>
                 <outlet property="labelStatus" destination="Agu-hd-YSs" id="g11-jd-Iek"/>
             </connections>
-            <point key="canvasLocation" x="40" y="124.5"/>
+            <point key="canvasLocation" x="-68" y="123.68815592203899"/>
         </tableViewCell>
     </objects>
     <resources>

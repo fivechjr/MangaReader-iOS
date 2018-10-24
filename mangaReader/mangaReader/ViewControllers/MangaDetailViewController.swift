@@ -106,7 +106,7 @@ class MangaDetailViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = LocalizedString("Manga Detail")
+        title = viewModel.manga.title ?? LocalizedString("Manga Detail")
         chaptersTableview.rowHeight = UITableViewAutomaticDimension
         
         // Manga tab view
@@ -195,7 +195,7 @@ extension MangaDetailViewController: UITableViewDataSource {
                     cell.textLabel?.text = "[\(NSLocalizedString("Chapter", comment: ""))] \(chapterTitle)"
                     
                     if let chapterID = chapter.id, chapterID == viewModel.currentChapterID {
-                        cell.textLabel?.textColor = Color.blue
+                        cell.textLabel?.textColor = UIColor.blueSky
                     } else {
                         cell.textLabel?.textColor = UIColor.black
                     }

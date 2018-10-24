@@ -21,12 +21,30 @@ enum Theme: Int {
         }
     }
     
+    var backgroundSecondColor: UIColor {
+        switch self {
+        case .light:
+            return UIColor(white: 0.98, alpha: 1)
+        case .dark:
+            return UIColor.greenBlack
+        }
+    }
+    
     var textColor: UIColor {
         switch self {
         case .light:
             return UIColor.black
         case .dark:
             return UIColor.white
+        }
+    }
+    
+    var textSecondColor: UIColor {
+        switch self {
+        case .light:
+            return UIColor(white: 0.2, alpha: 1)
+        case .dark:
+            return UIColor(white: 0.8, alpha: 1)
         }
     }
     
@@ -84,6 +102,7 @@ class ThemeManager {
     }
     
     func updateAppearance() {
+        UINavigationBar.appearance().backgroundColor = currentTheme.backgroundColor
         UINavigationBar.appearance().barTintColor = currentTheme.backgroundColor
         UINavigationBar.appearance().tintColor = currentTheme.tintColor
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.font: UIFont.heading!, NSAttributedStringKey.foregroundColor: currentTheme.textColor]

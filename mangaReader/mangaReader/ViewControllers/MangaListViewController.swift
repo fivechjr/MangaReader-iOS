@@ -25,7 +25,7 @@ class MangaListViewController: BaseViewController, GenresListViewControllerDeleg
         let theme = ThemeManager.shared.currentTheme
         mangaSwithControl.tintColor = theme.tintColor
         mangaSwithControl.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: theme.textColor], for: .normal)
-        mangaListCollectionView.backgroundColor = theme.backgroundColor
+        mangaListCollectionView.backgroundColor = theme.backgroundSecondColor
         refreshControl.tintColor = theme.textColor
         mangaListCollectionView.infiniteScrollingView.activityIndicatorViewStyle = theme.activityIndicatorStyle
     }

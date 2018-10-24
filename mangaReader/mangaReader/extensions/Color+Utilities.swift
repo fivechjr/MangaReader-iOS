@@ -11,7 +11,8 @@ import UIKit
 
 extension UIColor {
     
-    static var blueSky = UIColor(red: 21, green: 126, blue: 251)
+    static let blueSky = UIColor(red: 21, green: 126, blue: 251)
+    static let greenBlack = UIColor(red: 22, green: 27, blue: 33)
 
     convenience init(hexString: String) {
         let scanner = Scanner(string: hexString)

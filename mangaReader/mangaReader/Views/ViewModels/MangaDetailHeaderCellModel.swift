@@ -42,7 +42,7 @@ class MangaDetailHeaderCellModel {
         return LocalizedString("Continue Reading")
     }
     
-    var chapterCountText: String? {
+    var chapterCountText: String {
         guard let chapterCount = manga.chapters?.count, chapterCount > 0 else {return LocalizedString("No Chapters")}
         if chapterCount == 1 {
             return "1 " + LocalizedString("Chapter")

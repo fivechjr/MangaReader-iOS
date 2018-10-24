@@ -28,6 +28,7 @@
 		8C81DCEA2180C0AA00F47A31 /* SF-Pro-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8C81DCE82180C0A900F47A31 /* SF-Pro-Text-Regular.otf */; };
 		8C81DCEB2180C0AA00F47A31 /* Radomir Tinkov - Gilroy-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8C81DCE92180C0A900F47A31 /* Radomir Tinkov - Gilroy-SemiBold.otf */; };
 		8C81DCED2180C0EF00F47A31 /* Font+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C81DCEC2180C0EF00F47A31 /* Font+Custom.swift */; };
+		8C81DCEF2180D43600F47A31 /* NSAttributedString+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C81DCEE2180D43600F47A31 /* NSAttributedString+Helper.swift */; };
 		8C88E389209042FF004B54D9 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C88E388209042FF004B54D9 /* SearchViewController.swift */; };
 		8C88E38B209045A8004B54D9 /* MangaListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C88E38A209045A8004B54D9 /* MangaListCollectionViewCell.xib */; };
 		8C88E38D20905DD0004B54D9 /* mangaList.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C88E38C20905DD0004B54D9 /* mangaList.json */; };
@@ -101,6 +102,7 @@
 		8C81DCE82180C0A900F47A31 /* SF-Pro-Text-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Regular.otf"; sourceTree = "<group>"; };
 		8C81DCE92180C0A900F47A31 /* Radomir Tinkov - Gilroy-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Radomir Tinkov - Gilroy-SemiBold.otf"; sourceTree = "<group>"; };
 		8C81DCEC2180C0EF00F47A31 /* Font+Custom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Custom.swift"; sourceTree = "<group>"; };
+		8C81DCEE2180D43600F47A31 /* NSAttributedString+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Helper.swift"; sourceTree = "<group>"; };
 		8C88E388209042FF004B54D9 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		8C88E38A209045A8004B54D9 /* MangaListCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MangaListCollectionViewCell.xib; sourceTree = "<group>"; };
 		8C88E38C20905DD0004B54D9 /* mangaList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mangaList.json; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 		8C96735E21686A4B00DE5D69 /* extensions */ = {
 			isa = PBXGroup;
 			children = (
+				8C81DCEE2180D43600F47A31 /* NSAttributedString+Helper.swift */,
 				8C96738E217C51F500DE5D69 /* Color+Utilities.swift */,
 				8C81DCEC2180C0EF00F47A31 /* Font+Custom.swift */,
 				8C96735F21686A5D00DE5D69 /* UIViewController+Loading.swift */,
@@ -572,6 +575,7 @@
 				8CF7EFAD2084565000E6AB6C /* MangaListResponse.swift in Sources */,
 				8C967377216A32C700DE5D69 /* MangaDetailViewModel.swift in Sources */,
 				8C96737D216A5B1A00DE5D69 /* MangaListCollectionCellViewModel.swift in Sources */,
+				8C81DCEF2180D43600F47A31 /* NSAttributedString+Helper.swift in Sources */,
 				8CD98FA320A52B23002C448F /* GuideView.swift in Sources */,
 				8C96738721795B3A00DE5D69 /* SettingsViewModel.swift in Sources */,
 				8C96736321686F0600DE5D69 /* MangaListViewModel.swift in Sources */,
