@@ -26,12 +26,12 @@ class MangaDetailViewModel {
     var chaptersContentOffset: CGPoint = CGPoint.zero
     
     func getMangaIfNeeded(completion: @escaping MangaListResponseHandler) -> Bool {
-        guard manga.chapters == nil else {
-            return false
+        guard let chapters = manga.chapters, !chapters.isEmpty else {
+            getManga(completion: completion)
+            return true
         }
         
-        getManga(completion: completion)
-        return true
+        return false
     }
     
     func getManga(completion: @escaping MangaListResponseHandler) {
