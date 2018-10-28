@@ -15,6 +15,7 @@ class MangaDetailChaptersViewController: BaseViewController {
             tableView.register(UITableViewCell.self, forCellReuseIdentifier: "chapterCell")
             tableView.rowHeight = 44.0
             tableView.estimatedRowHeight = 44.0
+            tableView.tableFooterView = UIView()
         }
     }
     
@@ -31,6 +32,7 @@ class MangaDetailChaptersViewController: BaseViewController {
     override func updateTheme() {
         let theme = ThemeManager.shared.currentTheme
         tableView.backgroundColor = theme.backgroundColor
+        tableView.separatorColor = theme.cellSeperatorColor
     }
 }
 
@@ -42,7 +44,8 @@ extension MangaDetailChaptersViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "chapterCell", for: indexPath)
-        
+
+        cell.backgroundColor = ThemeManager.shared.currentTheme.backgroundSecondColor
         if let chapter = viewModel.manga.chapterObjects?[indexPath.item] {
             let chapterTitle = chapter.title ?? "\(chapter.number ?? 0)"
             cell.textLabel?.text = "[\(NSLocalizedString("Chapter", comment: ""))] \(chapterTitle)"
@@ -50,7 +53,7 @@ extension MangaDetailChaptersViewController: UITableViewDataSource {
             if let chapterID = chapter.id, chapterID == viewModel.currentChapterID {
                 cell.textLabel?.textColor = UIColor.blueSky
             } else {
-                cell.textLabel?.textColor = UIColor.black
+                cell.textLabel?.textColor = ThemeManager.shared.currentTheme.textColor
             }
         }
         

@@ -211,6 +211,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h0f-9V-MbB">
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ah6-of-E5w">
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -223,13 +227,18 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="ah6-of-E5w" firstAttribute="leading" secondItem="BSu-0f-eB5" secondAttribute="leading" id="6Oc-6b-Sw5"/>
+                            <constraint firstItem="BSu-0f-eB5" firstAttribute="trailing" secondItem="h0f-9V-MbB" secondAttribute="trailing" id="AK6-zL-B6k"/>
+                            <constraint firstItem="h0f-9V-MbB" firstAttribute="top" secondItem="BSu-0f-eB5" secondAttribute="top" id="GTY-gy-KnZ"/>
                             <constraint firstItem="ah6-of-E5w" firstAttribute="top" secondItem="BSu-0f-eB5" secondAttribute="top" id="Ofv-N3-tu7"/>
+                            <constraint firstItem="h0f-9V-MbB" firstAttribute="leading" secondItem="BSu-0f-eB5" secondAttribute="leading" id="Zog-yp-EIy"/>
+                            <constraint firstItem="BSu-0f-eB5" firstAttribute="bottom" secondItem="h0f-9V-MbB" secondAttribute="bottom" id="fv0-Iz-Xa0"/>
                             <constraint firstItem="ah6-of-E5w" firstAttribute="trailing" secondItem="BSu-0f-eB5" secondAttribute="trailing" id="jw6-8D-H2z"/>
                             <constraint firstItem="ah6-of-E5w" firstAttribute="bottom" secondItem="BSu-0f-eB5" secondAttribute="bottom" id="kUR-yw-tnx"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="BSu-0f-eB5"/>
                     </view>
                     <connections>
+                        <outlet property="maskView" destination="h0f-9V-MbB" id="kFV-ht-Mwz"/>
                         <outlet property="tableView" destination="ah6-of-E5w" id="Te2-IR-Cr9"/>
                     </connections>
                 </viewController>

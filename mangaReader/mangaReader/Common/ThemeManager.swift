@@ -30,6 +30,15 @@ enum Theme: Int {
         }
     }
     
+    var cellSeperatorColor: UIColor {
+        switch self {
+        case .light:
+            return UIColor(white: 0.9, alpha: 1)
+        case .dark:
+            return UIColor(white: 0.2, alpha: 1)
+        }
+    }
+    
     var textColor: UIColor {
         switch self {
         case .light:

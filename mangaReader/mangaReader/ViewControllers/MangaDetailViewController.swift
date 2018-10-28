@@ -14,12 +14,14 @@ class MangaDetailViewController: BaseViewController {
     
     var viewModel: MangaDetailViewModel!
     
+    @IBOutlet weak var maskView: UIView!
     @IBOutlet weak var tableView: UITableView! {
         didSet {
             tableView.rowHeight = UITableViewAutomaticDimension
             tableView.estimatedRowHeight = 100.0
             tableView.ezRegisterNib(cellType: MangaDetailHeaderTableViewCell.self)
             tableView.ezRegisterNib(cellType: NestedTableViewCell.self)
+            tableView.tableFooterView = UIView()
         }
     }
     
@@ -30,14 +32,14 @@ class MangaDetailViewController: BaseViewController {
     var indicatorView: NVActivityIndicatorView!
     var nestCell: NestedTableViewCell!
     
-//    override class var storyboardId: String? {
-//        return "MangaDetailViewController"
-//    }
-    
     override func updateTheme() {
         let theme = ThemeManager.shared.currentTheme
+        maskView.backgroundColor = theme.backgroundColor
+        view.backgroundColor = theme.backgroundColor
+        tableView.backgroundColor = theme.backgroundColor
         chaptersViewController.updateTheme()
         infoViewController.updateTheme()
+        tabView.updateTheme()
     }
     
     func installIndicatorView() {
@@ -58,6 +60,7 @@ class MangaDetailViewController: BaseViewController {
     }
     
     func reload() {
+        tableView.reloadData()
         chaptersViewController.reload()
         infoViewController.reload()
     }
@@ -82,13 +85,14 @@ class MangaDetailViewController: BaseViewController {
         nestCell.install(viewController: infoViewController, parent: self, toTheLeft: false)
         
         if (viewModel.getMangaIfNeeded { [weak self] (_, _) in
-            self?.hideLoading()
-            self?.tabView.isHidden = false
-            self?.reload()
+            guard let `self` = self else {return}
+            self.hideLoading()
+            self.view.sendSubview(toBack: self.maskView)
+            self.reload()
             }) {
             
             showLoading()
-            self.tabView.isHidden = true
+            view.bringSubview(toFront: maskView)
         }
     }
     

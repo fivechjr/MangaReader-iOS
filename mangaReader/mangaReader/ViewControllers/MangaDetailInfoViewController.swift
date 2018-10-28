@@ -15,6 +15,7 @@ class MangaDetailInfoViewController: BaseViewController {
             tableView.ezRegisterNib(cellType: MangaDetailTableViewCell.self)
             tableView.rowHeight = UITableViewAutomaticDimension
             tableView.estimatedRowHeight = 100.0
+            tableView.tableFooterView = UIView()
         }
     }
     
@@ -44,6 +45,8 @@ extension MangaDetailInfoViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "MangaDetailTableViewCell", for: indexPath) as! MangaDetailTableViewCell
+        
+        cell.updateTheme()
         
         cell.labelDescription.text = viewModel.manga.description
         

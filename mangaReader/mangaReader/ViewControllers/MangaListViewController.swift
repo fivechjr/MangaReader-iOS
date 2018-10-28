@@ -23,8 +23,12 @@ class MangaListViewController: BaseViewController, GenresListViewControllerDeleg
     
     override func updateTheme() {
         let theme = ThemeManager.shared.currentTheme
-        mangaSwithControl.tintColor = theme.tintColor
-        mangaSwithControl.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: theme.textColor], for: .normal)
+        
+        let attributesNormal = [NSAttributedStringKey.font: UIFont.button!]
+        let attributesSelected = [NSAttributedStringKey.font: UIFont.title!]
+        mangaSwithControl.setTitleTextAttributes(attributesNormal, for: .normal)
+        mangaSwithControl.setTitleTextAttributes(attributesSelected, for: .selected)
+        
         mangaListCollectionView.backgroundColor = theme.backgroundSecondColor
         refreshControl.tintColor = theme.textColor
         mangaListCollectionView.infiniteScrollingView.activityIndicatorViewStyle = theme.activityIndicatorStyle

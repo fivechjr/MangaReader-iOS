@@ -11,7 +11,8 @@ import NVActivityIndicatorView
 
 extension UIViewController {
     func showLoading() {
-        let activityData = ActivityData(size:CGSize(width: 35, height: 35), type: .ballPulse, color: UIColor.black)
+        let color = ThemeManager.shared.currentTheme.textColor
+        let activityData = ActivityData(size:CGSize(width: 35, height: 35), type: .ballPulse, color: color)
         NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData)
     }
     
