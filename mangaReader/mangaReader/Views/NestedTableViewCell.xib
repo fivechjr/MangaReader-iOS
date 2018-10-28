@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="NestedTableViewCell" rowHeight="297" id="KGk-i7-Jjw" customClass="NestedTableViewCell" customModule="mangaReader" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="297"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="296.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dnf-Tp-gVx" customClass="GesturesSharedScrollView" customModule="mangaReader" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="296.5"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="4xI-iX-nY4">
+                                <rect key="frame" x="0.0" y="0.0" width="640" height="296.5"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g9j-hX-62r" userLabel="left view">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="296.5"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pux-UB-9E5" userLabel="right view">
+                                        <rect key="frame" x="320" y="0.0" width="320" height="296.5"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="4xI-iX-nY4" secondAttribute="bottom" id="7PG-2K-MDa"/>
+                            <constraint firstItem="4xI-iX-nY4" firstAttribute="top" secondItem="Dnf-Tp-gVx" secondAttribute="top" id="MG6-hk-8J0"/>
+                            <constraint firstItem="4xI-iX-nY4" firstAttribute="height" secondItem="Dnf-Tp-gVx" secondAttribute="height" id="Nux-TJ-kC0"/>
+                            <constraint firstAttribute="trailing" secondItem="4xI-iX-nY4" secondAttribute="trailing" id="bHA-7n-KLB"/>
+                            <constraint firstItem="4xI-iX-nY4" firstAttribute="leading" secondItem="Dnf-Tp-gVx" secondAttribute="leading" id="jCN-gf-FMK"/>
+                            <constraint firstItem="4xI-iX-nY4" firstAttribute="width" secondItem="Dnf-Tp-gVx" secondAttribute="width" multiplier="2" id="ykW-7S-y1g"/>
+                        </constraints>
+                    </scrollView>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="Dnf-Tp-gVx" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="IZO-mj-svE"/>
+                    <constraint firstAttribute="trailing" secondItem="Dnf-Tp-gVx" secondAttribute="trailing" id="Qm5-gY-d9E"/>
+                    <constraint firstAttribute="bottom" secondItem="Dnf-Tp-gVx" secondAttribute="bottom" id="p6t-Em-D6k"/>
+                    <constraint firstItem="Dnf-Tp-gVx" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="tGs-rU-Eic"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="leftView" destination="g9j-hX-62r" id="SH0-Eg-jhr"/>
+                <outlet property="rightView" destination="Pux-UB-9E5" id="J6R-Ke-ytj"/>
+                <outlet property="scrollView" destination="Dnf-Tp-gVx" id="QNi-Fk-5DU"/>
+            </connections>
+            <point key="canvasLocation" x="34" y="180.5"/>
+        </tableViewCell>
+    </objects>
+</document>

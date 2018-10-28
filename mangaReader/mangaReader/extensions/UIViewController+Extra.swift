@@ -85,3 +85,15 @@ extension UIViewController: MFMailComposeViewControllerDelegate {
         present(activityVC, animated: true, completion: nil)
     }
 }
+
+class GesturesSharedTableView: UITableView, UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+}
+
+class GesturesSharedScrollView: UIScrollView, UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+}
