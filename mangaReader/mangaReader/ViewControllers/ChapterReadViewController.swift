@@ -34,6 +34,11 @@ class ChapterReadViewController: BaseViewController, GuideViewDelegate {
     
     var imageViewControllers: [ImageViewController] = [ImageViewController]()
     
+    override func updateTheme() {
+        let theme = ThemeManager.shared.currentTheme
+        view.backgroundColor = theme.backgroundSecondColor
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

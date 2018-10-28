@@ -15,6 +15,15 @@ class SettingsViewController: BaseViewController {
     var viewModel = SettingsViewModel()
     
     @IBOutlet weak var tableView: UITableView!
+    
+    override func updateTheme() {
+        let theme = ThemeManager.shared.currentTheme
+        view.backgroundColor = theme.backgroundColor
+        tableView.backgroundColor = theme.backgroundSecondColor
+        tableView.separatorColor = theme.cellSeperatorColor
+        tableView.reloadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,6 +39,9 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        
+        cell.backgroundColor = ThemeManager.shared.currentTheme.backgroundSecondColor
+        cell.textLabel?.textColor = ThemeManager.shared.currentTheme.textColor
         
         cell.textLabel?.text = viewModel[indexPath.row]?.localizedTitle
         
@@ -54,6 +66,7 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             Utility.aboutApp()
         case .changeTheme:
             ThemeManager.shared.currentTheme = (ThemeManager.shared.currentTheme == .light) ? .dark: .light
+            tabBarController?.selectedIndex = 0
         }
     }
 }

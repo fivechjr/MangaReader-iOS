@@ -29,6 +29,12 @@ class ImageViewController: BaseViewController, UIScrollViewDelegate {
     override func viewDidDisappear(_ animated: Bool) {
         imageScrollView.zoomScale = 1.0
     }
+    
+    override func updateTheme() {
+        let theme = ThemeManager.shared.currentTheme
+        view.backgroundColor = theme.backgroundSecondColor
+        indicatorView.color = theme.textColor
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,7 +80,7 @@ class ImageViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     func installIndicatorView() {
-        indicatorView = NVActivityIndicatorView(frame: CGRect.zero, type: .ballSpinFadeLoader, color: UIColor.black)
+        indicatorView = NVActivityIndicatorView(frame: CGRect.zero, type: .ballSpinFadeLoader, color: ThemeManager.shared.currentTheme.textColor)
         view.addSubview(indicatorView)
         indicatorView.snp.makeConstraints { (maker) in
             maker.center.equalToSuperview()

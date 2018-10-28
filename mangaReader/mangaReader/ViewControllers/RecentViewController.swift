@@ -16,6 +16,14 @@ class RecentViewController: BaseViewController {
     
     var emptyInfoView: EmptyInfoView!
     
+    override func updateTheme() {
+        let theme = ThemeManager.shared.currentTheme
+        view.backgroundColor = theme.backgroundColor
+        recentCollectionView.backgroundColor = theme.backgroundSecondColor
+        recentCollectionView.reloadData()
+        emptyInfoView.updateTheme()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -50,6 +58,7 @@ class RecentViewController: BaseViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         viewModel.loadData()
         recentCollectionView.reloadData()
         

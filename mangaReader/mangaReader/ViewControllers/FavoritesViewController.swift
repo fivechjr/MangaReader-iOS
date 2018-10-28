@@ -16,6 +16,14 @@ class FavoritesViewController: BaseViewController {
     
     var emptyInfoView: EmptyInfoView!
     
+    override func updateTheme() {
+        let theme = ThemeManager.shared.currentTheme
+        view.backgroundColor = theme.backgroundColor
+        favoritesCollectionView.backgroundColor = theme.backgroundSecondColor
+        favoritesCollectionView.reloadData()
+        emptyInfoView.updateTheme()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -30,6 +38,7 @@ class FavoritesViewController: BaseViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         viewModel.loadFavorites()
         favoritesCollectionView.reloadData()
         
