@@ -95,7 +95,13 @@ class MangaListViewController: BaseViewController, GenresListViewControllerDeleg
         refreshControl.scrollView = mangaListCollectionView
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         
+        refreshFirstPage()
+    }
+    
+    func refreshFirstPage() {
         refreshControl.start()
+        viewModel.clearManga()
+        mangaListCollectionView.reloadData()
         viewModel.loadFirstPage(completion: { [weak self] (_, _) in
             self?.refreshControl.stop()
         })
@@ -152,9 +158,7 @@ class MangaListViewController: BaseViewController, GenresListViewControllerDeleg
         
         viewModel.sortByRecentUpdate = (sender.selectedSegmentIndex == 1)
         
-        viewModel.refreshManga()
-        
-        mangaListCollectionView.reloadData()
+        refreshFirstPage()
         
         mangaListCollectionView.setContentOffset(CGPoint.zero, animated: true)
     }

@@ -11,6 +11,9 @@ import RxSwift
 
 class MangaListViewModel {
     var sortByRecentUpdate = false
+    var mangaSort: MangaSort {
+        return sortByRecentUpdate ? .last_chapter_date : .hits
+    }
     
     var isLoading: Bool = false
     
@@ -35,22 +38,30 @@ class MangaListViewModel {
         return nil
     }
     
-    func loadFirstPage(completion: @escaping MangaListResponseHandler) {
+    func loadFirstPage(completion: @escaping ([Manga]?, Error?) -> Void) {
         loadManga(page: 0, completion: completion)
     }
     
-    func loadNextPage(completion: @escaping MangaListResponseHandler) {
+    func loadNextPage(completion: @escaping ([Manga]?, Error?) -> Void) {
         loadManga(page: currentPage + 1, completion: completion)
     }
     
-    func refreshManga() {
-        mangasSignal.value = filterManga(mangas)
+    func refreshManga() -> [Manga] {
+        let refreshedManga = filterManga(mangas)
+        mangasSignal.value = refreshedManga
+        
+        return refreshedManga
+    }
+    
+    func clearManga() {
+        mangas = []
+        mangasSignal.value = []
     }
 }
 
 extension MangaListViewModel {
     
-    fileprivate func loadManga(page: Int, completion: @escaping MangaListResponseHandler) {
+    fileprivate func loadManga(page: Int, completion: @escaping ([Manga]?, Error?) -> Void) {
         guard !isLoading else {
             completion(nil, nil)
             return
@@ -62,12 +73,24 @@ extension MangaListViewModel {
             mangas.removeAll()
         }
         
+        // Load from cache
+        let cachedManaga = MangaCache.getMangaList(page: currentPage, size: pageSize, sort: mangaSort)
+        if !cachedManaga.isEmpty {
+            mangas.append(contentsOf: cachedManaga)
+            _ = refreshManga()
+            completion(cachedManaga, nil)
+            return
+        }
+        
+        // load from network
         isLoading = true
-        DataRequester.getMangaList(page: currentPage, size: pageSize) { [weak self] (response, error) in
+        DataRequester.getMangaList(page: currentPage, size: pageSize, sort: mangaSort) { [weak self] (mangalist, error) in
             guard let `self` = self else {return}
-            self.mangas.append(contentsOf: response?.mangalist ?? [])
-            self.refreshManga()
-            completion(response, error)
+            self.mangas.append(contentsOf: mangalist ?? [])
+            let refreshedManga = self.refreshManga()
+            MangaCache.saveMangaList(mangaList: refreshedManga, currentPage: self.currentPage, size: self.pageSize, sort: self.mangaSort)
+            
+            completion(mangalist, error)
             self.isLoading = false
         }
     }

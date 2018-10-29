@@ -46,6 +46,11 @@ enum MangaEndpoint {
     }
 }
 
+enum MangaSort: String {
+    case hits
+    case last_chapter_date
+}
+
 /*
  http://dym1.com:8000/api/manga/categoryNames
  */
