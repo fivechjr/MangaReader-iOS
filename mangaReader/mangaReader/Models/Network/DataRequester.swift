@@ -41,9 +41,20 @@ class DataRequester {
         get(urlString: path, responseType: CategoryNamesResponse.self, completion: completion)
     }
     
-    static func searchManga(withKeyword keyword: String, page:Int, size:Int, completion:@escaping MangaListResponseHandler) {
-        let path = MangaEndpoint.searchManga(keyword: keyword, pageIndex: page, pageSize: size).path
-        get(urlString: path, responseType: MangaListResponse.self, completion: completion)
+    static func searchManga(withKeyword keyword: String, page:Int, size:Int, sort: MangaSort? = nil, categoryNames: [String]? = nil, completion:@escaping MangaListResponseHandler) {
+        let path = MangaEndpoint.search.path
+        var parameters: [String: Any] = ["pageIndex": page,
+                                         "pageSize": size,
+                                         "keyword": keyword]
+        if let sortField = sort?.rawValue, !sortField.isEmpty {
+            parameters["sortField"] = sortField
+        }
+        
+        if let categoryNames = categoryNames, !categoryNames.isEmpty {
+            parameters["categoryNames"] = categoryNames
+        }
+        
+        post(urlString: path, parameters: parameters, responseType: MangaListResponse.self, completion:completion)
     }
 }
 

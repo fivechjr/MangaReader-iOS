@@ -56,7 +56,7 @@ extension SearchViewModel {
             mangas.removeAll()
         }
         
-        DataRequester.searchManga(withKeyword: keyword, page: currentPage, size: pageSize) { [weak self] (response, error) in
+        DataRequester.searchManga(withKeyword: keyword, page: currentPage, size: pageSize, sort: .hits) { [weak self] (response, error) in
             guard let `self` = self else {return}
             self.mangas.append(contentsOf: response?.mangalist ?? [])
             self.refreshManga()

@@ -19,7 +19,7 @@ import Foundation
 enum MangaEndpoint {
     case manga
     case mangaList
-    case searchManga(keyword: String, pageIndex: Int, pageSize: Int)
+    case search
     case chapter(mangaId: String, chapterId: String)
     case categoryManga(categoryName: String, pageIndex: Int, pageSize: Int)
     case categories
@@ -34,8 +34,8 @@ enum MangaEndpoint {
             return baseUrl + "mangaList/mangaedenid"
         case .mangaList:
             return baseUrl + "mangaList"
-        case .searchManga(let keyword, let pageIndex, let pageSize):
-            return baseUrl + "searchMangaList/keyword/\(keyword)/pageIndex/\(pageIndex)/pageSize/\(pageSize)"
+        case .search:
+            return baseUrl + "search"
         case .chapter(let mangaId, let chapterId):
             return baseUrl + "mangaid/\(mangaId)/chapterid/\(chapterId)"
         case .categoryManga(let categoryName, let pageIndex, let pageSize):
