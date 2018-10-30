@@ -16,22 +16,39 @@ class DataManager {
     }
     
     static let shared = DataManager()
-    private init() {
-        categories = UserDefaults.standard.array(forKey: CacheKey.key_manga_categories.rawValue) as? [String] ?? []
-        print("Got cached categories: \(categories)")
-    }
+    private init() {}
     
-    private(set) var categories: [String] = []
+    private var _categories: [String]?
+    private(set) var categories: [String] {
+        get {
+            if let _categories = _categories {
+                return _categories
+            } else {
+                _categories = UserDefaults.standard.array(forKey: CacheKey.key_manga_categories.rawValue) as? [String]
+                return _categories ?? []
+            }
+        }
+        
+        set(value) {
+            _categories = value
+            UserDefaults.standard.set(value, forKey: CacheKey.key_manga_categories.rawValue)
+        }
+    }
     private(set) var legalCategories: [String] = []
     
-    func loadData() {
+    func loadCategories(forceUpdate: Bool = false, completion: (([String], Error?) -> Void)? = nil) {
+        
+        guard categories.isEmpty || forceUpdate else {
+            completion?(categories, nil)
+            return
+        }
+        
         DataRequester.getCategories { [weak self] (response, error) in
             guard let `self` = self else {return}
-            self.categories.removeAll()
-            self.categories.append(contentsOf: response?.categoryNames ?? [])
-            self.legalCategories = self.categories.compactMap { Utility.string($0, containsAny: SensitiveData.categories) ? nil : $0}
             
-            UserDefaults.standard.set(self.categories, forKey: CacheKey.key_manga_categories.rawValue)
+            let categories = response?.categoryNames?.compactMap { Utility.string($0, containsAny: SensitiveData.categories) ? nil : $0}
+            self.categories = categories ?? []
+            completion?(self.categories, nil)
         }
     }
 }

@@ -7,10 +7,21 @@
 //
 
 import Foundation
+import RxSwift
 
 class GenresListViewModel {
+    
+    var genresSignal = Variable<[String]>([])
+    
     var genres: [String] {
-        return DataManager.shared.legalCategories
+        return genresSignal.value
+    }
+    
+    func loadCategories(completion: @escaping () -> Void) {
+        DataManager.shared.loadCategories(forceUpdate: false) { [weak self] (categories, error) in
+            self?.genresSignal.value = categories
+            completion()
+        }
     }
     
     func title(atIndex index: Int) -> String? {

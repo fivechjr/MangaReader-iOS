@@ -20,7 +20,6 @@ class ImageViewController: BaseViewController, UIScrollViewDelegate {
     
     var imageView: UIImageView!
     var imageScrollView: UIScrollView!
-    var indicatorView: NVActivityIndicatorView!
     
     weak var delegate: ImageViewControllerDelegate?
     
@@ -33,7 +32,6 @@ class ImageViewController: BaseViewController, UIScrollViewDelegate {
     override func updateTheme() {
         let theme = ThemeManager.shared.currentTheme
         view.backgroundColor = theme.backgroundSecondColor
-        indicatorView.color = theme.textColor
     }
 
     override func viewDidLoad() {
@@ -74,30 +72,17 @@ class ImageViewController: BaseViewController, UIScrollViewDelegate {
         
         singleTapGesture.require(toFail: doubleTapGesture)
         
-        installIndicatorView()
-        
         loadImage()
     }
     
-    func installIndicatorView() {
-        indicatorView = NVActivityIndicatorView(frame: CGRect.zero, type: .ballSpinFadeLoader, color: ThemeManager.shared.currentTheme.textColor)
-        view.addSubview(indicatorView)
-        indicatorView.snp.makeConstraints { (maker) in
-            maker.center.equalToSuperview()
-            maker.width.equalTo(50)
-            maker.height.equalTo(50)
-        }
-    }
-    
     func loadImage() {
-        indicatorView.startAnimating()
+        showLoading()
         if let imagePath = chapterImage?.imagePath
             , let urlString = DataRequester.getImageUrl(withImagePath: imagePath)
             , let url = URL(string: urlString) {
             
-//            let placeHolderImage = UIImage(named: "manga_default")
             imageView.af_setImage(withURL: url, placeholderImage: nil, imageTransition: .crossDissolve(0.2))  {[weak self] (imageDataResponse) in
-                self?.indicatorView.stopAnimating()
+                self?.hideLoading()
             }
         }
     }

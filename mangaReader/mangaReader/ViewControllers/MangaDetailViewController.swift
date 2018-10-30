@@ -29,7 +29,6 @@ class MangaDetailViewController: BaseViewController {
     var infoViewController: MangaDetailInfoViewController!
     
     var tabView: MangaDetailTabView!
-    var indicatorView: NVActivityIndicatorView!
     var nestCell: NestedTableViewCell!
     
     override func updateTheme() {
@@ -40,16 +39,6 @@ class MangaDetailViewController: BaseViewController {
         chaptersViewController.updateTheme()
         infoViewController.updateTheme()
         tabView.updateTheme()
-    }
-    
-    func installIndicatorView() {
-        indicatorView = NVActivityIndicatorView(frame: CGRect.zero, type: .ballSpinFadeLoader, color: UIColor.black)
-        view.addSubview(indicatorView)
-        indicatorView.snp.makeConstraints { (maker) in
-            maker.center.equalToSuperview()
-            maker.width.equalTo(50)
-            maker.height.equalTo(50)
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -72,8 +61,6 @@ class MangaDetailViewController: BaseViewController {
         // Manga tab view
         tabView = MangaDetailTabView()
         tabView.delegate = self
-        
-        installIndicatorView()
         
         chaptersViewController = (MangaDetailChaptersViewController.newInstance() as! MangaDetailChaptersViewController)
         chaptersViewController.viewModel = viewModel

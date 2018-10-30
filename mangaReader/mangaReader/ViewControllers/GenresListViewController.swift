@@ -20,8 +20,6 @@ class GenresListViewController: BaseViewController {
     
     @IBOutlet weak var genresTableView: UITableView!
     
-//    var genresData = ["Action", "Adventure", "Comedy", "Horror", "Supernatural", "Mystery", "Psychological", "Romance", "Drama", "Fantasy", "Seinen", "Martial Arts", "Shoujo"]
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = LocalizedString("Genres")
@@ -33,6 +31,16 @@ class GenresListViewController: BaseViewController {
         genresTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         
         AdsManager.sharedInstance.showRandomAdsIfComfortable()
+        
+        showLoading()
+        viewModel.loadCategories { [weak self] in
+            self?.hideLoading()
+        }
+        
+        viewModel.genresSignal.asObservable()
+            .subscribe(onNext: { [weak self] _ in
+                self?.genresTableView.reloadData()
+            }).disposed(by: bag)
     }
     
     static func createFromStoryboard() -> UINavigationController? {

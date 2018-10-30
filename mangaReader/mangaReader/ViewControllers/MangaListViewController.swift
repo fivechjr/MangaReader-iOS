@@ -18,7 +18,6 @@ class MangaListViewController: BaseViewController, GenresListViewControllerDeleg
     @IBOutlet weak var genresTagListView: TagListView!
     
     var viewModel = MangaListViewModel()
-    let bag = DisposeBag()
     let refreshControl = BetterRefreshControl()
     
     override func updateTheme() {
