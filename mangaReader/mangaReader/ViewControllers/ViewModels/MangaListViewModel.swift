@@ -24,9 +24,6 @@ class MangaListViewModel {
     
     fileprivate var mangas:[Manga] = []
     
-    var selectedGenres: [String] = []
-    var selectedGenresLocalized: [String] = []
-    
     var currentPage: Int = 0
     let pageSize: Int = 21
     
@@ -96,26 +93,7 @@ extension MangaListViewModel {
     }
     
     fileprivate func filterManga(_ mangas: [Manga]) -> [Manga] {
-        return mangas.filter({ (manga) -> Bool in
-            
-            guard manga.canPublish() else {
-                return false
-            }
-            
-            var isOfGenres = true
-            
-            if selectedGenres.count > 0 {
-                isOfGenres = selectedGenres.reduce(true, { (result, genre) -> Bool in
-                    if let categories = manga.categories, categories.contains(genre) {
-                        return result && true
-                    } else {
-                        return false
-                    }
-                })
-            }
-            
-            return isOfGenres
-        })
+        return mangas.filter {$0.canPublish()}
     }
     
     fileprivate func sortManga(_ mangas: [Manga]) -> [Manga] {

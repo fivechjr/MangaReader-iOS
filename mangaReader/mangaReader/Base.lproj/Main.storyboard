@@ -124,43 +124,6 @@
                                             <action selector="mangaSwitchAction:" destination="BYZ-38-t0r" eventType="valueChanged" id="zTJ-8h-peg"/>
                                         </connections>
                                     </segmentedControl>
-                                    <view hidden="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="XMD-hj-1IT" customClass="TagListView" customModule="TagListView">
-                                        <rect key="frame" x="0.0" y="0.0" width="343" height="50"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="textColor">
-                                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="tagBackgroundColor">
-                                                <color key="value" red="0.1155257853" green="0.3594085648" blue="0.59081525260000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="tagHighlightedBackgroundColor">
-                                                <color key="value" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="tagSelectedBackgroundColor">
-                                                <color key="value" red="0.1155257853" green="0.3594085648" blue="0.59081525260000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="2"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="enableRemoveButton" value="YES"/>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="removeButtonIconSize">
-                                                <real key="value" value="8"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="removeIconLineWidth">
-                                                <real key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedTextColor">
-                                                <color key="value" red="0.94871275906735753" green="0.94871275906735753" blue="0.94871275906735753" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="paddingY">
-                                                <real key="value" value="10"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="paddingX">
-                                                <real key="value" value="8"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
                                 </subviews>
                             </stackView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="A3i-Gy-NIq">
@@ -193,7 +156,6 @@
                     </view>
                     <navigationItem key="navigationItem" title="Discovery" id="GDZ-0N-bTk"/>
                     <connections>
-                        <outlet property="genresTagListView" destination="XMD-hj-1IT" id="m8x-6U-4gi"/>
                         <outlet property="mangaListCollectionView" destination="A3i-Gy-NIq" id="fAj-15-cPv"/>
                         <outlet property="mangaSwithControl" destination="48D-JG-BAt" id="yP4-G1-qfZ"/>
                         <segue destination="rWd-yO-dM8" kind="show" identifier="showMangaDetail" id="8ng-VW-RUk"/>
@@ -767,13 +729,13 @@
         </scene>
     </scenes>
     <resources>
-        <image name="backward" width="50" height="50"/>
-        <image name="close" width="50" height="50"/>
-        <image name="compass" width="33" height="33"/>
-        <image name="favorite_tab" width="33" height="33"/>
-        <image name="forward" width="50" height="50"/>
-        <image name="recent" width="28" height="28"/>
-        <image name="settings" width="50" height="50"/>
-        <image name="settings_tab" width="33" height="33"/>
+        <image name="backward" width="25.622776031494141" height="25.622776031494141"/>
+        <image name="close" width="40" height="40"/>
+        <image name="compass" width="13.199999809265137" height="13.199999809265137"/>
+        <image name="favorite_tab" width="26.399999618530273" height="26.399999618530273"/>
+        <image name="forward" width="25.622776031494141" height="25.622776031494141"/>
+        <image name="recent" width="22.399999618530273" height="22.399999618530273"/>
+        <image name="settings" width="40" height="40"/>
+        <image name="settings_tab" width="26.399999618530273" height="26.399999618530273"/>
     </resources>
 </document>
