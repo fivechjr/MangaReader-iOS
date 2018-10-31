@@ -91,11 +91,10 @@ class MangaListViewController: BaseViewController {
     }
     
     func refreshFirstPage() {
-        refreshControl.start()
         viewModel.clearManga()
         mangaListCollectionView.reloadData()
         viewModel.loadFirstPage(completion: { [weak self] (_, _) in
-            self?.refreshControl.stop()
+            self?.refreshControl.stop(shouldAdjustOffset: true)
         })
     }
     
@@ -182,8 +181,7 @@ extension MangaListViewController: GenresListViewControllerDelegate {
             genresTagListView.removeAllTags()
             genresTagListView.addTags(viewModel.selectedGenresLocalized)
             
-            viewModel.refreshManga()
-            mangaListCollectionView.reloadData()
+            refreshFirstPage()
         }
     }
 }
@@ -200,8 +198,7 @@ extension MangaListViewController: TagListViewDelegate {
         viewModel.selectedGenres.remove(at: indexOfGenre)
         viewModel.selectedGenresLocalized.remove(at: indexOfGenre)
         
-        viewModel.refreshManga()
-        mangaListCollectionView.reloadData()
+        refreshFirstPage()
     }
 }
 

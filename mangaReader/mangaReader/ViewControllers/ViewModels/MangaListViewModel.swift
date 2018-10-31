@@ -75,7 +75,8 @@ extension MangaListViewModel {
         
         // Load from cache
         let cachedManaga = MangaCache.getMangaList(page: currentPage, size: pageSize, sort: mangaSort)
-        if !cachedManaga.isEmpty {
+        // Only use cached data if no genres selected
+        if !cachedManaga.isEmpty && selectedGenres.isEmpty {
             mangas.append(contentsOf: cachedManaga)
             _ = refreshManga()
             completion(cachedManaga, nil)
@@ -88,7 +89,11 @@ extension MangaListViewModel {
             guard let `self` = self else {return}
             self.mangas.append(contentsOf: mangalist ?? [])
             let refreshedManga = self.refreshManga()
-            MangaCache.saveMangaList(mangaList: refreshedManga, currentPage: self.currentPage, size: self.pageSize, sort: self.mangaSort)
+            
+            // Only cache if no genres are selected
+            if self.selectedGenres.isEmpty {
+                MangaCache.saveMangaList(mangaList: refreshedManga, currentPage: self.currentPage, size: self.pageSize, sort: self.mangaSort)
+            }
             
             completion(mangalist, error)
             self.isLoading = false

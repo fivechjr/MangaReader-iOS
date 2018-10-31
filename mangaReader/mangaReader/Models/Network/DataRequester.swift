@@ -25,11 +25,15 @@ class DataRequester {
         get(urlString: path, responseType: ChapterDetailResponse.self, completion: completion)
     }
     
-    static func getMangaList(page:Int, size:Int, sort: MangaSort, completion:@escaping ([Manga]?, Error?) -> Void) {
+    static func getMangaList(page:Int, size:Int, sort: MangaSort, categoryNames: [String]? = nil, completion:@escaping ([Manga]?, Error?) -> Void) {
         let path = MangaEndpoint.mangaList.path
-        let parameters: [String: Any] = ["pageIndex": page,
+        var parameters: [String: Any] = ["pageIndex": page,
                           "pageSize": size,
                           "sortField": sort.rawValue]
+        
+        if let categoryNames = categoryNames, !categoryNames.isEmpty {
+            parameters["categoryNames"] = categoryNames
+        }
         
         post(urlString: path, parameters: parameters, responseType: MangaListResponse.self) {(response, error) in
             completion(response?.mangalist, error)
