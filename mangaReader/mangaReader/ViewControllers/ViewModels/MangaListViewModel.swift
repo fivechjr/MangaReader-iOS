@@ -17,6 +17,9 @@ class MangaListViewModel {
     
     var isLoading: Bool = false
     
+    var selectedGenres: [String] = []
+    var selectedGenresLocalized: [String] = []
+    
     var mangasSignal = Variable<[Manga]>([])
     var mangasShowing: [Manga] {
         return mangasSignal.value
