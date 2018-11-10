@@ -8,46 +8,41 @@
 
 import UIKit
 import TagListView
+import RxSwift
+import SVPullToRefresh
 
-class MangaListViewController: UIViewController, GenresListViewControllerDelegate {
+class MangaListViewController: BaseViewController {
     
     @IBOutlet weak var mangaListCollectionView: UICollectionView!
     @IBOutlet weak var mangaSwithControl: UISegmentedControl!
     @IBOutlet weak var genresTagListView: TagListView!
     
-    var sortByRecentUpdate = false
+    var viewModel = MangaListViewModel()
+    let refreshControl = BetterRefreshControl()
     
-    var mangas:[MangaResponse]?
-    
-    var mangasFiltered:[MangaResponse]?
-    
-    var selectedGenres: [String] = []
+    override func updateTheme() {
+        let theme = ThemeManager.shared.currentTheme
+        
+        let attributesNormal = [NSAttributedStringKey.font: UIFont.button!]
+        let attributesSelected = [NSAttributedStringKey.font: UIFont.title!]
+        mangaSwithControl.setTitleTextAttributes(attributesNormal, for: .normal)
+        mangaSwithControl.setTitleTextAttributes(attributesSelected, for: .selected)
+        
+        mangaListCollectionView.backgroundColor = theme.backgroundSecondColor
+        refreshControl.tintColor = theme.textColor
+        mangaListCollectionView.infiniteScrollingView.activityIndicatorViewStyle = theme.activityIndicatorStyle
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == "showMangaDetail"
             , let mangaDetailVC = segue.destination as? MangaDetailViewController
             , let cell = sender as? MangaListCollectionViewCell
             , let indexPath = mangaListCollectionView.indexPath(for: cell)
-            , let manga = mangasFiltered?[indexPath.item] else {
+            , let manga = viewModel.manga(atIndex: indexPath.item) else {
             return
         }
         
-        mangaDetailVC.mangaID = manga.id
-    }
-    
-    // MARK: GenresListViewControllerDelegate
-    func didSelectGenre(genre: String!) {
-        
-        if selectedGenres.index(of: genre) == nil {
-            selectedGenres.append(genre)
-            
-            genresTagListView.removeAllTags()
-            genresTagListView.addTags(selectedGenres)
-            
-            filterManga()
-            sortManga()
-            mangaListCollectionView.reloadData()
-        }
+        mangaDetailVC.viewModel = MangaDetailViewModel(manga: manga)
     }
 
     override func viewDidLoad() {
@@ -56,17 +51,69 @@ class MangaListViewController: UIViewController, GenresListViewControllerDelegat
         genresTagListView.delegate = self
         genresTagListView.textFont = UIFont.systemFont(ofSize: 14)
         
-        let searchButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchAction))
-        navigationItem.rightBarButtonItem = searchButton
-        
         let genresImage = UIImage(named: "filter")
         let genresButton = UIBarButtonItem(image: genresImage, style: .plain, target: self, action: #selector(genresAction))
         navigationItem.leftBarButtonItem = genresButton
         
+        let searchButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchAction))
+        navigationItem.rightBarButtonItem = searchButton
+        
         let nibCell = UINib(nibName: "MangaListCollectionViewCell", bundle: nil)
         mangaListCollectionView.register(nibCell, forCellWithReuseIdentifier: "MangaListCollectionViewCell")
         
-        loadMangaData()
+        // Observe manga data change
+        viewModel.mangasSignal.asObservable()
+            .subscribe(onNext: { [weak self] _ in
+              self?.mangaListCollectionView.reloadData()
+            }).disposed(by: bag)
+        
+        // load more
+        mangaListCollectionView.addInfiniteScrolling { [weak self] in
+            self?.viewModel.loadNextPage(completion: { (_, _) in
+                self?.mangaListCollectionView.infiniteScrollingView.stopAnimating()
+            })
+        }
+        
+        // Pull to refresh
+        mangaListCollectionView.addSubview(refreshControl)
+        refreshControl.scrollView = mangaListCollectionView
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        
+        refreshFirstPage()
+    }
+    
+    @objc func genresAction() {
+        if let navigationVC = GenresListViewController.createFromStoryboard() {
+            let genresVC = navigationVC.viewControllers.first as! GenresListViewController
+            genresVC.delegate = self
+            present(navigationVC, animated: true, completion: nil)
+        }
+    }
+    
+    func refreshFirstPage() {
+        viewModel.clearManga()
+        mangaListCollectionView.reloadData()
+        viewModel.loadFirstPage(completion: { [weak self] (_, _) in
+            self?.refreshControl.stop(shouldAdjustOffset: true)
+        })
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        refreshControl.stop(shouldAdjustOffset: true)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if viewModel.isLoading && !refreshControl.isRefreshing {
+            refreshControl.start(shouldAdjustOffset: true)
+        }
+    }
+    
+    @objc func refresh() {
+        viewModel.loadFirstPage(completion: { [weak self] (_, _) in
+            self?.refreshControl.stop()
+        })
     }
     
     override func viewDidLayoutSubviews() {
@@ -83,69 +130,18 @@ class MangaListViewController: UIViewController, GenresListViewControllerDelegat
         layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
     }
     
-    @objc func genresAction() {
-        if let navigationVC = GenresListViewController.createFromStoryboard() {
-            let genresVC = navigationVC.viewControllers.first as! GenresListViewController
-            genresVC.mangas = mangas
-            genresVC.delegate = self
-            present(navigationVC, animated: true, completion: nil)
-        }
-    }
-    
     @objc func searchAction() {
         if let navigationVC = SearchViewController.createFromStoryboard() {
-            let searchVC = navigationVC.viewControllers.first as! SearchViewController
-            searchVC.mangas = mangas
+//            let searchVC = navigationVC.viewControllers.first as! SearchViewController
             present(navigationVC, animated: true, completion: nil)
-        }
-    }
-    
-    func loadMangaData() {
-        DataRequester.getMangaListFromCache(completion: {[weak self] (response) in
-            self?.mangas = response?.mangas
-            self?.filterManga()
-            self?.sortManga()
-            self?.mangaListCollectionView.reloadData()
-        })
-    }
-    
-    func filterManga() {
-        mangasFiltered = mangas?.filter({ (manga) -> Bool in
-            
-            guard manga.canPublish() else {
-                return false
-            }
-            
-            var canPublish = true
-            
-            if selectedGenres.count > 0 {
-                canPublish = selectedGenres.reduce(true, { (result, genre) -> Bool in
-                    if let categories = manga.categories, categories.contains(genre) {
-                        return result && true
-                    } else {
-                        return false
-                    }
-                })
-            }
-            
-            return canPublish
-        })
-    }
-    
-    func sortManga() {
-        if (sortByRecentUpdate) {
-            mangasFiltered?.sort(by: { ($0.updateTime ?? 0) > ($1.updateTime ?? 0) })
-        } else {
-            mangasFiltered?.sort(by: { ($0.hitCount ?? 0) > ($1.hitCount ?? 0) })
         }
     }
     
     @IBAction func mangaSwitchAction(_ sender: UISegmentedControl) {
         
-        sortByRecentUpdate = (sender.selectedSegmentIndex == 1)
+        viewModel.sortByRecentUpdate = (sender.selectedSegmentIndex == 1)
         
-        sortManga()
-        mangaListCollectionView.reloadData()
+        refreshFirstPage()
         
         mangaListCollectionView.setContentOffset(CGPoint.zero, animated: true)
     }
@@ -155,21 +151,16 @@ class MangaListViewController: UIViewController, GenresListViewControllerDelegat
 extension MangaListViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return mangasFiltered?.count ?? 0
+        return viewModel.mangasShowing.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MangaListCollectionViewCell", for: indexPath) as! MangaListCollectionViewCell
         
-        let manga = mangasFiltered?[indexPath.item]
-        cell.labelTitle.text = manga?.title
+        guard let manga = viewModel.manga(atIndex: indexPath.row) else {return cell}
         
-        let placeholderImage = UIImage(named: "manga_default")
-        cell.imageViewCover.image = placeholderImage
-        if let imageURL = DataRequester.getImageUrl(withImagePath: manga?.imagePath)
-            , let url = URL(string: imageURL){
-            cell.imageViewCover.af_setImage(withURL: url, placeholderImage: placeholderImage)
-        }
+        let cellViewModel = MangaListCollectionCellViewModel(manga: manga)
+        cell.viewModel = cellViewModel
         
         return cell
     }
@@ -180,16 +171,34 @@ extension MangaListViewController: UICollectionViewDataSource, UICollectionViewD
     }
 }
 
+extension MangaListViewController: GenresListViewControllerDelegate {
+    func didSelectGenre(genre: String!) {
+        
+        if viewModel.selectedGenres.index(of: genre) == nil {
+            viewModel.selectedGenres.append(genre)
+            viewModel.selectedGenresLocalized.append(NSLocalizedString(genre, comment: ""))
+            
+            genresTagListView.removeAllTags()
+            genresTagListView.addTags(viewModel.selectedGenresLocalized)
+            
+            refreshFirstPage()
+        }
+    }
+}
+
 extension MangaListViewController: TagListViewDelegate {
     @objc func tagRemoveButtonPressed(_ title: String, tagView: TagView, sender: TagListView) -> Void {
+        
         genresTagListView.removeTag(title)
-        if let index = selectedGenres.index(of: title) {
-            selectedGenres.remove(at: index)
-            
-            filterManga()
-            sortManga()
-            mangaListCollectionView.reloadData()
+        
+        guard let indexOfGenre = viewModel.selectedGenresLocalized.index(of: title), indexOfGenre < viewModel.selectedGenres.count else {
+            return
         }
+        
+        viewModel.selectedGenres.remove(at: indexOfGenre)
+        viewModel.selectedGenresLocalized.remove(at: indexOfGenre)
+        
+        refreshFirstPage()
     }
 }
 

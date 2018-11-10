@@ -7,15 +7,22 @@
 //
 
 import UIKit
-import RealmSwift
 
-class RecentViewController: UIViewController {
+class RecentViewController: BaseViewController {
     
-    var recentManga: Results<RecentManga>?
+    var viewModel = RecentViewModel()
     
     @IBOutlet weak var recentCollectionView: UICollectionView!
     
     var emptyInfoView: EmptyInfoView!
+    
+    override func updateTheme() {
+        let theme = ThemeManager.shared.currentTheme
+        view.backgroundColor = theme.backgroundColor
+        recentCollectionView.backgroundColor = theme.backgroundSecondColor
+        recentCollectionView.reloadData()
+        emptyInfoView.updateTheme()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,29 +33,21 @@ class RecentViewController: UIViewController {
         emptyInfoView = EmptyInfoView(frame: CGRect.zero)
         emptyInfoView.backgroundColor = UIColor(white: 250/255.0, alpha: 1)
         emptyInfoView.emptyImageView.image = UIImage(named: "recent_empty")
-        emptyInfoView.titleLabel.text = NSLocalizedString("NO RECENTLY READ MANGA", comment: "")
-        emptyInfoView.messageLabel.text = NSLocalizedString("no_recent_message", comment: "")
-        view.addSubview(emptyInfoView)
-        emptyInfoView.snp.makeConstraints { (maker) in
-            maker.edges.equalToSuperview()
-        }
+        emptyInfoView.titleLabel.text = LocalizedString("NO RECENTLY READ MANGA")
+        emptyInfoView.messageLabel.text = LocalizedString("no_recent_message")
         
         let nibCell = UINib(nibName: "MangaListCollectionViewCell", bundle: nil)
         recentCollectionView.register(nibCell, forCellWithReuseIdentifier: "MangaListCollectionViewCell")
     }
     
     @objc func clearAction() {
-        let message = NSLocalizedString("Do you want to clear all recent read manga?", comment: "")
-        let alertVC = UIAlertController(title: NSLocalizedString("Clear Read History", comment: ""), message: message, preferredStyle: .actionSheet)
-        let okAction = UIAlertAction(title: NSLocalizedString("Yes", comment: ""), style: .default) { (action) in
-            let realm = try! Realm()
-            let favObjects = realm.objects(RecentManga.self)
-            try! realm.write {
-                realm.delete(favObjects)
-            }
+        let message = LocalizedString("Do you want to clear all recent read manga?")
+        let alertVC = UIAlertController(title: LocalizedString("Clear Read History"), message: message, preferredStyle: .actionSheet)
+        let okAction = UIAlertAction(title: LocalizedString("Yes"), style: .default) { (action) in
+            self.viewModel.deleteAll()
             self.recentCollectionView.reloadData()
         }
-        let cancelAction = UIAlertAction(title: NSLocalizedString("No", comment: ""), style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: LocalizedString("No"), style: .cancel, handler: nil)
         alertVC.addAction(okAction)
         alertVC.addAction(cancelAction)
         
@@ -59,7 +58,8 @@ class RecentViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        loadRecentData()
+        super.viewWillAppear(animated)
+        viewModel.loadData()
         recentCollectionView.reloadData()
         
         AdsManager.sharedInstance.showRandomAdsIfComfortable()
@@ -78,17 +78,12 @@ class RecentViewController: UIViewController {
         let itemHeight = itemWidth * 1.4
         layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
     }
-    
-    func loadRecentData() {
-        let realm = try! Realm()
-        recentManga = realm.objects(RecentManga.self).sorted(byKeyPath: "readTime", ascending: false)
-    }
 }
 
 extension RecentViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let count = recentManga?.count ?? 0
-        emptyInfoView.isHidden = (count > 0)
+        let count = viewModel.count
+        collectionView.backgroundView = (count > 0) ? nil : emptyInfoView
         return count
     }
     
@@ -97,15 +92,8 @@ extension RecentViewController: UICollectionViewDelegate, UICollectionViewDataSo
         
         cell.tag = indexPath.item
         
-        if let manga = recentManga?[indexPath.item] {
-            cell.labelTitle.text = manga.name
-            
-            let placeholderImage = UIImage(named: "manga_default")
-            cell.imageViewCover.image = placeholderImage
-            if let imageURL = DataRequester.getImageUrl(withImagePath: manga.imagePath)
-                , let url = URL(string: imageURL){
-                cell.imageViewCover.af_setImage(withURL: url, placeholderImage: placeholderImage)
-            }
+        if let manga = viewModel[indexPath.item] {
+            cell.viewModel = MangaListCollectionCellViewModel(recentManga: manga)
         }
         
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(cellLongPressAction))
@@ -115,20 +103,16 @@ extension RecentViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     @objc func cellLongPressAction(recgnizer: UILongPressGestureRecognizer) {
-        guard recgnizer.state == .began, let index = recgnizer.view?.tag, let manga = recentManga?[index] else {
+        guard recgnizer.state == .began, let index = recgnizer.view?.tag, let manga = viewModel[index] else {
             return
         }
-        let message = "\(NSLocalizedString("Do you want to remove", comment: "")) '\(manga.name)'?"
-        let alertVC = UIAlertController(title: NSLocalizedString("Remove From Recent", comment: ""), message: message, preferredStyle: .actionSheet)
-        let okAction = UIAlertAction(title: NSLocalizedString("Yes", comment: ""), style: .default) { (action) in
-            let realm = try! Realm()
-            let favObjects = realm.objects(RecentManga.self).filter("id = %@", manga.id)
-            try! realm.write {
-                realm.delete(favObjects)
-            }
+        let message = "\(LocalizedString("Do you want to remove")) '\(manga.name)'?"
+        let alertVC = UIAlertController(title: LocalizedString("Remove From Recent"), message: message, preferredStyle: .actionSheet)
+        let okAction = UIAlertAction(title: LocalizedString("Yes"), style: .default) { (action) in
+            self.viewModel.deleteRecent(mangaId: manga.id)
             self.recentCollectionView.reloadData()
         }
-        let cancelAction = UIAlertAction(title: NSLocalizedString("No", comment: ""), style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: LocalizedString("No"), style: .cancel, handler: nil)
         alertVC.addAction(okAction)
         alertVC.addAction(cancelAction)
         
@@ -139,9 +123,9 @@ extension RecentViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let manga = recentManga?[indexPath.item], manga.id.count > 0 {
-            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MangaDetailViewController") as! MangaDetailViewController
-            vc.mangaID = manga.id
+        if let manga = viewModel[indexPath.item], manga.id.count > 0 {
+            let vc = MangaDetailViewController.newInstance() as! MangaDetailViewController
+            vc.viewModel = MangaDetailViewModel(mangaId: manga.id)
             
             navigationController?.pushViewController(vc, animated: true)
         }

@@ -7,33 +7,32 @@
 //
 
 import UIKit
+import SVPullToRefresh
 
-class SearchViewController: UIViewController {
+class SearchViewController: BaseViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var resultCollectionView: UICollectionView!
     
-    var mangas:[MangaResponse]?
-    
-    var mangasFiltered:[MangaResponse]?
+    var viewModel = SearchViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         let closeImage = UIImage(named: "close")
-        let closeButton = UIBarButtonItem(image: closeImage, style: .plain, target: self, action: #selector(dismissMe))
+        let closeButton = UIBarButtonItem(image: closeImage, style: .plain, target: self, action: #selector(farewell))
         navigationItem.rightBarButtonItem = closeButton
         
         let nibCell = UINib(nibName: "MangaListCollectionViewCell", bundle: nil)
         resultCollectionView.register(nibCell, forCellWithReuseIdentifier: "MangaListCollectionViewCell")
         
-        mangasFiltered = mangas
-        sortManga()
-        
         AdsManager.sharedInstance.showRandomAdsIfComfortable()
-    }
-    
-    @objc func dismissMe() {
-        navigationController?.presentingViewController?.dismiss(animated: true, completion: nil)
+        
+        // load more
+        resultCollectionView.addInfiniteScrolling { [weak self] in
+            self?.loadMore {
+                self?.resultCollectionView.infiniteScrollingView.stopAnimating()
+            }
+        }
     }
     
     static func createFromStoryboard() -> UINavigationController? {
@@ -56,69 +55,47 @@ class SearchViewController: UIViewController {
     }
     
     func search() {
-        filterManga(withKeyword: searchBar.text)
-        sortManga()
-        resultCollectionView.reloadData()
-    }
-    
-    func sortManga() {
-        mangasFiltered?.sort(by: { ($0.hitCount ?? 0) > ($1.hitCount ?? 0) })
-    }
-    
-    func filterManga(withKeyword keyword: String?) {
-        
-        guard let keyword = keyword, keyword.count > 0 else {
-            mangasFiltered = mangas
-            sortManga()
-            return
+        showLoading()
+        viewModel.search(searchBar.text) { [weak self] (_, _) in
+            self?.hideLoading()
+            self?.resultCollectionView.reloadData()
         }
-        
-        mangasFiltered = mangas?.filter({ (manga) -> Bool in
-            
-            guard manga.canPublish() else {
-                return false
-            }
-            
-            var canPublish = true
-            
-            if let title = manga.title {
-                canPublish = title.lowercased().contains(keyword.lowercased())
-            }
-            
-            return canPublish
-        })
+    }
+    
+    func loadMore(completion: @escaping () -> Void) {
+        viewModel.searchNextPage { [weak self]  (_, _) in
+            self?.resultCollectionView.reloadData()
+            completion()
+        }
     }
 }
 
 extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return mangasFiltered?.count ?? 0
+        return viewModel.mangasShowing.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MangaListCollectionViewCell", for: indexPath) as! MangaListCollectionViewCell
         
-        let manga = mangasFiltered?[indexPath.item]
-        cell.labelTitle.text = manga?.title
+        guard let manga = viewModel.manga(atIndex: indexPath.row) else {return cell}
         
-        let placeholderImage = UIImage(named: "manga_default")
-        cell.imageViewCover.image = placeholderImage
-        if let imageURL = DataRequester.getImageUrl(withImagePath: manga?.imagePath)
-            , let url = URL(string: imageURL){
-            cell.imageViewCover.af_setImage(withURL: url, placeholderImage: placeholderImage)
-        }
+        let cellViewModel = MangaListCollectionCellViewModel(manga: manga)
+        cell.viewModel = cellViewModel
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let manga = mangasFiltered?[indexPath.item], let mangaID = manga.id {
-            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MangaDetailViewController") as! MangaDetailViewController
-            vc.mangaID = mangaID
-            
-            navigationController?.pushViewController(vc, animated: true)
-        }
+        
+        guard let manga = viewModel.manga(atIndex: indexPath.row) else {return}
+        
+        let vc = MangaDetailViewController.newInstance() as! MangaDetailViewController
+        
+        vc.viewModel = MangaDetailViewModel(manga: manga)
+        
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -127,17 +104,9 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
 }
 
 extension SearchViewController: UISearchBarDelegate {
-//    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-//        search()
-//    }
-//
-//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-//        search()
-//        searchBar.resignFirstResponder()
-//    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print("searchBar textDidChange: \(searchText)")
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         search()
+        searchBar.resignFirstResponder()
     }
 }

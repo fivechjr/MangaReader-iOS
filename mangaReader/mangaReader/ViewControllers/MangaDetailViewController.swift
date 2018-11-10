@@ -8,213 +8,113 @@
 
 import UIKit
 import AlamofireImage
-import RealmSwift
 import NVActivityIndicatorView
 
-class MangaDetailViewController: UIViewController {
+class MangaDetailViewController: BaseViewController {
     
-    var mangaDetail: MangaDetailResponse?
+    var viewModel: MangaDetailViewModel!
     
-    var mangaID: String!
-    
-//    var showInfo: Bool = false
-    
-    var currentChapterID: String?
-    
-    var chaptersContentOffset: CGPoint = CGPoint.zero
-    
-    @IBOutlet weak var chaptersTableview: UITableView!
-    @IBOutlet weak var infoTableView: UITableView!
-    
-    var mangaDetailTabView: MangaDetailTabView!
-    var mangaDetailTabViewInfo: MangaDetailTabView!
-    var indicatorView: NVActivityIndicatorView!
-    
-    func installIndicatorView() {
-        indicatorView = NVActivityIndicatorView(frame: CGRect.zero, type: .ballSpinFadeLoader, color: UIColor.black)
-        view.addSubview(indicatorView)
-        indicatorView.snp.makeConstraints { (maker) in
-            maker.center.equalToSuperview()
-            maker.width.equalTo(50)
-            maker.height.equalTo(50)
+    @IBOutlet weak var maskView: UIView!
+    @IBOutlet weak var tableView: UITableView! {
+        didSet {
+            tableView.rowHeight = UITableViewAutomaticDimension
+            tableView.estimatedRowHeight = 100.0
+            tableView.ezRegisterNib(cellType: MangaDetailHeaderTableViewCell.self)
+            tableView.ezRegisterNib(cellType: NestedTableViewCell.self)
+            tableView.tableFooterView = UIView()
         }
     }
     
-    private func getChapter(withID chapterID: String?) ->Chapter? {
-        guard let chapterID = chapterID, let chapterObjects = mangaDetail?.chapterObjects else {
-            return nil
-        }
-        
-        var theChapter: Chapter? = nil
-        
-        for (_, chapter) in chapterObjects.enumerated() {
-            if let id = chapter.id, id == chapterID {
-                theChapter = chapter
-                break
-            }
-        }
-        
-        return theChapter
-    }
+    var chaptersViewController: MangaDetailChaptersViewController!
+    var infoViewController: MangaDetailInfoViewController!
     
-    private func getChapterIndex(withID chapterID: String?) ->Int? {
-        guard let chapterID = chapterID, let chapterObjects = mangaDetail?.chapterObjects else {
-            return nil
-        }
-        
-        var theChapterIndex: Int? = nil
-        
-        for (index, chapter) in chapterObjects.enumerated() {
-            if let id = chapter.id, id == chapterID {
-                theChapterIndex = index
-                break
-            }
-        }
-        
-        return theChapterIndex
-    }
+    var tabView: MangaDetailTabView!
+    var nestCell: NestedTableViewCell!
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        guard let id = segue.identifier, id == "readChapter" else {
-            return
-        }
-        
-        let destination = segue.destination as! ChapterReadViewController
-        
-        guard let cell = sender as? UITableViewCell else {
-            
-            if let currentChapterID = currentChapterID {
-                destination.chapterID = currentChapterID
-                destination.chapterObject = getChapter(withID: currentChapterID)
-                destination.mangaDetail = mangaDetail
-                destination.mangaID = mangaID
-            } else if let chapterID = mangaDetail?.chapterObjects?.last?.id {
-                destination.chapterID = chapterID
-                destination.chapterObject = getChapter(withID: chapterID)
-                destination.mangaDetail = mangaDetail
-                destination.mangaID = mangaID
-                
-                recordCurrentChapter(chapterID: chapterID)
-            }
-            
-            recordRecentManga(mangaID: mangaID, mangaDetail: mangaDetail)
-            return
-        }
-        
-        guard let indexPath = chaptersTableview.indexPath(for: cell)
-        , let chapterID = mangaDetail?.chapterObjects?[indexPath.item].id else {
-            return
-        }
-        
-        destination.chapterID = chapterID
-        destination.chapterObject = mangaDetail?.chapterObjects?[indexPath.item]
-        destination.mangaDetail = mangaDetail
-        destination.mangaID = mangaID
-        
-        recordCurrentChapter(chapterID: chapterID)
-        
-        recordRecentManga(mangaID: mangaID, mangaDetail: mangaDetail)
-    }
-    
-    private func recordCurrentChapter(chapterID: String!) {
-        let realm = try! Realm()
-        let manChapter = MangaCurrentChapter()
-        manChapter.mangaID = mangaID
-        manChapter.chapterID = chapterID
-        manChapter.readTime = Date()
-        try! realm.write {
-            realm.add(manChapter, update:true)
-        }
-        
-        currentChapterID = chapterID
-    }
-    
-    private func recordRecentManga(mangaID: String!, mangaDetail: MangaDetailResponse?) {
-        
-        guard let mangaDetail = mangaDetail, let title = mangaDetail.title, let imagePath = mangaDetail.image else {
-            return
-        }
-        
-        let realm = try! Realm()
-        let recentManga = RecentManga()
-        recentManga.id = mangaID
-        recentManga.name = title
-        recentManga.imagePath = imagePath
-        recentManga.readTime = Date()
-        try! realm.write {
-            realm.add(recentManga, update:true)
-        }
+    override func updateTheme() {
+        let theme = ThemeManager.shared.currentTheme
+        maskView.backgroundColor = theme.backgroundColor
+        view.backgroundColor = theme.backgroundColor
+        tableView.backgroundColor = theme.backgroundColor
+        chaptersViewController.updateTheme()
+        infoViewController.updateTheme()
+        tabView.updateTheme()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        let realm = try! Realm()
-        if let currentChapter = realm.objects(MangaCurrentChapter.self).filter("mangaID = %@", mangaID).first {
-            currentChapterID = currentChapter.chapterID
-        }
+        super.viewWillAppear(animated)
+        viewModel.getCurrentChapterID()
         
-        chaptersTableview.reloadData()
-        infoTableView.reloadData()
+        reload()
+    }
+    
+    func reload() {
+        tableView.reloadData()
+        chaptersViewController.reload()
+        infoViewController.reload()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = NSLocalizedString("Manga Detail", comment: "")
-        chaptersTableview.rowHeight = UITableViewAutomaticDimension
+        title = viewModel.manga.title ?? LocalizedString("Manga Detail")
         
         // Manga tab view
-        mangaDetailTabView = MangaDetailTabView()
-        mangaDetailTabView.delegate = self
-        mangaDetailTabViewInfo = MangaDetailTabView()
-        mangaDetailTabViewInfo.delegate = self
+        tabView = MangaDetailTabView()
+        tabView.delegate = self
         
-        // table view register cells
-        let nibHeader = UINib(nibName: "MangaDetailHeaderTableViewCell", bundle: nil)
-        chaptersTableview.register(nibHeader, forCellReuseIdentifier: "MangaDetailHeaderTableViewCell")
-        infoTableView.register(nibHeader, forCellReuseIdentifier: "MangaDetailHeaderTableViewCell")
+        chaptersViewController = (MangaDetailChaptersViewController.newInstance() as! MangaDetailChaptersViewController)
+        chaptersViewController.viewModel = viewModel
+        infoViewController = (MangaDetailInfoViewController.newInstance() as! MangaDetailInfoViewController)
+        infoViewController.viewModel = viewModel
         
-        let nibInfo = UINib(nibName: "MangaDetailTableViewCell", bundle: nil)
-        infoTableView.register(nibInfo, forCellReuseIdentifier: "MangaDetailTableViewCell")
+        nestCell = (tableView.dequeueReusableCell(withIdentifier: NestedTableViewCell.reuseID) as! NestedTableViewCell)
+        nestCell.install(viewController: chaptersViewController, parent: self, toTheLeft: true)
+        nestCell.install(viewController: infoViewController, parent: self, toTheLeft: false)
         
-        chaptersTableview.register(UITableViewCell.self, forCellReuseIdentifier: "chapterCell")
-        
-        installIndicatorView()
-        
-        // Request detail data
-        indicatorView.startAnimating()
-        chaptersTableview.isHidden = true
-        infoTableView.isHidden = true
-        DataRequester.getMangaDetail(mangaID: mangaID) { [weak self] (mangaDetail) in
-            self?.indicatorView.stopAnimating()
-            self?.mangaDetail = mangaDetail
+        if (viewModel.getMangaIfNeeded { [weak self] (_, _) in
+            guard let `self` = self else {return}
+            self.hideLoading()
+            self.view.sendSubview(toBack: self.maskView)
+            self.reload()
+            }) {
             
-            self?.chaptersTableview.isHidden = false
-            self?.infoTableView.isHidden = false
-            
-            self?.chaptersTableview.reloadData()
-            self?.infoTableView.reloadData()
+            showLoading()
+            view.bringSubview(toFront: maskView)
         }
+    }
+    
+    func continueReading() {
+        var chapter: Chapter?
+        
+        // if has recorded current chapter, read the current chapter
+        if let currentChapterID = viewModel.currentChapterID {
+            chapter = viewModel.getChapter(withID: currentChapterID)
+        } else if let chapterID = viewModel.manga.chapterObjects?.last?.id {
+            // else, read the last chapter
+            chapter = viewModel.getChapter(withID: chapterID)
+            
+            viewModel.recordCurrentChapter(chapterId: chapterID)
+        }
+        
+        guard let theChapter = chapter, let destination = ChapterReadViewController.newInstance() as? ChapterReadViewController else {return}
+        
+        let readViewModel = ChapterReadViewModel(chapterObject: theChapter, manga: viewModel.manga)
+        destination.viewModel = readViewModel
+        
+        present(destination, animated: true, completion: nil)
+        
+        viewModel.recordRecentManga()
     }
 }
 
 extension MangaDetailViewController: UITableViewDataSource {
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        if section == 0 {
-            return 1
-        } else if section == 1  {
-            if (tableView == infoTableView) {
-                return 1
-            } else {
-                return mangaDetail?.chapters?.count ?? 0
-            }
-        }
-        
-        return 0
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -224,62 +124,12 @@ extension MangaDetailViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "MangaDetailHeaderTableViewCell", for: indexPath) as! MangaDetailHeaderTableViewCell
             
             cell.delegate = self
-            cell.labelBookTitle.text = mangaDetail?.title
-            cell.labelAuthorName.text = mangaDetail?.author
-            cell.labelStatus.text = ((mangaDetail?.status ?? 0) == 1) ? NSLocalizedString("Completed", comment: "") : NSLocalizedString("Ongoing", comment: "")
-            cell.labelChapterInfo.text = "\((mangaDetail?.chapters?.count ?? 0)) \(NSLocalizedString("Chapters", comment: ""))"
-            if let imageURL = DataRequester.getImageUrl(withImagePath: mangaDetail?.image)
-                , let url = URL(string: imageURL){
-                cell.imageViewCover.af_setImage(withURL: url)
-            }
-            
-            // Update reading button
-            if let _ = currentChapterID {
-                cell.buttonStart.setTitle(NSLocalizedString("Continue Reading", comment: ""), for: .normal)
-            } else {
-                cell.buttonStart.setTitle(NSLocalizedString("Start Reading", comment: ""), for: .normal)
-            }
-            
-            // Update Favorite button
-            let realm = try! Realm()
-            let favObjects = realm.objects(FavoriteManga.self).filter("id = %@", mangaID)
-            cell.buttonFavorite.isSelected = (favObjects.count > 0)
+            cell.viewModel = MangaDetailHeaderCellModel(manga: viewModel.manga, currentChapterId: viewModel.currentChapterID, isFavorite: viewModel.isFavorite)
             
             return cell
             
         } else if indexPath.section == 1 {
-            if (tableView == infoTableView) {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "MangaDetailTableViewCell", for: indexPath) as! MangaDetailTableViewCell
-                
-                cell.labelDescription.text = mangaDetail?.description
-                
-                let formatter = DateFormatter()
-                formatter.dateFormat = "yyyy-MM-dd"
-                
-                let lastUpdateDate = Date(timeIntervalSince1970: mangaDetail?.last_chapter_date ?? 0)
-                let firstCreatedDate = Date(timeIntervalSince1970: mangaDetail?.created ?? 0)
-                
-                cell.labelLastUpdated.text = formatter.string(from: lastUpdateDate)
-                cell.labelDateCreated.text = formatter.string(from: firstCreatedDate)
-                cell.labelGenres.text = mangaDetail?.categories?.joined(separator: ", ")
-                
-                return cell
-            } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "chapterCell", for: indexPath)
-                
-                if let chapter = mangaDetail?.chapterObjects?[indexPath.item] {
-                    let chapterTitle = chapter.title ?? "\(chapter.number ?? 0)"
-                    cell.textLabel?.text = "[\(NSLocalizedString("Chapter", comment: ""))] \(chapterTitle)"
-                    
-                    if let chapterID = chapter.id, chapterID == currentChapterID {
-                        cell.textLabel?.textColor = Color.blue
-                    } else {
-                        cell.textLabel?.textColor = UIColor.black
-                    }
-                }
-                
-                return cell
-            }
+            return nestCell
         }
         
         return UITableViewCell()
@@ -287,7 +137,7 @@ extension MangaDetailViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if (section == 1) {
-            return (tableView == chaptersTableview) ? mangaDetailTabView : mangaDetailTabViewInfo
+            return tabView
         }
         
         return UIView()
@@ -296,18 +146,15 @@ extension MangaDetailViewController: UITableViewDataSource {
 
 extension MangaDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        if indexPath.section == 1 && tableView == chaptersTableview {
-            guard let _ = mangaDetail?.chapterObjects?[indexPath.item] else {
-                return
-            }
-            
-            if let cell = tableView.cellForRow(at: indexPath) {
-                performSegue(withIdentifier: "readChapter", sender: cell)
-            }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 0 {
+            return UITableViewAutomaticDimension
         }
+        
+        return view.frame.height
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -322,46 +169,23 @@ extension MangaDetailViewController: UITableViewDelegate {
 extension MangaDetailViewController: MangaDetailTabViewDelegate {
     func tabIndexChanged(index: Int, control: UISegmentedControl) {
         
-        mangaDetailTabViewInfo.segmentControl.selectedSegmentIndex = index
-        mangaDetailTabView.segmentControl.selectedSegmentIndex = index
-        
         if (index == 1) {
-            view.bringSubview(toFront: infoTableView)
-            view.sendSubview(toBack: chaptersTableview)
+            nestCell.showRight(animated: true)
             
         } else {
-            
-            view.bringSubview(toFront: chaptersTableview)
-            view.sendSubview(toBack: infoTableView)
+            nestCell.showLeft(animated: true)
         }
     }
 }
 
 extension MangaDetailViewController: MangaDetailHeaderTableViewCellDelegate {
     func startReading(cell: MangaDetailHeaderTableViewCell) {
-        performSegue(withIdentifier: "readChapter", sender: nil)
+        continueReading()
     }
     
     func addFavorite(cell: MangaDetailHeaderTableViewCell) {
-        let realm = try! Realm()
-        let favObjects = realm.objects(FavoriteManga.self).filter("id = %@", mangaID)
-        if favObjects.count > 0 {
-            try! realm.write {
-                realm.delete(favObjects)
-            }
-        } else {
-            
-            let favManga = FavoriteManga()
-            favManga.id = mangaID
-            favManga.name = mangaDetail?.title ?? ""
-            favManga.imagePath = mangaDetail?.image ?? ""
-            
-            try! realm.write {
-                realm.add(favManga)
-            }
-        }
-        
-        chaptersTableview.reloadData()
-        infoTableView.reloadData()
+        viewModel.addFavorite()
+
+        reload()
     }
 }

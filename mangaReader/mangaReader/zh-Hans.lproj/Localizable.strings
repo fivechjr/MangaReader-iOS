@@ -10,8 +10,11 @@
 "Completed" = "状态:已完结";
 "Ongoing" = "状态:连载中";
 "Manga Detail" = "漫画详情";
+
+"No Chapters" = "没有章节";
 "Chapters" = "章节";
 "Chapter" = "章节";
+
 "Info" = "详情";
 "Disclaimer" = "免责声明";
 "Feedback" = "用户反馈";
@@ -57,3 +60,9 @@
 "Clear Read History" = "清楚阅读记录";
 "Do you want to remove" = "您是否想删除";
 "Remove From Recent" = "从最近阅读删除";
+
+"message_top_guide" = "点击上面的区域，翻到前一页";
+"message_center_guide" = "点击中间区域，显示工具条";
+"message_bottom_guide" = "点击下面的区域，翻到后一页";
+
+"Change Theme" = "切换界面颜色";

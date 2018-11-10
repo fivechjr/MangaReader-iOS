@@ -70,6 +70,8 @@ open class AdsManager: NSObject
     var vunglePlacementID: String?
     var admob_banner_id: String?
     
+    private let consentManager = ConsentManager()
+    
     static let sharedInstance = AdsManager()
     
     fileprivate override init() {
@@ -120,17 +122,17 @@ open class AdsManager: NSObject
         UnityAds.initialize(unityAppID, delegate: self)
     }
     
-    func newRequest() -> GADRequest {
-        let request = GADRequest()
-        request.testDevices = [kGADSimulatorID, "28298224a065cc39eb8972e045c6f77a"]
-        return request
-    }
+//    func newRequest() -> GADRequest {
+//        let request = GADRequest()
+//        request.testDevices = [kGADSimulatorID, "28298224a065cc39eb8972e045c6f77a"]
+//        return request
+//    }
     
     func requestAdmobInterstitial() {
         if let admobID = appInfo?["admob_id"] as? String , adsEnabled(withType: .admob) {
             interstitial = GADInterstitial(adUnitID: admobID)
             interstitial?.delegate = self
-            interstitial?.load(newRequest())
+            interstitial?.load(consentManager.getAdRequest())
         }
     }
 }
@@ -234,7 +236,7 @@ extension AdsManager {
     
     func showRandomAdsIfComfortable() {
         if isComfortableToShowAds() {
-            showRandomAds()
+//            showRandomAds()
         }
     }
     
@@ -457,7 +459,13 @@ extension AdsManager {
                 self.appInfo = thisAppInfo as? [String: AnyObject];
                 self.updateAdsSettingsWithAppInfo(self.appInfo)
                 
-                self.requestAdmobInterstitial()
+                
+                self.consentManager.requestConsentInfoUpdate({ (success) in
+                    if success {
+                        self.requestAdmobInterstitial()
+                    }
+                })
+                
                 self.initVungle()
                 self.initUnity()
             })

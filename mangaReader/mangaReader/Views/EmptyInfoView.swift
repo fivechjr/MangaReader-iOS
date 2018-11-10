@@ -15,6 +15,12 @@ class EmptyInfoView: UIView {
     var titleLabel: UILabel!
     var messageLabel: UILabel!
 
+    func updateTheme() {
+        let theme = ThemeManager.shared.currentTheme
+        backgroundColor = theme.backgroundSecondColor
+        titleLabel.textColor = theme.textColor
+        messageLabel.textColor = theme.textSecondColor
+    }
     override init(frame: CGRect) {
         super.init(frame: frame)
         doInit()

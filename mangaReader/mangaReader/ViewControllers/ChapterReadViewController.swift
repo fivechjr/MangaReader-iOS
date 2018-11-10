@@ -7,26 +7,17 @@
 //
 
 import UIKit
-import AlamofireImage
+
 import SnapKit
-import NVActivityIndicatorView
 import RealmSwift
 
-class ChapterReadViewController: UIViewController {
-    
-    var chapterID: String!
-    var chapterObject: Chapter?
-    var mangaDetail: MangaDetailResponse?
-    var mangaID: String!
+class ChapterReadViewController: BaseViewController, GuideViewDelegate {
 
-    var chapterDetail: ChapterDetailResponse?
+    var viewModel: ChapterReadViewModel!
     
     var pageViewController: UIPageViewController!
     
     var currentImageViewController: ImageViewController?
-    
-    let downloader = ImageDownloader()
-    private var receipts: [RequestReceipt] = []
     
     @IBOutlet weak var topNavigationView: UIView!
     @IBOutlet weak var labelInfo: UILabel!
@@ -38,26 +29,71 @@ class ChapterReadViewController: UIViewController {
     @IBOutlet weak var settingView: UIView!
     @IBOutlet weak var renderModeSegmentControl: UISegmentedControl!
     
+    var guideView: GuideView!
+    
     
     var imageViewControllers: [ImageViewController] = [ImageViewController]()
+    
+    override func updateTheme() {
+        let theme = ThemeManager.shared.currentTheme
+        view.backgroundColor = theme.backgroundSecondColor
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        topNavigationView.alpha = 0
-        bottomToolView.alpha = 0
+        topNavigationView.alpha = 1
+        bottomToolView.alpha = 1
         
         let selectedRenderMode = UserDefaults.standard.value(forKey: "renderMode") as? Int ?? 0
         renderModeSegmentControl.selectedSegmentIndex = selectedRenderMode
         
         installPageViewController()
-        loadImages()
+        getChapterDetail()
         
         customizeSettingView()
+        
+        installGuideViewIfNeeded()
+    }
+    
+    func getChapterDetail() {
+        showLoading()
+        viewModel.getChapterDetail { [weak self] (_, _) in
+            self?.hideLoading()
+            self?.createImageViewControllers()
+            self?.startPageViewController()
+            self?.viewModel.downloadImages()
+            
+            AdsManager.sharedInstance.showRandomAdsIfComfortable()
+        }
+    }
+    
+    func createImageViewControllers() {
+        imageViewControllers.removeAll()
+        viewModel.chapterDetail?.chapter?.imageObjets?.forEach({ (chapterImage) in
+            let imageVC = ImageViewController()
+            imageVC.chapterImage = chapterImage
+            imageVC.delegate = self
+            imageViewControllers.append(imageVC)
+        })
+
     }
     
     deinit {
-        cancelDownload()
+        viewModel.cancelDownload()
+    }
+    
+    func installGuideViewIfNeeded() {
+        let userSeeGuide = UserDefaults.standard.bool(forKey: "userSeeGuide")
+        
+        if (!userSeeGuide) {
+            guideView = (Bundle.main.loadNibNamed("GuideView", owner: self, options: nil)?.first as! GuideView)
+            guideView.delegate = self
+            view.addSubview(guideView)
+            guideView.snp.makeConstraints { (maker) in
+                maker.edges.equalToSuperview()
+            }
+        }
     }
     
     func customizeSettingView() {
@@ -112,38 +148,7 @@ class ChapterReadViewController: UIViewController {
         startPageViewController()
     }
     
-    func loadImages() {
-        
-        let activityData = ActivityData(size:CGSize(width: 35, height: 35), type: .ballPulse, color: UIColor.black)
-        NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData)
-        
-        DataRequester.getChapterDetail(chapterID: chapterID) { [weak self] (chapterDetail) in
-            self?.chapterDetail = chapterDetail
-            
-            NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
-            
-            self?.imageViewControllers.removeAll()
-            chapterDetail?.imageObjets?.forEach({ (chapterImage) in
-                let imageVC = ImageViewController()
-                imageVC.chapterImage = chapterImage
-                imageVC.delegate = self
-                self?.imageViewControllers.append(imageVC)
-            })
-            
-//            if let firstImageViewController = self?.imageViewControllers.first {
-//                self?.pageViewController.setViewControllers([firstImageViewController], direction: .forward, animated: false, completion: { (completed) in
-//                    self?.updateInfoLabel()
-//                    self?.updateChapterButtons()
-//                    self?.recordCurrentChapter(chapterID: self?.chapterID)
-//                })
-//            }
-            self?.startPageViewController()
-            
-            self?.downloadImages()
-            
-            AdsManager.sharedInstance.showRandomAdsIfComfortable()
-        }
-    }
+    
     
     func startPageViewController() {
         var imageViewController: ImageViewController? = nil
@@ -157,51 +162,13 @@ class ChapterReadViewController: UIViewController {
             pageViewController.setViewControllers([imageViewController], direction: .forward, animated: false, completion: { [weak self] (completed) in
                 self?.updateInfoLabel()
                 self?.updateChapterButtons()
-                self?.recordCurrentChapter(chapterID: self?.chapterID)
+                self?.viewModel.recordCurrentChapter()
             })
         }
     }
     
-    func cancelDownload() {
-        receipts.forEach { downloader.cancelRequest(with: $0) }
-        receipts.removeAll()
-    }
-    
-    func downloadImages() {
-        
-        cancelDownload()
-        
-        chapterDetail?.imageObjets?.forEach({ (chapterImage) in
-            if let imagePath = chapterImage.imagePath
-                , let urlString = DataRequester.getImageUrl(withImagePath: imagePath)
-                , let url = URL(string: urlString) {
-                
-                let urlRequest = URLRequest(url: url)
-                
-                let receipt = downloader.download(urlRequest) { response in
-                    print("Download:\(urlRequest.url?.absoluteString ?? "") - Success: \(response.result.isSuccess)")
-                }
-                
-                if let receipt = receipt {
-                    receipts.append(receipt)
-                }
-            }
-        })
-    }
-    
-    private func recordCurrentChapter(chapterID: String!) {
-        let realm = try! Realm()
-        let manChapter = MangaCurrentChapter()
-        manChapter.mangaID = mangaID
-        manChapter.chapterID = chapterID
-        manChapter.readTime = Date()
-        try! realm.write {
-            realm.add(manChapter, update:true)
-        }
-    }
-    
     @IBAction func dismissAction(_ sender: UIButton) {
-        presentingViewController?.dismiss(animated: true, completion: nil)
+        farewell()
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -216,42 +183,18 @@ class ChapterReadViewController: UIViewController {
     }
     
     // MARK: Chapter navigation
-    
     @IBAction func gotoNextChapterAction(_ sender: Any) {
-        guard var index = getCurrentChapterIndex()
-            , let chapterObjects = mangaDetail?.chapterObjects else {
-            return
-        }
-        
-        index -= 1
-        if (index >= 0 && index < chapterObjects.count) {
-            let chapter = chapterObjects[index]
-            if let chapterID = chapter.id {
-                self.chapterID = chapterID
-                self.chapterObject = chapter
-                
-                loadImages()
-                installPageViewController()
-            }
+        viewModel.goToChapter(next: true) { [weak self] in
+            self?.installPageViewController()
+            self?.getChapterDetail()
         }
     }
     
     @IBAction func gotoPreviousChapterAction(_ sender: Any) {
-        guard var index = getCurrentChapterIndex()
-            , let chapterObjects = mangaDetail?.chapterObjects else {
-                return
-        }
         
-        index += 1
-        if (index >= 0 && index < chapterObjects.count) {
-            let chapter = chapterObjects[index]
-            if let chapterID = chapter.id {
-                self.chapterID = chapterID
-                self.chapterObject = chapter
-                
-                loadImages()
-                installPageViewController()
-            }
+        viewModel.goToChapter(next: false) { [weak self] in
+            self?.installPageViewController()
+            self?.getChapterDetail()
         }
     }
     
@@ -297,37 +240,16 @@ class ChapterReadViewController: UIViewController {
                 return
         }
         
-        let chapterName = chapterObject?.title ?? String(chapterObject?.number ?? 0)
-        labelInfo.text = "\(NSLocalizedString("Chapter", comment: "")) - '\(chapterName)'"
+        labelInfo.text = viewModel.chapterName
         labelPageInfo.text = "\(index + 1)/\(imageViewControllers.count)"
     }
     
     func updateChapterButtons() {
-        guard let chapterObjects = mangaDetail?.chapterObjects else {
-            return
-        }
-        
-        if let index = getCurrentChapterIndex() {
-            self.buttonNextChapter.isHidden = (index <= 0)
-            self.buttonPreviousChapter.isHidden = (index >= chapterObjects.count - 1)
-        }
+        buttonNextChapter.isHidden = viewModel.nextChapterButtonHidden
+        buttonPreviousChapter.isHidden = viewModel.prevChapterButtonHidden
     }
     
-    // MARK: Helper
-    func getCurrentChapterIndex() -> Int? {
-        
-        guard let chapterObjects = mangaDetail?.chapterObjects else {
-            return nil
-        }
-        
-        for (index, chapter) in chapterObjects.enumerated() {
-            if let id = chapter.id, id == self.chapterID {
-                return index
-            }
-        }
-        
-        return nil;
-    }
+    
     
     @IBAction func switchSettingPanel(_ sender: Any) {
         UIView.animate(withDuration: 0.3) {
@@ -348,6 +270,16 @@ class ChapterReadViewController: UIViewController {
         UserDefaults.standard.synchronize()
         
         installPageViewController(sameChapter: true)
+    }
+    
+    func didTapGuidView(guideView: GuideView) {
+        
+        UserDefaults.standard.set(true, forKey: "userSeeGuide")
+        UserDefaults.standard.synchronize()
+        
+        UIView.animate(withDuration: 0.3) {
+            guideView.alpha = 0
+        }
     }
 }
 

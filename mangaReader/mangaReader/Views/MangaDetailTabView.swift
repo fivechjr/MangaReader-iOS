@@ -16,6 +16,17 @@ class MangaDetailTabView: UIView {
     weak var delegate: MangaDetailTabViewDelegate?
     
     var segmentControl: UISegmentedControl!
+    
+    func updateTheme() {
+        let theme = ThemeManager.shared.currentTheme
+        backgroundColor = theme.backgroundColor
+
+        let attributesNormal = [NSAttributedStringKey.font: UIFont.button!]
+        let attributesSelected = [NSAttributedStringKey.font: UIFont.title!]
+//        let attributesSelected = [NSAttributedStringKey.foregroundColor: theme.textColor, NSAttributedStringKey.font: UIFont.title!]
+        segmentControl.setTitleTextAttributes(attributesNormal, for: .normal)
+        segmentControl.setTitleTextAttributes(attributesSelected, for: .selected)
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -29,17 +40,9 @@ class MangaDetailTabView: UIView {
     
     func doInit() {
         
-        let toobar = UIToolbar(frame: CGRect.zero)
-        addSubview(toobar)
-        toobar.snp.makeConstraints { (maker) in
-            maker.edges.equalToSuperview()
-        }
-        
         segmentControl = UISegmentedControl(items: [NSLocalizedString("Chapter", comment: ""), NSLocalizedString("Info", comment: "")])
         segmentControl.addTarget(self, action: #selector(MangaDetailTabView.indexChanged(_:)), for: .valueChanged)
         segmentControl.selectedSegmentIndex = 0
-//        let attr = NSDictionary(object: UIFont(name: "HelveticaNeue", size: 15.0)!, forKey: kCTFontAttributeName as! NSCopying)
-//        segmentControl.setTitleTextAttributes(attr as [NSObject : AnyObject] , for: .normal)
         
         addSubview(segmentControl)
         segmentControl.snp.makeConstraints { (maker) in

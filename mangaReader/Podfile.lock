@@ -1,33 +1,36 @@
 PODS:
   - Alamofire (4.6.0)
-  - AlamofireImage (3.3.0):
+  - AlamofireImage (3.3.1):
     - Alamofire (~> 4.5)
-  - AlamofireObjectMapper (5.0.0):
-    - Alamofire (~> 4.1)
-    - ObjectMapper (~> 3.0)
   - Bolts (1.9.0):
     - Bolts/AppLinks (= 1.9.0)
     - Bolts/Tasks (= 1.9.0)
   - Bolts/AppLinks (1.9.0):
     - Bolts/Tasks
   - Bolts/Tasks (1.9.0)
-  - FacebookCore (0.3.0):
-    - Bolts (~> 1.8)
-    - FBSDKCoreKit (~> 4.27)
-  - FBSDKCoreKit (4.33.0):
-    - Bolts (~> 1.7)
-  - Google-Mobile-Ads-SDK (7.23.0)
+  - FacebookCore (0.3.3):
+    - Bolts (~> 1.9)
+    - FBSDKCoreKit (~> 4.36)
+  - FBSDKCoreKit (4.38.1):
+    - Bolts (~> 1.9)
+  - Google-Mobile-Ads-SDK (7.31.0)
   - NVActivityIndicatorView (4.1.1):
     - NVActivityIndicatorView/Presenter (= 4.1.1)
   - NVActivityIndicatorView/Presenter (4.1.1)
-  - ObjectMapper (3.1.0)
-  - Realm (3.1.1):
-    - Realm/Headers (= 3.1.1)
-  - Realm/Headers (3.1.1)
-  - RealmSwift (3.1.1):
-    - Realm (= 3.1.1)
-  - SnapKit (4.0.0)
-  - TagListView (1.3.0)
+  - PersonalizedAdConsent (1.0.3)
+  - Realm (3.7.6):
+    - Realm/Headers (= 3.7.6)
+  - Realm/Headers (3.7.6)
+  - RealmSwift (3.7.6):
+    - Realm (= 3.7.6)
+  - RxAtomic (4.4.0)
+  - RxCocoa (4.4.0):
+    - RxSwift (~> 4.0)
+  - RxSwift (4.4.0):
+    - RxAtomic (~> 4.4)
+  - SnapKit (4.0.1)
+  - SVPullToRefresh (0.4.1)
+  - TagListView (1.3.2)
   - Toast-Swift (3.0.1)
   - UnityAds (2.1.2)
   - VungleSDK-iOS (6.2.0)
@@ -35,35 +38,63 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 4.6.0)
   - AlamofireImage (~> 3.3)
-  - AlamofireObjectMapper (~> 5.0.0)
-  - FacebookCore
-  - Google-Mobile-Ads-SDK (~> 7.23.0)
+  - FacebookCore (~> 0.3.1)
+  - Google-Mobile-Ads-SDK (~> 7.31.0)
   - NVActivityIndicatorView (~> 4.1.1)
-  - RealmSwift (~> 3.1.1)
+  - PersonalizedAdConsent
+  - RealmSwift (~> 3.7.4)
+  - RxCocoa (~> 4.0)
+  - RxSwift (~> 4.0)
   - SnapKit (~> 4.0.0)
+  - SVPullToRefresh
   - TagListView (~> 1.3.0)
   - Toast-Swift (~> 3.0.1)
   - UnityAds (~> 2.1.0)
   - VungleSDK-iOS (~> 6.2.0)
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - AlamofireImage
+    - Bolts
+    - FacebookCore
+    - FBSDKCoreKit
+    - Google-Mobile-Ads-SDK
+    - NVActivityIndicatorView
+    - PersonalizedAdConsent
+    - Realm
+    - RealmSwift
+    - RxAtomic
+    - RxCocoa
+    - RxSwift
+    - SnapKit
+    - SVPullToRefresh
+    - TagListView
+    - Toast-Swift
+    - UnityAds
+    - VungleSDK-iOS
+
 SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
-  AlamofireImage: 2e784dc5d00f04903a52c1d169181469c805c3df
-  AlamofireObjectMapper: 5fafc816351cbbc0d486611aaeba7461c0cbad49
+  AlamofireImage: 3b35b586853abaf94ca1250f4e94cff3c21a4c0d
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
-  FacebookCore: 3ffa190a3f1f96cec0e44d3fc221bc322c595ffa
-  FBSDKCoreKit: 572b047a7e029bc44542bcf8a59414e7ff2b543e
-  Google-Mobile-Ads-SDK: a43dc8efdb566c74d00ac6934c781de969348d80
+  FacebookCore: 9ecbe48cfd37c91a93add7f8cec2b4a2c50a1eec
+  FBSDKCoreKit: 8d47857400e2f5bdea697a80daff882e91c84ef6
+  Google-Mobile-Ads-SDK: 6e529e748b45507a2ca904e0b5a52669ba3920c4
   NVActivityIndicatorView: 60109b9bf46efc2e71ab81453196ccdfdfeea870
-  ObjectMapper: 20505058f54e5c3ca69e1d6de9897d152a5369a6
-  Realm: 42d1c38a5b1bbcc828b48a7ce702cb86fc68adf4
-  RealmSwift: d31937ca6a6ee54acde64ec839523c0a3c04924b
-  SnapKit: a42d492c16e80209130a3379f73596c3454b7694
-  TagListView: 669f7d4455003c877655875d34829731c4191528
+  PersonalizedAdConsent: b50a8a5d6065b6db23121e8fcc0dce2ae983f6ea
+  Realm: 9eaecad54712d6246d08ba34c10f354e4715d7d3
+  RealmSwift: 1fe08b4ebaeeaacf17f9ba0343f7b25c9fc31fa6
+  RxAtomic: eacf60db868c96bfd63320e28619fe29c179656f
+  RxCocoa: df63ebf7b9a70d6b4eeea407ed5dd4efc8979749
+  RxSwift: 5976ecd04fc2fefd648827c23de5e11157faa973
+  SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
+  SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
+  TagListView: 0c7e9c26b9aff858224ee6b155f5fcacd9e27c83
   Toast-Swift: ba0b01b095aada709d915f9beb1d38184a2721c3
   UnityAds: 7ff4f1f17ab02b50f92646a353db25d23a4694af
   VungleSDK-iOS: a8665f4e826ad688135429f4618df4235f8738c7
 
-PODFILE CHECKSUM: a3f8995c10491908862e04337db65c4957e53230
+PODFILE CHECKSUM: 8f8ea3f960d9cfdeeab1df83613e1d69adbe685e
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.5.3

@@ -16,11 +16,10 @@ protocol ImageViewControllerDelegate: class {
     func bottomAreaTapped(imageViewController: ImageViewController!)
 }
 
-class ImageViewController: UIViewController, UIScrollViewDelegate {
+class ImageViewController: BaseViewController, UIScrollViewDelegate {
     
     var imageView: UIImageView!
     var imageScrollView: UIScrollView!
-    var indicatorView: NVActivityIndicatorView!
     
     weak var delegate: ImageViewControllerDelegate?
     
@@ -28,6 +27,11 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewDidDisappear(_ animated: Bool) {
         imageScrollView.zoomScale = 1.0
+    }
+    
+    override func updateTheme() {
+        let theme = ThemeManager.shared.currentTheme
+        view.backgroundColor = theme.backgroundSecondColor
     }
 
     override func viewDidLoad() {
@@ -68,30 +72,17 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         
         singleTapGesture.require(toFail: doubleTapGesture)
         
-        installIndicatorView()
-        
         loadImage()
     }
     
-    func installIndicatorView() {
-        indicatorView = NVActivityIndicatorView(frame: CGRect.zero, type: .ballSpinFadeLoader, color: UIColor.black)
-        view.addSubview(indicatorView)
-        indicatorView.snp.makeConstraints { (maker) in
-            maker.center.equalToSuperview()
-            maker.width.equalTo(50)
-            maker.height.equalTo(50)
-        }
-    }
-    
     func loadImage() {
-        indicatorView.startAnimating()
+        showLoading()
         if let imagePath = chapterImage?.imagePath
             , let urlString = DataRequester.getImageUrl(withImagePath: imagePath)
             , let url = URL(string: urlString) {
             
-//            let placeHolderImage = UIImage(named: "manga_default")
             imageView.af_setImage(withURL: url, placeholderImage: nil, imageTransition: .crossDissolve(0.2))  {[weak self] (imageDataResponse) in
-                self?.indicatorView.stopAnimating()
+                self?.hideLoading()
             }
         }
     }

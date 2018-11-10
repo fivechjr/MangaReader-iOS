@@ -10,8 +10,11 @@
 "Completed" = "Completed";
 "Ongoing" = "Ongoing";
 "Manga Detail" = "Manga Detail";
+
+"No Chapters" = "No Chapters";
 "Chapters" = "Chapters";
 "Chapter" = "Chapter";
+
 "Info" = "Info";
 "Disclaimer" = "Disclaimer";
 "Feedback" = "Feedback";
@@ -57,3 +60,9 @@
 "Clear Read History" = "Clear Read History";
 "Do you want to remove" = "Do you want to remove";
 "Remove From Recent" = "Remove From Recent";
+
+"message_top_guide" = "Tap the upper area to go to the previous page.";
+"message_center_guide" = "Tap the center area to show the toolbars.";
+"message_bottom_guide" = "Tap the lower area to go to the next page.";
+
+"Change Theme" = "Change Theme";

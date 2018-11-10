@@ -7,15 +7,22 @@
 //
 
 import UIKit
-import RealmSwift
 
-class FavoritesViewController: UIViewController {
+class FavoritesViewController: BaseViewController {
     
-    var favoriteManga: Results<FavoriteManga>?
+    var viewModel = FavoritesViewModel()
 
     @IBOutlet weak var favoritesCollectionView: UICollectionView!
     
     var emptyInfoView: EmptyInfoView!
+    
+    override func updateTheme() {
+        let theme = ThemeManager.shared.currentTheme
+        view.backgroundColor = theme.backgroundColor
+        favoritesCollectionView.backgroundColor = theme.backgroundSecondColor
+        favoritesCollectionView.reloadData()
+        emptyInfoView.updateTheme()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,17 +32,14 @@ class FavoritesViewController: UIViewController {
         emptyInfoView.emptyImageView.image = UIImage(named: "favorite_empty")
         emptyInfoView.titleLabel.text = NSLocalizedString("NO FAVORITED MANGA", comment: "")
         emptyInfoView.messageLabel.text = NSLocalizedString("no_fav_message", comment: "")
-        view.addSubview(emptyInfoView)
-        emptyInfoView.snp.makeConstraints { (maker) in
-            maker.edges.equalToSuperview()
-        }
         
         let nibCell = UINib(nibName: "MangaListCollectionViewCell", bundle: nil)
         favoritesCollectionView.register(nibCell, forCellWithReuseIdentifier: "MangaListCollectionViewCell")
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        loadFavorites()
+        super.viewWillAppear(animated)
+        viewModel.loadFavorites()
         favoritesCollectionView.reloadData()
         
         AdsManager.sharedInstance.showRandomAdsIfComfortable()
@@ -55,16 +59,13 @@ class FavoritesViewController: UIViewController {
         layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
     }
 
-    func loadFavorites() {
-        let realm = try! Realm()
-        favoriteManga = realm.objects(FavoriteManga.self)
-    }
+    
 }
 
 extension FavoritesViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let count = favoriteManga?.count ?? 0
-        emptyInfoView.isHidden = (count > 0)
+        let count = viewModel.count
+        collectionView.backgroundView = (count > 0) ? nil : emptyInfoView
         return count
     }
     
@@ -73,15 +74,8 @@ extension FavoritesViewController: UICollectionViewDataSource, UICollectionViewD
         
         cell.tag = indexPath.item
         
-        if let manga = favoriteManga?[indexPath.item] {
-            cell.labelTitle.text = manga.name
-            
-            let placeholderImage = UIImage(named: "manga_default")
-            cell.imageViewCover.image = placeholderImage
-            if let imageURL = DataRequester.getImageUrl(withImagePath: manga.imagePath)
-                , let url = URL(string: imageURL){
-                cell.imageViewCover.af_setImage(withURL: url, placeholderImage: placeholderImage)
-            }
+        if let manga = viewModel[indexPath.item] {
+            cell.viewModel = MangaListCollectionCellViewModel(favoriteManga: manga)
         }
         
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(cellLongPressAction))
@@ -91,20 +85,16 @@ extension FavoritesViewController: UICollectionViewDataSource, UICollectionViewD
     }
     
     @objc func cellLongPressAction(recgnizer: UILongPressGestureRecognizer) {
-        guard recgnizer.state == .began, let index = recgnizer.view?.tag, let manga = favoriteManga?[index] else {
+        guard recgnizer.state == .began, let index = recgnizer.view?.tag, let manga = viewModel[index] else {
                 return
             }
-        let message = "\(NSLocalizedString("Do you want to unfavorite", comment: "")) '\(manga.name)'?"
-        let alertVC = UIAlertController(title: NSLocalizedString("Unfavorite", comment: ""), message: message, preferredStyle: .actionSheet)
-        let okAction = UIAlertAction(title: NSLocalizedString("Yes", comment: ""), style: .default) { (action) in
-            let realm = try! Realm()
-            let favObjects = realm.objects(FavoriteManga.self).filter("id = %@", manga.id)
-            try! realm.write {
-                realm.delete(favObjects)
-            }
+        let message = "\(LocalizedString("Do you want to unfavorite")) '\(manga.name)'?"
+        let alertVC = UIAlertController(title: LocalizedString("Unfavorite"), message: message, preferredStyle: .actionSheet)
+        let okAction = UIAlertAction(title: LocalizedString("Yes"), style: .default) { (action) in
+            self.viewModel.deleteFavorite(mangaId: manga.id)
             self.favoritesCollectionView.reloadData()
         }
-        let cancelAction = UIAlertAction(title: NSLocalizedString("No", comment: ""), style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: LocalizedString("No"), style: .cancel, handler: nil)
         alertVC.addAction(okAction)
         alertVC.addAction(cancelAction)
         
@@ -115,9 +105,9 @@ extension FavoritesViewController: UICollectionViewDataSource, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let manga = favoriteManga?[indexPath.item], manga.id.count > 0 {
-            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MangaDetailViewController") as! MangaDetailViewController
-            vc.mangaID = manga.id
+        if let manga = viewModel[indexPath.item], manga.id.count > 0 {
+            let vc = MangaDetailViewController.newInstance() as! MangaDetailViewController
+            vc.viewModel = MangaDetailViewModel(mangaId: manga.id)
             
             navigationController?.pushViewController(vc, animated: true)
         }
