@@ -1,6 +1,6 @@
 PODS:
   - Alamofire (4.6.0)
-  - AlamofireImage (3.3.0):
+  - AlamofireImage (3.3.1):
     - Alamofire (~> 4.5)
   - Bolts (1.9.0):
     - Bolts/AppLinks (= 1.9.0)
@@ -8,27 +8,29 @@ PODS:
   - Bolts/AppLinks (1.9.0):
     - Bolts/Tasks
   - Bolts/Tasks (1.9.0)
-  - FacebookCore (0.3.1):
-    - Bolts (~> 1.8)
-    - FBSDKCoreKit (~> 4.33)
-  - FBSDKCoreKit (4.34.0):
-    - Bolts (~> 1.7)
+  - FacebookCore (0.3.3):
+    - Bolts (~> 1.9)
+    - FBSDKCoreKit (~> 4.36)
+  - FBSDKCoreKit (4.38.1):
+    - Bolts (~> 1.9)
   - Google-Mobile-Ads-SDK (7.31.0)
   - NVActivityIndicatorView (4.1.1):
     - NVActivityIndicatorView/Presenter (= 4.1.1)
   - NVActivityIndicatorView/Presenter (4.1.1)
-  - PersonalizedAdConsent (1.0.1)
-  - Realm (3.7.4):
-    - Realm/Headers (= 3.7.4)
-  - Realm/Headers (3.7.4)
-  - RealmSwift (3.7.4):
-    - Realm (= 3.7.4)
-  - RxCocoa (4.2.0):
+  - PersonalizedAdConsent (1.0.3)
+  - Realm (3.7.6):
+    - Realm/Headers (= 3.7.6)
+  - Realm/Headers (3.7.6)
+  - RealmSwift (3.7.6):
+    - Realm (= 3.7.6)
+  - RxAtomic (4.4.0)
+  - RxCocoa (4.4.0):
     - RxSwift (~> 4.0)
-  - RxSwift (4.2.0)
-  - SnapKit (4.0.0)
+  - RxSwift (4.4.0):
+    - RxAtomic (~> 4.4)
+  - SnapKit (4.0.1)
   - SVPullToRefresh (0.4.1)
-  - TagListView (1.3.0)
+  - TagListView (1.3.2)
   - Toast-Swift (3.0.1)
   - UnityAds (2.1.2)
   - VungleSDK-iOS (6.2.0)
@@ -62,6 +64,7 @@ SPEC REPOS:
     - PersonalizedAdConsent
     - Realm
     - RealmSwift
+    - RxAtomic
     - RxCocoa
     - RxSwift
     - SnapKit
@@ -73,20 +76,21 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
-  AlamofireImage: 2e784dc5d00f04903a52c1d169181469c805c3df
+  AlamofireImage: 3b35b586853abaf94ca1250f4e94cff3c21a4c0d
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
-  FacebookCore: 33078ef1d7d76b73f7e8c990dca7d3ea6db8d22f
-  FBSDKCoreKit: 0ff57f093b85c8c9d5aba697d3edf68a8960ce78
+  FacebookCore: 9ecbe48cfd37c91a93add7f8cec2b4a2c50a1eec
+  FBSDKCoreKit: 8d47857400e2f5bdea697a80daff882e91c84ef6
   Google-Mobile-Ads-SDK: 6e529e748b45507a2ca904e0b5a52669ba3920c4
   NVActivityIndicatorView: 60109b9bf46efc2e71ab81453196ccdfdfeea870
-  PersonalizedAdConsent: d42d32065787eca61a9a334d2f786e6f81ebb4c7
-  Realm: a469bb59e33f9926102ccaea4349822c53b9117e
-  RealmSwift: a45861b21c180f5cf0f122144b9759fa8dde3e9e
-  RxCocoa: 0b54909c902e1e581212a03e690bbd94032d8baa
-  RxSwift: 99e10317ddfcc7fbe01356aafd118fde4a0be104
-  SnapKit: a42d492c16e80209130a3379f73596c3454b7694
+  PersonalizedAdConsent: b50a8a5d6065b6db23121e8fcc0dce2ae983f6ea
+  Realm: 9eaecad54712d6246d08ba34c10f354e4715d7d3
+  RealmSwift: 1fe08b4ebaeeaacf17f9ba0343f7b25c9fc31fa6
+  RxAtomic: eacf60db868c96bfd63320e28619fe29c179656f
+  RxCocoa: df63ebf7b9a70d6b4eeea407ed5dd4efc8979749
+  RxSwift: 5976ecd04fc2fefd648827c23de5e11157faa973
+  SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
   SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
-  TagListView: 669f7d4455003c877655875d34829731c4191528
+  TagListView: 0c7e9c26b9aff858224ee6b155f5fcacd9e27c83
   Toast-Swift: ba0b01b095aada709d915f9beb1d38184a2721c3
   UnityAds: 7ff4f1f17ab02b50f92646a353db25d23a4694af
   VungleSDK-iOS: a8665f4e826ad688135429f4618df4235f8738c7
