@@ -14,6 +14,10 @@ import Foundation
  api/ mangaid/<str:mangaid>/chapterid/<str:chapterid>
  api/ manga/categoryName/<str:categoryName>/pageIndex/<int:pageIndex>/pageSize/<int:pageSize>
  api/ manga/categoryNames
+ 
+ api/ manga/reportBad [name='reportBad']
+ api/ manga/getCategoryRecommend [name='getCategoryRecommend']
+ api/ manga/getTopMangaList [name='getTopMangaList']
  */
 
 enum MangaEndpoint {
@@ -23,6 +27,9 @@ enum MangaEndpoint {
     case chapter(mangaId: String, chapterId: String)
     case categoryManga(categoryName: String, pageIndex: Int, pageSize: Int)
     case categories
+    case reportBad
+    case getCategoryRecommend
+    case getTopMangaList
     
     var baseUrl: String {
         return "http://dym1.com:8000/api/"
@@ -42,6 +49,12 @@ enum MangaEndpoint {
             return baseUrl + "manga/categoryName/\(categoryName)/pageIndex/\(pageIndex)/pageSize/\(pageSize)"
         case .categories:
             return baseUrl + "manga/categoryNames"
+        case .reportBad:
+            return baseUrl + "manga/reportBad"
+        case .getCategoryRecommend:
+            return baseUrl + "manga/getCategoryRecommend"
+        case .getTopMangaList:
+            return baseUrl + "manga/getTopMangaList"
         }
     }
 }

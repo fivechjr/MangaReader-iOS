@@ -12,6 +12,7 @@ import Alamofire
 typealias MangaListResponseHandler = (MangaListResponse?, Error?) -> Void
 typealias CategoryNamesResponseHandler = (CategoryNamesResponse?, Error?) -> Void
 typealias ChapterDetailResponseHandler = (ChapterDetailResponse?, Error?) -> Void
+typealias ReportBadResponseHandler = (ReportBadResponse?, Error?) -> Void
 
 class DataRequester {
     static func getMangaDetail(mangaIds: [String], completion:@escaping MangaListResponseHandler) {
@@ -60,6 +61,20 @@ class DataRequester {
         
         NetworkManager.post(urlString: path, parameters: parameters, responseType: MangaListResponse.self, completion:completion)
     }
+    
+    // {          "_id":"12323123123123123123123123132123",     "dfdsf":"我要举123123123报"      }
+    static func reportBad(mangaId: String, chapterId: String, reason: String, completion:@escaping ReportBadResponseHandler) {
+        let path = MangaEndpoint.reportBad.path
+        let parameters: [String: Any] = ["id": NSUUID().uuidString,
+                                         "mangaId": mangaId,
+                                         "chapterId": chapterId,
+                                         "reason": reason]
+        NetworkManager.post(urlString: path, parameters: parameters, responseType: ReportBadResponse.self, completion: completion)
+    }
+    
+//    case reportBad
+//    case getCategoryRecommend
+//    case getTopMangaList
     
     static func getImageUrl(withImagePath path: String?) -> String? {
         if let path = path {

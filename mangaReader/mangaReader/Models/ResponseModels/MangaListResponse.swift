@@ -10,5 +10,6 @@ import Foundation
 
 class MangaListResponse: Codable {
     var result: Int?
+    var total: Int?
     var mangalist: [Manga]?
 }

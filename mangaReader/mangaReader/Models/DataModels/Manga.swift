@@ -50,6 +50,8 @@ class Manga: Codable {
     var updatedKeywords: Bool?
     
     var random: [Double]?
+    
+    var topImageUrl: String?
 }
 
 // MangaProtocol
