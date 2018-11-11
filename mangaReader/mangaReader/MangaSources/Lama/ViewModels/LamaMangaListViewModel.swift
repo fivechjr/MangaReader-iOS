@@ -9,9 +9,11 @@
 import Foundation
 import RxSwift
 
-class LamaMangaListViewModel {
+class LamaMangaListViewModel: MangaListViewModelProtocol {
     
-    private var isLoading: Bool = false
+    var sortByRecentUpdate: Bool = false
+    
+    var isLoading: Bool = false
     
     var selectedGenres: [String] = []
     var selectedGenresLocalized: [String] = []
@@ -73,9 +75,9 @@ extension LamaMangaListViewModel {
         isLoading = true
         
         LamaApi.getDaily(tag: 200, offset: currentPage, limit: pageSize) { [weak self] (response, error) in
-            guard let `self` = self, let comics = response?.data else {return}
+            guard let `self` = self, let comics = response?.data?.comics else {return}
             self.mangas.append(contentsOf: comics)
-            
+            self.mangasSignal.value = self.mangas
             completion(comics, error)
             self.isLoading = false
         }

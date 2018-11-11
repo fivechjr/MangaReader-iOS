@@ -17,7 +17,7 @@ class MangaListViewController: BaseViewController {
     @IBOutlet weak var mangaSwithControl: UISegmentedControl!
     @IBOutlet weak var genresTagListView: TagListView!
     
-    var viewModel = MangaListViewModel()
+    var viewModel = FSInjector.shared.resolve(MangaListViewModelProtocol.self)!
     let refreshControl = BetterRefreshControl()
     
     override func updateTheme() {

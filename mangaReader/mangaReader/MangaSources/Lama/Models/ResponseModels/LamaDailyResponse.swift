@@ -8,6 +8,14 @@
 
 import Foundation
 
-class LamaDailyResponse: LamaBaseResponse {
-    var data: [LamaComic]?
+class LamaDailyResponse: Codable {
+    var code: Int?
+    var message: String?
+    var data: Data?
+    
+    class Data: Codable {
+        var comics:[LamaComic]?
+        var offset: Int?
+        var timestamp: Int?
+    }
 }

@@ -30,6 +30,7 @@ PODS:
     - RxAtomic (~> 4.4)
   - SnapKit (4.0.1)
   - SVPullToRefresh (0.4.1)
+  - Swinject (2.5.0)
   - TagListView (1.3.2)
   - Toast-Swift (3.0.1)
   - UnityAds (2.1.2)
@@ -47,6 +48,7 @@ DEPENDENCIES:
   - RxSwift (~> 4.0)
   - SnapKit (~> 4.0.0)
   - SVPullToRefresh
+  - Swinject
   - TagListView (~> 1.3.0)
   - Toast-Swift (~> 3.0.1)
   - UnityAds (~> 2.1.0)
@@ -69,6 +71,7 @@ SPEC REPOS:
     - RxSwift
     - SnapKit
     - SVPullToRefresh
+    - Swinject
     - TagListView
     - Toast-Swift
     - UnityAds
@@ -90,11 +93,12 @@ SPEC CHECKSUMS:
   RxSwift: 5976ecd04fc2fefd648827c23de5e11157faa973
   SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
   SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
+  Swinject: 82cdb851f63f91bba974e3eca1d69780f2f7677e
   TagListView: 0c7e9c26b9aff858224ee6b155f5fcacd9e27c83
   Toast-Swift: ba0b01b095aada709d915f9beb1d38184a2721c3
   UnityAds: 7ff4f1f17ab02b50f92646a353db25d23a4694af
   VungleSDK-iOS: a8665f4e826ad688135429f4618df4235f8738c7
 
-PODFILE CHECKSUM: 8f8ea3f960d9cfdeeab1df83613e1d69adbe685e
+PODFILE CHECKSUM: 68aece4b0c9e3b70c0095092827fe006d0106910
 
 COCOAPODS: 1.5.3

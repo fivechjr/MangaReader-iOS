@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 
-class MangaListViewModel {
+class MangaListViewModel: MangaListViewModelProtocol {
     var sortByRecentUpdate = false
     private var mangaSort: MangaSort {
         return sortByRecentUpdate ? .last_chapter_date : .hits
