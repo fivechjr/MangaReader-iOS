@@ -26,6 +26,7 @@
 		8C3C8BEE21980C1B000F3FDD /* FSInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3C8BED21980C1B000F3FDD /* FSInjector.swift */; };
 		8C3C8BF021980E2C000F3FDD /* MangaSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3C8BEF21980E2C000F3FDD /* MangaSource.swift */; };
 		8C3C8BF2219871A1000F3FDD /* ReportBadResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3C8BF1219871A1000F3FDD /* ReportBadResponse.swift */; };
+		8C3C8BFA21987492000F3FDD /* DatarequestorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3C8BF921987492000F3FDD /* DatarequestorTests.swift */; };
 		8C4EFCDF208CD0B5007D342C /* MangaDetailHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4EFCDD208CD0B5007D342C /* MangaDetailHeaderTableViewCell.swift */; };
 		8C4EFCE2208D47DE007D342C /* MangaDetailTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4EFCE1208D47DE007D342C /* MangaDetailTabView.swift */; };
 		8C4EFCE5208DA61D007D342C /* MangaDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4EFCE3208DA61D007D342C /* MangaDetailTableViewCell.swift */; };
@@ -95,6 +96,16 @@
 		D74D4AE10A063344E211FAFD /* Pods_mangaReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2413CBD7973B09B0B8FBB6B /* Pods_mangaReader.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		8C3C8BFC21987492000F3FDD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8C8EAC73206A141900803BD1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8C8EAC7A206A141900803BD1;
+			remoteInfo = mangaReader;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		1A55816C541577B20C9EA282 /* Pods-mangaReader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mangaReader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-mangaReader/Pods-mangaReader.debug.xcconfig"; sourceTree = "<group>"; };
 		65171A2F5A9EBB700F64B9D3 /* Pods-mangaReader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mangaReader.release.xcconfig"; path = "Pods/Target Support Files/Pods-mangaReader/Pods-mangaReader.release.xcconfig"; sourceTree = "<group>"; };
@@ -119,6 +130,9 @@
 		8C3C8BED21980C1B000F3FDD /* FSInjector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSInjector.swift; sourceTree = "<group>"; };
 		8C3C8BEF21980E2C000F3FDD /* MangaSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaSource.swift; sourceTree = "<group>"; };
 		8C3C8BF1219871A1000F3FDD /* ReportBadResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportBadResponse.swift; sourceTree = "<group>"; };
+		8C3C8BF721987492000F3FDD /* mangaReaderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = mangaReaderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C3C8BF921987492000F3FDD /* DatarequestorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatarequestorTests.swift; sourceTree = "<group>"; };
+		8C3C8BFB21987492000F3FDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8C4EFCDD208CD0B5007D342C /* MangaDetailHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaDetailHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		8C4EFCE1208D47DE007D342C /* MangaDetailTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaDetailTabView.swift; sourceTree = "<group>"; };
 		8C4EFCE3208DA61D007D342C /* MangaDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaDetailTableViewCell.swift; sourceTree = "<group>"; };
@@ -197,6 +211,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8C3C8BF421987492000F3FDD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8C8EAC78206A141900803BD1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -293,6 +314,15 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		8C3C8BF821987492000F3FDD /* mangaReaderTests */ = {
+			isa = PBXGroup;
+			children = (
+				8C3C8BF921987492000F3FDD /* DatarequestorTests.swift */,
+				8C3C8BFB21987492000F3FDD /* Info.plist */,
+			);
+			path = mangaReaderTests;
+			sourceTree = "<group>";
+		};
 		8C81DCE72180C0A900F47A31 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -306,6 +336,7 @@
 			isa = PBXGroup;
 			children = (
 				8C8EAC7D206A141900803BD1 /* mangaReader */,
+				8C3C8BF821987492000F3FDD /* mangaReaderTests */,
 				8C8EAC7C206A141900803BD1 /* Products */,
 				0E611F14384F8ADBC4EE0989 /* Pods */,
 				406A76AEB7A1B64FDCDD253C /* Frameworks */,
@@ -317,6 +348,7 @@
 			isa = PBXGroup;
 			children = (
 				8C8EAC7B206A141900803BD1 /* mangaReader.app */,
+				8C3C8BF721987492000F3FDD /* mangaReaderTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -508,6 +540,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		8C3C8BF621987492000F3FDD /* mangaReaderTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8C3C8BFE21987492000F3FDD /* Build configuration list for PBXNativeTarget "mangaReaderTests" */;
+			buildPhases = (
+				8C3C8BF321987492000F3FDD /* Sources */,
+				8C3C8BF421987492000F3FDD /* Frameworks */,
+				8C3C8BF521987492000F3FDD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8C3C8BFD21987492000F3FDD /* PBXTargetDependency */,
+			);
+			name = mangaReaderTests;
+			productName = mangaReaderTests;
+			productReference = 8C3C8BF721987492000F3FDD /* mangaReaderTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		8C8EAC7A206A141900803BD1 /* mangaReader */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8C8EAC8D206A141A00803BD1 /* Build configuration list for PBXNativeTarget "mangaReader" */;
@@ -533,10 +583,15 @@
 		8C8EAC73206A141900803BD1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0920;
+				LastSwiftUpdateCheck = 1010;
 				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = "Yiming Dong";
 				TargetAttributes = {
+					8C3C8BF621987492000F3FDD = {
+						CreatedOnToolsVersion = 10.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 8C8EAC7A206A141900803BD1;
+					};
 					8C8EAC7A206A141900803BD1 = {
 						CreatedOnToolsVersion = 9.2;
 						LastSwiftMigration = 0930;
@@ -560,11 +615,19 @@
 			projectRoot = "";
 			targets = (
 				8C8EAC7A206A141900803BD1 /* mangaReader */,
+				8C3C8BF621987492000F3FDD /* mangaReaderTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		8C3C8BF521987492000F3FDD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8C8EAC79206A141900803BD1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -660,6 +723,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8C3C8BF321987492000F3FDD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8C3C8BFA21987492000F3FDD /* DatarequestorTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8C8EAC77206A141900803BD1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -740,6 +811,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		8C3C8BFD21987492000F3FDD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8C8EAC7A206A141900803BD1 /* mangaReader */;
+			targetProxy = 8C3C8BFC21987492000F3FDD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		8C16A8D120A12DAC009D5692 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
@@ -791,6 +870,43 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		8C3C8BFF21987492000F3FDD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = mangaReaderTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dym.mangaReaderTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/mangaReader.app/mangaReader";
+			};
+			name = Debug;
+		};
+		8C3C8C0021987492000F3FDD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = mangaReaderTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dym.mangaReaderTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/mangaReader.app/mangaReader";
+			};
+			name = Release;
+		};
 		8C8EAC8B206A141A00803BD1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -952,6 +1068,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8C3C8BFE21987492000F3FDD /* Build configuration list for PBXNativeTarget "mangaReaderTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8C3C8BFF21987492000F3FDD /* Debug */,
+				8C3C8C0021987492000F3FDD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		8C8EAC76206A141900803BD1 /* Build configuration list for PBXProject "mangaReader" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

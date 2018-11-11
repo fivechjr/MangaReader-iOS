@@ -10,4 +10,5 @@ import Foundation
 
 class ReportBadResponse: Codable {
     var result: Int?
+    var total: Int?
 }
