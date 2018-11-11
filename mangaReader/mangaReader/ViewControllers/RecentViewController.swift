@@ -93,7 +93,7 @@ extension RecentViewController: UICollectionViewDelegate, UICollectionViewDataSo
         cell.tag = indexPath.item
         
         if let manga = viewModel[indexPath.item] {
-            cell.viewModel = MangaListCollectionCellViewModel(recentManga: manga)
+            cell.viewModel = MangaListCollectionCellViewModel(manga: manga)
         }
         
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(cellLongPressAction))
@@ -106,10 +106,10 @@ extension RecentViewController: UICollectionViewDelegate, UICollectionViewDataSo
         guard recgnizer.state == .began, let index = recgnizer.view?.tag, let manga = viewModel[index] else {
             return
         }
-        let message = "\(LocalizedString("Do you want to remove")) '\(manga.name)'?"
+        let message = "\(LocalizedString("Do you want to remove")) '\(manga.mangaName ?? "")'?"
         let alertVC = UIAlertController(title: LocalizedString("Remove From Recent"), message: message, preferredStyle: .actionSheet)
         let okAction = UIAlertAction(title: LocalizedString("Yes"), style: .default) { (action) in
-            self.viewModel.deleteRecent(mangaId: manga.id)
+            self.viewModel.deleteRecent(mangaId: manga.mangaId ?? "0")
             self.recentCollectionView.reloadData()
         }
         let cancelAction = UIAlertAction(title: LocalizedString("No"), style: .cancel, handler: nil)
@@ -123,9 +123,9 @@ extension RecentViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let manga = viewModel[indexPath.item], manga.id.count > 0 {
+        if let manga = viewModel[indexPath.item], let mangaId = manga.mangaId, !mangaId.isEmpty {
             let vc = MangaDetailViewController.newInstance() as! MangaDetailViewController
-            vc.viewModel = MangaDetailViewModel(mangaId: manga.id)
+            vc.viewModel = MangaDetailViewModel(mangaId: mangaId)
             
             navigationController?.pushViewController(vc, animated: true)
         }

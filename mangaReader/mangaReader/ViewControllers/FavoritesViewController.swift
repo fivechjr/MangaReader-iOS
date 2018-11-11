@@ -75,7 +75,7 @@ extension FavoritesViewController: UICollectionViewDataSource, UICollectionViewD
         cell.tag = indexPath.item
         
         if let manga = viewModel[indexPath.item] {
-            cell.viewModel = MangaListCollectionCellViewModel(favoriteManga: manga)
+            cell.viewModel = MangaListCollectionCellViewModel(manga: manga)
         }
         
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(cellLongPressAction))
@@ -88,10 +88,10 @@ extension FavoritesViewController: UICollectionViewDataSource, UICollectionViewD
         guard recgnizer.state == .began, let index = recgnizer.view?.tag, let manga = viewModel[index] else {
                 return
             }
-        let message = "\(LocalizedString("Do you want to unfavorite")) '\(manga.name)'?"
+        let message = "\(LocalizedString("Do you want to unfavorite")) '\(manga.mangaName ?? "")'?"
         let alertVC = UIAlertController(title: LocalizedString("Unfavorite"), message: message, preferredStyle: .actionSheet)
         let okAction = UIAlertAction(title: LocalizedString("Yes"), style: .default) { (action) in
-            self.viewModel.deleteFavorite(mangaId: manga.id)
+            self.viewModel.deleteFavorite(mangaId: manga.mangaId)
             self.favoritesCollectionView.reloadData()
         }
         let cancelAction = UIAlertAction(title: LocalizedString("No"), style: .cancel, handler: nil)
@@ -105,9 +105,9 @@ extension FavoritesViewController: UICollectionViewDataSource, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let manga = viewModel[indexPath.item], manga.id.count > 0 {
+        if let manga = viewModel[indexPath.item], let mangaId = manga.mangaId, !mangaId.isEmpty {
             let vc = MangaDetailViewController.newInstance() as! MangaDetailViewController
-            vc.viewModel = MangaDetailViewModel(mangaId: manga.id)
+            vc.viewModel = MangaDetailViewModel(mangaId: mangaId)
             
             navigationController?.pushViewController(vc, animated: true)
         }

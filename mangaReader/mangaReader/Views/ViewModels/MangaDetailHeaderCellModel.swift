@@ -9,22 +9,22 @@
 import Foundation
 
 class MangaDetailHeaderCellModel {
-    var manga: Manga
+    var manga: MangaProtocol
     var currentChapterId: String?
     var isFavorite: Bool
     
-    init (manga: Manga, currentChapterId: String?, isFavorite: Bool) {
+    init (manga: MangaProtocol, currentChapterId: String?, isFavorite: Bool) {
         self.manga = manga
         self.currentChapterId = currentChapterId
         self.isFavorite = isFavorite
     }
     
     var bookTitle: String? {
-        return manga.title
+        return manga.mangaName
     }
     
     var authorName: String? {
-        return manga.author
+        return manga.mangaAuthor
     }
     
     var statusText: String {
@@ -32,7 +32,7 @@ class MangaDetailHeaderCellModel {
     }
     
     var imagePath: String? {
-        return manga.imagePath
+        return manga.coverImageUrl
     }
     
     var startButtonText: String {
@@ -43,7 +43,7 @@ class MangaDetailHeaderCellModel {
     }
     
     var chapterCountText: String {
-        guard let chapterCount = manga.chapters?.count, chapterCount > 0 else {return LocalizedString("No Chapters")}
+        guard let chapterCount = manga.chapterObjects?.count, chapterCount > 0 else {return LocalizedString("No Chapters")}
         if chapterCount == 1 {
             return "1 " + LocalizedString("Chapter")
         } else {
@@ -52,6 +52,6 @@ class MangaDetailHeaderCellModel {
     }
     
     var placeHolderImage: UIImage? {
-        return UIImage(named: ImageConstant.placeHolder.rawValue)
+        return ImageConstant.placeHolder.image
     }
 }

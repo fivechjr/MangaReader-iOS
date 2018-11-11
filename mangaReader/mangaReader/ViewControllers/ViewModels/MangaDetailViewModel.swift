@@ -10,15 +10,15 @@ import Foundation
 
 class MangaDetailViewModel {
     
-    var manga: Manga
+    var manga: MangaProtocol
     
-    init(manga: Manga) {
+    init(manga: MangaProtocol) {
         self.manga = manga
     }
     
     init(mangaId: String) {
         manga = Manga()
-        manga.id = mangaId
+        manga.mangaId = mangaId
     }
     
     var currentChapterID: String?
@@ -26,7 +26,7 @@ class MangaDetailViewModel {
     var chaptersContentOffset: CGPoint = CGPoint.zero
     
     func getMangaIfNeeded(completion: @escaping MangaListResponseHandler) -> Bool {
-        guard let chapters = manga.chapters, !chapters.isEmpty else {
+        guard let chapters = manga.chapterObjects, !chapters.isEmpty else {
             getManga(completion: completion)
             return true
         }
@@ -35,7 +35,7 @@ class MangaDetailViewModel {
     }
     
     func getManga(completion: @escaping MangaListResponseHandler) {
-        guard let mangaId = manga.id else {return}
+        guard let mangaId = manga.mangaId else {return}
         DataRequester.getMangaDetail(mangaIds: [mangaId], completion: { [weak self] (response, error) in
             guard let manga = response?.mangalist?.first else {
                 completion(nil, error)
@@ -90,16 +90,16 @@ extension MangaDetailViewModel {
     }
     
     func getCurrentChapterID() {
-        currentChapterID = DataManager.shared.getCurrentChapter(mangaId: manga.id)?.chapterID
+        currentChapterID = DataManager.shared.getCurrentChapter(mangaId: manga.mangaId)?.chapterID
     }
     
     func recordCurrentChapter(chapterId: String?) {
-        DataManager.shared.recordCurrentChapter(chapterId: chapterId, mangaId: manga.id)
+        DataManager.shared.recordCurrentChapter(chapterId: chapterId, mangaId: manga.mangaId)
         currentChapterID = chapterId
     }
     
     var isFavorite: Bool {
-        return DataManager.shared.isFavorite(mangaId: manga.id)
+        return DataManager.shared.isFavorite(mangaId: manga.mangaId)
     }
     
     func addFavorite() {

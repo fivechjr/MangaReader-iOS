@@ -34,3 +34,73 @@ class LamaComic: Codable {
     var url: String?
     var zoomable: Int?
 }
+
+// MangaProtocol
+extension LamaComic: MangaProtocol {
+    var mangaName: String? {
+        get {
+            return topic?.title
+        }
+        set {
+            topic?.title = newValue
+        }
+    }
+    
+    var mangaAuthor: String? {
+        get {
+            return topic?.user
+        }
+        set {
+            topic?.user = newValue
+        }
+    }
+    
+    var coverImageUrl: String? {
+        get {
+            return topic?.cover_image_url
+        }
+        set {
+            topic?.cover_image_url = newValue
+        }
+    }
+    
+    var mangaId: String? {
+        get {
+            guard let id = topic?.id else {return nil}
+            return String(id)
+        }
+        
+        set(value) {
+            topic?.id = Int(value ?? "0")
+        }
+    }
+    
+    var placeHolderImage: UIImage? {
+        return ImageConstant.placeHolder.image
+    }
+    
+    func canPublish() -> Bool {
+        return true
+    }
+    
+    var isCompleted: Bool {
+        return false
+    }
+    var chapterObjects: [Chapter]? {
+        return []
+    }
+    
+    var mangaDescription: String? {
+        return topic?.description
+    }
+    
+    var mangaCreateDate: Double {
+        return 0.0
+    }
+    var mangaUpdateDate: Double {
+        return 0.0
+    }
+    var mangaCategories: [String] {
+        return []
+    }
+}

@@ -176,7 +176,7 @@ extension MangaListViewController: GenresListViewControllerDelegate {
         
         if viewModel.selectedGenres.index(of: genre) == nil {
             viewModel.selectedGenres.append(genre)
-            viewModel.selectedGenresLocalized.append(NSLocalizedString(genre, comment: ""))
+            viewModel.selectedGenresLocalized.append(LocalizedString(genre))
             
             genresTagListView.removeAllTags()
             genresTagListView.addTags(viewModel.selectedGenresLocalized)

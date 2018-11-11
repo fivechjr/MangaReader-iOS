@@ -11,7 +11,7 @@ import RxSwift
 
 class MangaListViewModel {
     var sortByRecentUpdate = false
-    var mangaSort: MangaSort {
+    private var mangaSort: MangaSort {
         return sortByRecentUpdate ? .last_chapter_date : .hits
     }
     
@@ -20,17 +20,17 @@ class MangaListViewModel {
     var selectedGenres: [String] = []
     var selectedGenresLocalized: [String] = []
     
-    var mangasSignal = Variable<[Manga]>([])
-    var mangasShowing: [Manga] {
+    var mangasSignal = Variable<[MangaProtocol]>([])
+    var mangasShowing: [MangaProtocol] {
         return mangasSignal.value
     }
     
-    fileprivate var mangas:[Manga] = []
+    private var mangas:[MangaProtocol] = []
     
-    var currentPage: Int = 0
-    let pageSize: Int = 21
+    private var currentPage: Int = 0
+    private let pageSize: Int = 21
     
-    func manga(atIndex index: Int) -> Manga? {
+    func manga(atIndex index: Int) -> MangaProtocol? {
         if index < mangasShowing.count {
             return mangasShowing[index]
         }
@@ -38,15 +38,15 @@ class MangaListViewModel {
         return nil
     }
     
-    func loadFirstPage(completion: @escaping ([Manga]?, Error?) -> Void) {
+    func loadFirstPage(completion: @escaping ([MangaProtocol]?, Error?) -> Void) {
         loadManga(page: 0, completion: completion)
     }
     
-    func loadNextPage(completion: @escaping ([Manga]?, Error?) -> Void) {
+    func loadNextPage(completion: @escaping ([MangaProtocol]?, Error?) -> Void) {
         loadManga(page: currentPage + 1, completion: completion)
     }
     
-    func refreshManga() -> [Manga] {
+    private func refreshManga() -> [MangaProtocol] {
         let refreshedManga = filterManga(mangas)
         mangasSignal.value = refreshedManga
         
@@ -61,7 +61,7 @@ class MangaListViewModel {
 
 extension MangaListViewModel {
     
-    fileprivate func loadManga(page: Int, completion: @escaping ([Manga]?, Error?) -> Void) {
+    private  func loadManga(page: Int, completion: @escaping ([MangaProtocol]?, Error?) -> Void) {
         guard !isLoading else {
             completion(nil, nil)
             return
@@ -100,15 +100,7 @@ extension MangaListViewModel {
         }
     }
     
-    fileprivate func filterManga(_ mangas: [Manga]) -> [Manga] {
+    private  func filterManga(_ mangas: [MangaProtocol]) -> [MangaProtocol] {
         return mangas.filter {$0.canPublish()}
-    }
-    
-    fileprivate func sortManga(_ mangas: [Manga]) -> [Manga] {
-        if (sortByRecentUpdate) {
-            return mangas.sorted(by: { ($0.last_chapter_date ?? 0) > ($1.last_chapter_date ?? 0) })
-        } else {
-            return mangas.sorted(by: { ($0.hits ?? 0) > ($1.hits ?? 0) })
-        }
     }
 }

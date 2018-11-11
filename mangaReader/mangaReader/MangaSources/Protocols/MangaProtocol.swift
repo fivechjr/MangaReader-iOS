@@ -9,8 +9,20 @@
 import Foundation
 
 protocol MangaProtocol {
-    var mangaId: String? {get}
-    var mangaName: String? {get}
-    var coverImageUrl: String? {get}
+    var mangaId: String? {get set}
+    var mangaName: String? {get set}
+    var mangaAuthor: String? {get set}
+    var mangaDescription: String? {get}
+    
+    var mangaCreateDate: Double {get}
+    var mangaUpdateDate: Double {get}
+    var mangaCategories: [String] {get}
+    
+    var coverImageUrl: String? {get set}
     var placeHolderImage: UIImage? {get}
+    
+    func canPublish() -> Bool
+    
+    var isCompleted: Bool {get}
+    var chapterObjects: [Chapter]? {get}
 }

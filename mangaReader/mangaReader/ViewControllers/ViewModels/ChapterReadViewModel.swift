@@ -11,9 +11,9 @@ import AlamofireImage
 
 class ChapterReadViewModel {
     var chapterObject: Chapter
-    var manga: Manga
+    var manga: MangaProtocol
     
-    init(chapterObject: Chapter, manga: Manga) {
+    init(chapterObject: Chapter, manga: MangaProtocol) {
         self.chapterObject = chapterObject
         self.manga = manga
     }
@@ -37,7 +37,7 @@ class ChapterReadViewModel {
     }
     
     var prevChapterButtonHidden: Bool {
-        guard let chapterCount = manga.chapters?.count,
+        guard let chapterCount = manga.chapterObjects?.count,
             let chapterIndex = getCurrentChapterIndex(),
             chapterIndex < chapterCount - 1 else {
             return true
@@ -47,7 +47,7 @@ class ChapterReadViewModel {
     }
     
     func getChapterDetail(completion: @escaping ChapterDetailResponseHandler) {
-        guard let mangaId = manga.id, let chapterId = chapterObject.id else {return}
+        guard let mangaId = manga.mangaId, let chapterId = chapterObject.id else {return}
         
         DataRequester.getChapterDetail(mangaId: mangaId, chapterId: chapterId) { [weak self] (chapterDetail, error) in
             self?.chapterDetail = chapterDetail
@@ -83,7 +83,7 @@ class ChapterReadViewModel {
     }
     
     func recordCurrentChapter() {
-        DataManager.shared.recordCurrentChapter(chapterId: chapterObject.id, mangaId: manga.id)
+        DataManager.shared.recordCurrentChapter(chapterId: chapterObject.id, mangaId: manga.mangaId)
     }
     
     func getCurrentChapterIndex() -> Int? {
