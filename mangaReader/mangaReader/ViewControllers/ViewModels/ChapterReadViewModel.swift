@@ -46,7 +46,7 @@ class ChapterReadViewModel {
         return false
     }
     
-    func getChapterDetail(completion: @escaping ChapterDetailResponseHandler) {
+    func getChapterDetail(completion: @escaping (ChapterDetailResponse?, Error?) -> Void) {
         guard let mangaId = manga.mangaId, let chapterId = chapterObject.id else {return}
         
         DataRequester.getChapterDetail(mangaId: mangaId, chapterId: chapterId) { [weak self] (chapterDetail, error) in

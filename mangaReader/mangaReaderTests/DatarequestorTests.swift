@@ -11,11 +11,26 @@ import XCTest
 
 class DatarequestorTests: XCTestCase {
 
-    func testReportBad() {
+    func test_getCategoryRecommend() {
         let exp = expectation(description: "should finish request")
-        DataRequester.reportBad(mangaId: "1234", chapterId: "1234", reason: "Adult") { (response, error) in
+        DataRequester.getCategoryRecommend(){ (response, error) in
             exp.fulfill()
             XCTAssertNotNil(response)
+            XCTAssertNotNil(response?.mangalist)
+            XCTAssertFalse(response?.mangalist?.isEmpty ?? true)
+            XCTAssertNil(error)
+        }
+        
+        wait(for: [exp], timeout: 30)
+    }
+    
+    func test_getTopMangaList() {
+        let exp = expectation(description: "should finish request")
+        DataRequester.getTopMangaList(){ (response, error) in
+            exp.fulfill()
+            XCTAssertNotNil(response)
+            XCTAssertNotNil(response?.mangalist)
+            XCTAssertFalse(response?.mangalist?.isEmpty ?? true)
             XCTAssertNil(error)
         }
         

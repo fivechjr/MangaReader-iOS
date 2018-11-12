@@ -9,19 +9,14 @@
 import Foundation
 import Alamofire
 
-typealias MangaListResponseHandler = (MangaListResponse?, Error?) -> Void
-typealias CategoryNamesResponseHandler = (CategoryNamesResponse?, Error?) -> Void
-typealias ChapterDetailResponseHandler = (ChapterDetailResponse?, Error?) -> Void
-typealias ReportBadResponseHandler = (ReportBadResponse?, Error?) -> Void
-
 class DataRequester {
-    static func getMangaDetail(mangaIds: [String], completion:@escaping MangaListResponseHandler) {
+    static func getMangaDetail(mangaIds: [String], completion:@escaping (MangaListResponse?, Error?) -> Void) {
         let path = MangaEndpoint.manga.path
         let parameters = ["mangaedenid": mangaIds]
         NetworkManager.post(urlString: path, parameters: parameters, responseType: MangaListResponse.self, completion: completion)
     }
     
-    static func getChapterDetail(mangaId: String, chapterId: String, completion:@escaping ChapterDetailResponseHandler) {
+    static func getChapterDetail(mangaId: String, chapterId: String, completion:@escaping (ChapterDetailResponse?, Error?) -> Void) {
         let path = MangaEndpoint.chapter(mangaId: mangaId, chapterId: chapterId).path
         NetworkManager.get(urlString: path, responseType: ChapterDetailResponse.self, completion: completion)
     }
@@ -41,12 +36,12 @@ class DataRequester {
         }
     }
     
-    static func getCategories(completion:@escaping CategoryNamesResponseHandler) {
+    static func getCategories(completion:@escaping (CategoryNamesResponse?, Error?) -> Void) {
         let path = MangaEndpoint.categories.path
         NetworkManager.get(urlString: path, responseType: CategoryNamesResponse.self, completion: completion)
     }
     
-    static func searchManga(withKeyword keyword: String, page:Int, size:Int, sort: MangaSort? = nil, categoryNames: [String]? = nil, completion:@escaping MangaListResponseHandler) {
+    static func searchManga(withKeyword keyword: String, page:Int, size:Int, sort: MangaSort? = nil, categoryNames: [String]? = nil, completion:@escaping (MangaListResponse?, Error?) -> Void) {
         let path = MangaEndpoint.search.path
         var parameters: [String: Any] = ["pageIndex": page,
                                          "pageSize": size,
@@ -62,8 +57,7 @@ class DataRequester {
         NetworkManager.post(urlString: path, parameters: parameters, responseType: MangaListResponse.self, completion:completion)
     }
     
-    // {          "_id":"12323123123123123123123123132123",     "dfdsf":"我要举123123123报"      }
-    static func reportBad(mangaId: String, chapterId: String, reason: String, completion:@escaping ReportBadResponseHandler) {
+    static func reportBad(mangaId: String, chapterId: String, reason: String, completion:@escaping (ReportBadResponse?, Error?) -> Void) {
         let path = MangaEndpoint.reportBad.path
         let parameters: [String: Any] = ["id": NSUUID().uuidString,
                                          "mangaId": mangaId,
@@ -72,9 +66,15 @@ class DataRequester {
         NetworkManager.post(urlString: path, parameters: parameters, responseType: ReportBadResponse.self, completion: completion)
     }
     
-//    case reportBad
-//    case getCategoryRecommend
-//    case getTopMangaList
+    static func getCategoryRecommend(completion:@escaping (MangaListResponse?, Error?) -> Void) {
+        let path = MangaEndpoint.getCategoryRecommend.path
+        NetworkManager.post(urlString: path, responseType: MangaListResponse.self, completion: completion)
+    }
+    
+    static func getTopMangaList(completion:@escaping (MangaListResponse?, Error?) -> Void) {
+        let path = MangaEndpoint.getTopMangaList.path
+        NetworkManager.post(urlString: path, responseType: MangaListResponse.self, completion: completion)
+    }
     
     static func getImageUrl(withImagePath path: String?) -> String? {
         if let path = path {

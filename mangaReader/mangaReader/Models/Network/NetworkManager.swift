@@ -9,8 +9,10 @@
 import Foundation
 import Alamofire
 
+public typealias NetworkCompletion<T: Codable> = (T?, Error?) -> Void
+
 class NetworkManager {
-    static func get<T>(urlString: String?, responseType: T.Type, completion: @escaping (T?, Error?) -> Void) where T: Codable {
+    static func get<T: Codable>(urlString: String?, responseType: T.Type, completion: @escaping NetworkCompletion<T>) {
         guard let urlString = urlString, let url = URL(string: urlString) else {return}
         Alamofire.request(url).responseData { (response) in
             guard let data = response.result.value else {
@@ -27,7 +29,7 @@ class NetworkManager {
         }
     }
     
-    static func post<T>(urlString: String?, parameters: Parameters? = nil, responseType: T.Type, completion: @escaping (T?, Error?) -> Void) where T: Codable {
+    static func post<T: Codable>(urlString: String?, parameters: Parameters? = nil, responseType: T.Type, completion: @escaping NetworkCompletion<T>) {
         guard let urlString = urlString, let url = URL(string: urlString) else {return}
         Alamofire.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default).responseData { (response) in
             guard let data = response.result.value else {
