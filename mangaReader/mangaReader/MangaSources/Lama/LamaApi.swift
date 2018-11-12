@@ -10,10 +10,13 @@ import Foundation
 
 class LamaApi {
     
-typealias DailyResponseHandler = (LamaDailyResponse?, Error?) -> Void
-    
-    static func getDaily(tag: Int, offset: Int, limit: Int, completion:@escaping DailyResponseHandler) {
+    static func getDaily(tag: Int, offset: Int, limit: Int, completion:@escaping (LamaDailyResponse?, Error?) -> Void) {
         let path = LamaEndpoint.daily(tag: tag, offset: offset, limit: limit).path
         NetworkManager.get(urlString: path, responseType: LamaDailyResponse.self, completion: completion)
+    }
+    
+    static func getTopics(tag: Int, offset: Int, limit: Int, completion:@escaping (LamaTopicsResponse?, Error?) -> Void) {
+        let path = LamaEndpoint.topics(tag: tag, offset: offset, limit: limit).path
+        NetworkManager.get(urlString: path, responseType: LamaTopicsResponse.self, completion: completion)
     }
 }

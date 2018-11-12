@@ -19,6 +19,7 @@ protocol MangaProtocol {
     var mangaCategories: [String] {get}
     
     var coverImageUrl: String? {get set}
+    var topImageUrl: String? {get}
     var placeHolderImage: UIImage? {get}
     
     func canPublish() -> Bool

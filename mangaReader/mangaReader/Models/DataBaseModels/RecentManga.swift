@@ -22,6 +22,10 @@ class RecentManga: Object {
 }
 
 extension RecentManga: MangaProtocol {
+    var topImageUrl: String? {
+        return nil
+    }
+    
     var mangaAuthor: String? {
         get {
             return author

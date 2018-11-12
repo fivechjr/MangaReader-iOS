@@ -10,6 +10,7 @@ import Foundation
 
 enum LamaEndpoint {
     case daily(tag: Int, offset: Int, limit: Int)
+    case topics(tag: Int, offset: Int, limit: Int)
     
     var baseUrl: String {
         return "http://api.lamamanhua.com/"
@@ -19,6 +20,9 @@ enum LamaEndpoint {
         switch self {
         case .daily(let tag, let offset, let limit):
             return baseUrl + "v2/daily/\(tag)?offset=\(offset)&limit=\(limit)"
+        case .topics(let tag, let offset, let limit):
+            return baseUrl + "v2/topics?offset=\(offset)&limit=\(limit)&tagid=\(tag)"
+        
         }
     }
 }

@@ -12,5 +12,5 @@ enum MangaSource: String {
     case mangaEden
     case lama
     
-    static var current: MangaSource = .mangaEden
+    static var current: MangaSource = .lama
 }
