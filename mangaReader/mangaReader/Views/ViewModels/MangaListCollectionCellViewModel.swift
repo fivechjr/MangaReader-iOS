@@ -9,34 +9,22 @@
 import Foundation
 
 class MangaListCollectionCellViewModel {
-    private var manga: Manga
+    private var manga: MangaProtocol
     
-    init(manga: Manga) {
+    init(manga: MangaProtocol) {
         self.manga = manga
     }
     
-    init (recentManga: RecentManga) {
-        manga = Manga()
-        manga.title = recentManga.name
-        manga.imageURL = recentManga.imagePath
-    }
-    
-    init(favoriteManga: FavoriteManga) {
-        manga = Manga()
-        manga.title = favoriteManga.name
-        manga.imageURL = favoriteManga.imagePath
-    }
-    
     var title: String? {
-        return manga.title
+        return manga.mangaName
     }
     
     var placeHolderImage: UIImage? {
-        return UIImage(named: ImageConstant.placeHolder.rawValue)
+        return ImageConstant.placeHolder.image
     }
     
     var imageURL: URL? {
-        guard let imageURL = manga.imagePath else { return nil }
+        guard let imageURL = manga.coverImageUrl else { return nil }
         return URL(string: imageURL)
     }
 }

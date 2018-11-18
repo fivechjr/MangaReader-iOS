@@ -48,17 +48,17 @@ extension MangaDetailInfoViewController: UITableViewDataSource {
         
         cell.updateTheme()
         
-        cell.labelDescription.text = viewModel.manga.description
+        cell.labelDescription.text = viewModel.manga.mangaDescription
         
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         
-        let lastUpdateDate = Date(timeIntervalSince1970: viewModel.manga.last_chapter_date ?? 0)
-        let firstCreatedDate = Date(timeIntervalSince1970: viewModel.manga.created ?? 0)
+        let lastUpdateDate = Date(timeIntervalSince1970: viewModel.manga.mangaUpdateDate)
+        let firstCreatedDate = Date(timeIntervalSince1970: viewModel.manga.mangaCreateDate)
         
         cell.labelLastUpdated.text = formatter.string(from: lastUpdateDate)
         cell.labelDateCreated.text = formatter.string(from: firstCreatedDate)
-        cell.labelGenres.text = viewModel.manga.categories?.joined(separator: ", ")
+        cell.labelGenres.text = viewModel.manga.mangaCategories.joined(separator: ", ")
         
         return cell
     }

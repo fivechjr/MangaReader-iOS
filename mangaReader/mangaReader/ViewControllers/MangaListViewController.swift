@@ -17,7 +17,7 @@ class MangaListViewController: BaseViewController {
     @IBOutlet weak var mangaSwithControl: UISegmentedControl!
     @IBOutlet weak var genresTagListView: TagListView!
     
-    var viewModel = MangaListViewModel()
+    var viewModel = FSInjector.shared.resolve(MangaListViewModelProtocol.self)!
     let refreshControl = BetterRefreshControl()
     
     override func updateTheme() {
@@ -176,7 +176,7 @@ extension MangaListViewController: GenresListViewControllerDelegate {
         
         if viewModel.selectedGenres.index(of: genre) == nil {
             viewModel.selectedGenres.append(genre)
-            viewModel.selectedGenresLocalized.append(NSLocalizedString(genre, comment: ""))
+            viewModel.selectedGenresLocalized.append(LocalizedString(genre))
             
             genresTagListView.removeAllTags()
             genresTagListView.addTags(viewModel.selectedGenresLocalized)

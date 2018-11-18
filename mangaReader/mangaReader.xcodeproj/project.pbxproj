@@ -14,6 +14,20 @@
 		8C2250052092E1BD00C8E160 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2250042092E1BD00C8E160 /* SettingsViewController.swift */; };
 		8C39477F208E1AB900344FCF /* FavoriteManga.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C39477E208E1AB900344FCF /* FavoriteManga.swift */; };
 		8C394781208E2AA200344FCF /* Document.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8C394780208E2AA200344FCF /* Document.txt */; };
+		8C3C8BD42196B366000F3FDD /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3C8BD32196B366000F3FDD /* NetworkManager.swift */; };
+		8C3C8BD62196B3F5000F3FDD /* LamaApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3C8BD52196B3F5000F3FDD /* LamaApi.swift */; };
+		8C3C8BD82196B40D000F3FDD /* LamaEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3C8BD72196B40D000F3FDD /* LamaEndpoint.swift */; };
+		8C3C8BDD2196B794000F3FDD /* LamaDailyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3C8BDC2196B794000F3FDD /* LamaDailyResponse.swift */; };
+		8C3C8BE22196B842000F3FDD /* LamaComic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3C8BE12196B842000F3FDD /* LamaComic.swift */; };
+		8C3C8BE42196B8A8000F3FDD /* LamaTopic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3C8BE32196B8A8000F3FDD /* LamaTopic.swift */; };
+		8C3C8BE72196BBC0000F3FDD /* LamaMangaListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3C8BE62196BBC0000F3FDD /* LamaMangaListViewModel.swift */; };
+		8C3C8BEA2196BC60000F3FDD /* MangaProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3C8BE92196BC60000F3FDD /* MangaProtocol.swift */; };
+		8C3C8BEC2197D76D000F3FDD /* MangaListViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3C8BEB2197D76D000F3FDD /* MangaListViewModelProtocol.swift */; };
+		8C3C8BEE21980C1B000F3FDD /* FSInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3C8BED21980C1B000F3FDD /* FSInjector.swift */; };
+		8C3C8BF021980E2C000F3FDD /* MangaSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3C8BEF21980E2C000F3FDD /* MangaSource.swift */; };
+		8C3C8BF2219871A1000F3FDD /* ReportBadResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3C8BF1219871A1000F3FDD /* ReportBadResponse.swift */; };
+		8C3C8BFA21987492000F3FDD /* DatarequestorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3C8BF921987492000F3FDD /* DatarequestorTests.swift */; };
+		8C3C8C022199BD76000F3FDD /* LamaTopicsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3C8C012199BD76000F3FDD /* LamaTopicsResponse.swift */; };
 		8C4EFCDF208CD0B5007D342C /* MangaDetailHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4EFCDD208CD0B5007D342C /* MangaDetailHeaderTableViewCell.swift */; };
 		8C4EFCE2208D47DE007D342C /* MangaDetailTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4EFCE1208D47DE007D342C /* MangaDetailTabView.swift */; };
 		8C4EFCE5208DA61D007D342C /* MangaDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4EFCE3208DA61D007D342C /* MangaDetailTableViewCell.swift */; };
@@ -86,6 +100,16 @@
 		D74D4AE10A063344E211FAFD /* Pods_mangaReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2413CBD7973B09B0B8FBB6B /* Pods_mangaReader.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		8C3C8BFC21987492000F3FDD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8C8EAC73206A141900803BD1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8C8EAC7A206A141900803BD1;
+			remoteInfo = mangaReader;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		1A55816C541577B20C9EA282 /* Pods-mangaReader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mangaReader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-mangaReader/Pods-mangaReader.debug.xcconfig"; sourceTree = "<group>"; };
 		65171A2F5A9EBB700F64B9D3 /* Pods-mangaReader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mangaReader.release.xcconfig"; path = "Pods/Target Support Files/Pods-mangaReader/Pods-mangaReader.release.xcconfig"; sourceTree = "<group>"; };
@@ -98,6 +122,22 @@
 		8C2250042092E1BD00C8E160 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		8C39477E208E1AB900344FCF /* FavoriteManga.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteManga.swift; sourceTree = "<group>"; };
 		8C394780208E2AA200344FCF /* Document.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Document.txt; sourceTree = "<group>"; };
+		8C3C8BD32196B366000F3FDD /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		8C3C8BD52196B3F5000F3FDD /* LamaApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LamaApi.swift; sourceTree = "<group>"; };
+		8C3C8BD72196B40D000F3FDD /* LamaEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LamaEndpoint.swift; sourceTree = "<group>"; };
+		8C3C8BDC2196B794000F3FDD /* LamaDailyResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LamaDailyResponse.swift; sourceTree = "<group>"; };
+		8C3C8BE12196B842000F3FDD /* LamaComic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LamaComic.swift; sourceTree = "<group>"; };
+		8C3C8BE32196B8A8000F3FDD /* LamaTopic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LamaTopic.swift; sourceTree = "<group>"; };
+		8C3C8BE62196BBC0000F3FDD /* LamaMangaListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LamaMangaListViewModel.swift; sourceTree = "<group>"; };
+		8C3C8BE92196BC60000F3FDD /* MangaProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaProtocol.swift; sourceTree = "<group>"; };
+		8C3C8BEB2197D76D000F3FDD /* MangaListViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaListViewModelProtocol.swift; sourceTree = "<group>"; };
+		8C3C8BED21980C1B000F3FDD /* FSInjector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSInjector.swift; sourceTree = "<group>"; };
+		8C3C8BEF21980E2C000F3FDD /* MangaSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaSource.swift; sourceTree = "<group>"; };
+		8C3C8BF1219871A1000F3FDD /* ReportBadResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportBadResponse.swift; sourceTree = "<group>"; };
+		8C3C8BF721987492000F3FDD /* mangaReaderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = mangaReaderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C3C8BF921987492000F3FDD /* DatarequestorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatarequestorTests.swift; sourceTree = "<group>"; };
+		8C3C8BFB21987492000F3FDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8C3C8C012199BD76000F3FDD /* LamaTopicsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LamaTopicsResponse.swift; sourceTree = "<group>"; };
 		8C4EFCDD208CD0B5007D342C /* MangaDetailHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaDetailHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		8C4EFCE1208D47DE007D342C /* MangaDetailTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaDetailTabView.swift; sourceTree = "<group>"; };
 		8C4EFCE3208DA61D007D342C /* MangaDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaDetailTableViewCell.swift; sourceTree = "<group>"; };
@@ -179,6 +219,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8C3C8BF421987492000F3FDD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8C8EAC78206A141900803BD1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -218,6 +265,73 @@
 			path = DataBaseModels;
 			sourceTree = "<group>";
 		};
+		8C3C8BD12196B282000F3FDD /* MangaSources */ = {
+			isa = PBXGroup;
+			children = (
+				8C3C8BED21980C1B000F3FDD /* FSInjector.swift */,
+				8C3C8BE82196BC44000F3FDD /* Protocols */,
+				8C3C8BD22196B2B4000F3FDD /* Lama */,
+				8C3C8BEF21980E2C000F3FDD /* MangaSource.swift */,
+			);
+			path = MangaSources;
+			sourceTree = "<group>";
+		};
+		8C3C8BD22196B2B4000F3FDD /* Lama */ = {
+			isa = PBXGroup;
+			children = (
+				8C3C8BE52196BB9E000F3FDD /* ViewModels */,
+				8C3C8BD92196B73A000F3FDD /* Models */,
+				8C3C8BD52196B3F5000F3FDD /* LamaApi.swift */,
+				8C3C8BD72196B40D000F3FDD /* LamaEndpoint.swift */,
+			);
+			path = Lama;
+			sourceTree = "<group>";
+		};
+		8C3C8BD92196B73A000F3FDD /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8C3C8BE02196B812000F3FDD /* ResponseModels */,
+				8C3C8BE12196B842000F3FDD /* LamaComic.swift */,
+				8C3C8BE32196B8A8000F3FDD /* LamaTopic.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		8C3C8BE02196B812000F3FDD /* ResponseModels */ = {
+			isa = PBXGroup;
+			children = (
+				8C3C8BDC2196B794000F3FDD /* LamaDailyResponse.swift */,
+				8C3C8C012199BD76000F3FDD /* LamaTopicsResponse.swift */,
+			);
+			path = ResponseModels;
+			sourceTree = "<group>";
+		};
+		8C3C8BE52196BB9E000F3FDD /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				8C3C8BE62196BBC0000F3FDD /* LamaMangaListViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		8C3C8BE82196BC44000F3FDD /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				8C3C8BE92196BC60000F3FDD /* MangaProtocol.swift */,
+				8C3C8BEB2197D76D000F3FDD /* MangaListViewModelProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		8C3C8BF821987492000F3FDD /* mangaReaderTests */ = {
+			isa = PBXGroup;
+			children = (
+				8C3C8BF921987492000F3FDD /* DatarequestorTests.swift */,
+				8C3C8BFB21987492000F3FDD /* Info.plist */,
+			);
+			path = mangaReaderTests;
+			sourceTree = "<group>";
+		};
 		8C81DCE72180C0A900F47A31 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -231,6 +345,7 @@
 			isa = PBXGroup;
 			children = (
 				8C8EAC7D206A141900803BD1 /* mangaReader */,
+				8C3C8BF821987492000F3FDD /* mangaReaderTests */,
 				8C8EAC7C206A141900803BD1 /* Products */,
 				0E611F14384F8ADBC4EE0989 /* Pods */,
 				406A76AEB7A1B64FDCDD253C /* Frameworks */,
@@ -242,6 +357,7 @@
 			isa = PBXGroup;
 			children = (
 				8C8EAC7B206A141900803BD1 /* mangaReader.app */,
+				8C3C8BF721987492000F3FDD /* mangaReaderTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -249,6 +365,7 @@
 		8C8EAC7D206A141900803BD1 /* mangaReader */ = {
 			isa = PBXGroup;
 			children = (
+				8C3C8BD12196B282000F3FDD /* MangaSources */,
 				8C81DCE72180C0A900F47A31 /* Fonts */,
 				8C96736A216915B200DE5D69 /* Common */,
 				8C96735E21686A4B00DE5D69 /* extensions */,
@@ -316,6 +433,7 @@
 			children = (
 				8CF7EFA9208450D400E6AB6C /* DataRequester.swift */,
 				8C96735A21679AA200DE5D69 /* MangaEndpoint.swift */,
+				8C3C8BD32196B366000F3FDD /* NetworkManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -367,6 +485,7 @@
 				8C904D812088783000A599E9 /* ChapterDetailResponse.swift */,
 				8CF7EFAC2084565000E6AB6C /* MangaListResponse.swift */,
 				8C9673682169135A00DE5D69 /* CategoryNamesResponse.swift */,
+				8C3C8BF1219871A1000F3FDD /* ReportBadResponse.swift */,
 			);
 			path = ResponseModels;
 			sourceTree = "<group>";
@@ -441,6 +560,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		8C3C8BF621987492000F3FDD /* mangaReaderTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8C3C8BFE21987492000F3FDD /* Build configuration list for PBXNativeTarget "mangaReaderTests" */;
+			buildPhases = (
+				8C3C8BF321987492000F3FDD /* Sources */,
+				8C3C8BF421987492000F3FDD /* Frameworks */,
+				8C3C8BF521987492000F3FDD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8C3C8BFD21987492000F3FDD /* PBXTargetDependency */,
+			);
+			name = mangaReaderTests;
+			productName = mangaReaderTests;
+			productReference = 8C3C8BF721987492000F3FDD /* mangaReaderTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		8C8EAC7A206A141900803BD1 /* mangaReader */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8C8EAC8D206A141A00803BD1 /* Build configuration list for PBXNativeTarget "mangaReader" */;
@@ -466,10 +603,15 @@
 		8C8EAC73206A141900803BD1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0920;
+				LastSwiftUpdateCheck = 1010;
 				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = "Yiming Dong";
 				TargetAttributes = {
+					8C3C8BF621987492000F3FDD = {
+						CreatedOnToolsVersion = 10.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 8C8EAC7A206A141900803BD1;
+					};
 					8C8EAC7A206A141900803BD1 = {
 						CreatedOnToolsVersion = 9.2;
 						LastSwiftMigration = 0930;
@@ -493,11 +635,19 @@
 			projectRoot = "";
 			targets = (
 				8C8EAC7A206A141900803BD1 /* mangaReader */,
+				8C3C8BF621987492000F3FDD /* mangaReaderTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		8C3C8BF521987492000F3FDD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8C8EAC79206A141900803BD1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -543,6 +693,7 @@
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SVPullToRefresh/SVPullToRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Swinject/Swinject.framework",
 				"${BUILT_PRODUCTS_DIR}/TagListView/TagListView.framework",
 				"${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework",
 			);
@@ -562,6 +713,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVPullToRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Swinject.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TagListView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast_Swift.framework",
 			);
@@ -591,6 +743,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8C3C8BF321987492000F3FDD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8C3C8BFA21987492000F3FDD /* DatarequestorTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8C8EAC77206A141900803BD1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -602,28 +762,36 @@
 				8CCEADAD21A12CA1005FC3B9 /* ReaderViewPresenterProtocol.swift in Sources */,
 				8C8EAC81206A141900803BD1 /* MangaListViewController.swift in Sources */,
 				8C96735D2167BEA700DE5D69 /* CodableValue.swift in Sources */,
+				8C3C8BD62196B3F5000F3FDD /* LamaApi.swift in Sources */,
+				8C3C8C022199BD76000F3FDD /* LamaTopicsResponse.swift in Sources */,
 				8CD878C120A16B4100E3B362 /* AdsManager.swift in Sources */,
 				8C81DD2821873B2100F47A31 /* MangaCache.swift in Sources */,
 				8C58A54F208EAD4100FF71B2 /* MangaCurrentChapter.swift in Sources */,
 				8C81DD1C21857FFE00F47A31 /* MangaDetailInfoViewController.swift in Sources */,
 				8C60C9682094A8B20069EFDB /* RecentViewController.swift in Sources */,
+				8C3C8BF021980E2C000F3FDD /* MangaSource.swift in Sources */,
 				8C96738B217964D200DE5D69 /* ThemeManager.swift in Sources */,
+				8C3C8BD42196B366000F3FDD /* NetworkManager.swift in Sources */,
 				8C96738F217C51F500DE5D69 /* Color+Utilities.swift in Sources */,
 				8C39477F208E1AB900344FCF /* FavoriteManga.swift in Sources */,
 				8C967367216911EA00DE5D69 /* DataManager.swift in Sources */,
 				8CCEADAB21A127F6005FC3B9 /* PageReaderView.swift in Sources */,
 				8C904D822088783000A599E9 /* ChapterDetailResponse.swift in Sources */,
 				8C9673692169135A00DE5D69 /* CategoryNamesResponse.swift in Sources */,
+				8C3C8BD82196B40D000F3FDD /* LamaEndpoint.swift in Sources */,
+				8C3C8BEE21980C1B000F3FDD /* FSInjector.swift in Sources */,
 				8C9673812172F61300DE5D69 /* BaseViewController.swift in Sources */,
 				8C4EFCE5208DA61D007D342C /* MangaDetailTableViewCell.swift in Sources */,
 				8C967370216918D800DE5D69 /* GenresListViewModel.swift in Sources */,
 				8CF7EFAD2084565000E6AB6C /* MangaListResponse.swift in Sources */,
+				8C3C8BF2219871A1000F3FDD /* ReportBadResponse.swift in Sources */,
 				8C967377216A32C700DE5D69 /* MangaDetailViewModel.swift in Sources */,
 				8C96737D216A5B1A00DE5D69 /* MangaListCollectionCellViewModel.swift in Sources */,
 				8C81DCEF2180D43600F47A31 /* NSAttributedString+Helper.swift in Sources */,
 				8CD98FA320A52B23002C448F /* GuideView.swift in Sources */,
 				8C96738721795B3A00DE5D69 /* SettingsViewModel.swift in Sources */,
 				8C96736321686F0600DE5D69 /* MangaListViewModel.swift in Sources */,
+				8C3C8BE42196B8A8000F3FDD /* LamaTopic.swift in Sources */,
 				8C9673742169C7B300DE5D69 /* SearchViewModel.swift in Sources */,
 				8C81DD1A21857FE300F47A31 /* MangaDetailChaptersViewController.swift in Sources */,
 				8C5EA97120F0AF0A007E8A7D /* ConsentManager.swift in Sources */,
@@ -638,10 +806,12 @@
 				8C967392217C6ED200DE5D69 /* BetterRefreshControl.swift in Sources */,
 				8C4EFCDF208CD0B5007D342C /* MangaDetailHeaderTableViewCell.swift in Sources */,
 				8C60C95E2092E5AA0069EFDB /* GenresListViewController.swift in Sources */,
+				8C3C8BEA2196BC60000F3FDD /* MangaProtocol.swift in Sources */,
 				8C96738D2179664800DE5D69 /* Notification+Name.swift in Sources */,
 				8C96738321756F2700DE5D69 /* FavoritesViewModel.swift in Sources */,
 				8C60C9662094A4FE0069EFDB /* RecentManga.swift in Sources */,
 				8C904D892088BB7F00A599E9 /* ImageViewController.swift in Sources */,
+				8C3C8BDD2196B794000F3FDD /* LamaDailyResponse.swift in Sources */,
 				8C81DCF12180DC8200F47A31 /* UITableView+Helper.swift in Sources */,
 				8C96737B216A5AF300DE5D69 /* MangaDetailHeaderCellModel.swift in Sources */,
 				8CF7EFAA208450D400E6AB6C /* DataRequester.swift in Sources */,
@@ -650,8 +820,11 @@
 				8C904D792085F78300A599E9 /* Manga.swift in Sources */,
 				8C904D772085D1BB00A599E9 /* MangaListCollectionViewCell.swift in Sources */,
 				8C9673852178169E00DE5D69 /* RecentViewModel.swift in Sources */,
+				8C3C8BEC2197D76D000F3FDD /* MangaListViewModelProtocol.swift in Sources */,
 				8C81DCED2180C0EF00F47A31 /* Font+Custom.swift in Sources */,
+				8C3C8BE72196BBC0000F3FDD /* LamaMangaListViewModel.swift in Sources */,
 				8C60C960209414350069EFDB /* FavoritesViewController.swift in Sources */,
+				8C3C8BE22196B842000F3FDD /* LamaComic.swift in Sources */,
 				8C96736E2169175100DE5D69 /* UIViewController+Extra.swift in Sources */,
 				8C904D7F2087892500A599E9 /* MangaDetailViewController.swift in Sources */,
 				8C904D7D2086017100A599E9 /* Chapter.swift in Sources */,
@@ -661,6 +834,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8C3C8BFD21987492000F3FDD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8C8EAC7A206A141900803BD1 /* mangaReader */;
+			targetProxy = 8C3C8BFC21987492000F3FDD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		8C16A8D120A12DAC009D5692 /* Localizable.strings */ = {
@@ -713,6 +894,43 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		8C3C8BFF21987492000F3FDD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = mangaReaderTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dym.mangaReaderTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/mangaReader.app/mangaReader";
+			};
+			name = Debug;
+		};
+		8C3C8C0021987492000F3FDD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = mangaReaderTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dym.mangaReaderTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/mangaReader.app/mangaReader";
+			};
+			name = Release;
+		};
 		8C8EAC8B206A141A00803BD1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -874,6 +1092,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8C3C8BFE21987492000F3FDD /* Build configuration list for PBXNativeTarget "mangaReaderTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8C3C8BFF21987492000F3FDD /* Debug */,
+				8C3C8C0021987492000F3FDD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		8C8EAC76206A141900803BD1 /* Build configuration list for PBXProject "mangaReader" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

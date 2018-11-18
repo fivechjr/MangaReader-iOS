@@ -30,13 +30,13 @@ class SearchViewModel {
         return nil
     }
     
-    func search(_ keyword: String?, completion: @escaping MangaListResponseHandler) {
+    func search(_ keyword: String?, completion: @escaping (MangaListResponse?, Error?) -> Void) {
         self.keyword = keyword
         currentPage = 0
         searchManga(withKeyword: keyword, completion: completion)
     }
     
-    func searchNextPage(completion: @escaping MangaListResponseHandler) {
+    func searchNextPage(completion: @escaping (MangaListResponse?, Error?) -> Void) {
         currentPage += 1
         searchManga(withKeyword: keyword, completion: completion)
     }
@@ -48,7 +48,7 @@ class SearchViewModel {
 
 extension SearchViewModel {
     
-    fileprivate func searchManga(withKeyword keyword: String?, completion: @escaping MangaListResponseHandler) {
+    fileprivate func searchManga(withKeyword keyword: String?, completion: @escaping (MangaListResponse?, Error?) -> Void) {
         guard let keyword = keyword else {return}
         
         if currentPage <= 0 {

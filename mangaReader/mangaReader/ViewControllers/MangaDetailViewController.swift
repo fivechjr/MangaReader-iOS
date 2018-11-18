@@ -56,7 +56,7 @@ class MangaDetailViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = viewModel.manga.title ?? LocalizedString("Manga Detail")
+        title = viewModel.manga.mangaName ?? LocalizedString("Manga Detail")
         
         // Manga tab view
         tabView = MangaDetailTabView()

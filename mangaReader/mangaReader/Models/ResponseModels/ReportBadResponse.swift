@@ -1,15 +1,14 @@
 //
-//  MangaListResponse.swift
+//  ReportBadResponse.swift
 //  mangaReader
 //
-//  Created by Yiming Dong on 16/04/2018.
+//  Created by Yiming Dong on 2018/11/11.
 //  Copyright © 2018 Yiming Dong. All rights reserved.
 //
 
 import Foundation
 
-class MangaListResponse: Codable {
+class ReportBadResponse: Codable {
     var result: Int?
     var total: Int?
-    var mangalist: [Manga]?
 }

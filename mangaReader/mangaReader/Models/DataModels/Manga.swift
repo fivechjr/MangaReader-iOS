@@ -9,15 +9,6 @@
 import Foundation
 
 class Manga: Codable {
-    var id: String? {
-        get {
-            return mangaedenid
-        }
-        set {
-            mangaedenid = newValue
-        }
-    }
-    
     /// manga id
     var mangaedenid: String?
     private var _id: String?
@@ -32,45 +23,77 @@ class Manga: Codable {
     var author_kw:[String]?
     var autoManga: Bool?
     var baka: Bool?
-    var categories:[String]?
+    private var categories:[String]?
     var categoriesstr: String?
     var chapters:[[CodableValue?]]?
     var chapters_len: Int?
     /// create time
-    var created: Double?
-    var description: String?
+    private var created: Double?
+    private var description: String?
     var hits: Int?
     
-    var image: String?
-    var imageURL: String?
+    private var image: String?
+    private var imageURL: String?
     var url: String?
     
     var language: Int?
-    var last_chapter_date: Double?
+    private var last_chapter_date: Double?
     /// released year
     var released: Int?
     /// the first letter of the title
     var startsWith: String?
     /// status 0-uncomplete, 1-complete
     var status: Int?
-    var title: String?
+    private var title: String?
     var title_kw: [String]?
     var type: Int?
     var updatedKeywords: Bool?
     
     var random: [Double]?
     
-    var isCompleted: Bool {
-        guard let status = status else {return false}
-        return status == 1
+    var topImageUrl: String?
+}
+
+// MangaProtocol
+extension Manga: MangaProtocol {
+    var mangaName: String? {
+        get {
+            return title
+        }
+        set {
+            title = newValue
+        }
     }
     
-    var chapterObjects: [Chapter]? {
-        return chapters?.map {Chapter(datas: $0)}
+    var mangaAuthor: String? {
+        get {
+            return author
+        }
+        set {
+            author = newValue
+        }
     }
     
-    var imagePath: String? {
-        return imageURL ?? DataRequester.getImageUrl(withImagePath: image)
+    var coverImageUrl: String? {
+        get {
+            return imageURL ?? DataRequester.getImageUrl(withImagePath: image)
+        }
+        set {
+            imageURL = coverImageUrl
+        }
+    }
+    
+    var mangaId: String? {
+        get {
+            return mangaedenid
+        }
+        set {
+            mangaedenid = newValue
+        }
+    }
+    
+    var placeHolderImage: UIImage? {
+        return ImageConstant.placeHolder.image
     }
     
     func canPublish() -> Bool {
@@ -85,5 +108,29 @@ class Manga: Codable {
         }
         
         return canPublish
+    }
+    
+    var isCompleted: Bool {
+        guard let status = status else {return false}
+        return status == 1
+    }
+    
+    var chapterObjects: [Chapter]? {
+        return chapters?.map {Chapter(datas: $0)}
+    }
+    
+    var mangaDescription: String? {
+        return description
+    }
+    
+    var mangaCreateDate: Double {
+        return last_chapter_date ?? 0.0
+    }
+    var mangaUpdateDate: Double {
+        return created ?? 0.0
+    }
+    
+    var mangaCategories: [String] {
+        return categories ?? []
     }
 }

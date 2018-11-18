@@ -10,6 +10,10 @@ import UIKit
 
 enum ImageConstant: String {
     case placeHolder = "manga_default"
+    
+    var image: UIImage? {
+        return UIImage(named: rawValue)
+    }
 }
 
 struct Constants {

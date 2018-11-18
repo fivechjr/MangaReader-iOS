@@ -40,7 +40,7 @@ class MangaCache {
         }
     }
     
-    func getManga(page: Int, size: Int) -> [Manga] {
+    func getManga(page: Int, size: Int) -> [MangaProtocol] {
         let start = page * size
         let end = start + size - 1
         guard let mangaList = mangaListCache?.mangaList, end < mangaList.count else {
@@ -50,15 +50,18 @@ class MangaCache {
         return Array(mangaList[start...end])
     }
     
-    static func getMangaList(page: Int, size:Int, sort: MangaSort) -> [Manga] {
+    static func getMangaList(page: Int, size:Int, sort: MangaSort) -> [MangaProtocol] {
         let cache = (sort == .hits ? hits : recent)
         return cache.getManga(page: page, size: size)
     }
     
-    static func saveMangaList(mangaList: [Manga], currentPage: Int, size:Int, sort: MangaSort) {
+    static func saveMangaList(mangaList: [MangaProtocol], currentPage: Int, size:Int, sort: MangaSort) {
         let cache = (sort == .hits ? hits : recent)
-        let model = MangaListCacheModel(mangaList: mangaList, currentPage: currentPage, pageSize: size)
-        cache.mangaListCache = model
+        
+        if let mangaList = mangaList as? [Manga] {
+            let model = MangaListCacheModel(mangaList: mangaList, currentPage: currentPage, pageSize: size)
+            cache.mangaListCache = model
+        }
     }
 }
 

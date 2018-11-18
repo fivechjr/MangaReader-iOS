@@ -55,15 +55,15 @@ class DataManager {
 
 // MARK: recent manga
 extension DataManager {
-    func recordRecentManga(manga: Manga) {
+    func recordRecentManga(manga: MangaProtocol) {
         
-        guard let mangaId = manga.id else {return}
+        guard let mangaId = manga.mangaId else {return}
         
         let realm = try! Realm()
         let recentManga = RecentManga()
-        recentManga.id = mangaId
-        recentManga.name = manga.title ?? ""
-        recentManga.imagePath = manga.imagePath ?? ""
+        recentManga.mangaId = mangaId
+        recentManga.mangaName = manga.mangaName
+        recentManga.coverImageUrl = manga.coverImageUrl
         recentManga.readTime = Date()
         try! realm.write {
             realm.add(recentManga, update:true)
@@ -126,8 +126,8 @@ extension DataManager {
         return realm.objects(FavoriteManga.self)
     }
     
-    func addFavorite(manga: Manga) {
-        guard let mangaId = manga.id else {return}
+    func addFavorite(manga: MangaProtocol) {
+        guard let mangaId = manga.mangaId else {return}
         
         let realm = try! Realm()
         let favObjects = realm.objects(FavoriteManga.self).filter("id = %@", mangaId)
@@ -138,9 +138,9 @@ extension DataManager {
         } else {
             
             let favManga = FavoriteManga()
-            favManga.id = mangaId
-            favManga.name = manga.title ?? ""
-            favManga.imagePath = manga.imagePath ?? ""
+            favManga.mangaId = mangaId
+            favManga.mangaName = manga.mangaName
+            favManga.coverImageUrl = manga.coverImageUrl
             
             try! realm.write {
                 realm.add(favManga)

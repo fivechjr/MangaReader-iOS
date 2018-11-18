@@ -38,7 +38,7 @@ class MangaDetailChaptersViewController: BaseViewController {
 
 extension MangaDetailChaptersViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.manga.chapters?.count ?? 0
+        return viewModel.manga.chapterObjects?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -66,7 +66,7 @@ extension MangaDetailChaptersViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        guard let _ = viewModel.manga.chapters?[indexPath.item] else {return}
+        guard let _ = viewModel.manga.chapterObjects?[indexPath.item] else {return}
         
         guard let destination = ChapterReadViewController.newInstance() as? ChapterReadViewController else {return}
         
