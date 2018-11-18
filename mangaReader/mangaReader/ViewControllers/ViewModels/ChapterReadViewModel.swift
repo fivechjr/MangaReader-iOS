@@ -13,6 +13,8 @@ class ChapterReadViewModel {
     var chapterObject: Chapter
     var manga: Manga
     
+    var currentPageIndex: Int = 0
+    
     init(chapterObject: Chapter, manga: Manga) {
         self.chapterObject = chapterObject
         self.manga = manga
@@ -26,6 +28,10 @@ class ChapterReadViewModel {
     var chapterName: String {
         let name = chapterObject.title ?? String(chapterObject.number ?? 0)
         return "\(LocalizedString("Chapter")) - '\(name)'"
+    }
+    
+    var pageInfoText: String? {
+        return "\(currentPageIndex + 1)/\(chapterDetail?.chapter?.images?.count ?? 0)"
     }
     
     var nextChapterButtonHidden: Bool {

@@ -25,7 +25,7 @@ enum MangaEndpoint {
     case categories
     
     var baseUrl: String {
-        return "http://dym1.com:8000/api/"
+        return "http://111.231.224.94:8000/api/"
     }
     
     var path:String {
