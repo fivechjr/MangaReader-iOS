@@ -14,9 +14,9 @@ class PageReaderView: NSObject, ReaderViewProtocol {
     
     var pageViewController: UIPageViewController!
     
-    var currentImageViewController: ImageViewController?
+    private var currentImageViewController: ImageViewController?
     
-    var imageViewControllers: [ImageViewController] = [ImageViewController]()
+    private var imageViewControllers: [ImageViewController] = [ImageViewController]()
     
     var imageObjets:[ChapterImage]? {
         didSet {

@@ -89,6 +89,7 @@
 		8C96738F217C51F500DE5D69 /* Color+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C96738E217C51F500DE5D69 /* Color+Utilities.swift */; };
 		8C967392217C6ED200DE5D69 /* BetterRefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C967391217C6ED200DE5D69 /* BetterRefreshControl.swift */; };
 		8CA66E47208FFFF10014DB39 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA66E46208FFFF10014DB39 /* Constants.swift */; };
+		8CC9E3A321A3004D0098E505 /* CollectionReaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC9E3A221A3004D0098E505 /* CollectionReaderView.swift */; };
 		8CCEADA921A127C5005FC3B9 /* ReaderViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CCEADA821A127C5005FC3B9 /* ReaderViewProtocol.swift */; };
 		8CCEADAB21A127F6005FC3B9 /* PageReaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CCEADAA21A127F6005FC3B9 /* PageReaderView.swift */; };
 		8CCEADAD21A12CA1005FC3B9 /* ReaderViewPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CCEADAC21A12CA1005FC3B9 /* ReaderViewPresenterProtocol.swift */; };
@@ -203,6 +204,7 @@
 		8C96738E217C51F500DE5D69 /* Color+Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color+Utilities.swift"; sourceTree = "<group>"; };
 		8C967391217C6ED200DE5D69 /* BetterRefreshControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetterRefreshControl.swift; sourceTree = "<group>"; };
 		8CA66E46208FFFF10014DB39 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		8CC9E3A221A3004D0098E505 /* CollectionReaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionReaderView.swift; sourceTree = "<group>"; };
 		8CCEADA821A127C5005FC3B9 /* ReaderViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderViewProtocol.swift; sourceTree = "<group>"; };
 		8CCEADAA21A127F6005FC3B9 /* PageReaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageReaderView.swift; sourceTree = "<group>"; };
 		8CCEADAC21A12CA1005FC3B9 /* ReaderViewPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderViewPresenterProtocol.swift; sourceTree = "<group>"; };
@@ -532,6 +534,7 @@
 				8CCEADA821A127C5005FC3B9 /* ReaderViewProtocol.swift */,
 				8CCEADAC21A12CA1005FC3B9 /* ReaderViewPresenterProtocol.swift */,
 				8CCEADAA21A127F6005FC3B9 /* PageReaderView.swift */,
+				8CC9E3A221A3004D0098E505 /* CollectionReaderView.swift */,
 			);
 			path = Reader;
 			sourceTree = "<group>";
@@ -758,6 +761,7 @@
 				8C96736C216915D700DE5D69 /* Utility.swift in Sources */,
 				8C904D8620887D4800A599E9 /* ChapterReadViewController.swift in Sources */,
 				8CA66E47208FFFF10014DB39 /* Constants.swift in Sources */,
+				8CC9E3A321A3004D0098E505 /* CollectionReaderView.swift in Sources */,
 				8C2250052092E1BD00C8E160 /* SettingsViewController.swift in Sources */,
 				8CCEADAD21A12CA1005FC3B9 /* ReaderViewPresenterProtocol.swift in Sources */,
 				8C8EAC81206A141900803BD1 /* MangaListViewController.swift in Sources */,

@@ -43,7 +43,7 @@ class ChapterReadViewController: BaseViewController, GuideViewDelegate {
         let selectedRenderMode = UserDefaults.standard.value(forKey: "renderMode") as? Int ?? 0
         renderModeSegmentControl.selectedSegmentIndex = selectedRenderMode
         
-        readerView = PageReaderView()
+        readerView = CollectionReaderView() //PageReaderView()
         readerView?.presenter = self
         readerView?.install(to: self, sameChapter: false)
         
