@@ -93,14 +93,18 @@ class ImageViewController: BaseViewController, UIScrollViewDelegate {
     
     @objc func handleSingleTapScrollView(_ recognizer: UITapGestureRecognizer) {
         
-        guard let viewHeight = recognizer.view?.frame.size.height else {
+        guard let recognizerView = recognizer.view,
+            let currentWindow = UIApplication.shared.delegate?.window as? UIWindow else {
             return
         }
         
+        let viewHeight = currentWindow.frame.size.height
         let location = recognizer.location(in: recognizer.view)
-        if (location.y < viewHeight * 0.3) {
+        let locationInWindow = recognizerView.convert(location, to: currentWindow)
+        
+        if (locationInWindow.y < viewHeight * 0.3) {
             delegate?.topAreaTapped(imageViewController: self)
-        } else if (location.y > viewHeight * 0.7) {
+        } else if (locationInWindow.y > viewHeight * 0.7) {
             delegate?.bottomAreaTapped(imageViewController: self)
         } else {
             delegate?.centerAreaTapped(imageViewController: self)
