@@ -36,6 +36,7 @@ class CollectionReaderView: NSObject, ReaderViewProtocol {
         self.parentVC = parentVC
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 0
         layout.itemSize = parentVC.view.frame.size
         collectionView = UICollectionView(frame: parentVC.view.bounds, collectionViewLayout: layout)
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "pageCell")
@@ -58,7 +59,8 @@ class CollectionReaderView: NSObject, ReaderViewProtocol {
     
     func gotoNextPage() {
         let offsetY = collectionView.contentOffset.y + collectionView.frame.height
-        let targetOffset = CGPoint(x: 0, y: offsetY < collectionView.contentSize.height ? offsetY : collectionView.contentSize.height)
+        let maxOffsetY = collectionView.contentSize.height - collectionView.frame.height
+        let targetOffset = CGPoint(x: 0, y: offsetY < maxOffsetY ? offsetY : maxOffsetY)
         collectionView.setContentOffset(targetOffset, animated: true)
     }
     
@@ -76,18 +78,10 @@ extension CollectionReaderView: UICollectionViewDataSource {
         guard let parent = parentVC else {return cell}
         
         let imageViewController = imageViewControllers[indexPath.item]
-        if let imageView = cell.contentView.subviews.first {
-            
-            if let currentView = currentImageViewController?.view, imageView == currentView {
-                currentImageViewController?.willMove(toParentViewController: nil)
-            }
-            
-            imageView.removeFromSuperview()
-            
-            if let currentView = currentImageViewController?.view, imageView == currentView {
-                currentImageViewController?.removeFromParentViewController()
-            }
-        }
+        
+        currentImageViewController?.willMove(toParentViewController: nil)
+        cell.contentView.subviews.forEach({$0.removeFromSuperview()})
+        currentImageViewController?.removeFromParentViewController()
         
         imageViewController.willMove(toParentViewController: parent)
         parentVC?.addChildViewController(imageViewController)
