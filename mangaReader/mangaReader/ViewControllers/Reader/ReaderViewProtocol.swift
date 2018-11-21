@@ -28,6 +28,21 @@ enum ReaderMode: Int {
     case collectionHorizontal
     case collectionVertical
     
+    var title: String {
+        switch self {
+        case .pageHorizontal:
+            return LocalizedString("lbl_read_mode_page_horizonal")
+        case .pageVertical:
+            return LocalizedString("lbl_read_mode_page_vertical")
+        case .pageCurl:
+            return LocalizedString("lbl_read_mode_page_curl")
+        case .collectionHorizontal:
+            return LocalizedString("lbl_read_mode_collection_horizonal")
+        case .collectionVertical:
+            return LocalizedString("lbl_read_mode_collection_vertical")
+        }
+    }
+    
     enum ViewType {
         case page
         case collection
@@ -49,6 +64,10 @@ enum ReaderMode: Int {
     static var currentMode: ReaderMode {
         get {
             return ReaderMode(rawValue: currentValue) ?? .pageHorizontal
+        }
+        
+        set {
+            currentValue = newValue.rawValue
         }
     }
     

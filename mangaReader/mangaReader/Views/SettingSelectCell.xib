@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SF-Pro-Text-Regular.otf">
+            <string>SFProText-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SettingSelectCell" rowHeight="66" id="KGk-i7-Jjw" customClass="SettingSelectCell" customModule="mangaReader" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="66"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="65.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BW9-6x-JzI">
+                        <rect key="frame" x="16" y="24.5" width="250" height="17"/>
+                        <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mPM-4Q-ChK">
+                        <rect key="frame" x="282" y="22" width="22" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="22" id="Z0K-Wn-0HH"/>
+                            <constraint firstAttribute="height" constant="22" id="x4I-NB-IgO"/>
+                        </constraints>
+                        <state key="normal" image="icon_unselected"/>
+                        <state key="selected" image="icon_selected"/>
+                        <state key="highlighted" image="icon_selected"/>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="BW9-6x-JzI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="cs5-JF-hu5"/>
+                    <constraint firstAttribute="trailing" secondItem="mPM-4Q-ChK" secondAttribute="trailing" constant="16" id="dil-ay-FVU"/>
+                    <constraint firstItem="mPM-4Q-ChK" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="su4-l3-RwR"/>
+                    <constraint firstItem="BW9-6x-JzI" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="xPj-Nr-Rdp"/>
+                    <constraint firstItem="mPM-4Q-ChK" firstAttribute="leading" secondItem="BW9-6x-JzI" secondAttribute="trailing" constant="16" id="yPB-qJ-f7n"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="selectButton" destination="mPM-4Q-ChK" id="Vsa-Bc-lxS"/>
+                <outlet property="titleLabel" destination="BW9-6x-JzI" id="mvU-e0-0Bc"/>
+            </connections>
+            <point key="canvasLocation" x="137.59999999999999" y="163.71814092953525"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="icon_selected" width="20" height="20"/>
+        <image name="icon_unselected" width="20" height="20"/>
+    </resources>
+</document>

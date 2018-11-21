@@ -90,6 +90,10 @@
 		8C967392217C6ED200DE5D69 /* BetterRefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C967391217C6ED200DE5D69 /* BetterRefreshControl.swift */; };
 		8CA66E47208FFFF10014DB39 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA66E46208FFFF10014DB39 /* Constants.swift */; };
 		8CC9E3A321A3004D0098E505 /* CollectionReaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC9E3A221A3004D0098E505 /* CollectionReaderView.swift */; };
+		8CC9E3AA21A593F30098E505 /* SettingSelectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC9E3A821A593F30098E505 /* SettingSelectCell.swift */; };
+		8CC9E3AB21A593F30098E505 /* SettingSelectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CC9E3A921A593F30098E505 /* SettingSelectCell.xib */; };
+		8CC9E3AD21A5A40F0098E505 /* Bundle+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC9E3AC21A5A40F0098E505 /* Bundle+Extension.swift */; };
+		8CC9E3B121A5AA990098E505 /* ReaderSettingsPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC9E3B021A5AA990098E505 /* ReaderSettingsPopupViewController.swift */; };
 		8CCEADA921A127C5005FC3B9 /* ReaderViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CCEADA821A127C5005FC3B9 /* ReaderViewProtocol.swift */; };
 		8CCEADAB21A127F6005FC3B9 /* PageReaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CCEADAA21A127F6005FC3B9 /* PageReaderView.swift */; };
 		8CCEADAD21A12CA1005FC3B9 /* ReaderViewPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CCEADAC21A12CA1005FC3B9 /* ReaderViewPresenterProtocol.swift */; };
@@ -205,6 +209,10 @@
 		8C967391217C6ED200DE5D69 /* BetterRefreshControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetterRefreshControl.swift; sourceTree = "<group>"; };
 		8CA66E46208FFFF10014DB39 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		8CC9E3A221A3004D0098E505 /* CollectionReaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionReaderView.swift; sourceTree = "<group>"; };
+		8CC9E3A821A593F30098E505 /* SettingSelectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingSelectCell.swift; sourceTree = "<group>"; };
+		8CC9E3A921A593F30098E505 /* SettingSelectCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingSelectCell.xib; sourceTree = "<group>"; };
+		8CC9E3AC21A5A40F0098E505 /* Bundle+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extension.swift"; sourceTree = "<group>"; };
+		8CC9E3B021A5AA990098E505 /* ReaderSettingsPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderSettingsPopupViewController.swift; sourceTree = "<group>"; };
 		8CCEADA821A127C5005FC3B9 /* ReaderViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderViewProtocol.swift; sourceTree = "<group>"; };
 		8CCEADAA21A127F6005FC3B9 /* PageReaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageReaderView.swift; sourceTree = "<group>"; };
 		8CCEADAC21A12CA1005FC3B9 /* ReaderViewPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderViewPresenterProtocol.swift; sourceTree = "<group>"; };
@@ -426,6 +434,8 @@
 				8C60C963209428380069EFDB /* EmptyInfoView.swift */,
 				8CD98FA220A52B23002C448F /* GuideView.swift */,
 				8CD98FA420A52B31002C448F /* GuideView.xib */,
+				8CC9E3A821A593F30098E505 /* SettingSelectCell.swift */,
+				8CC9E3A921A593F30098E505 /* SettingSelectCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -450,6 +460,7 @@
 				8C96736D2169175100DE5D69 /* UIViewController+Extra.swift */,
 				8C96738C2179664800DE5D69 /* Notification+Name.swift */,
 				8C81DCF02180DC8200F47A31 /* UITableView+Helper.swift */,
+				8CC9E3AC21A5A40F0098E505 /* Bundle+Extension.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -515,6 +526,7 @@
 			isa = PBXGroup;
 			children = (
 				8C967391217C6ED200DE5D69 /* BetterRefreshControl.swift */,
+				8CC9E3B021A5AA990098E505 /* ReaderSettingsPopupViewController.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -659,6 +671,7 @@
 				8C394781208E2AA200344FCF /* Document.txt in Resources */,
 				8CD98FA520A52B31002C448F /* GuideView.xib in Resources */,
 				8C81DCEB2180C0AA00F47A31 /* Radomir Tinkov - Gilroy-SemiBold.otf in Resources */,
+				8CC9E3AB21A593F30098E505 /* SettingSelectCell.xib in Resources */,
 				8C81DD1721857EA700F47A31 /* NestedTableViewCell.xib in Resources */,
 				8C88E38B209045A8004B54D9 /* MangaListCollectionViewCell.xib in Resources */,
 				8C16A8E220A1329B009D5692 /* MangaDetailHeaderTableViewCell.xib in Resources */,
@@ -770,6 +783,7 @@
 				8C3C8C022199BD76000F3FDD /* LamaTopicsResponse.swift in Sources */,
 				8CD878C120A16B4100E3B362 /* AdsManager.swift in Sources */,
 				8C81DD2821873B2100F47A31 /* MangaCache.swift in Sources */,
+				8CC9E3AA21A593F30098E505 /* SettingSelectCell.swift in Sources */,
 				8C58A54F208EAD4100FF71B2 /* MangaCurrentChapter.swift in Sources */,
 				8C81DD1C21857FFE00F47A31 /* MangaDetailInfoViewController.swift in Sources */,
 				8C60C9682094A8B20069EFDB /* RecentViewController.swift in Sources */,
@@ -782,6 +796,7 @@
 				8CCEADAB21A127F6005FC3B9 /* PageReaderView.swift in Sources */,
 				8C904D822088783000A599E9 /* ChapterDetailResponse.swift in Sources */,
 				8C9673692169135A00DE5D69 /* CategoryNamesResponse.swift in Sources */,
+				8CC9E3B121A5AA990098E505 /* ReaderSettingsPopupViewController.swift in Sources */,
 				8C3C8BD82196B40D000F3FDD /* LamaEndpoint.swift in Sources */,
 				8C3C8BEE21980C1B000F3FDD /* FSInjector.swift in Sources */,
 				8C9673812172F61300DE5D69 /* BaseViewController.swift in Sources */,
@@ -827,6 +842,7 @@
 				8C3C8BEC2197D76D000F3FDD /* MangaListViewModelProtocol.swift in Sources */,
 				8C81DCED2180C0EF00F47A31 /* Font+Custom.swift in Sources */,
 				8C3C8BE72196BBC0000F3FDD /* LamaMangaListViewModel.swift in Sources */,
+				8CC9E3AD21A5A40F0098E505 /* Bundle+Extension.swift in Sources */,
 				8C60C960209414350069EFDB /* FavoritesViewController.swift in Sources */,
 				8C3C8BE22196B842000F3FDD /* LamaComic.swift in Sources */,
 				8C96736E2169175100DE5D69 /* UIViewController+Extra.swift in Sources */,

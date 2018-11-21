@@ -66,3 +66,9 @@
 "message_bottom_guide" = "次のページをクリックして、次のページをクリックします。";
 
 "Change Theme" = "インタフェース色の切り替え";
+
+"lbl_read_mode_page_horizonal" = "水平ページめくり";
+"lbl_read_mode_page_vertical" = "縦方向のページめくり";
+"lbl_read_mode_page_curl" = "シミュレーションページの回転";
+"lbl_read_mode_collection_horizonal" = "水平スクロール";
+"lbl_read_mode_collection_vertical" = "垂直スクロール";

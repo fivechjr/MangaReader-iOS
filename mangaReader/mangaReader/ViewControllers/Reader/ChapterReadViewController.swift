@@ -23,9 +23,6 @@ class ChapterReadViewController: BaseViewController, GuideViewDelegate {
     @IBOutlet weak var buttonPreviousChapter: UIButton!
     @IBOutlet weak var buttonNextChapter: UIButton!
     @IBOutlet weak var labelPageInfo: UILabel!
-    @IBOutlet weak var settingPanelView: UIToolbar!
-    @IBOutlet weak var settingView: UIView!
-    @IBOutlet weak var renderModeSegmentControl: UISegmentedControl!
     
     var guideView: GuideView!
     
@@ -40,8 +37,6 @@ class ChapterReadViewController: BaseViewController, GuideViewDelegate {
         topNavigationView.alpha = 1
         bottomToolView.alpha = 1
         
-        renderModeSegmentControl.selectedSegmentIndex = ReaderMode.currentValue
-        
         if ReaderMode.currentMode.viewType == .page {
             readerView = PageReaderView()
         } else {
@@ -52,8 +47,6 @@ class ChapterReadViewController: BaseViewController, GuideViewDelegate {
         readerView?.install(to: self, sameChapter: false)
         
         getChapterDetail()
-        
-        customizeSettingView()
         
         installGuideViewIfNeeded()
     }
@@ -85,19 +78,6 @@ class ChapterReadViewController: BaseViewController, GuideViewDelegate {
                 maker.edges.equalToSuperview()
             }
         }
-    }
-    
-    func customizeSettingView() {
-        //        settingView.layer.cornerRadius = 5
-        settingView.layer.shadowRadius = 50
-        settingView.layer.shadowColor = UIColor.black.cgColor
-        settingView.layer.shadowOpacity = 0.9
-        settingView.layer.shadowOffset = CGSize(width: 1, height: 1)
-        settingPanelView.layer.cornerRadius = 2
-        settingPanelView.clipsToBounds = true
-        settingPanelView.layer.borderColor = UIColor.white.cgColor
-        settingPanelView.layer.borderWidth = 1
-        settingView.alpha = 0
     }
     
     @IBAction func dismissAction(_ sender: UIButton) {
@@ -147,16 +127,8 @@ class ChapterReadViewController: BaseViewController, GuideViewDelegate {
     
     
     @IBAction func switchSettingPanel(_ sender: Any) {
-        UIView.animate(withDuration: 0.3) {
-            self.settingView.alpha = 1 - self.settingView.alpha
-        }
-    }
-    
-    @IBAction func closeSettingView(_ sender: Any) {
         
-        UIView.animate(withDuration: 0.3) {
-            self.settingView.alpha = 0
-        }
+        ReaderSettingsPopupViewController.present(in: self)
     }
     
     @IBAction func renderModeChanged(_ sender: UISegmentedControl) {

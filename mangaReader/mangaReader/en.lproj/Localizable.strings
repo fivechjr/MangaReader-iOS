@@ -66,3 +66,9 @@
 "message_bottom_guide" = "Tap the lower area to go to the next page.";
 
 "Change Theme" = "Change Theme";
+
+"lbl_read_mode_page_horizonal" = "Horizontal Page";
+"lbl_read_mode_page_vertical" = "Vertical Page";
+"lbl_read_mode_page_curl" = "Curl Page";
+"lbl_read_mode_collection_horizonal" = "Horizontal Scroll";
+"lbl_read_mode_collection_vertical" = "Vertical Scroll";

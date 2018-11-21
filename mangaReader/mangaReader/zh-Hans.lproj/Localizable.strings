@@ -66,3 +66,9 @@
 "message_bottom_guide" = "点击下面的区域，翻到后一页";
 
 "Change Theme" = "切换界面颜色";
+
+"lbl_read_mode_page_horizonal" = "水平翻页";
+"lbl_read_mode_page_vertical" = "垂直翻页";
+"lbl_read_mode_page_curl" = "仿真翻页";
+"lbl_read_mode_collection_horizonal" = "水平滚动";
+"lbl_read_mode_collection_vertical" = "垂直滚动";
