@@ -40,10 +40,14 @@ class ChapterReadViewController: BaseViewController, GuideViewDelegate {
         topNavigationView.alpha = 1
         bottomToolView.alpha = 1
         
-        let selectedRenderMode = UserDefaults.standard.value(forKey: "renderMode") as? Int ?? 0
-        renderModeSegmentControl.selectedSegmentIndex = selectedRenderMode
+        renderModeSegmentControl.selectedSegmentIndex = ReaderMode.currentValue
         
-        readerView = CollectionReaderView() //PageReaderView()
+        if ReaderMode.currentMode.viewType == .page {
+            readerView = PageReaderView()
+        } else {
+            readerView = CollectionReaderView()
+        }
+        readerView?.readerMode = ReaderMode.currentMode
         readerView?.presenter = self
         readerView?.install(to: self, sameChapter: false)
         
@@ -156,9 +160,7 @@ class ChapterReadViewController: BaseViewController, GuideViewDelegate {
     }
     
     @IBAction func renderModeChanged(_ sender: UISegmentedControl) {
-        UserDefaults.standard.set(sender.selectedSegmentIndex, forKey: "renderMode")
-        UserDefaults.standard.synchronize()
-        
+        ReaderMode.currentValue = sender.selectedSegmentIndex
         readerView?.install(to: self, sameChapter: true)
     }
     

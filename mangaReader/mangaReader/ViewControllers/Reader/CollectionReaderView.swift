@@ -10,6 +10,9 @@ import Foundation
 import SnapKit
 
 class CollectionReaderView: NSObject, ReaderViewProtocol {
+    
+    var readerMode: ReaderMode = .collectionVertical
+    
     var presenter: ReaderViewPresenterProtocol?
     
     var imageObjets: [ChapterImage]? {
@@ -38,6 +41,8 @@ class CollectionReaderView: NSObject, ReaderViewProtocol {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
         layout.itemSize = parentVC.view.frame.size
+        layout.scrollDirection = .horizontal
+        
         collectionView = UICollectionView(frame: parentVC.view.bounds, collectionViewLayout: layout)
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "pageCell")
         collectionView.dataSource = self
