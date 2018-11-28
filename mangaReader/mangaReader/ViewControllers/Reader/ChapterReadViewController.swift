@@ -58,18 +58,29 @@ class ChapterReadViewController: BaseViewController, GuideViewDelegate {
         readerView?.readerMode = ReaderMode.currentMode
         readerView?.presenter = self
         readerView?.install(to: self, sameChapter: sameChapter)
+        
+        if !start() {
+            getChapterDetail()
+        }
     }
     
     func getChapterDetail() {
         showLoading()
         viewModel.getChapterDetail { [weak self] (_, _) in
             self?.hideLoading()
-            self?.readerView?.imageObjets = self?.viewModel.chapterDetail?.chapter?.imageObjets
-            self?.readerView?.start()
-            self?.viewModel.downloadImages()
+            _ = self?.start()
             
             AdsManager.sharedInstance.showRandomAdsIfComfortable()
         }
+    }
+    
+    private func start() -> Bool {
+        guard let imageObjects = viewModel.chapterDetail?.chapter?.imageObjets, !imageObjects.isEmpty else {return false}
+        readerView?.imageObjets = imageObjects
+        readerView?.start()
+        viewModel.downloadImages()
+        
+        return true
     }
     
     deinit {
