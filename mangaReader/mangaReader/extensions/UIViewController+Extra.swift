@@ -10,6 +10,10 @@ import UIKit
 import MessageUI
 
 extension UIViewController: MFMailComposeViewControllerDelegate {
+    
+    var currentTheme: Theme {
+        return ThemeManager.shared.currentTheme
+    }
     @objc func farewell() {
         if let presentingViewController = presentingViewController {
             

@@ -16,23 +16,20 @@ class SettingSelectCell: UITableViewCell {
     var viewModel: SettingSelectCellViewModel? {
         didSet {
             titleLabel.text = viewModel?.title
-//            selectButton.isSelected = true//
-            
-            setSelected(viewModel?.selected ?? false, animated: false)
+            checked = viewModel?.selected ?? false
         }
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        viewModel?.selected = selected
-//        selectButton.isSelected = selected
-        let image = UIImage(named: selected ? "icon_selected" : "icon_unselected")
-        selectButton.setImage(image, for: .normal)
+    
+    var checked: Bool = false {
+        didSet {
+            viewModel?.selected = checked
+            let image = UIImage(named: checked ? "icon_selected" : "icon_unselected")
+            selectButton.setImage(image, for: .normal)
+        }
     }
 }
 

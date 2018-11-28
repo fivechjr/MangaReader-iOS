@@ -14,16 +14,24 @@ class ReaderSettingsPopupViewController: UIViewController {
     
     @IBOutlet weak var closeButton: UIButton!
     
+    var dismissed: (() -> Void)?
+    
     let readerModes: [ReaderMode] = [.pageHorizontal, .pageVertical, .pageCurl, .collectionHorizontal, .collectionVertical]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = currentTheme.backgroundColor
+        tableView.backgroundColor = .clear
+        
         tableView.ezRegisterNib(cellType: SettingSelectCell.self)
+        tableView.tableFooterView = UIView()
     }
     
-    static func present(in viewController: UIViewController) {
+    static func present(in viewController: UIViewController, dismissed: @escaping () -> Void) {
         let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ReaderSettingsPopupViewController") as! ReaderSettingsPopupViewController
+        
+        vc.dismissed = dismissed
         
         viewController.modalPresentationStyle = .formSheet
         
@@ -47,7 +55,8 @@ extension ReaderSettingsPopupViewController: UITableViewDataSource {
         
         let isSelected = readerMode.rawValue == ReaderMode.currentMode.rawValue
         cell.viewModel = SettingSelectCellViewModel(title: readerMode.title, selected: isSelected)
-        
+        cell.titleLabel.textColor = currentTheme.textColor
+
         return cell
     }
 }
@@ -58,6 +67,8 @@ extension ReaderSettingsPopupViewController: UITableViewDelegate {
         ReaderMode.currentMode = readerMode
         
         farewell()
+        
+        dismissed?()
     }
 }
 

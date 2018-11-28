@@ -37,6 +37,19 @@ class ChapterReadViewController: BaseViewController, GuideViewDelegate {
         topNavigationView.alpha = 1
         bottomToolView.alpha = 1
         
+        setupReaderView()
+        
+        getChapterDetail()
+        
+        installGuideViewIfNeeded()
+    }
+    
+    func setupReaderView(sameChapter: Bool = false) {
+        
+        if let readerView = readerView {
+            guard readerView.readerMode != ReaderMode.currentMode else {return}
+        }
+        
         if ReaderMode.currentMode.viewType == .page {
             readerView = PageReaderView()
         } else {
@@ -44,11 +57,7 @@ class ChapterReadViewController: BaseViewController, GuideViewDelegate {
         }
         readerView?.readerMode = ReaderMode.currentMode
         readerView?.presenter = self
-        readerView?.install(to: self, sameChapter: false)
-        
-        getChapterDetail()
-        
-        installGuideViewIfNeeded()
+        readerView?.install(to: self, sameChapter: sameChapter)
     }
     
     func getChapterDetail() {
@@ -128,7 +137,9 @@ class ChapterReadViewController: BaseViewController, GuideViewDelegate {
     
     @IBAction func switchSettingPanel(_ sender: Any) {
         
-        ReaderSettingsPopupViewController.present(in: self)
+        ReaderSettingsPopupViewController.present(in: self) { [weak self] in
+            self?.setupReaderView(sameChapter: true)
+        }
     }
     
     @IBAction func renderModeChanged(_ sender: UISegmentedControl) {

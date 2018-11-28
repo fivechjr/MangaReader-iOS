@@ -407,7 +407,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="QUf-QX-ok5">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="581"/>
+                                        <rect key="frame" x="0.0" y="75" width="375" height="534"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="separatorColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -425,13 +425,13 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="RNV-dL-dec" firstAttribute="leading" secondItem="oJg-yZ-6o6" secondAttribute="leading" constant="10" id="3bS-zp-QAS"/>
                                     <constraint firstItem="Pp8-xD-zjd" firstAttribute="bottom" secondItem="RNV-dL-dec" secondAttribute="bottom" constant="20" id="54l-Mu-Cz6"/>
                                     <constraint firstItem="SuX-cz-7In" firstAttribute="leading" secondItem="oJg-yZ-6o6" secondAttribute="leading" constant="10" id="75t-Q3-iFZ"/>
-                                    <constraint firstItem="QUf-QX-ok5" firstAttribute="top" secondItem="Pp8-xD-zjd" secondAttribute="top" constant="8" id="BeO-hf-L1M"/>
                                     <constraint firstItem="QUf-QX-ok5" firstAttribute="leading" secondItem="Pp8-xD-zjd" secondAttribute="leading" id="H4e-CV-z9N"/>
+                                    <constraint firstItem="QUf-QX-ok5" firstAttribute="top" secondItem="SuX-cz-7In" secondAttribute="bottom" constant="16" id="Ksk-CC-L0U"/>
                                     <constraint firstItem="Pp8-xD-zjd" firstAttribute="trailing" secondItem="SuX-cz-7In" secondAttribute="trailing" constant="10" id="Oyb-Jr-uUm"/>
                                     <constraint firstItem="SuX-cz-7In" firstAttribute="top" secondItem="Pp8-xD-zjd" secondAttribute="top" constant="20" id="Pgl-hv-1J8"/>
                                     <constraint firstItem="RNV-dL-dec" firstAttribute="top" secondItem="QUf-QX-ok5" secondAttribute="bottom" constant="8" id="eVC-6i-0lw"/>
@@ -457,7 +457,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ddg-dx-455" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3465" y="72"/>
+            <point key="canvasLocation" x="3464.8000000000002" y="71.514242878560722"/>
         </scene>
         <!--Favorites-->
         <scene sceneID="4EU-cz-tVj">

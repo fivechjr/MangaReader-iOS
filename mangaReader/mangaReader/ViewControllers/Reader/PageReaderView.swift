@@ -48,12 +48,11 @@ class PageReaderView: NSObject, ReaderViewProtocol {
         }
         
         // Creation
-        let selectedRenderMode = UserDefaults.standard.value(forKey: "renderMode") as? Int ?? 0
-        if selectedRenderMode == 0 {
+        if readerMode == .pageHorizontal {
             pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
-        } else if selectedRenderMode == 1 {
+        } else if readerMode == .pageVertical {
             pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .vertical, options: nil)
-        } else if selectedRenderMode == 2 {
+        } else if readerMode == .pageCurl {
             pageViewController = UIPageViewController(transitionStyle: .pageCurl, navigationOrientation: .horizontal, options: nil)
         }
         
