@@ -35,7 +35,16 @@ class CollectionReaderView: NSObject, ReaderViewProtocol {
     
     private var parentVC: UIViewController?
     
-    func install(to parentVC: UIViewController, sameChapter: Bool) {
+    
+    func uninstall(sameChapter: Bool) {
+        if (!sameChapter) {
+            currentImageViewController = nil
+        }
+        
+        collectionView.removeFromSuperview()
+    }
+    
+    func install(to parentVC: UIViewController) {
         self.parentVC = parentVC
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()

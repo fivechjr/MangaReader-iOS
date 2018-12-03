@@ -32,8 +32,7 @@ class PageReaderView: NSObject, ReaderViewProtocol {
         }
     }
     
-    func install(to parentVC: UIViewController, sameChapter: Bool) {
-        
+    func uninstall(sameChapter: Bool) {
         // Remove first
         if pageViewController != nil {
             if (sameChapter) {
@@ -46,6 +45,9 @@ class PageReaderView: NSObject, ReaderViewProtocol {
             pageViewController.removeFromParentViewController()
             pageViewController = nil
         }
+    }
+    
+    func install(to parentVC: UIViewController) {
         
         // Creation
         if readerMode == .pageHorizontal {

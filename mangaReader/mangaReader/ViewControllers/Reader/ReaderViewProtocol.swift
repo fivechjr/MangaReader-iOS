@@ -15,7 +15,9 @@ protocol ReaderViewProtocol: class {
     var presenter: ReaderViewPresenterProtocol? {get set}
     var imageObjets:[ChapterImage]? {get set}
     
-    func install(to parentVC: UIViewController, sameChapter: Bool)
+    func install(to parentVC: UIViewController)
+    func uninstall(sameChapter: Bool)
+    
     func start()
     func gotoPreviousPage()
     func gotoNextPage()

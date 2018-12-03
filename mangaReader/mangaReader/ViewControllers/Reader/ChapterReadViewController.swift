@@ -15,7 +15,9 @@ class ChapterReadViewController: BaseViewController, GuideViewDelegate {
 
     var viewModel: ChapterReadViewModel!
     
-    var readerView: ReaderViewProtocol?
+    var pageReaderView = PageReaderView()
+    var collectionReaderView = CollectionReaderView()
+    var currentReaderView: ReaderViewProtocol?
     
     @IBOutlet weak var topNavigationView: UIView!
     @IBOutlet weak var labelInfo: UILabel!
@@ -46,18 +48,21 @@ class ChapterReadViewController: BaseViewController, GuideViewDelegate {
     
     func setupReaderView(sameChapter: Bool = false) {
         
-        if let readerView = readerView {
-            guard readerView.readerMode != ReaderMode.currentMode else {return}
+        if let currentReaderView = currentReaderView {
+            guard currentReaderView.readerMode != ReaderMode.currentMode else {return}
         }
         
+        currentReaderView?.uninstall(sameChapter: sameChapter)
+        
         if ReaderMode.currentMode.viewType == .page {
-            readerView = PageReaderView()
+            currentReaderView = pageReaderView
         } else {
-            readerView = CollectionReaderView()
+            currentReaderView = collectionReaderView
         }
-        readerView?.readerMode = ReaderMode.currentMode
-        readerView?.presenter = self
-        readerView?.install(to: self, sameChapter: sameChapter)
+        currentReaderView?.readerMode = ReaderMode.currentMode
+        currentReaderView?.presenter = self
+        
+        currentReaderView?.install(to: self)
         
         if !start() {
             getChapterDetail()
@@ -76,8 +81,8 @@ class ChapterReadViewController: BaseViewController, GuideViewDelegate {
     
     private func start() -> Bool {
         guard let imageObjects = viewModel.chapterDetail?.chapter?.imageObjets, !imageObjects.isEmpty else {return false}
-        readerView?.imageObjets = imageObjects
-        readerView?.start()
+        currentReaderView?.imageObjets = imageObjects
+        currentReaderView?.start()
         viewModel.downloadImages()
         
         return true
@@ -119,7 +124,8 @@ class ChapterReadViewController: BaseViewController, GuideViewDelegate {
     @IBAction func gotoNextChapterAction(_ sender: Any) {
         viewModel.goToChapter(next: true) { [weak self] in
             guard let `self` = self else {return}
-            self.readerView?.install(to: self, sameChapter: false)
+            self.currentReaderView?.uninstall(sameChapter: false)
+            self.currentReaderView?.install(to: self)
             self.getChapterDetail()
         }
     }
@@ -127,7 +133,8 @@ class ChapterReadViewController: BaseViewController, GuideViewDelegate {
     @IBAction func gotoPreviousChapterAction(_ sender: Any) {
         viewModel.goToChapter(next: false) { [weak self] in
             guard let `self` = self else {return}
-            self.readerView?.install(to: self, sameChapter: false)
+            self.currentReaderView?.uninstall(sameChapter: false)
+            self.currentReaderView?.install(to: self)
             self.getChapterDetail()
         }
     }
@@ -151,11 +158,6 @@ class ChapterReadViewController: BaseViewController, GuideViewDelegate {
         ReaderSettingsPopupViewController.present(in: self) { [weak self] in
             self?.setupReaderView(sameChapter: true)
         }
-    }
-    
-    @IBAction func renderModeChanged(_ sender: UISegmentedControl) {
-        ReaderMode.currentValue = sender.selectedSegmentIndex
-        readerView?.install(to: self, sameChapter: true)
     }
     
     func didTapGuidView(guideView: GuideView) {
