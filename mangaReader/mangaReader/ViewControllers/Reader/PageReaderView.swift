@@ -10,7 +10,7 @@ import Foundation
 
 class PageReaderView: NSObject, ReaderViewProtocol {
     
-    var readerMode: ReaderMode = .pageVertical
+    var readerMode: ReaderMode = .pageHorizontal
     
     weak var presenter: ReaderViewPresenterProtocol?
     

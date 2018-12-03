@@ -11,7 +11,7 @@ import SnapKit
 
 class CollectionReaderView: NSObject, ReaderViewProtocol {
     
-    var readerMode: ReaderMode = .collectionVertical
+    var readerMode: ReaderMode = .collectionHorizontal
     
     var presenter: ReaderViewPresenterProtocol?
     
@@ -50,7 +50,11 @@ class CollectionReaderView: NSObject, ReaderViewProtocol {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
         layout.itemSize = parentVC.view.frame.size
-        layout.scrollDirection = .horizontal
+        if readerMode == .collectionVertical {
+            layout.scrollDirection = .vertical
+        } else if readerMode == .collectionHorizontal {
+            layout.scrollDirection = .horizontal
+        }
         
         collectionView = UICollectionView(frame: parentVC.view.bounds, collectionViewLayout: layout)
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "pageCell")
