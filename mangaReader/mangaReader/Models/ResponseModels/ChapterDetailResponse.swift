@@ -23,4 +23,9 @@ class ChapterDetail: Codable {
     var imageObjets:[ChapterImage]? {
         return images?.map {ChapterImage(datas: $0)}
     }
+    
+    func isEqual(to chapter: ChapterDetail?) -> Bool {
+        guard let chapter = chapter, let id = chapter._id, let thisId = _id else {return false}
+        return thisId == id
+    }
 }

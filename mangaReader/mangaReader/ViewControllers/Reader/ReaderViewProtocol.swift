@@ -13,7 +13,7 @@ protocol ReaderViewProtocol: class {
     var readerMode: ReaderMode {get set}
     
     var presenter: ReaderViewPresenterProtocol? {get set}
-    var imageObjets:[ChapterImage]? {get set}
+    var chapter: ChapterDetail? {get set}
     
     func install(to parentVC: UIViewController)
     func uninstall(sameChapter: Bool)

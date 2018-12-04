@@ -15,10 +15,10 @@ class CollectionReaderView: NSObject, ReaderViewProtocol {
     
     var presenter: ReaderViewPresenterProtocol?
     
-    var imageObjets: [ChapterImage]? {
+    var chapter: ChapterDetail? {
         didSet {
             imageViewControllers.removeAll()
-            imageObjets?.forEach({ (chapterImage) in
+            chapter?.imageObjets?.forEach({ (chapterImage) in
                 let imageVC = ImageViewController()
                 imageVC.chapterImage = chapterImage
                 imageVC.delegate = self

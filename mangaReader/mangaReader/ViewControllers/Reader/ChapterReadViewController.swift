@@ -80,8 +80,9 @@ class ChapterReadViewController: BaseViewController, GuideViewDelegate {
     }
     
     private func start() -> Bool {
-        guard let imageObjects = viewModel.chapterDetail?.chapter?.imageObjets, !imageObjects.isEmpty else {return false}
-        currentReaderView?.imageObjets = imageObjects
+        let isTheSameChapter = currentReaderView?.chapter?.isEqual(to: viewModel.chapterDetail?.chapter) ?? false
+        guard let chapter = viewModel.chapterDetail?.chapter, !isTheSameChapter else {return false}
+        currentReaderView?.chapter = chapter
         currentReaderView?.start()
         viewModel.downloadImages()
         
