@@ -10,9 +10,10 @@ import Foundation
 import NVActivityIndicatorView
 
 extension UIViewController {
-    func showLoading() {
+    func showLoading(backgroundColor: UIColor? = nil) {
         let color = ThemeManager.shared.currentTheme.textColor
-        let activityData = ActivityData(size:CGSize(width: 35, height: 35), type: .ballPulse, color: color)
+        let activityData = ActivityData(size:CGSize(width: 35, height: 35), type: .ballPulse, color: color, backgroundColor: backgroundColor)
+        
         NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData)
     }
     

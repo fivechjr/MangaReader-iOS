@@ -76,7 +76,7 @@ class ImageViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     func loadImage() {
-        showLoading()
+        showLoading(backgroundColor: .clear)
         if let imagePath = chapterImage?.imagePath
             , let urlString = DataRequester.getImageUrl(withImagePath: imagePath)
             , let url = URL(string: urlString) {
@@ -99,15 +99,28 @@ class ImageViewController: BaseViewController, UIScrollViewDelegate {
         }
         
         let viewHeight = currentWindow.frame.size.height
+        let viewWidth = currentWindow.frame.size.width
         let location = recognizer.location(in: recognizer.view)
         let locationInWindow = recognizerView.convert(location, to: currentWindow)
         
-        if (locationInWindow.y < viewHeight * 0.3) {
-            delegate?.topAreaTapped(imageViewController: self)
-        } else if (locationInWindow.y > viewHeight * 0.7) {
-            delegate?.bottomAreaTapped(imageViewController: self)
+        let readModel = ReaderMode.currentMode
+        
+        if readModel.direction == .vertical {
+            if (locationInWindow.y < viewHeight * 0.3) {
+                delegate?.topAreaTapped(imageViewController: self)
+            } else if (locationInWindow.y > viewHeight * 0.7) {
+                delegate?.bottomAreaTapped(imageViewController: self)
+            } else {
+                delegate?.centerAreaTapped(imageViewController: self)
+            }
         } else {
-            delegate?.centerAreaTapped(imageViewController: self)
+            if (locationInWindow.x < viewWidth * 0.3) {
+                delegate?.topAreaTapped(imageViewController: self)
+            } else if (locationInWindow.x > viewWidth * 0.7) {
+                delegate?.bottomAreaTapped(imageViewController: self)
+            } else {
+                delegate?.centerAreaTapped(imageViewController: self)
+            }
         }
     }
     
