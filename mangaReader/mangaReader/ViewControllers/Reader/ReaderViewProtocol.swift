@@ -50,6 +50,11 @@ enum ReaderMode: Int {
         case collection
     }
     
+    enum Direction {
+        case horizontal
+        case vertical
+    }
+    
     static let cacheKey = "readerMode"
     
     static var currentValue: Int {
@@ -70,6 +75,15 @@ enum ReaderMode: Int {
         
         set {
             currentValue = newValue.rawValue
+        }
+    }
+    
+    var direction: Direction {
+        switch self {
+        case .pageHorizontal, .pageCurl, .collectionHorizontal:
+            return .horizontal
+        case .collectionVertical, .pageVertical:
+            return .vertical
         }
     }
     

@@ -70,16 +70,30 @@ class CollectionReaderView: NSObject, ReaderViewProtocol {
     }
     
     func gotoPreviousPage() {
-        let offsetY = collectionView.contentOffset.y - collectionView.frame.height
-        let targetOffset = CGPoint(x: 0, y: offsetY > 0 ? offsetY : 0)
-        collectionView.setContentOffset(targetOffset, animated: true)
+        if ReaderMode.currentMode.direction == .vertical {
+            let offsetY = collectionView.contentOffset.y - collectionView.frame.height
+            let targetOffset = CGPoint(x: 0, y: offsetY > 0 ? offsetY : 0)
+            collectionView.setContentOffset(targetOffset, animated: true)
+        } else {
+            let offsetX = collectionView.contentOffset.x - collectionView.frame.width
+            let targetOffset = CGPoint(x: offsetX > 0 ? offsetX : 0, y: 0)
+            collectionView.setContentOffset(targetOffset, animated: true)
+        }
     }
     
     func gotoNextPage() {
-        let offsetY = collectionView.contentOffset.y + collectionView.frame.height
-        let maxOffsetY = collectionView.contentSize.height - collectionView.frame.height
-        let targetOffset = CGPoint(x: 0, y: offsetY < maxOffsetY ? offsetY : maxOffsetY)
-        collectionView.setContentOffset(targetOffset, animated: true)
+        
+        if ReaderMode.currentMode.direction == .vertical {
+            let offsetY = collectionView.contentOffset.y + collectionView.frame.height
+            let maxOffsetY = collectionView.contentSize.height - collectionView.frame.height
+            let targetOffset = CGPoint(x: 0, y: offsetY < maxOffsetY ? offsetY : maxOffsetY)
+            collectionView.setContentOffset(targetOffset, animated: true)
+        } else {
+            let offsetX = collectionView.contentOffset.x + collectionView.frame.width
+            let maxOffsetX = collectionView.contentSize.width - collectionView.frame.width
+            let targetOffset = CGPoint(x: offsetX < maxOffsetX ? offsetX : maxOffsetX, y: 0)
+            collectionView.setContentOffset(targetOffset, animated: true)
+        }
     }
     
     
