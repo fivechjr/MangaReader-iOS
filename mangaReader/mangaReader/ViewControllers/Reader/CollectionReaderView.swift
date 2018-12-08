@@ -49,7 +49,7 @@ class CollectionReaderView: NSObject, ReaderViewProtocol {
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
-        layout.itemSize = parentVC.view.frame.size
+
         if readerMode == .collectionVertical {
             layout.scrollDirection = .vertical
         } else if readerMode == .collectionHorizontal {
@@ -59,6 +59,7 @@ class CollectionReaderView: NSObject, ReaderViewProtocol {
         collectionView = UICollectionView(frame: parentVC.view.bounds, collectionViewLayout: layout)
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "pageCell")
         collectionView.dataSource = self
+        collectionView.delegate = self
         
         parentVC.view.insertSubview(collectionView, at: 0)
         
@@ -97,6 +98,17 @@ class CollectionReaderView: NSObject, ReaderViewProtocol {
     }
     
     
+}
+
+extension CollectionReaderView: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        var size = imageViewControllers[indexPath.item].sizeFitingWidth(collectionView.frame.width)
+        if size == CGSize.zero {
+            size = collectionView.frame.size
+        }
+        
+        return size
+    }
 }
 
 extension CollectionReaderView: UICollectionViewDataSource {

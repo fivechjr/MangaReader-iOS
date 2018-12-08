@@ -18,8 +18,22 @@ protocol ImageViewControllerDelegate: class {
 
 class ImageViewController: BaseViewController, UIScrollViewDelegate {
     
-    var imageView: UIImageView!
-    var imageScrollView: UIScrollView!
+    var imageView: UIImageView = {
+        let imageView = UIImageView(frame: CGRect.zero)
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    
+    var imageScrollView: UIScrollView = {
+        let imageScrollView = UIScrollView(frame: CGRect.zero)
+        imageScrollView.minimumZoomScale = 1.0
+        imageScrollView.maximumZoomScale = 6.0
+        imageScrollView.alwaysBounceVertical = false
+        imageScrollView.alwaysBounceHorizontal = false
+        imageScrollView.bounces = false
+        imageScrollView.bouncesZoom = false
+        return imageScrollView
+    }()
     
     weak var delegate: ImageViewControllerDelegate?
     
@@ -39,22 +53,13 @@ class ImageViewController: BaseViewController, UIScrollViewDelegate {
         
         view.backgroundColor = UIColor(white: 0.95, alpha: 1)
         
-        imageScrollView = UIScrollView(frame: CGRect.zero)
         imageScrollView.delegate = self
-        imageScrollView.minimumZoomScale = 1.0
-        imageScrollView.maximumZoomScale = 6.0
-        imageScrollView.alwaysBounceVertical = false
-        imageScrollView.alwaysBounceHorizontal = false
-        imageScrollView.bounces = false
-        imageScrollView.bouncesZoom = false
-        
         view.addSubview(imageScrollView)
         imageScrollView.snp.makeConstraints { (maker) in
             maker.edges.equalToSuperview()
         }
         
-        imageView = UIImageView(frame: CGRect.zero)
-        imageView.contentMode = .scaleAspectFit
+        
         imageScrollView.addSubview(imageView)
         imageView.snp.makeConstraints { (maker) in
             maker.edges.equalToSuperview()
@@ -85,6 +90,14 @@ class ImageViewController: BaseViewController, UIScrollViewDelegate {
                 self?.hideLoading()
             }
         }
+    }
+    
+    func sizeFitingWidth(_ width: CGFloat) -> CGSize {
+        guard let image = imageView.image, image.size.height * image.size.width * width > 0 else {return CGSize.zero}
+        
+        let scaledHeight = image.size.height * (width / image.size.width)
+        
+        return CGSize(width: width, height: scaledHeight)
     }
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
