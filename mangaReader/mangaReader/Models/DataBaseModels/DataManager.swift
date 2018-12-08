@@ -16,7 +16,9 @@ class DataManager {
     }
     
     static let shared = DataManager()
-    private init() {}
+    private init() {
+        Realm.Configuration.defaultConfiguration.deleteRealmIfMigrationNeeded = true
+    }
     
     private var _categories: [String]?
     private(set) var categories: [String] {

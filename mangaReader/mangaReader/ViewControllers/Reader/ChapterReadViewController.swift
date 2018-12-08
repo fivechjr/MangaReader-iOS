@@ -11,7 +11,7 @@ import UIKit
 import SnapKit
 import RealmSwift
 
-class ChapterReadViewController: BaseViewController, GuideViewDelegate {
+class ChapterReadViewController: BaseViewController {
 
     var viewModel: ChapterReadViewModel!
     
@@ -25,8 +25,6 @@ class ChapterReadViewController: BaseViewController, GuideViewDelegate {
     @IBOutlet weak var buttonPreviousChapter: UIButton!
     @IBOutlet weak var buttonNextChapter: UIButton!
     @IBOutlet weak var labelPageInfo: UILabel!
-    
-    var guideView: GuideView!
     
     override func updateTheme() {
         let theme = ThemeManager.shared.currentTheme
@@ -42,8 +40,6 @@ class ChapterReadViewController: BaseViewController, GuideViewDelegate {
         setupReaderView()
         
         getChapterDetail()
-        
-        installGuideViewIfNeeded()
     }
     
     func setupReaderView(sameChapter: Bool = false) {
@@ -91,19 +87,6 @@ class ChapterReadViewController: BaseViewController, GuideViewDelegate {
     
     deinit {
         viewModel.cancelDownload()
-    }
-    
-    func installGuideViewIfNeeded() {
-        let userSeeGuide = UserDefaults.standard.bool(forKey: "userSeeGuide")
-        
-        if (!userSeeGuide) {
-            guideView = (Bundle.main.loadNibNamed("GuideView", owner: self, options: nil)?.first as! GuideView)
-            guideView.delegate = self
-            view.addSubview(guideView)
-            guideView.snp.makeConstraints { (maker) in
-                maker.edges.equalToSuperview()
-            }
-        }
     }
     
     @IBAction func dismissAction(_ sender: UIButton) {
@@ -158,16 +141,6 @@ class ChapterReadViewController: BaseViewController, GuideViewDelegate {
         
         ReaderSettingsPopupViewController.present(in: self) { [weak self] in
             self?.setupReaderView(sameChapter: true)
-        }
-    }
-    
-    func didTapGuidView(guideView: GuideView) {
-        
-        UserDefaults.standard.set(true, forKey: "userSeeGuide")
-        UserDefaults.standard.synchronize()
-        
-        UIView.animate(withDuration: 0.3) {
-            guideView.alpha = 0
         }
     }
 }
