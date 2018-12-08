@@ -1,5 +1,5 @@
 //
-//  MangaListViewModel.swift
+//  EdenMangaListViewModel.swift
 //  mangaReader
 //
 //  Created by Yiming Dong on 2018/10/6.
@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 
-class MangaListViewModel: MangaListViewModelProtocol {
+class EdenMangaListViewModel: MangaListViewModelProtocol {
     var sortByRecentUpdate = false
     private var mangaSort: MangaSort {
         return sortByRecentUpdate ? .last_chapter_date : .hits
@@ -59,7 +59,7 @@ class MangaListViewModel: MangaListViewModelProtocol {
     }
 }
 
-extension MangaListViewModel {
+extension EdenMangaListViewModel {
     
     private  func loadManga(page: Int, completion: @escaping ([MangaProtocol]?, Error?) -> Void) {
         guard !isLoading else {
