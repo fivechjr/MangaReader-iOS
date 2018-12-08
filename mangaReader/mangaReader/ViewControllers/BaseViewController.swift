@@ -40,12 +40,11 @@ class BaseViewController: UIViewController {
         return "Main"
     }
     
-//    class var storyboardId: String? {
-//        return nil
-//    }
+    override var prefersStatusBarHidden: Bool {
+        return false
+    }
     
     class func newInstance() -> UIViewController? {
-//        guard let storyboardId = storyboardId else {return nil}
         let storyboardId = String(describing: self)
         return UIStoryboard(name: storyboardName, bundle: nil).instantiateViewController(withIdentifier: storyboardId)
     }

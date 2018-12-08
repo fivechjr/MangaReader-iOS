@@ -49,7 +49,7 @@ class CollectionReaderView: NSObject, ReaderViewProtocol {
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
-
+        layout.estimatedItemSize = parentVC.view.bounds.size
         if readerMode == .collectionVertical {
             layout.scrollDirection = .vertical
         } else if readerMode == .collectionHorizontal {
@@ -157,7 +157,9 @@ extension CollectionReaderView: ImageViewControllerDelegate {
         gotoNextPage()
     }
     
-    func imageLoaded() {
-        collectionView.reloadData()
+    func imageLoaded(imageViewController: ImageViewController!) {
+        guard let index = imageViewControllers.firstIndex(of: imageViewController) else {return}
+        
+        collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
     }
 }

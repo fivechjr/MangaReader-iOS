@@ -14,7 +14,7 @@ protocol ImageViewControllerDelegate: class {
     func topAreaTapped(imageViewController: ImageViewController!)
     func centerAreaTapped(imageViewController: ImageViewController!)
     func bottomAreaTapped(imageViewController: ImageViewController!)
-    func imageLoaded()
+    func imageLoaded(imageViewController: ImageViewController!)
 }
 
 class ImageViewController: BaseViewController, UIScrollViewDelegate {
@@ -88,8 +88,9 @@ class ImageViewController: BaseViewController, UIScrollViewDelegate {
             , let url = URL(string: urlString) {
             
             imageView.af_setImage(withURL: url, placeholderImage: nil, imageTransition: .crossDissolve(0.2))  {[weak self] (imageDataResponse) in
-                self?.hideLoading()
-                self?.delegate?.imageLoaded()
+                guard let `self` = self else {return}
+                self.hideLoading()
+                self.delegate?.imageLoaded(imageViewController: self)
             }
         }
     }

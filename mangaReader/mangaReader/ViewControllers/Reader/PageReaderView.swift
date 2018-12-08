@@ -181,6 +181,6 @@ extension PageReaderView: ImageViewControllerDelegate {
         gotoNextPage()
     }
     
-    func imageLoaded() {
+    func imageLoaded(imageViewController: ImageViewController!) {
     }
 }

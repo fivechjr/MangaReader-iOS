@@ -42,6 +42,10 @@ class ChapterReadViewController: BaseViewController {
         getChapterDetail()
     }
     
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+    
     func setupReaderView(sameChapter: Bool = false) {
         
         if let currentReaderView = currentReaderView {
@@ -91,10 +95,6 @@ class ChapterReadViewController: BaseViewController {
     
     @IBAction func dismissAction(_ sender: UIButton) {
         farewell()
-    }
-    
-    override var prefersStatusBarHidden: Bool {
-        return true
     }
     
     func switchNavigationVisible() {
