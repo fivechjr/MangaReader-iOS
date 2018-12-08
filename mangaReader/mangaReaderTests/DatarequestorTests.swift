@@ -13,7 +13,7 @@ class DatarequestorTests: XCTestCase {
 
     func test_getCategoryRecommend() {
         let exp = expectation(description: "should finish request")
-        DataRequester.getCategoryRecommend(){ (response, error) in
+        MangaEdenApi.getCategoryRecommend(){ (response, error) in
             exp.fulfill()
             XCTAssertNotNil(response)
             XCTAssertNotNil(response?.mangalist)
@@ -26,7 +26,7 @@ class DatarequestorTests: XCTestCase {
     
     func test_getTopMangaList() {
         let exp = expectation(description: "should finish request")
-        DataRequester.getTopMangaList(){ (response, error) in
+        MangaEdenApi.getTopMangaList(){ (response, error) in
             exp.fulfill()
             XCTAssertNotNil(response)
             XCTAssertNotNil(response?.mangalist)

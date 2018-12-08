@@ -76,7 +76,7 @@ extension Manga: MangaProtocol {
     
     var coverImageUrl: String? {
         get {
-            return imageURL ?? DataRequester.getImageUrl(withImagePath: image)
+            return imageURL ?? MangaEdenApi.getImageUrl(withImagePath: image)
         }
         set {
             imageURL = coverImageUrl

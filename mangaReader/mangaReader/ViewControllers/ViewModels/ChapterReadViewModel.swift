@@ -55,7 +55,7 @@ class ChapterReadViewModel {
     func getChapterDetail(completion: @escaping (ChapterDetailResponse?, Error?) -> Void) {
         guard let mangaId = manga.mangaId, let chapterId = chapterObject.id else {return}
         
-        DataRequester.getChapterDetail(mangaId: mangaId, chapterId: chapterId) { [weak self] (chapterDetail, error) in
+        MangaEdenApi.getChapterDetail(mangaId: mangaId, chapterId: chapterId) { [weak self] (chapterDetail, error) in
             self?.chapterDetail = chapterDetail
             completion(chapterDetail, error)
         }
@@ -72,7 +72,7 @@ class ChapterReadViewModel {
         
         chapterDetail?.chapter?.imageObjets?.forEach({ (chapterImage) in
             if let imagePath = chapterImage.imagePath
-                , let urlString = DataRequester.getImageUrl(withImagePath: imagePath)
+                , let urlString = MangaEdenApi.getImageUrl(withImagePath: imagePath)
                 , let url = URL(string: urlString) {
                 
                 let urlRequest = URLRequest(url: url)

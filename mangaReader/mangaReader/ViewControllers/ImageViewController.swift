@@ -84,7 +84,7 @@ class ImageViewController: BaseViewController, UIScrollViewDelegate {
     func loadImage() {
         showLoading(backgroundColor: .clear)
         if let imagePath = chapterImage?.imagePath
-            , let urlString = DataRequester.getImageUrl(withImagePath: imagePath)
+            , let urlString = MangaEdenApi.getImageUrl(withImagePath: imagePath)
             , let url = URL(string: urlString) {
             
             imageView.af_setImage(withURL: url, placeholderImage: nil, imageTransition: .crossDissolve(0.2))  {[weak self] (imageDataResponse) in

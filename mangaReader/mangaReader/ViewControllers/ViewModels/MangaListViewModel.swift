@@ -85,7 +85,7 @@ extension MangaListViewModel {
         
         // load from network
         isLoading = true
-        DataRequester.getMangaList(page: currentPage, size: pageSize, sort: mangaSort) { [weak self] (mangalist, error) in
+        MangaEdenApi.getMangaList(page: currentPage, size: pageSize, sort: mangaSort) { [weak self] (mangalist, error) in
             guard let `self` = self else {return}
             self.mangas.append(contentsOf: mangalist ?? [])
             let refreshedManga = self.refreshManga()

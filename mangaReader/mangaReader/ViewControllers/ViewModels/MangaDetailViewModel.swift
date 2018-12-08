@@ -36,7 +36,7 @@ class MangaDetailViewModel {
     
     func getManga(completion: @escaping (MangaListResponse?, Error?) -> Void) {
         guard let mangaId = manga.mangaId else {return}
-        DataRequester.getMangaDetail(mangaIds: [mangaId], completion: { [weak self] (response, error) in
+        MangaEdenApi.getMangaDetail(mangaIds: [mangaId], completion: { [weak self] (response, error) in
             guard let manga = response?.mangalist?.first else {
                 completion(nil, error)
                 return

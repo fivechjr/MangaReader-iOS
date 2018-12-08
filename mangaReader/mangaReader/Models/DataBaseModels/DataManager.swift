@@ -45,7 +45,7 @@ class DataManager {
             return
         }
         
-        DataRequester.getCategories { [weak self] (response, error) in
+        MangaEdenApi.getCategories { [weak self] (response, error) in
             guard let `self` = self else {return}
             
             let categories = response?.categoryNames?.compactMap { Utility.string($0, containsAny: SensitiveData.categories) ? nil : $0}

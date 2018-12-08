@@ -1,5 +1,5 @@
 //
-//  DataRequester.swift
+//  MangaEdenApi.swift
 //  mangaReader
 //
 //  Created by Yiming Dong on 16/04/2018.
@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-class DataRequester {
+class MangaEdenApi {
     static func getMangaDetail(mangaIds: [String], completion:@escaping (MangaListResponse?, Error?) -> Void) {
         let path = MangaEndpoint.manga.path
         let parameters = ["mangaedenid": mangaIds]

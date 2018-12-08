@@ -100,7 +100,7 @@
 		8CD878C120A16B4100E3B362 /* AdsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD878C020A16B4100E3B362 /* AdsManager.swift */; };
 		8CD98FA320A52B23002C448F /* GuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD98FA220A52B23002C448F /* GuideView.swift */; };
 		8CD98FA520A52B31002C448F /* GuideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CD98FA420A52B31002C448F /* GuideView.xib */; };
-		8CF7EFAA208450D400E6AB6C /* DataRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF7EFA9208450D400E6AB6C /* DataRequester.swift */; };
+		8CF7EFAA208450D400E6AB6C /* MangaEdenApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF7EFA9208450D400E6AB6C /* MangaEdenApi.swift */; };
 		8CF7EFAD2084565000E6AB6C /* MangaListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF7EFAC2084565000E6AB6C /* MangaListResponse.swift */; };
 		D74D4AE10A063344E211FAFD /* Pods_mangaReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2413CBD7973B09B0B8FBB6B /* Pods_mangaReader.framework */; };
 /* End PBXBuildFile section */
@@ -223,7 +223,7 @@
 		8CD87B2120A3E5B200E3B362 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8CD98FA220A52B23002C448F /* GuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideView.swift; sourceTree = "<group>"; };
 		8CD98FA420A52B31002C448F /* GuideView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GuideView.xib; sourceTree = "<group>"; };
-		8CF7EFA9208450D400E6AB6C /* DataRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRequester.swift; sourceTree = "<group>"; };
+		8CF7EFA9208450D400E6AB6C /* MangaEdenApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaEdenApi.swift; sourceTree = "<group>"; };
 		8CF7EFAC2084565000E6AB6C /* MangaListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaListResponse.swift; sourceTree = "<group>"; };
 		B2413CBD7973B09B0B8FBB6B /* Pods_mangaReader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_mangaReader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -278,10 +278,11 @@
 		8C3C8BD12196B282000F3FDD /* MangaSources */ = {
 			isa = PBXGroup;
 			children = (
+				8C3C8BEF21980E2C000F3FDD /* MangaSource.swift */,
+				8C3C8BD22196B2B4000F3FDD /* Lama */,
+				8CC9E45921BBCCA10098E505 /* MangaEden */,
 				8C3C8BED21980C1B000F3FDD /* FSInjector.swift */,
 				8C3C8BE82196BC44000F3FDD /* Protocols */,
-				8C3C8BD22196B2B4000F3FDD /* Lama */,
-				8C3C8BEF21980E2C000F3FDD /* MangaSource.swift */,
 			);
 			path = MangaSources;
 			sourceTree = "<group>";
@@ -443,8 +444,6 @@
 		8C96735921679A6C00DE5D69 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				8CF7EFA9208450D400E6AB6C /* DataRequester.swift */,
-				8C96735A21679AA200DE5D69 /* MangaEndpoint.swift */,
 				8C3C8BD32196B366000F3FDD /* NetworkManager.swift */,
 			);
 			path = Network;
@@ -539,6 +538,16 @@
 			path = Util;
 			sourceTree = "<group>";
 		};
+		8CC9E45921BBCCA10098E505 /* MangaEden */ = {
+			isa = PBXGroup;
+			children = (
+				8C967365216911B400DE5D69 /* ResponseModels */,
+				8CF7EFA9208450D400E6AB6C /* MangaEdenApi.swift */,
+				8C96735A21679AA200DE5D69 /* MangaEndpoint.swift */,
+			);
+			path = MangaEden;
+			sourceTree = "<group>";
+		};
 		8CCEADA721A12787005FC3B9 /* Reader */ = {
 			isa = PBXGroup;
 			children = (
@@ -563,7 +572,6 @@
 		8CF7EFAB2084560000E6AB6C /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				8C967365216911B400DE5D69 /* ResponseModels */,
 				8C9673642169118D00DE5D69 /* DataModels */,
 				8C96735921679A6C00DE5D69 /* Network */,
 				8C39477D208E1A6C00344FCF /* DataBaseModels */,
@@ -833,7 +841,7 @@
 				8C3C8BDD2196B794000F3FDD /* LamaDailyResponse.swift in Sources */,
 				8C81DCF12180DC8200F47A31 /* UITableView+Helper.swift in Sources */,
 				8C96737B216A5AF300DE5D69 /* MangaDetailHeaderCellModel.swift in Sources */,
-				8CF7EFAA208450D400E6AB6C /* DataRequester.swift in Sources */,
+				8CF7EFAA208450D400E6AB6C /* MangaEdenApi.swift in Sources */,
 				8C904D84208878E100A599E9 /* ChapterImage.swift in Sources */,
 				8C96737F216AD96400DE5D69 /* ChapterReadViewModel.swift in Sources */,
 				8C904D792085F78300A599E9 /* Manga.swift in Sources */,
