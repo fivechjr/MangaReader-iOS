@@ -180,4 +180,7 @@ extension PageReaderView: ImageViewControllerDelegate {
     func bottomAreaTapped(imageViewController: ImageViewController!) {
         gotoNextPage()
     }
+    
+    func imageLoaded() {
+    }
 }

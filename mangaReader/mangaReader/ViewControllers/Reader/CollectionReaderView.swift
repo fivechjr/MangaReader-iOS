@@ -57,6 +57,7 @@ class CollectionReaderView: NSObject, ReaderViewProtocol {
         }
         
         collectionView = UICollectionView(frame: parentVC.view.bounds, collectionViewLayout: layout)
+        collectionView.backgroundColor = .clear
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "pageCell")
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -102,7 +103,7 @@ class CollectionReaderView: NSObject, ReaderViewProtocol {
 
 extension CollectionReaderView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        var size = imageViewControllers[indexPath.item].sizeFitingWidth(collectionView.frame.width)
+        var size = imageViewControllers[indexPath.item].sizeFit(collectionView.frame.size)
         if size == CGSize.zero {
             size = collectionView.frame.size
         }
@@ -154,5 +155,9 @@ extension CollectionReaderView: ImageViewControllerDelegate {
     
     func bottomAreaTapped(imageViewController: ImageViewController!) {
         gotoNextPage()
+    }
+    
+    func imageLoaded() {
+        collectionView.reloadData()
     }
 }

@@ -14,6 +14,7 @@ protocol ImageViewControllerDelegate: class {
     func topAreaTapped(imageViewController: ImageViewController!)
     func centerAreaTapped(imageViewController: ImageViewController!)
     func bottomAreaTapped(imageViewController: ImageViewController!)
+    func imageLoaded()
 }
 
 class ImageViewController: BaseViewController, UIScrollViewDelegate {
@@ -88,16 +89,25 @@ class ImageViewController: BaseViewController, UIScrollViewDelegate {
             
             imageView.af_setImage(withURL: url, placeholderImage: nil, imageTransition: .crossDissolve(0.2))  {[weak self] (imageDataResponse) in
                 self?.hideLoading()
+                self?.delegate?.imageLoaded()
             }
         }
     }
     
-    func sizeFitingWidth(_ width: CGFloat) -> CGSize {
-        guard let image = imageView.image, image.size.height * image.size.width * width > 0 else {return CGSize.zero}
+    func sizeFit(_ pageSize: CGSize) -> CGSize {
+        guard let image = imageView.image,
+            image.size.height * image.size.width * pageSize.width * pageSize.height > 0 else {return CGSize.zero}
         
-        let scaledHeight = image.size.height * (width / image.size.width)
+        var size = pageSize
+        if ReaderMode.currentMode.direction == .vertical {
+            let scaledHeight = image.size.height * (pageSize.width / image.size.width)
+            size = CGSize(width: pageSize.width, height: scaledHeight)
+        } else {
+            let scaledWidth = image.size.width * (pageSize.height / image.size.height)
+            size = CGSize(width: scaledWidth, height: pageSize.height)
+        }
         
-        return CGSize(width: width, height: scaledHeight)
+        return size
     }
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
