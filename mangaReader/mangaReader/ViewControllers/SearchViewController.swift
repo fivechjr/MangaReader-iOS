@@ -89,11 +89,11 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        guard let manga = viewModel.manga(atIndex: indexPath.row) else {return}
+        guard let mangaId = viewModel.manga(atIndex: indexPath.row)?.mangaId else {return}
         
         let vc = MangaDetailViewController.newInstance() as! MangaDetailViewController
         
-        vc.viewModel = MangaDetailViewModel(manga: manga)
+        vc.viewModel = MangaDetailViewModel(mangaId: mangaId)
         
         navigationController?.pushViewController(vc, animated: true)
     }

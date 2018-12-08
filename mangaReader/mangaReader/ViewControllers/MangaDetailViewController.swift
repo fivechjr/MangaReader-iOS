@@ -71,16 +71,14 @@ class MangaDetailViewController: BaseViewController {
         nestCell.install(viewController: chaptersViewController, parent: self, toTheLeft: true)
         nestCell.install(viewController: infoViewController, parent: self, toTheLeft: false)
         
-        if (viewModel.getMangaIfNeeded { [weak self] (_, _) in
+        viewModel.getManga { [weak self] (_, _) in
             guard let `self` = self else {return}
             self.hideLoading()
             self.view.sendSubview(toBack: self.maskView)
             self.reload()
-            }) {
-            
-            showLoading()
-            view.bringSubview(toFront: maskView)
         }
+        showLoading()
+        view.bringSubview(toFront: maskView)
     }
     
     func continueReading() {

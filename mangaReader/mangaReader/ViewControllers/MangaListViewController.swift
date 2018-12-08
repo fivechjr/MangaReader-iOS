@@ -38,11 +38,11 @@ class MangaListViewController: BaseViewController {
             , let mangaDetailVC = segue.destination as? MangaDetailViewController
             , let cell = sender as? MangaListCollectionViewCell
             , let indexPath = mangaListCollectionView.indexPath(for: cell)
-            , let manga = viewModel.manga(atIndex: indexPath.item) else {
+            , let mangaId = viewModel.manga(atIndex: indexPath.item)?.mangaId else {
             return
         }
         
-        mangaDetailVC.viewModel = MangaDetailViewModel(manga: manga)
+        mangaDetailVC.viewModel = MangaDetailViewModel(mangaId: mangaId)
     }
 
     override func viewDidLoad() {
