@@ -10,6 +10,11 @@ import Foundation
 
 class LamaApi {
     
+    static func getTopic(id: Int, ascending: Bool = false, completion:@escaping (LamaTopicResponse?, Error?) -> Void) {
+        let path = LamaEndpoint.topic(id: id, sort: ascending ? 1 : 0).path
+        NetworkManager.get(urlString: path, responseType: LamaTopicResponse.self, completion: completion)
+    }
+    
     static func getDaily(tag: Int, offset: Int, limit: Int, completion:@escaping (LamaDailyResponse?, Error?) -> Void) {
         let path = LamaEndpoint.daily(tag: tag, offset: offset, limit: limit).path
         NetworkManager.get(urlString: path, responseType: LamaDailyResponse.self, completion: completion)

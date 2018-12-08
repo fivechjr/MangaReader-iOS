@@ -1,5 +1,5 @@
 //
-//  DatarequestorTests.swift
+//  MangaEdenApiTests.swift
 //  DatarequestorTests
 //
 //  Created by Yiming Dong on 2018/11/11.
@@ -9,7 +9,7 @@
 import XCTest
 @testable import mangaReader
 
-class DatarequestorTests: XCTestCase {
+class MangaEdenApiTests: XCTestCase {
 
     func test_getCategoryRecommend() {
         let exp = expectation(description: "should finish request")

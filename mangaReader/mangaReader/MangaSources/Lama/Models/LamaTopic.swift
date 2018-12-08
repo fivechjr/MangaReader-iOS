@@ -9,6 +9,7 @@
 import Foundation
 
 class LamaTopic: Codable {
+    var comics:[LamaComic]?
     var comics_count: Int?
     var cover_image_url: String?
     var created_at: Int?

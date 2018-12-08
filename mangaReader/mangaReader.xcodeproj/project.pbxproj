@@ -26,7 +26,7 @@
 		8C3C8BEE21980C1B000F3FDD /* FSInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3C8BED21980C1B000F3FDD /* FSInjector.swift */; };
 		8C3C8BF021980E2C000F3FDD /* MangaSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3C8BEF21980E2C000F3FDD /* MangaSource.swift */; };
 		8C3C8BF2219871A1000F3FDD /* ReportBadResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3C8BF1219871A1000F3FDD /* ReportBadResponse.swift */; };
-		8C3C8BFA21987492000F3FDD /* DatarequestorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3C8BF921987492000F3FDD /* DatarequestorTests.swift */; };
+		8C3C8BFA21987492000F3FDD /* MangaEdenApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3C8BF921987492000F3FDD /* MangaEdenApiTests.swift */; };
 		8C3C8C022199BD76000F3FDD /* LamaTopicsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3C8C012199BD76000F3FDD /* LamaTopicsResponse.swift */; };
 		8C4EFCDF208CD0B5007D342C /* MangaDetailHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4EFCDD208CD0B5007D342C /* MangaDetailHeaderTableViewCell.swift */; };
 		8C4EFCE2208D47DE007D342C /* MangaDetailTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4EFCE1208D47DE007D342C /* MangaDetailTabView.swift */; };
@@ -94,6 +94,8 @@
 		8CC9E3AB21A593F30098E505 /* SettingSelectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CC9E3A921A593F30098E505 /* SettingSelectCell.xib */; };
 		8CC9E3AD21A5A40F0098E505 /* Bundle+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC9E3AC21A5A40F0098E505 /* Bundle+Extension.swift */; };
 		8CC9E3B121A5AA990098E505 /* ReaderSettingsPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC9E3B021A5AA990098E505 /* ReaderSettingsPopupViewController.swift */; };
+		8CC9E45B21BC044B0098E505 /* LamaTopicResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC9E45A21BC044B0098E505 /* LamaTopicResponse.swift */; };
+		8CC9E45D21BC06200098E505 /* LamaApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC9E45C21BC06200098E505 /* LamaApiTests.swift */; };
 		8CCEADA921A127C5005FC3B9 /* ReaderViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CCEADA821A127C5005FC3B9 /* ReaderViewProtocol.swift */; };
 		8CCEADAB21A127F6005FC3B9 /* PageReaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CCEADAA21A127F6005FC3B9 /* PageReaderView.swift */; };
 		8CCEADAD21A12CA1005FC3B9 /* ReaderViewPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CCEADAC21A12CA1005FC3B9 /* ReaderViewPresenterProtocol.swift */; };
@@ -140,7 +142,7 @@
 		8C3C8BEF21980E2C000F3FDD /* MangaSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaSource.swift; sourceTree = "<group>"; };
 		8C3C8BF1219871A1000F3FDD /* ReportBadResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportBadResponse.swift; sourceTree = "<group>"; };
 		8C3C8BF721987492000F3FDD /* mangaReaderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = mangaReaderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8C3C8BF921987492000F3FDD /* DatarequestorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatarequestorTests.swift; sourceTree = "<group>"; };
+		8C3C8BF921987492000F3FDD /* MangaEdenApiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaEdenApiTests.swift; sourceTree = "<group>"; };
 		8C3C8BFB21987492000F3FDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8C3C8C012199BD76000F3FDD /* LamaTopicsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LamaTopicsResponse.swift; sourceTree = "<group>"; };
 		8C4EFCDD208CD0B5007D342C /* MangaDetailHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaDetailHeaderTableViewCell.swift; sourceTree = "<group>"; };
@@ -213,6 +215,8 @@
 		8CC9E3A921A593F30098E505 /* SettingSelectCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingSelectCell.xib; sourceTree = "<group>"; };
 		8CC9E3AC21A5A40F0098E505 /* Bundle+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extension.swift"; sourceTree = "<group>"; };
 		8CC9E3B021A5AA990098E505 /* ReaderSettingsPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderSettingsPopupViewController.swift; sourceTree = "<group>"; };
+		8CC9E45A21BC044B0098E505 /* LamaTopicResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LamaTopicResponse.swift; sourceTree = "<group>"; };
+		8CC9E45C21BC06200098E505 /* LamaApiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LamaApiTests.swift; sourceTree = "<group>"; };
 		8CCEADA821A127C5005FC3B9 /* ReaderViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderViewProtocol.swift; sourceTree = "<group>"; };
 		8CCEADAA21A127F6005FC3B9 /* PageReaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageReaderView.swift; sourceTree = "<group>"; };
 		8CCEADAC21A12CA1005FC3B9 /* ReaderViewPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderViewPresenterProtocol.swift; sourceTree = "<group>"; };
@@ -313,6 +317,7 @@
 			children = (
 				8C3C8BDC2196B794000F3FDD /* LamaDailyResponse.swift */,
 				8C3C8C012199BD76000F3FDD /* LamaTopicsResponse.swift */,
+				8CC9E45A21BC044B0098E505 /* LamaTopicResponse.swift */,
 			);
 			path = ResponseModels;
 			sourceTree = "<group>";
@@ -337,8 +342,9 @@
 		8C3C8BF821987492000F3FDD /* mangaReaderTests */ = {
 			isa = PBXGroup;
 			children = (
-				8C3C8BF921987492000F3FDD /* DatarequestorTests.swift */,
 				8C3C8BFB21987492000F3FDD /* Info.plist */,
+				8C3C8BF921987492000F3FDD /* MangaEdenApiTests.swift */,
+				8CC9E45C21BC06200098E505 /* LamaApiTests.swift */,
 			);
 			path = mangaReaderTests;
 			sourceTree = "<group>";
@@ -771,7 +777,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8C3C8BFA21987492000F3FDD /* DatarequestorTests.swift in Sources */,
+				8C3C8BFA21987492000F3FDD /* MangaEdenApiTests.swift in Sources */,
+				8CC9E45D21BC06200098E505 /* LamaApiTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -806,6 +813,7 @@
 				8C9673692169135A00DE5D69 /* CategoryNamesResponse.swift in Sources */,
 				8CC9E3B121A5AA990098E505 /* ReaderSettingsPopupViewController.swift in Sources */,
 				8C3C8BD82196B40D000F3FDD /* LamaEndpoint.swift in Sources */,
+				8CC9E45B21BC044B0098E505 /* LamaTopicResponse.swift in Sources */,
 				8C3C8BEE21980C1B000F3FDD /* FSInjector.swift in Sources */,
 				8C9673812172F61300DE5D69 /* BaseViewController.swift in Sources */,
 				8C4EFCE5208DA61D007D342C /* MangaDetailTableViewCell.swift in Sources */,
