@@ -43,7 +43,7 @@ class ChapterReadViewController: BaseViewController {
     }
     
     override var prefersStatusBarHidden: Bool {
-        return true
+        return false
     }
     
     func setupReaderView(sameChapter: Bool = false) {
@@ -80,8 +80,7 @@ class ChapterReadViewController: BaseViewController {
     }
     
     private func start() -> Bool {
-        let isTheSameChapter = currentReaderView?.chapter?.isEqual(to: viewModel.chapterDetail?.chapter) ?? false
-        guard let chapter = viewModel.chapterDetail?.chapter, !isTheSameChapter else {return false}
+        guard let chapter = viewModel.chapterDetail?.chapter else {return false}
         currentReaderView?.chapter = chapter
         currentReaderView?.start()
         viewModel.downloadImages()

@@ -28,6 +28,7 @@ class ImagePageView: UIView {
     
     var imageUrl: String? {
         didSet {
+            imageView.image = nil
             loadImage(url: imageUrl)
         }
     }

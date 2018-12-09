@@ -27,24 +27,25 @@ class CollectionReaderView: NSObject, ReaderViewProtocol {
     }
     
     var imageCache = [String: UIImage?]()
+    var sizeCache = [String: CGSize]()
     
     private var collectionView: UICollectionView!
     
     private var parentVC: UIViewController?
     
     func uninstall(sameChapter: Bool) {
+        imageCache.removeAll()
+        sizeCache.removeAll()
         collectionView.removeFromSuperview()
     }
     
     func install(to parentVC: UIViewController) {
         self.parentVC = parentVC
         
-        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
         layout.sectionInset = UIEdgeInsets.zero
-        layout.estimatedItemSize = CGSize(width: 1, height: 1)
-//        layout.itemSize = parentVC.view.bounds.size
         
         if readerMode == .collectionVertical {
             layout.scrollDirection = .vertical
@@ -65,6 +66,12 @@ class CollectionReaderView: NSObject, ReaderViewProtocol {
         }
         
         parentVC.view.insertSubview(collectionView, at: 0)
+        collectionView.snp.makeConstraints { (maker) in
+            maker.top.equalTo(parentVC.view.snp.top).offset(UIApplication.shared.statusBarFrame.height)
+            maker.bottom.equalTo(parentVC.view.snp.bottom)
+            maker.leading.equalTo(parentVC.view.snp.leading)
+            maker.trailing.equalTo(parentVC.view.snp.trailing)
+        }
         
         start()
     }
@@ -99,28 +106,24 @@ class CollectionReaderView: NSObject, ReaderViewProtocol {
             collectionView.setContentOffset(targetOffset, animated: true)
         }
     }
+    
+    private var isVertical: Bool {
+        return ReaderMode.currentMode.direction == .vertical
+    }
 }
 
 extension CollectionReaderView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        let layout = collectionViewLayout as! UICollectionViewFlowLayout
-        var collectionViewSize = collectionView.frame.size
-//        return collectionViewSize
-//        let width = collectionView.frame.size.width - collectionView.contentInset.left - collectionView.contentInset.right - layout.sectionInset.left - layout.sectionInset.right
-//        let height = collectionView.frame.size.height - collectionView.contentInset.top - collectionView.contentInset.bottom - layout.sectionInset.top - layout.sectionInset.bottom
-//        collectionViewSize = CGSize(width: width, height: height)
+
+        let collectionViewSize = collectionView.frame.size
+
         let imageUrl = imageUrls[indexPath.item]
-        guard let image = imageCache[imageUrl] as? UIImage else {
+        guard let size = sizeCache[imageUrl], size != CGSize.zero else {
             return collectionViewSize
         }
-        
-        var size = image.sizeFit(collectionViewSize)
-        if size == CGSize.zero {
-            size = collectionViewSize
-        }
-        
-        print("collection cell size: \(size), indexpath: \(indexPath)")
-        return CGSize(width: 400, height: 200)
+
+//        print("collection cell size: \(size), indexpath: \(indexPath)")
+        return size
     }
 }
 
@@ -134,8 +137,8 @@ extension CollectionReaderView: UICollectionViewDataSource {
         
         let imageUrl = imageUrls[indexPath.item]
         
-        cell.imagePageView.imageUrl = imageUrl
         cell.imagePageView.delegate = self
+        cell.imagePageView.imageUrl = imageUrl
         
         return cell
     }
@@ -155,16 +158,17 @@ extension CollectionReaderView: ImagePageViewDelegate {
     }
     
     func imageLoaded(imagePageView: ImagePageView?) {
-        guard let imageUrl = imagePageView?.imageUrl, imageCache[imageUrl] == nil,
-            let index = imageUrls.firstIndex(where: {$0 == imageUrl}) else {
+        guard let imageUrl = imagePageView?.imageUrl,
+            imageCache[imageUrl] == nil,
+            let image = imagePageView?.imageView.image else {
                 return
         }
         
-        imageCache[imageUrl] = imagePageView?.imageView.image
-//        collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+        imageCache[imageUrl] = image
+        sizeCache[imageUrl] = image.sizeFit(collectionView.frame.size)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.collectionView.collectionViewLayout.invalidateLayout()
-            self.collectionView.reloadData()
         }
     }
 }
