@@ -10,12 +10,12 @@ import Foundation
 import AlamofireImage
 
 class ChapterReadViewModel {
-    var chapterObject: EdenChapter
+    var chapterObject: ChapterProtocol
     var manga: MangaProtocol
     
     var currentPageIndex: Int = 0
     
-    init(chapterObject: EdenChapter, manga: MangaProtocol) {
+    init(chapterObject: ChapterProtocol, manga: MangaProtocol) {
         self.chapterObject = chapterObject
         self.manga = manga
     }
@@ -26,7 +26,7 @@ class ChapterReadViewModel {
     private var receipts: [RequestReceipt] = []
     
     var chapterName: String {
-        let name = chapterObject.title ?? String(chapterObject.number ?? 0)
+        let name = chapterObject.chapterTitle ?? chapterObject.chapterId ?? ""
         return "\(LocalizedString("Chapter")) - '\(name)'"
     }
     
@@ -53,7 +53,7 @@ class ChapterReadViewModel {
     }
     
     func getChapterDetail(completion: @escaping (EdenChapterDetailResponse?, Error?) -> Void) {
-        guard let mangaId = manga.mangaId, let chapterId = chapterObject.id else {return}
+        guard let mangaId = manga.mangaId, let chapterId = chapterObject.chapterId else {return}
         
         MangaEdenApi.getChapterDetail(mangaId: mangaId, chapterId: chapterId) { [weak self] (chapterDetail, error) in
             self?.chapterDetail = chapterDetail
@@ -89,12 +89,12 @@ class ChapterReadViewModel {
     }
     
     func recordCurrentChapter() {
-        DataManager.shared.recordCurrentChapter(chapterId: chapterObject.id, mangaId: manga.mangaId)
+        DataManager.shared.recordCurrentChapter(chapterId: chapterObject.chapterId, mangaId: manga.mangaId)
     }
     
     func getCurrentChapterIndex() -> Int? {
         
-        guard let chapterObjects = manga.chapterObjects, let currentId = chapterObject.id else {
+        guard let chapterObjects = manga.chapterObjects, let currentId = chapterObject.chapterId else {
             return nil
         }
         

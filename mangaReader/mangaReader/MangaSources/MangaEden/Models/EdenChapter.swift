@@ -48,7 +48,7 @@ extension EdenChapter: ChapterProtocol {
     
     var chapterTitle: String? {
         get {
-            return title
+            return title ?? String(number ?? 0)
         }
         set {
             title = newValue
@@ -63,15 +63,4 @@ extension EdenChapter: ChapterProtocol {
             updateTime = newValue
         }
     }
-    
-    var chapterImages: [String]? {
-        get {
-            return nil
-        }
-        set {
-            
-        }
-    }
-    
-    
 }

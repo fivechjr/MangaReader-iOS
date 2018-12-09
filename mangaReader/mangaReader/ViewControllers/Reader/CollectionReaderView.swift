@@ -19,7 +19,7 @@ class CollectionReaderView: NSObject, ReaderViewProtocol {
         didSet {
             imageViewControllers.removeAll()
             chapter?.imageObjets?.forEach({ (chapterImage) in
-                let imageVC = ImageViewController()
+                let imageVC = ImagePageViewController()
                 imageVC.chapterImage = chapterImage
                 imageVC.delegate = self
                 imageViewControllers.append(imageVC)
@@ -27,9 +27,7 @@ class CollectionReaderView: NSObject, ReaderViewProtocol {
         }
     }
     
-    private var currentImageViewController: ImageViewController?
-    
-    private var imageViewControllers: [ImageViewController] = [ImageViewController]()
+    private var imageViewControllers: [ImagePageViewController] = [ImagePageViewController]()
     
     private var collectionView: UICollectionView!
     
@@ -37,10 +35,6 @@ class CollectionReaderView: NSObject, ReaderViewProtocol {
     
     
     func uninstall(sameChapter: Bool) {
-        if (!sameChapter) {
-            currentImageViewController = nil
-        }
-        
         collectionView.removeFromSuperview()
     }
     
@@ -49,6 +43,8 @@ class CollectionReaderView: NSObject, ReaderViewProtocol {
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
+        layout.sectionInset = UIEdgeInsets.zero
         layout.estimatedItemSize = parentVC.view.bounds.size
         if readerMode == .collectionVertical {
             layout.scrollDirection = .vertical
@@ -97,17 +93,17 @@ class CollectionReaderView: NSObject, ReaderViewProtocol {
             collectionView.setContentOffset(targetOffset, animated: true)
         }
     }
-    
-    
 }
 
 extension CollectionReaderView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
         var size = imageViewControllers[indexPath.item].sizeFit(collectionView.frame.size)
         if size == CGSize.zero {
             size = collectionView.frame.size
         }
         
+        print("collection cell size: \(size), indexpath: \(indexPath)")
         return size
     }
 }
@@ -119,47 +115,47 @@ extension CollectionReaderView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "pageCell", for: indexPath)
+//        cell.translatesAutoresizingMaskIntoConstraints = false
         
         guard let parent = parentVC else {return cell}
         
         let imageViewController = imageViewControllers[indexPath.item]
         
-        currentImageViewController?.willMove(toParentViewController: nil)
         cell.contentView.subviews.forEach({$0.removeFromSuperview()})
-        currentImageViewController?.removeFromParentViewController()
         
         imageViewController.willMove(toParentViewController: parent)
         parentVC?.addChildViewController(imageViewController)
-        cell.addSubview(imageViewController.view)
+        cell.contentView.addSubview(imageViewController.view)
         
         imageViewController.view?.snp.makeConstraints { (maker) in
             maker.edges.equalToSuperview()
         }
         
         imageViewController.didMove(toParentViewController: parent)
-        currentImageViewController = imageViewController
         
         return cell
     }
     
 }
 
-extension CollectionReaderView: ImageViewControllerDelegate {
-    func topAreaTapped(imageViewController: ImageViewController!) {
+extension CollectionReaderView: ImagePageViewDelegate {
+    func topAreaTapped(chapterImage: ChapterImage?) {
         gotoPreviousPage()
     }
     
-    func centerAreaTapped(imageViewController: ImageViewController!) {
+    func centerAreaTapped(chapterImage: ChapterImage?) {
         presenter?.viewNeedToggleMenu()
     }
     
-    func bottomAreaTapped(imageViewController: ImageViewController!) {
+    func bottomAreaTapped(chapterImage: ChapterImage?) {
         gotoNextPage()
     }
     
-    func imageLoaded(imageViewController: ImageViewController!) {
-        guard let index = imageViewControllers.firstIndex(of: imageViewController) else {return}
+    func imageLoaded(chapterImage: ChapterImage?) {
+        guard let chapterImage = chapterImage,
+            let index = chapter?.imageObjets?.firstIndex(where: {$0 === chapterImage}) else {return}
         
+//        collectionView.reloadData()
         collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
     }
 }

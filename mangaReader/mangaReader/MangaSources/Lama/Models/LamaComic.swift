@@ -34,3 +34,33 @@ class LamaComic: Codable {
     var url: String?
     var zoomable: Int?
 }
+
+extension LamaComic: ChapterProtocol {
+    var chapterId: String? {
+        get {
+            return "\(id ?? 0)"
+        }
+        set {
+            id = Int(newValue ?? "0")
+        }
+    }
+    
+    var chapterTitle: String? {
+        get {
+            return title
+        }
+        set {
+            title = newValue
+        }
+    }
+    
+    var chapterUpdateTime: Double? {
+        get {
+            return Double(updated_at ?? 0)
+        }
+        set {
+            updated_at = Int(newValue ?? 0)
+        }
+    }
+    
+}

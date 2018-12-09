@@ -1,23 +1,31 @@
 //
-//  ImageViewController.swift
+//  ImagePageView.swift
 //  mangaReader
 //
-//  Created by Yiming Dong on 19/04/2018.
+//  Created by Yiming Dong on 2018/12/9.
 //  Copyright © 2018 Yiming Dong. All rights reserved.
 //
 
-import UIKit
+import Foundation
 import SnapKit
 import NVActivityIndicatorView
 
-protocol ImageViewControllerDelegate: class {
-    func topAreaTapped(imageViewController: ImageViewController!)
-    func centerAreaTapped(imageViewController: ImageViewController!)
-    func bottomAreaTapped(imageViewController: ImageViewController!)
-    func imageLoaded(imageViewController: ImageViewController!)
+protocol ImagePageViewDelegate: class {
+    func topAreaTapped(chapterImage: ChapterImage?)
+    func centerAreaTapped(chapterImage: ChapterImage?)
+    func bottomAreaTapped(chapterImage: ChapterImage?)
+    func imageLoaded(chapterImage: ChapterImage?)
 }
 
-class ImageViewController: BaseViewController, UIScrollViewDelegate {
+class ImagePageView: UIView {
+    
+    var chapterImage: ChapterImage? {
+        didSet {
+            loadImage()
+        }
+    }
+    
+    weak var delegate: ImagePageViewDelegate?
     
     var imageView: UIImageView = {
         let imageView = UIImageView(frame: CGRect.zero)
@@ -36,30 +44,22 @@ class ImageViewController: BaseViewController, UIScrollViewDelegate {
         return imageScrollView
     }()
     
-    weak var delegate: ImageViewControllerDelegate?
-    
-    var chapterImage: ChapterImage?
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        imageScrollView.zoomScale = 1.0
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        doInit()
     }
     
-    override func updateTheme() {
-        let theme = ThemeManager.shared.currentTheme
-        view.backgroundColor = theme.backgroundSecondColor
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        doInit()
     }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        view.backgroundColor = UIColor(white: 0.95, alpha: 1)
-        
+    
+    private func doInit() {
         imageScrollView.delegate = self
-        view.addSubview(imageScrollView)
+        addSubview(imageScrollView)
         imageScrollView.snp.makeConstraints { (maker) in
             maker.edges.equalToSuperview()
         }
-        
         
         imageScrollView.addSubview(imageView)
         imageView.snp.makeConstraints { (maker) in
@@ -68,17 +68,15 @@ class ImageViewController: BaseViewController, UIScrollViewDelegate {
             maker.height.equalToSuperview()
         }
         
-        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(ImageViewController.handleDoubleTapScrollView(_:)))
+        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(ImagePageView.handleDoubleTapScrollView(_:)))
         doubleTapGesture.numberOfTapsRequired = 2
-        view.addGestureRecognizer(doubleTapGesture)
+        addGestureRecognizer(doubleTapGesture)
         
-        let singleTapGesture = UITapGestureRecognizer(target: self, action: #selector(ImageViewController.handleSingleTapScrollView(_:)))
+        let singleTapGesture = UITapGestureRecognizer(target: self, action: #selector(ImagePageView.handleSingleTapScrollView(_:)))
         singleTapGesture.numberOfTapsRequired = 1
-        view.addGestureRecognizer(singleTapGesture)
+        addGestureRecognizer(singleTapGesture)
         
         singleTapGesture.require(toFail: doubleTapGesture)
-        
-        loadImage()
     }
     
     func loadImage() {
@@ -90,7 +88,7 @@ class ImageViewController: BaseViewController, UIScrollViewDelegate {
             imageView.af_setImage(withURL: url, placeholderImage: nil, imageTransition: .crossDissolve(0.2))  {[weak self] (imageDataResponse) in
                 guard let `self` = self else {return}
                 self.hideLoading()
-                self.delegate?.imageLoaded(imageViewController: self)
+                self.delegate?.imageLoaded(chapterImage: self.chapterImage)
             }
         }
     }
@@ -111,15 +109,10 @@ class ImageViewController: BaseViewController, UIScrollViewDelegate {
         return size
     }
     
-    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        return imageView
-    }
-    
     @objc func handleSingleTapScrollView(_ recognizer: UITapGestureRecognizer) {
-        
         guard let recognizerView = recognizer.view,
             let currentWindow = UIApplication.shared.delegate?.window as? UIWindow else {
-            return
+                return
         }
         
         let viewHeight = currentWindow.frame.size.height
@@ -131,19 +124,19 @@ class ImageViewController: BaseViewController, UIScrollViewDelegate {
         
         if readModel.direction == .vertical {
             if (locationInWindow.y < viewHeight * 0.3) {
-                delegate?.topAreaTapped(imageViewController: self)
+                delegate?.topAreaTapped(chapterImage: chapterImage)
             } else if (locationInWindow.y > viewHeight * 0.7) {
-                delegate?.bottomAreaTapped(imageViewController: self)
+                delegate?.bottomAreaTapped(chapterImage: chapterImage)
             } else {
-                delegate?.centerAreaTapped(imageViewController: self)
+                delegate?.centerAreaTapped(chapterImage: chapterImage)
             }
         } else {
             if (locationInWindow.x < viewWidth * 0.3) {
-                delegate?.topAreaTapped(imageViewController: self)
+                delegate?.topAreaTapped(chapterImage: chapterImage)
             } else if (locationInWindow.x > viewWidth * 0.7) {
-                delegate?.bottomAreaTapped(imageViewController: self)
+                delegate?.bottomAreaTapped(chapterImage: chapterImage)
             } else {
-                delegate?.centerAreaTapped(imageViewController: self)
+                delegate?.centerAreaTapped(chapterImage: chapterImage)
             }
         }
     }
@@ -157,14 +150,20 @@ class ImageViewController: BaseViewController, UIScrollViewDelegate {
             imageScrollView.setZoomScale(1, animated: true)
         }
     }
-
+    
     func zoomRectForScale(scale: CGFloat, center: CGPoint) -> CGRect {
         var zoomRect = CGRect.zero
         zoomRect.size.height = imageView.frame.size.height / scale
         zoomRect.size.width  = imageView.frame.size.width  / scale
-//        let newCenter = imageScrollView.convert(center, from: imageView)
+        //        let newCenter = imageScrollView.convert(center, from: imageView)
         zoomRect.origin.x = center.x - (zoomRect.size.width / 2.0)
         zoomRect.origin.y = center.y - (zoomRect.size.height / 2.0)
         return zoomRect
+    }
+}
+
+extension ImagePageView: UIScrollViewDelegate {
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return imageView
     }
 }

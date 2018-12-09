@@ -16,15 +16,15 @@ class PageReaderView: NSObject, ReaderViewProtocol {
     
     var pageViewController: UIPageViewController!
     
-    private var currentImageViewController: ImageViewController?
+    private var currentImageViewController: ImagePageViewController?
     
-    private var imageViewControllers: [ImageViewController] = [ImageViewController]()
+    private var imageViewControllers: [ImagePageViewController] = [ImagePageViewController]()
     
     var chapter: EdenChapterDetail? {
         didSet {
             imageViewControllers.removeAll()
             chapter?.imageObjets?.forEach({ (chapterImage) in
-                let imageVC = ImageViewController()
+                let imageVC = ImagePageViewController()
                 imageVC.chapterImage = chapterImage
                 imageVC.delegate = self
                 imageViewControllers.append(imageVC)
@@ -36,7 +36,7 @@ class PageReaderView: NSObject, ReaderViewProtocol {
         // Remove first
         if pageViewController != nil {
             if (sameChapter) {
-                currentImageViewController = pageViewController.viewControllers?.first as? ImageViewController
+                currentImageViewController = pageViewController.viewControllers?.first as? ImagePageViewController
             } else {
                 currentImageViewController = nil
             }
@@ -73,7 +73,7 @@ class PageReaderView: NSObject, ReaderViewProtocol {
     }
     
     func start() {
-        var imageViewController: ImageViewController? = nil
+        var imageViewController: ImagePageViewController? = nil
         if let currentImageViewController = currentImageViewController {
             imageViewController = currentImageViewController
         } else {
@@ -88,7 +88,7 @@ class PageReaderView: NSObject, ReaderViewProtocol {
     }
     
     func gotoPreviousPage() {
-        guard let viewController = pageViewController.viewControllers?.first as? ImageViewController
+        guard let viewController = pageViewController.viewControllers?.first as? ImagePageViewController
             , imageViewControllers.count > 1
             , let index = imageViewControllers.index(of: viewController)
             , index > 0
@@ -104,7 +104,7 @@ class PageReaderView: NSObject, ReaderViewProtocol {
     }
     
     func gotoNextPage() {
-        guard let viewController = pageViewController.viewControllers?.first as? ImageViewController
+        guard let viewController = pageViewController.viewControllers?.first as? ImagePageViewController
             , imageViewControllers.count > 1
             , let index = imageViewControllers.index(of: viewController)
             , index < imageViewControllers.count - 1
@@ -123,7 +123,7 @@ class PageReaderView: NSObject, ReaderViewProtocol {
 extension PageReaderView: UIPageViewControllerDataSource {
     
     public func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        guard let viewController = viewController as? ImageViewController
+        guard let viewController = viewController as? ImagePageViewController
             , imageViewControllers.count > 1
             , let index = imageViewControllers.index(of: viewController)
             , index > 0 else {
@@ -136,7 +136,7 @@ extension PageReaderView: UIPageViewControllerDataSource {
     }
     
     public func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        guard let viewController = viewController as? ImageViewController
+        guard let viewController = viewController as? ImagePageViewController
             , imageViewControllers.count > 1
             , let index = imageViewControllers.index(of: viewController)
             , index < imageViewControllers.count - 1 else {
@@ -152,7 +152,7 @@ extension PageReaderView: UIPageViewControllerDataSource {
 extension PageReaderView: UIPageViewControllerDelegate {
     
     var currentIndex: Int {
-        guard let viewController = pageViewController.viewControllers?.first as? ImageViewController
+        guard let viewController = pageViewController.viewControllers?.first as? ImagePageViewController
             , let index = imageViewControllers.index(of: viewController)
             else {
                 return 0
@@ -163,24 +163,24 @@ extension PageReaderView: UIPageViewControllerDelegate {
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         
-        currentImageViewController = pageViewController.viewControllers?.first as? ImageViewController
+        currentImageViewController = pageViewController.viewControllers?.first as? ImagePageViewController
         presenter?.viewDidChangePage(currentIndex)
     }
 }
 
-extension PageReaderView: ImageViewControllerDelegate {
-    func topAreaTapped(imageViewController: ImageViewController!) {
+extension PageReaderView: ImagePageViewDelegate {
+    func topAreaTapped(chapterImage: ChapterImage?) {
         gotoPreviousPage()
     }
     
-    func centerAreaTapped(imageViewController: ImageViewController!) {
+    func centerAreaTapped(chapterImage: ChapterImage?) {
         presenter?.viewNeedToggleMenu()    
     }
     
-    func bottomAreaTapped(imageViewController: ImageViewController!) {
+    func bottomAreaTapped(chapterImage: ChapterImage?) {
         gotoNextPage()
     }
     
-    func imageLoaded(imageViewController: ImageViewController!) {
+    func imageLoaded(chapterImage: ChapterImage?) {
     }
 }

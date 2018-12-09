@@ -12,5 +12,4 @@ protocol ChapterProtocol {
     var chapterId: String? {get set}
     var chapterTitle: String? {get set}
     var chapterUpdateTime: Double? {get set}
-    var chapterImages: [String]? {get set}
 }

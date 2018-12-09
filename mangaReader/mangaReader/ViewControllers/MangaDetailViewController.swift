@@ -82,7 +82,7 @@ class MangaDetailViewController: BaseViewController {
     }
     
     func continueReading() {
-        var chapter: EdenChapter?
+        var chapter: ChapterProtocol?
         
         // if has recorded current chapter, read the current chapter
         if let currentChapterID = viewModel.currentChapterID {
