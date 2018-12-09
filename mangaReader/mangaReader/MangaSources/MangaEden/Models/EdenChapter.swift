@@ -1,5 +1,5 @@
 //
-//  Chapter.swift
+//  EdenChapter.swift
 //  mangaReader
 //
 //  Created by Yiming Dong on 17/04/2018.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Chapter: Codable {
+class EdenChapter: Codable {
     var id: String?
     var number: Int?
     var updateTime: Double?
@@ -34,4 +34,44 @@ class Chapter: Codable {
             }
         }
     }
+}
+
+extension EdenChapter: ChapterProtocol {
+    var chapterId: String? {
+        get {
+            return id
+        }
+        set {
+            id = newValue
+        }
+    }
+    
+    var chapterTitle: String? {
+        get {
+            return title
+        }
+        set {
+            title = newValue
+        }
+    }
+    
+    var chapterUpdateTime: Double? {
+        get {
+            return updateTime
+        }
+        set {
+            updateTime = newValue
+        }
+    }
+    
+    var chapterImages: [String]? {
+        get {
+            return nil
+        }
+        set {
+            
+        }
+    }
+    
+    
 }

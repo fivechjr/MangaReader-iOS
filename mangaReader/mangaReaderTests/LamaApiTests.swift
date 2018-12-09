@@ -26,7 +26,7 @@ class LamaApiTests: XCTestCase {
     
     func test_getChapter_ok() {
         let exp = expectation(description: "should finish request")
-        LamaApi.getChapter(id: 658814) { (response, error) in
+        LamaApi.getChapter(id: 658812) { (response, error) in
             exp.fulfill()
             XCTAssertNotNil(response)
             XCTAssertNotNil(response?.data)

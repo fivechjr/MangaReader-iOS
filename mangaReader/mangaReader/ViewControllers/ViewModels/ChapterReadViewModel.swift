@@ -10,12 +10,12 @@ import Foundation
 import AlamofireImage
 
 class ChapterReadViewModel {
-    var chapterObject: Chapter
+    var chapterObject: EdenChapter
     var manga: MangaProtocol
     
     var currentPageIndex: Int = 0
     
-    init(chapterObject: Chapter, manga: MangaProtocol) {
+    init(chapterObject: EdenChapter, manga: MangaProtocol) {
         self.chapterObject = chapterObject
         self.manga = manga
     }
@@ -107,7 +107,7 @@ class ChapterReadViewModel {
         return nil;
     }
     
-    func chapter(next: Bool) -> Chapter? {
+    func chapter(next: Bool) -> EdenChapter? {
         guard var index = getCurrentChapterIndex()
             , let chapterObjects = manga.chapterObjects else {
                 return nil

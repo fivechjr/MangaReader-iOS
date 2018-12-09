@@ -35,12 +35,12 @@ class MangaDetailViewModel: MangaDetailViewModelProtocol {
     }
     
     /// get chapter by id
-    func getChapter(withID chapterID: String?) ->Chapter? {
+    func getChapter(withID chapterID: String?) ->EdenChapter? {
         guard let chapterID = chapterID, let chapterObjects = manga.chapterObjects else {
             return nil
         }
         
-        var theChapter: Chapter? = nil
+        var theChapter: EdenChapter? = nil
         
         for (_, chapter) in chapterObjects.enumerated() {
             if let id = chapter.id, id == chapterID {

@@ -83,7 +83,7 @@ extension LamaTopic: MangaProtocol {
     var isCompleted: Bool {
         return false
     }
-    var chapterObjects: [Chapter]? {
+    var chapterObjects: [EdenChapter]? {
         return []
     }
     
