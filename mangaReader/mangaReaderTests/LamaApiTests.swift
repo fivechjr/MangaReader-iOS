@@ -23,4 +23,17 @@ class LamaApiTests: XCTestCase {
         
         wait(for: [exp], timeout: 30)
     }
+    
+    func test_getChapter_ok() {
+        let exp = expectation(description: "should finish request")
+        LamaApi.getChapter(id: 658814) { (response, error) in
+            exp.fulfill()
+            XCTAssertNotNil(response)
+            XCTAssertNotNil(response?.data)
+            XCTAssertFalse(response?.data?.images?.isEmpty ?? true)
+            XCTAssertNil(error)
+        }
+        
+        wait(for: [exp], timeout: 30)
+    }
 }
