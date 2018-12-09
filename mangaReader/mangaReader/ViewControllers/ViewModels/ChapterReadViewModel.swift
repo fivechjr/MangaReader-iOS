@@ -20,7 +20,7 @@ class ChapterReadViewModel {
         self.manga = manga
     }
     
-    var chapterDetail: ChapterDetailResponse?
+    var chapterDetail: EdenChapterDetailResponse?
     
     let downloader = ImageDownloader()
     private var receipts: [RequestReceipt] = []
@@ -52,7 +52,7 @@ class ChapterReadViewModel {
         return false
     }
     
-    func getChapterDetail(completion: @escaping (ChapterDetailResponse?, Error?) -> Void) {
+    func getChapterDetail(completion: @escaping (EdenChapterDetailResponse?, Error?) -> Void) {
         guard let mangaId = manga.mangaId, let chapterId = chapterObject.id else {return}
         
         MangaEdenApi.getChapterDetail(mangaId: mangaId, chapterId: chapterId) { [weak self] (chapterDetail, error) in

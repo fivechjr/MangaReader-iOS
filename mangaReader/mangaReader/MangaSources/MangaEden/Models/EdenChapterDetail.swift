@@ -1,19 +1,14 @@
 //
-//  ChapterDetailResponse.swift
+//  EdenChapterDetail.swift
 //  mangaReader
 //
-//  Created by Yiming Dong on 19/04/2018.
+//  Created by Yiming Dong on 2018/12/9.
 //  Copyright © 2018 Yiming Dong. All rights reserved.
 //
 
 import Foundation
 
-class ChapterDetailResponse: Codable {
-    var result: Int?
-    var chapter: ChapterDetail?
-}
-
-class ChapterDetail: Codable {
+class EdenChapterDetail: Codable {
     var _id: String?
     var chapterid: String?
     var mangaedenid: String?
@@ -24,7 +19,7 @@ class ChapterDetail: Codable {
         return images?.map {ChapterImage(datas: $0)}
     }
     
-    func isEqual(to chapter: ChapterDetail?) -> Bool {
+    func isEqual(to chapter: EdenChapterDetail?) -> Bool {
         guard let chapter = chapter, let id = chapter._id, let thisId = _id else {return false}
         return thisId == id
     }

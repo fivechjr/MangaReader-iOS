@@ -15,7 +15,7 @@ class CollectionReaderView: NSObject, ReaderViewProtocol {
     
     var presenter: ReaderViewPresenterProtocol?
     
-    var chapter: ChapterDetail? {
+    var chapter: EdenChapterDetail? {
         didSet {
             imageViewControllers.removeAll()
             chapter?.imageObjets?.forEach({ (chapterImage) in

@@ -20,7 +20,7 @@ class PageReaderView: NSObject, ReaderViewProtocol {
     
     private var imageViewControllers: [ImageViewController] = [ImageViewController]()
     
-    var chapter: ChapterDetail? {
+    var chapter: EdenChapterDetail? {
         didSet {
             imageViewControllers.removeAll()
             chapter?.imageObjets?.forEach({ (chapterImage) in

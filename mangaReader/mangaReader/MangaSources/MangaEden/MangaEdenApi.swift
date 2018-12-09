@@ -16,9 +16,9 @@ class MangaEdenApi {
         NetworkManager.post(urlString: path, parameters: parameters, responseType: MangaListResponse.self, completion: completion)
     }
     
-    static func getChapterDetail(mangaId: String, chapterId: String, completion:@escaping (ChapterDetailResponse?, Error?) -> Void) {
+    static func getChapterDetail(mangaId: String, chapterId: String, completion:@escaping (EdenChapterDetailResponse?, Error?) -> Void) {
         let path = MangaEndpoint.chapter(mangaId: mangaId, chapterId: chapterId).path
-        NetworkManager.get(urlString: path, responseType: ChapterDetailResponse.self, completion: completion)
+        NetworkManager.get(urlString: path, responseType: EdenChapterDetailResponse.self, completion: completion)
     }
     
     static func getMangaList(page:Int, size:Int, sort: MangaSort, categoryNames: [String]? = nil, completion:@escaping ([Manga]?, Error?) -> Void) {
