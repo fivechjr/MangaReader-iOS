@@ -8,11 +8,27 @@
 
 import Foundation
 
-class ChapterImage: Codable {
+class ChapterImage: Codable, Equatable {
+    
+    static func == (lhs: ChapterImage, rhs: ChapterImage) -> Bool {
+        guard let path1 = lhs.imagePath, let path2 = rhs.imagePath else {
+            return lhs === rhs
+        }
+        
+        return path1 == path2
+    }
+    
     var number: Int?
     var imagePath: String?
     var chapterNumber: Int?
     var hitCount: Int?
+    
+    private enum CodingKeys: String, CodingKey {
+        case number
+        case imagePath
+        case chapterNumber
+        case hitCount
+    }
     
     init(datas: [CodableValue?]?) {
         

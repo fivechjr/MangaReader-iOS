@@ -42,8 +42,4 @@ class ImagePageViewController: BaseViewController {
             maker.edges.equalToSuperview()
         }
     }
-    
-    func sizeFit(_ pageSize: CGSize) -> CGSize {
-        return imagePageView.sizeFit(pageSize)
-    }
 }

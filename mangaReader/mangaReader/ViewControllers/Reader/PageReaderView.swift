@@ -20,14 +20,21 @@ class PageReaderView: NSObject, ReaderViewProtocol {
     
     private var imageViewControllers: [ImagePageViewController] = [ImagePageViewController]()
     
+    var imageUrls = [String]()
+    
     var chapter: EdenChapterDetail? {
         didSet {
+            imageUrls.removeAll()
             imageViewControllers.removeAll()
             chapter?.imageObjets?.forEach({ (chapterImage) in
-                let imageVC = ImagePageViewController()
-                imageVC.chapterImage = chapterImage
-                imageVC.delegate = self
-                imageViewControllers.append(imageVC)
+                if let imagePath = chapterImage.imagePath {
+                    imageUrls.append(imagePath)
+                    
+                    let imageVC = ImagePageViewController()
+                    imageVC.chapterImage = chapterImage
+                    imageVC.delegate = self
+                    imageViewControllers.append(imageVC)
+                }
             })
         }
     }
@@ -169,18 +176,18 @@ extension PageReaderView: UIPageViewControllerDelegate {
 }
 
 extension PageReaderView: ImagePageViewDelegate {
-    func topAreaTapped(chapterImage: ChapterImage?) {
+    func topAreaTapped(imagePageView: ImagePageView?) {
         gotoPreviousPage()
     }
     
-    func centerAreaTapped(chapterImage: ChapterImage?) {
+    func centerAreaTapped(imagePageView: ImagePageView?) {
         presenter?.viewNeedToggleMenu()    
     }
     
-    func bottomAreaTapped(chapterImage: ChapterImage?) {
+    func bottomAreaTapped(imagePageView: ImagePageView?) {
         gotoNextPage()
     }
     
-    func imageLoaded(chapterImage: ChapterImage?) {
+    func imageLoaded(imagePageView: ImagePageView?) {
     }
 }

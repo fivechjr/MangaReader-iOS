@@ -11,38 +11,32 @@ import SnapKit
 import NVActivityIndicatorView
 
 protocol ImagePageViewDelegate: class {
-    func topAreaTapped(chapterImage: ChapterImage?)
-    func centerAreaTapped(chapterImage: ChapterImage?)
-    func bottomAreaTapped(chapterImage: ChapterImage?)
-    func imageLoaded(chapterImage: ChapterImage?)
+    func topAreaTapped(imagePageView: ImagePageView?)
+    func centerAreaTapped(imagePageView: ImagePageView?)
+    func bottomAreaTapped(imagePageView: ImagePageView?)
+    func imageLoaded(imagePageView: ImagePageView?)
 }
 
 class ImagePageView: UIView {
     
     var chapterImage: ChapterImage? {
         didSet {
-            loadImage()
+            imageUrl = chapterImage?.imagePath
+            loadImage(url: imageUrl)
+        }
+    }
+    
+    var imageUrl: String? {
+        didSet {
+            loadImage(url: imageUrl)
         }
     }
     
     weak var delegate: ImagePageViewDelegate?
     
-    var imageView: UIImageView = {
-        let imageView = UIImageView(frame: CGRect.zero)
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
+    var imageView: UIImageView!
     
-    var imageScrollView: UIScrollView = {
-        let imageScrollView = UIScrollView(frame: CGRect.zero)
-        imageScrollView.minimumZoomScale = 1.0
-        imageScrollView.maximumZoomScale = 6.0
-        imageScrollView.alwaysBounceVertical = false
-        imageScrollView.alwaysBounceHorizontal = false
-        imageScrollView.bounces = false
-        imageScrollView.bouncesZoom = false
-        return imageScrollView
-    }()
+    var imageScrollView: UIScrollView!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -55,6 +49,18 @@ class ImagePageView: UIView {
     }
     
     private func doInit() {
+        
+        imageView = UIImageView(frame: CGRect.zero)
+        imageView.contentMode = .scaleAspectFit
+        
+        imageScrollView = UIScrollView(frame: CGRect.zero)
+        imageScrollView.minimumZoomScale = 1.0
+        imageScrollView.maximumZoomScale = 6.0
+        imageScrollView.alwaysBounceVertical = false
+        imageScrollView.alwaysBounceHorizontal = false
+        imageScrollView.bounces = false
+        imageScrollView.bouncesZoom = false
+        
         imageScrollView.delegate = self
         addSubview(imageScrollView)
         imageScrollView.snp.makeConstraints { (maker) in
@@ -79,34 +85,18 @@ class ImagePageView: UIView {
         singleTapGesture.require(toFail: doubleTapGesture)
     }
     
-    func loadImage() {
-        showLoading(backgroundColor: .clear)
-        if let imagePath = chapterImage?.imagePath
+    func loadImage(url: String?) {
+        if let imagePath = url
             , let urlString = MangaEdenApi.getImageUrl(withImagePath: imagePath)
             , let url = URL(string: urlString) {
             
+            showLoading(backgroundColor: .clear)
             imageView.af_setImage(withURL: url, placeholderImage: nil, imageTransition: .crossDissolve(0.2))  {[weak self] (imageDataResponse) in
                 guard let `self` = self else {return}
                 self.hideLoading()
-                self.delegate?.imageLoaded(chapterImage: self.chapterImage)
+                self.delegate?.imageLoaded(imagePageView: self)
             }
         }
-    }
-    
-    func sizeFit(_ pageSize: CGSize) -> CGSize {
-        guard let image = imageView.image,
-            image.size.height * image.size.width * pageSize.width * pageSize.height > 0 else {return CGSize.zero}
-        
-        var size = pageSize
-        if ReaderMode.currentMode.direction == .vertical {
-            let scaledHeight = image.size.height * (pageSize.width / image.size.width)
-            size = CGSize(width: pageSize.width, height: scaledHeight)
-        } else {
-            let scaledWidth = image.size.width * (pageSize.height / image.size.height)
-            size = CGSize(width: scaledWidth, height: pageSize.height)
-        }
-        
-        return size
     }
     
     @objc func handleSingleTapScrollView(_ recognizer: UITapGestureRecognizer) {
@@ -124,19 +114,19 @@ class ImagePageView: UIView {
         
         if readModel.direction == .vertical {
             if (locationInWindow.y < viewHeight * 0.3) {
-                delegate?.topAreaTapped(chapterImage: chapterImage)
+                delegate?.topAreaTapped(imagePageView: self)
             } else if (locationInWindow.y > viewHeight * 0.7) {
-                delegate?.bottomAreaTapped(chapterImage: chapterImage)
+                delegate?.bottomAreaTapped(imagePageView: self)
             } else {
-                delegate?.centerAreaTapped(chapterImage: chapterImage)
+                delegate?.centerAreaTapped(imagePageView: self)
             }
         } else {
             if (locationInWindow.x < viewWidth * 0.3) {
-                delegate?.topAreaTapped(chapterImage: chapterImage)
+                delegate?.topAreaTapped(imagePageView: self)
             } else if (locationInWindow.x > viewWidth * 0.7) {
-                delegate?.bottomAreaTapped(chapterImage: chapterImage)
+                delegate?.bottomAreaTapped(imagePageView: self)
             } else {
-                delegate?.centerAreaTapped(chapterImage: chapterImage)
+                delegate?.centerAreaTapped(imagePageView: self)
             }
         }
     }
@@ -165,5 +155,24 @@ class ImagePageView: UIView {
 extension ImagePageView: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return imageView
+    }
+}
+
+extension UIImage {
+    func sizeFit(_ pageSize: CGSize) -> CGSize {
+        
+        guard size.height * size.width * pageSize.width * pageSize.height > 0 else {return CGSize.zero}
+        
+        var returnSize = pageSize
+        
+        if ReaderMode.currentMode.direction == .vertical {
+            let scaledHeight = size.height * (pageSize.width / size.width)
+            returnSize = CGSize(width: pageSize.width, height: scaledHeight)
+        } else {
+            let scaledWidth = size.width * (pageSize.height / size.height)
+            returnSize = CGSize(width: scaledWidth, height: pageSize.height)
+        }
+        
+        return returnSize
     }
 }

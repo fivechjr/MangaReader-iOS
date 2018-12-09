@@ -10,9 +10,6 @@ import UIKit
 
 class NestedTableViewCell: UITableViewCell {
 
-    static let reuseID = "NestedTableViewCell"
-    static let nibName = "NestedTableViewCell"
-
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var leftView: UIView!
     @IBOutlet weak var rightView: UIView!

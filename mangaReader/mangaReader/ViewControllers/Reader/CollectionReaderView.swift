@@ -15,24 +15,22 @@ class CollectionReaderView: NSObject, ReaderViewProtocol {
     
     var presenter: ReaderViewPresenterProtocol?
     
+    var imageUrls = [String]()
+    
     var chapter: EdenChapterDetail? {
         didSet {
-            imageViewControllers.removeAll()
-            chapter?.imageObjets?.forEach({ (chapterImage) in
-                let imageVC = ImagePageViewController()
-                imageVC.chapterImage = chapterImage
-                imageVC.delegate = self
-                imageViewControllers.append(imageVC)
-            })
+            imageUrls.removeAll()
+            if let imagePaths = chapter?.imageObjets?.compactMap({$0.imagePath}) {
+                imageUrls.append(contentsOf: imagePaths)
+            }
         }
     }
     
-    private var imageViewControllers: [ImagePageViewController] = [ImagePageViewController]()
+    var imageCache = [String: UIImage?]()
     
     private var collectionView: UICollectionView!
     
     private var parentVC: UIViewController?
-    
     
     func uninstall(sameChapter: Bool) {
         collectionView.removeFromSuperview()
@@ -45,7 +43,9 @@ class CollectionReaderView: NSObject, ReaderViewProtocol {
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
         layout.sectionInset = UIEdgeInsets.zero
-        layout.estimatedItemSize = parentVC.view.bounds.size
+        layout.estimatedItemSize = CGSize(width: 1, height: 1)
+//        layout.itemSize = parentVC.view.bounds.size
+        
         if readerMode == .collectionVertical {
             layout.scrollDirection = .vertical
         } else if readerMode == .collectionHorizontal {
@@ -54,9 +54,15 @@ class CollectionReaderView: NSObject, ReaderViewProtocol {
         
         collectionView = UICollectionView(frame: parentVC.view.bounds, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "pageCell")
+        collectionView.ezRegisterNib(cellType: ImagePageViewCollectionCell.self)
         collectionView.dataSource = self
         collectionView.delegate = self
+        
+        if #available(iOS 11.0, *) {
+            collectionView.contentInsetAdjustmentBehavior = .never
+        } else {
+            parentVC.automaticallyAdjustsScrollViewInsets = false
+        }
         
         parentVC.view.insertSubview(collectionView, at: 0)
         
@@ -97,65 +103,68 @@ class CollectionReaderView: NSObject, ReaderViewProtocol {
 
 extension CollectionReaderView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        let layout = collectionViewLayout as! UICollectionViewFlowLayout
+        var collectionViewSize = collectionView.frame.size
+//        return collectionViewSize
+//        let width = collectionView.frame.size.width - collectionView.contentInset.left - collectionView.contentInset.right - layout.sectionInset.left - layout.sectionInset.right
+//        let height = collectionView.frame.size.height - collectionView.contentInset.top - collectionView.contentInset.bottom - layout.sectionInset.top - layout.sectionInset.bottom
+//        collectionViewSize = CGSize(width: width, height: height)
+        let imageUrl = imageUrls[indexPath.item]
+        guard let image = imageCache[imageUrl] as? UIImage else {
+            return collectionViewSize
+        }
         
-        var size = imageViewControllers[indexPath.item].sizeFit(collectionView.frame.size)
+        var size = image.sizeFit(collectionViewSize)
         if size == CGSize.zero {
-            size = collectionView.frame.size
+            size = collectionViewSize
         }
         
         print("collection cell size: \(size), indexpath: \(indexPath)")
-        return size
+        return CGSize(width: 400, height: 200)
     }
 }
 
 extension CollectionReaderView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return imageViewControllers.count
+        return imageUrls.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "pageCell", for: indexPath)
-//        cell.translatesAutoresizingMaskIntoConstraints = false
+        let cell = collectionView.ezDeuqeue(cellType: ImagePageViewCollectionCell.self, for: indexPath)
         
-        guard let parent = parentVC else {return cell}
+        let imageUrl = imageUrls[indexPath.item]
         
-        let imageViewController = imageViewControllers[indexPath.item]
-        
-        cell.contentView.subviews.forEach({$0.removeFromSuperview()})
-        
-        imageViewController.willMove(toParentViewController: parent)
-        parentVC?.addChildViewController(imageViewController)
-        cell.contentView.addSubview(imageViewController.view)
-        
-        imageViewController.view?.snp.makeConstraints { (maker) in
-            maker.edges.equalToSuperview()
-        }
-        
-        imageViewController.didMove(toParentViewController: parent)
+        cell.imagePageView.imageUrl = imageUrl
+        cell.imagePageView.delegate = self
         
         return cell
     }
-    
 }
 
 extension CollectionReaderView: ImagePageViewDelegate {
-    func topAreaTapped(chapterImage: ChapterImage?) {
+    func topAreaTapped(imagePageView: ImagePageView?) {
         gotoPreviousPage()
     }
     
-    func centerAreaTapped(chapterImage: ChapterImage?) {
+    func centerAreaTapped(imagePageView: ImagePageView?) {
         presenter?.viewNeedToggleMenu()
     }
     
-    func bottomAreaTapped(chapterImage: ChapterImage?) {
+    func bottomAreaTapped(imagePageView: ImagePageView?) {
         gotoNextPage()
     }
     
-    func imageLoaded(chapterImage: ChapterImage?) {
-        guard let chapterImage = chapterImage,
-            let index = chapter?.imageObjets?.firstIndex(where: {$0 === chapterImage}) else {return}
+    func imageLoaded(imagePageView: ImagePageView?) {
+        guard let imageUrl = imagePageView?.imageUrl, imageCache[imageUrl] == nil,
+            let index = imageUrls.firstIndex(where: {$0 == imageUrl}) else {
+                return
+        }
         
-//        collectionView.reloadData()
-        collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+        imageCache[imageUrl] = imagePageView?.imageView.image
+//        collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            self.collectionView.collectionViewLayout.invalidateLayout()
+            self.collectionView.reloadData()
+        }
     }
 }

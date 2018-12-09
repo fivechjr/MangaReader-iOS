@@ -8,19 +8,36 @@
 
 import Foundation
 
-class EdenChapterDetail: Codable {
+class EdenChapterDetail: Codable, Equatable {
+    
     var _id: String?
     var chapterid: String?
     var mangaedenid: String?
     var url: String?
     
     var images:[[CodableValue?]]?
+    
+    private var _imageObjets:[ChapterImage]?
     var imageObjets:[ChapterImage]? {
-        return images?.map {ChapterImage(datas: $0)}
+        if _imageObjets == nil {
+            _imageObjets = images?.map {ChapterImage(datas: $0)}
+        }
+        return _imageObjets
     }
     
-    func isEqual(to chapter: EdenChapterDetail?) -> Bool {
-        guard let chapter = chapter, let id = chapter._id, let thisId = _id else {return false}
-        return thisId == id
+    
+    // MARK: Equation
+    func isEqual(to other: EdenChapterDetail?) -> Bool {
+        guard let other = other else {return false}
+        
+        return self == other
+    }
+    
+    static func == (lhs: EdenChapterDetail, rhs: EdenChapterDetail) -> Bool {
+        guard let id1 = lhs._id, let id2 = lhs._id else {
+            return lhs === rhs
+        }
+        
+        return id1 == id2
     }
 }

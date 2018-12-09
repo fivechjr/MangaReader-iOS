@@ -35,6 +35,11 @@
 		8C5E78E821BCE36500754DAB /* ChapterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5E78E721BCE36500754DAB /* ChapterProtocol.swift */; };
 		8C5E78EA21BCE59C00754DAB /* EdenChapterDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5E78E921BCE59C00754DAB /* EdenChapterDetail.swift */; };
 		8C5E78EC21BCF59900754DAB /* ImagePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5E78EB21BCF59900754DAB /* ImagePageView.swift */; };
+		8C5E78EF21BCFB2500754DAB /* ImagePageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5E78ED21BCFB2500754DAB /* ImagePageViewCell.swift */; };
+		8C5E78F021BCFB2500754DAB /* ImagePageViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C5E78EE21BCFB2500754DAB /* ImagePageViewCell.xib */; };
+		8C5E78F321BCFC0B00754DAB /* ImagePageViewCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5E78F121BCFC0A00754DAB /* ImagePageViewCollectionCell.swift */; };
+		8C5E78F421BCFC0B00754DAB /* ImagePageViewCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C5E78F221BCFC0B00754DAB /* ImagePageViewCollectionCell.xib */; };
+		8C5E78F621BD026200754DAB /* UICollectionView+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5E78F521BD026200754DAB /* UICollectionView+Helper.swift */; };
 		8C5EA97120F0AF0A007E8A7D /* ConsentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5EA97020F0AF09007E8A7D /* ConsentManager.swift */; };
 		8C60C95E2092E5AA0069EFDB /* GenresListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C60C95D2092E5AA0069EFDB /* GenresListViewController.swift */; };
 		8C60C960209414350069EFDB /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C60C95F209414350069EFDB /* FavoritesViewController.swift */; };
@@ -158,6 +163,11 @@
 		8C5E78E721BCE36500754DAB /* ChapterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterProtocol.swift; sourceTree = "<group>"; };
 		8C5E78E921BCE59C00754DAB /* EdenChapterDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdenChapterDetail.swift; sourceTree = "<group>"; };
 		8C5E78EB21BCF59900754DAB /* ImagePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePageView.swift; sourceTree = "<group>"; };
+		8C5E78ED21BCFB2500754DAB /* ImagePageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePageViewCell.swift; sourceTree = "<group>"; };
+		8C5E78EE21BCFB2500754DAB /* ImagePageViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImagePageViewCell.xib; sourceTree = "<group>"; };
+		8C5E78F121BCFC0A00754DAB /* ImagePageViewCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePageViewCollectionCell.swift; sourceTree = "<group>"; };
+		8C5E78F221BCFC0B00754DAB /* ImagePageViewCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImagePageViewCollectionCell.xib; sourceTree = "<group>"; };
+		8C5E78F521BD026200754DAB /* UICollectionView+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Helper.swift"; sourceTree = "<group>"; };
 		8C5EA97020F0AF09007E8A7D /* ConsentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsentManager.swift; sourceTree = "<group>"; };
 		8C60C95D2092E5AA0069EFDB /* GenresListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenresListViewController.swift; sourceTree = "<group>"; };
 		8C60C95F209414350069EFDB /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
@@ -442,6 +452,10 @@
 				8CCEADA721A12787005FC3B9 /* Reader */,
 				8C904D882088BB7F00A599E9 /* ImagePageViewController.swift */,
 				8C5E78EB21BCF59900754DAB /* ImagePageView.swift */,
+				8C5E78ED21BCFB2500754DAB /* ImagePageViewCell.swift */,
+				8C5E78EE21BCFB2500754DAB /* ImagePageViewCell.xib */,
+				8C5E78F121BCFC0A00754DAB /* ImagePageViewCollectionCell.swift */,
+				8C5E78F221BCFC0B00754DAB /* ImagePageViewCollectionCell.xib */,
 				8C2250042092E1BD00C8E160 /* SettingsViewController.swift */,
 				8C60C95F209414350069EFDB /* FavoritesViewController.swift */,
 				8C60C9672094A8B20069EFDB /* RecentViewController.swift */,
@@ -490,6 +504,7 @@
 				8C96736D2169175100DE5D69 /* UIViewController+Extra.swift */,
 				8C96738C2179664800DE5D69 /* Notification+Name.swift */,
 				8C81DCF02180DC8200F47A31 /* UITableView+Helper.swift */,
+				8C5E78F521BD026200754DAB /* UICollectionView+Helper.swift */,
 				8CC9E3AC21A5A40F0098E505 /* Bundle+Extension.swift */,
 			);
 			path = extensions;
@@ -716,6 +731,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8C16A8D820A13204009D5692 /* MangaDetailTableViewCell.xib in Resources */,
+				8C5E78F021BCFB2500754DAB /* ImagePageViewCell.xib in Resources */,
 				8C394781208E2AA200344FCF /* Document.txt in Resources */,
 				8CD98FA520A52B31002C448F /* GuideView.xib in Resources */,
 				8C81DCEB2180C0AA00F47A31 /* Radomir Tinkov - Gilroy-SemiBold.otf in Resources */,
@@ -727,6 +743,7 @@
 				8C81DCEA2180C0AA00F47A31 /* SF-Pro-Text-Regular.otf in Resources */,
 				8C16A8CF20A12DAC009D5692 /* Localizable.strings in Resources */,
 				8C88E38D20905DD0004B54D9 /* mangaList.json in Resources */,
+				8C5E78F421BCFC0B00754DAB /* ImagePageViewCollectionCell.xib in Resources */,
 				8C60C962209427920069EFDB /* Assets.xcassets in Resources */,
 				8C8EAC84206A141900803BD1 /* Main.storyboard in Resources */,
 				8C16A8E520A134CD009D5692 /* InfoPlist.strings in Resources */,
@@ -832,6 +849,7 @@
 				8C3C8C022199BD76000F3FDD /* LamaTopicsResponse.swift in Sources */,
 				8CC9E46421BCC5A50098E505 /* LamaChapter.swift in Sources */,
 				8CD878C120A16B4100E3B362 /* AdsManager.swift in Sources */,
+				8C5E78EF21BCFB2500754DAB /* ImagePageViewCell.swift in Sources */,
 				8C81DD2821873B2100F47A31 /* MangaCache.swift in Sources */,
 				8CC9E3AA21A593F30098E505 /* SettingSelectCell.swift in Sources */,
 				8C58A54F208EAD4100FF71B2 /* MangaCurrentChapter.swift in Sources */,
@@ -841,6 +859,7 @@
 				8CC9E46021BC14730098E505 /* MangaDetailViewModelProtocol.swift in Sources */,
 				8C96738B217964D200DE5D69 /* ThemeManager.swift in Sources */,
 				8C3C8BD42196B366000F3FDD /* NetworkManager.swift in Sources */,
+				8C5E78F621BD026200754DAB /* UICollectionView+Helper.swift in Sources */,
 				8C96738F217C51F500DE5D69 /* Color+Utilities.swift in Sources */,
 				8C39477F208E1AB900344FCF /* FavoriteManga.swift in Sources */,
 				8C967367216911EA00DE5D69 /* DataManager.swift in Sources */,
@@ -860,6 +879,7 @@
 				8C967377216A32C700DE5D69 /* MangaDetailViewModel.swift in Sources */,
 				8C96737D216A5B1A00DE5D69 /* MangaListCollectionCellViewModel.swift in Sources */,
 				8C81DCEF2180D43600F47A31 /* NSAttributedString+Helper.swift in Sources */,
+				8C5E78F321BCFC0B00754DAB /* ImagePageViewCollectionCell.swift in Sources */,
 				8CD98FA320A52B23002C448F /* GuideView.swift in Sources */,
 				8C5E78EC21BCF59900754DAB /* ImagePageView.swift in Sources */,
 				8C96738721795B3A00DE5D69 /* SettingsViewModel.swift in Sources */,
