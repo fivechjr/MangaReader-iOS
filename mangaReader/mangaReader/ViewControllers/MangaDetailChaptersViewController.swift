@@ -19,7 +19,7 @@ class MangaDetailChaptersViewController: BaseViewController {
         }
     }
     
-    var viewModel: MangaDetailViewModel!
+    var viewModel: MangaDetailViewModelProtocol!
     
     override func viewDidLoad() {
         super.viewDidLoad()

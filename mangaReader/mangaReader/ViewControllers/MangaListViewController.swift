@@ -42,7 +42,8 @@ class MangaListViewController: BaseViewController {
             return
         }
         
-        mangaDetailVC.viewModel = MangaDetailViewModel(mangaId: mangaId)
+        mangaDetailVC.viewModel = FSInjector.shared.resolve(MangaDetailViewModelProtocol.self)
+        mangaDetailVC.viewModel.mangaId = mangaId
     }
 
     override func viewDidLoad() {

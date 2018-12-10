@@ -22,6 +22,14 @@ class FSInjector {
         worker.register(MangaListViewModelProtocol.self, name: MangaSource.lama.rawValue) { (r) in
             return LamaMangaListViewModel()
         }
+        
+        worker.register(MangaDetailViewModelProtocol.self, name: MangaSource.mangaEden.rawValue) { (r) in
+            return EdenMangaDetailViewModel()
+        }
+        
+        worker.register(MangaDetailViewModelProtocol.self, name: MangaSource.lama.rawValue) { (r) in
+            return LamaMangaDetailViewModel()
+        }
     }
     
     public func resolve<Service>(_ serviceType: Service.Type) -> Service? {

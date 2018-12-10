@@ -11,6 +11,8 @@ import Foundation
 protocol MangaDetailViewModelProtocol: MangaDetailDataProtocol {
     var manga: MangaProtocol {get set}
     
+    var mangaId: String? {get set}
+    
     var currentChapterID: String? {get set}
     
     var chaptersContentOffset: CGPoint {get set}

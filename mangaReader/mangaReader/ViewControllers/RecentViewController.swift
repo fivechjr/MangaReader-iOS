@@ -125,7 +125,9 @@ extension RecentViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let manga = viewModel[indexPath.item], let mangaId = manga.mangaId, !mangaId.isEmpty {
             let vc = MangaDetailViewController.newInstance() as! MangaDetailViewController
-            vc.viewModel = MangaDetailViewModel(mangaId: mangaId)
+
+            vc.viewModel = FSInjector.shared.resolve(MangaDetailViewModelProtocol.self)
+            vc.viewModel.mangaId = mangaId
             
             navigationController?.pushViewController(vc, animated: true)
         }

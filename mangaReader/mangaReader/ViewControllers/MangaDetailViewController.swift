@@ -12,7 +12,7 @@ import NVActivityIndicatorView
 
 class MangaDetailViewController: BaseViewController {
     
-    var viewModel: MangaDetailViewModel!
+    var viewModel: MangaDetailViewModelProtocol!
     
     @IBOutlet weak var maskView: UIView!
     @IBOutlet weak var tableView: UITableView! {

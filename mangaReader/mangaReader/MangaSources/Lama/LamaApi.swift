@@ -21,7 +21,7 @@ class LamaApi {
     }
     
     static func getTopic(id: Int, ascending: Bool = false, completion:@escaping (LamaTopicResponse?, Error?) -> Void) {
-        let path = LamaEndpoint.topic(id: id, sort: ascending ? 1 : 0).path
+        let path = LamaEndpoint.topic(id: id, sort: ascending ? 0 : 1).path
         NetworkManager.get(urlString: path, responseType: LamaTopicResponse.self, completion: completion)
     }
     
