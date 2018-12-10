@@ -82,18 +82,22 @@ class MangaDetailViewController: BaseViewController {
     }
     
     func continueReading() {
-        var chapter: ChapterProtocol?
-        
         // if has recorded current chapter, read the current chapter
         if let currentChapterID = viewModel.currentChapterID {
-            chapter = viewModel.getChapter(withID: currentChapterID)
+            viewModel.getChapter(withID: currentChapterID) { [weak self] (theChapter, error) in
+                self?.openChapter(chapter: theChapter)
+            }
         } else if let chapterID = viewModel.manga.chapterObjects?.last?.id {
             // else, read the last chapter
-            chapter = viewModel.getChapter(withID: chapterID)
-            
-            viewModel.recordCurrentChapter(chapterId: chapterID)
+            viewModel.getChapter(withID: chapterID) { [weak self] (theChapter, error) in
+                
+                self?.viewModel.recordCurrentChapter(chapterId: chapterID)
+                self?.openChapter(chapter: theChapter)
+            }
         }
-        
+    }
+    
+    func openChapter(chapter: ChapterProtocol?) {
         guard let theChapter = chapter, let destination = ChapterReadViewController.newInstance() as? ChapterReadViewController else {return}
         
         let readViewModel = ChapterReadViewModel(chapterObject: theChapter, manga: viewModel.manga)

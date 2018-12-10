@@ -16,4 +16,6 @@ protocol MangaDetailViewModelProtocol {
     var chaptersContentOffset: CGPoint {get set}
     
     func getManga(completion: @escaping (MangaProtocol?, Error?) -> Void)
+    
+    func getChapter(withID chapterID: String?, completion: (ChapterProtocol?, Error?) -> Void)
 }

@@ -35,9 +35,10 @@ class MangaDetailViewModel: MangaDetailViewModelProtocol {
     }
     
     /// get chapter by id
-    func getChapter(withID chapterID: String?) -> ChapterProtocol? {
+    func getChapter(withID chapterID: String?, completion: (ChapterProtocol?, Error?) -> Void) {
         guard let chapterID = chapterID, let chapterObjects = manga.chapterObjects else {
-            return nil
+            completion(nil, nil)
+            return
         }
         
         var theChapter: ChapterProtocol? = nil
@@ -49,7 +50,7 @@ class MangaDetailViewModel: MangaDetailViewModelProtocol {
             }
         }
         
-        return theChapter
+        completion(theChapter, nil)
     }
     
     /// get chapter index by id
