@@ -87,7 +87,7 @@ class MangaDetailViewController: BaseViewController {
             viewModel.getChapter(withID: currentChapterID) { [weak self] (theChapter, error) in
                 self?.openChapter(chapter: theChapter)
             }
-        } else if let chapterID = viewModel.manga.chapterObjects?.last?.id {
+        } else if let chapterID = viewModel.manga.chapterObjects?.last?.chapterId {
             // else, read the last chapter
             viewModel.getChapter(withID: chapterID) { [weak self] (theChapter, error) in
                 

@@ -47,10 +47,10 @@ extension MangaDetailChaptersViewController: UITableViewDataSource {
 
         cell.backgroundColor = ThemeManager.shared.currentTheme.backgroundSecondColor
         if let chapter = viewModel.manga.chapterObjects?[indexPath.item] {
-            let chapterTitle = chapter.title ?? "\(chapter.number ?? 0)"
-            cell.textLabel?.text = "[\(NSLocalizedString("Chapter", comment: ""))] \(chapterTitle)"
+            let chapterTitle = chapter.chapterTitle
+            cell.textLabel?.text = "[\(NSLocalizedString("Chapter", comment: ""))] \(chapterTitle ?? "")"
             
-            if let chapterID = chapter.id, chapterID == viewModel.currentChapterID {
+            if let chapterID = chapter.chapterId, chapterID == viewModel.currentChapterID {
                 cell.textLabel?.textColor = UIColor.blueSky
             } else {
                 cell.textLabel?.textColor = ThemeManager.shared.currentTheme.textColor
@@ -71,7 +71,7 @@ extension MangaDetailChaptersViewController: UITableViewDelegate {
         guard let destination = ChapterReadViewController.newInstance() as? ChapterReadViewController else {return}
         
         // If sender is from cell, read the chapter related to the cell
-        guard let chapterID = viewModel.manga.chapterObjects?[indexPath.item].id else {
+        guard let chapterID = viewModel.manga.chapterObjects?[indexPath.item].chapterId else {
                 return
         }
         

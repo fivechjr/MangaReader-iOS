@@ -1,19 +1,19 @@
 //
-//  MangaDetailViewModel.swift
+//  LamaMangaDetailViewModel.swift
 //  mangaReader
 //
-//  Created by Yiming Dong on 2018/10/7.
+//  Created by Yiming Dong on 2018/12/10.
 //  Copyright © 2018 Yiming Dong. All rights reserved.
 //
 
 import Foundation
 
-class MangaDetailViewModel: MangaDetailViewModelProtocol {
+class LamaMangaDetailViewModel: MangaDetailViewModelProtocol {
     
     var manga: MangaProtocol
     
     init(mangaId: String) {
-        manga = Manga()
+        manga = LamaTopic()
         manga.mangaId = mangaId
     }
     
@@ -22,19 +22,18 @@ class MangaDetailViewModel: MangaDetailViewModelProtocol {
     var chaptersContentOffset: CGPoint = CGPoint.zero
     
     func getManga(completion: @escaping (MangaProtocol?, Error?) -> Void) {
-        guard let mangaId = manga.mangaId else {return}
-        MangaEdenApi.getMangaDetail(mangaIds: [mangaId], completion: { [weak self] (response, error) in
-            guard let manga = response?.mangalist?.first else {
+        guard let mangaId = manga.mangaId, let idInt = Int(mangaId) else {return}
+        LamaApi.getTopic(id: idInt) { [weak self] (response, error) in
+            guard let manga = response?.data else {
                 completion(nil, error)
                 return
             }
             
             self?.manga = manga
             completion(manga, error)
-        })
+        }
     }
     
-    /// get chapter by id
     func getChapter(withID chapterID: String?, completion: (ChapterProtocol?, Error?) -> Void) {
         guard let chapterID = chapterID, let chapterObjects = manga.chapterObjects else {
             completion(nil, nil)
@@ -53,8 +52,7 @@ class MangaDetailViewModel: MangaDetailViewModelProtocol {
         completion(theChapter, nil)
     }
     
-    /// get chapter index by id
-    func getChapterIndex(withID chapterID: String?) ->Int? {
+    func getChapterIndex(withID chapterID: String?) -> Int? {
         guard let chapterID = chapterID, let chapterObjects = manga.chapterObjects else {
             return nil
         }
@@ -70,9 +68,10 @@ class MangaDetailViewModel: MangaDetailViewModelProtocol {
         
         return theChapterIndex
     }
+    
 }
 
-extension MangaDetailViewModel {
+extension LamaMangaDetailViewModel {
     func recordRecentManga() {
         DataManager.shared.recordRecentManga(manga: manga)
     }

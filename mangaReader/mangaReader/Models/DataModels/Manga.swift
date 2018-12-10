@@ -115,7 +115,7 @@ extension Manga: MangaProtocol {
         return status == 1
     }
     
-    var chapterObjects: [EdenChapter]? {
+    var chapterObjects: [ChapterProtocol]? {
         return chapters?.map {EdenChapter(datas: $0)}
     }
     

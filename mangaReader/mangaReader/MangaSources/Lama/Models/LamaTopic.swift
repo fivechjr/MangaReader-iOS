@@ -30,6 +30,11 @@ class LamaTopic: Codable {
 
 // MangaProtocol
 extension LamaTopic: MangaProtocol {
+    
+    var chapterObjects: [ChapterProtocol]? {
+        return comics
+    }
+    
     var topImageUrl: String? {
         return cover_image_url
     }
@@ -83,10 +88,7 @@ extension LamaTopic: MangaProtocol {
     var isCompleted: Bool {
         return false
     }
-    var chapterObjects: [EdenChapter]? {
-        return []
-    }
-    
+
     var mangaDescription: String? {
         return description
     }

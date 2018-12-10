@@ -25,5 +25,5 @@ protocol MangaProtocol {
     func canPublish() -> Bool
     
     var isCompleted: Bool {get}
-    var chapterObjects: [EdenChapter]? {get}
+    var chapterObjects: [ChapterProtocol]? {get}
 }

@@ -99,7 +99,7 @@ class ChapterReadViewModel {
         }
         
         for (index, chapter) in chapterObjects.enumerated() {
-            if let id = chapter.id, id == currentId {
+            if let id = chapter.chapterId, id == currentId {
                 return index
             }
         }
@@ -107,7 +107,7 @@ class ChapterReadViewModel {
         return nil;
     }
     
-    func chapter(next: Bool) -> EdenChapter? {
+    func chapter(next: Bool) -> ChapterProtocol? {
         guard var index = getCurrentChapterIndex()
             , let chapterObjects = manga.chapterObjects else {
                 return nil

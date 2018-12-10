@@ -74,7 +74,7 @@ extension RecentManga: MangaProtocol {
         return true
     }
     
-    var chapterObjects: [EdenChapter]? {
+    var chapterObjects: [ChapterProtocol]? {
         return []
     }
     

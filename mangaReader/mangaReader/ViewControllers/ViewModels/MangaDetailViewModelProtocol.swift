@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol MangaDetailViewModelProtocol {
+protocol MangaDetailViewModelProtocol: MangaDetailDataProtocol {
     var manga: MangaProtocol {get set}
     
     var currentChapterID: String? {get set}
@@ -18,4 +18,14 @@ protocol MangaDetailViewModelProtocol {
     func getManga(completion: @escaping (MangaProtocol?, Error?) -> Void)
     
     func getChapter(withID chapterID: String?, completion: (ChapterProtocol?, Error?) -> Void)
+    
+    func getChapterIndex(withID chapterID: String?) ->Int?
+}
+
+protocol MangaDetailDataProtocol {
+    func recordRecentManga()
+    func getCurrentChapterID()
+    func recordCurrentChapter(chapterId: String?)
+    var isFavorite: Bool {get}
+    func addFavorite()
 }
