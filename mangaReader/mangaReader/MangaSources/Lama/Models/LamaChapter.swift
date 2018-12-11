@@ -13,9 +13,9 @@ class LamaChapter: Codable {
     var comments_count: Int?
     var cover_image_url: String?
     var created_at: Int?
-    var id: Int?
+    private var id: Int?
     var image_infos: String?
-    var images: [String]?
+    private var images: [String]?
     var is_favourite: Bool?
     var is_liked: Bool?
     var likes_count: Int?
@@ -31,4 +31,21 @@ class LamaChapter: Codable {
     var topic: LamaTopic?
     var updated_at: Int?
     var url: String?
+}
+
+extension LamaChapter: ChapterDetailProtocol {
+    var chapterId: String? {
+        get {
+            return "\(id ?? 0)"
+        }
+        set {
+            id = Int(newValue ?? "0")
+        }
+    }
+    
+    var chapterImages: [String]? {
+        return images
+    }
+    
+    
 }
