@@ -17,10 +17,10 @@ class CollectionReaderView: NSObject, ReaderViewProtocol {
     
     var imageUrls = [String]()
     
-    var chapter: EdenChapterDetail? {
+    var chapterDetail: ChapterDetailProtocol? {
         didSet {
             imageUrls.removeAll()
-            if let imagePaths = chapter?.imageObjets?.compactMap({$0.imagePath}) {
+            if let imagePaths = chapterDetail?.chapterImages {
                 imageUrls.append(contentsOf: imagePaths)
             }
         }

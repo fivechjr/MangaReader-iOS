@@ -19,13 +19,6 @@ protocol ImagePageViewDelegate: class {
 
 class ImagePageView: UIView {
     
-    var chapterImage: ChapterImage? {
-        didSet {
-            imageUrl = chapterImage?.imagePath
-            loadImage(url: imageUrl)
-        }
-    }
-    
     var imageUrl: String? {
         didSet {
             imageView.image = nil

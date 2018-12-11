@@ -80,8 +80,8 @@ class ChapterReadViewController: BaseViewController {
     }
     
     private func start() -> Bool {
-        guard let chapter = viewModel.chapterDetail?.chapter else {return false}
-        currentReaderView?.chapter = chapter
+        guard let chapterDetail = viewModel.chapterDetail else {return false}
+        currentReaderView?.chapterDetail = chapterDetail
         currentReaderView?.start()
         viewModel.downloadImages()
         

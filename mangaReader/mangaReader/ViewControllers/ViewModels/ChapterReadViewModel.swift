@@ -20,7 +20,7 @@ class ChapterReadViewModel {
         self.manga = manga
     }
     
-    var chapterDetail: EdenChapterDetailResponse?
+    var chapterDetail: ChapterDetailProtocol?
     
     let downloader = ImageDownloader()
     private var receipts: [RequestReceipt] = []
@@ -31,7 +31,7 @@ class ChapterReadViewModel {
     }
     
     var pageInfoText: String? {
-        return "\(currentPageIndex + 1)/\(chapterDetail?.chapter?.images?.count ?? 0)"
+        return "\(currentPageIndex + 1)/\(chapterDetail?.chapterImages?.count ?? 0)"
     }
     
     var nextChapterButtonHidden: Bool {
@@ -52,12 +52,12 @@ class ChapterReadViewModel {
         return false
     }
     
-    func getChapterDetail(completion: @escaping (EdenChapterDetailResponse?, Error?) -> Void) {
+    func getChapterDetail(completion: @escaping (ChapterDetailProtocol?, Error?) -> Void) {
         guard let mangaId = manga.mangaId, let chapterId = chapterObject.chapterId else {return}
         
-        MangaEdenApi.getChapterDetail(mangaId: mangaId, chapterId: chapterId) { [weak self] (chapterDetail, error) in
-            self?.chapterDetail = chapterDetail
-            completion(chapterDetail, error)
+        MangaEdenApi.getChapterDetail(mangaId: mangaId, chapterId: chapterId) { [weak self] (chapterDetailResponse, error) in
+            self?.chapterDetail = chapterDetailResponse?.chapter
+            completion(chapterDetailResponse?.chapter, error)
         }
     }
     
@@ -70,9 +70,8 @@ class ChapterReadViewModel {
         
         cancelDownload()
         
-        chapterDetail?.chapter?.imageObjets?.forEach({ (chapterImage) in
-            if let imagePath = chapterImage.imagePath
-                , let urlString = MangaEdenApi.getImageUrl(withImagePath: imagePath)
+        chapterDetail?.chapterImages?.forEach({ (imagePath) in
+            if let urlString = MangaEdenApi.getImageUrl(withImagePath: imagePath)
                 , let url = URL(string: urlString) {
                 
                 let urlRequest = URLRequest(url: url)

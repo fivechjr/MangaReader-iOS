@@ -19,9 +19,9 @@ class ImagePageViewController: BaseViewController {
         }
     }
     
-    var chapterImage: ChapterImage? {
+    var imageUrl: String? {
         didSet {
-            imagePageView.chapterImage = chapterImage
+            imagePageView.imageUrl = imageUrl
         }
     }
     

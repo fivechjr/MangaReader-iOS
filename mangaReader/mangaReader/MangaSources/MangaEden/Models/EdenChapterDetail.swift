@@ -11,14 +11,14 @@ import Foundation
 class EdenChapterDetail: Codable, Equatable {
     
     var _id: String?
-    var chapterid: String?
+    private var chapterid: String?
     var mangaedenid: String?
     var url: String?
     
     var images:[[CodableValue?]]?
     
     private var _imageObjets:[ChapterImage]?
-    var imageObjets:[ChapterImage]? {
+    private var imageObjets:[ChapterImage]? {
         if _imageObjets == nil {
             _imageObjets = images?.map {ChapterImage(datas: $0)}
         }
@@ -39,5 +39,22 @@ class EdenChapterDetail: Codable, Equatable {
         }
         
         return id1 == id2
+    }
+}
+
+extension EdenChapterDetail: ChapterDetailProtocol {
+    var chapterId: String? {
+        get {
+            return chapterid
+        }
+        set {
+            chapterid = newValue
+        }
+    }
+    
+    var chapterImages: [String]? {
+        get {
+            return imageObjets?.compactMap({$0.imagePath})
+        }
     }
 }

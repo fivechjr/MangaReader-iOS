@@ -14,7 +14,7 @@ protocol ReaderViewProtocol: class {
     
     var presenter: ReaderViewPresenterProtocol? {get set}
     
-    var chapter: EdenChapterDetail? {get set}
+    var chapterDetail: ChapterDetailProtocol? {get set}
     
     var imageUrls: [String] {get set}
     

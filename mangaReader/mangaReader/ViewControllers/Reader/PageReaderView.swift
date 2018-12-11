@@ -22,19 +22,17 @@ class PageReaderView: NSObject, ReaderViewProtocol {
     
     var imageUrls = [String]()
     
-    var chapter: EdenChapterDetail? {
+    var chapterDetail: ChapterDetailProtocol? {
         didSet {
             imageUrls.removeAll()
             imageViewControllers.removeAll()
-            chapter?.imageObjets?.forEach({ (chapterImage) in
-                if let imagePath = chapterImage.imagePath {
-                    imageUrls.append(imagePath)
-                    
-                    let imageVC = ImagePageViewController()
-                    imageVC.chapterImage = chapterImage
-                    imageVC.delegate = self
-                    imageViewControllers.append(imageVC)
-                }
+            chapterDetail?.chapterImages?.forEach({ (imagePath) in
+                imageUrls.append(imagePath)
+                
+                let imageVC = ImagePageViewController()
+                imageVC.imageUrl = imagePath
+                imageVC.delegate = self
+                imageViewControllers.append(imageVC)
             })
         }
     }
