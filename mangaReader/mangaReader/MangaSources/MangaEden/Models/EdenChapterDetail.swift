@@ -54,7 +54,7 @@ extension EdenChapterDetail: ChapterDetailProtocol {
     
     var chapterImages: [String]? {
         get {
-            return imageObjets?.compactMap({$0.imagePath})
+            return imageObjets?.compactMap({MangaEdenApi.getImageUrl(withImagePath: $0.imagePath)})
         }
     }
 }
