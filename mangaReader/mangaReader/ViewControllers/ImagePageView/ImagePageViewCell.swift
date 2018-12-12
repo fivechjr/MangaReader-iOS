@@ -13,5 +13,7 @@ class ImagePageViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        let theme = ThemeManager.shared.currentTheme
+        backgroundColor = theme.backgroundColor
     }
 }

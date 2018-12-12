@@ -15,5 +15,7 @@ class ImagePageViewCollectionCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         translatesAutoresizingMaskIntoConstraints = false
+        
+        backgroundColor = ThemeManager.shared.currentTheme.backgroundColor
     }
 }

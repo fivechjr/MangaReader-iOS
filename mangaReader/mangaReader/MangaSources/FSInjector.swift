@@ -16,19 +16,27 @@ class FSInjector {
     private func setup() {
         
         worker.register(MangaListViewModelProtocol.self, name: MangaSource.mangaEden.rawValue) { (r) in
-            return EdenMangaListViewModel()
+            EdenMangaListViewModel()
         }
         
         worker.register(MangaListViewModelProtocol.self, name: MangaSource.lama.rawValue) { (r) in
-            return LamaMangaListViewModel()
+            LamaMangaListViewModel()
         }
         
         worker.register(MangaDetailViewModelProtocol.self, name: MangaSource.mangaEden.rawValue) { (r) in
-            return EdenMangaDetailViewModel()
+            EdenMangaDetailViewModel()
         }
         
         worker.register(MangaDetailViewModelProtocol.self, name: MangaSource.lama.rawValue) { (r) in
-            return LamaMangaDetailViewModel()
+            LamaMangaDetailViewModel()
+        }
+        
+        worker.register(BaseChapterReadViewModel.self, name: MangaSource.mangaEden.rawValue) { _ in
+            EdenChapterReadViewModel()
+        }
+        
+        worker.register(BaseChapterReadViewModel.self, name: MangaSource.lama.rawValue) { _ in
+            LamaChapterReadViewModel()
         }
     }
     

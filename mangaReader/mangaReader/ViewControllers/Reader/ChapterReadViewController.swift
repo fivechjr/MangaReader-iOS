@@ -13,7 +13,7 @@ import RealmSwift
 
 class ChapterReadViewController: BaseViewController {
 
-    var viewModel: EdenChapterReadViewModel!
+    var viewModel: BaseChapterReadViewModel!
     
     var pageReaderView = PageReaderView()
     var collectionReaderView = CollectionReaderView()

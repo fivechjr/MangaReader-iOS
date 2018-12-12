@@ -100,7 +100,10 @@ class MangaDetailViewController: BaseViewController {
     func openChapter(chapter: ChapterProtocol?) {
         guard let theChapter = chapter, let destination = ChapterReadViewController.newInstance() as? ChapterReadViewController else {return}
         
-        let readViewModel = EdenChapterReadViewModel(chapterObject: theChapter, manga: viewModel.manga)
+        let readViewModel = FSInjector.shared.resolve(BaseChapterReadViewModel.self)
+        readViewModel?.chapterObject = theChapter
+        readViewModel?.manga = viewModel.manga
+//        let readViewModel = EdenChapterReadViewModel(chapterObject: theChapter, manga: viewModel.manga)
         destination.viewModel = readViewModel
         
         present(destination, animated: true, completion: nil)

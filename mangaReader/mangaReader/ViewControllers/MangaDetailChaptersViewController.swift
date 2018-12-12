@@ -76,7 +76,11 @@ extension MangaDetailChaptersViewController: UITableViewDelegate {
         }
         
         if let chapter = viewModel.manga.chapterObjects?[indexPath.item] {
-            let readViewModel = EdenChapterReadViewModel(chapterObject: chapter, manga: viewModel.manga)
+            
+            let readViewModel = FSInjector.shared.resolve(BaseChapterReadViewModel.self)
+            readViewModel?.chapterObject = chapter
+            readViewModel?.manga = viewModel.manga
+            
             destination.viewModel = readViewModel
             
             parent?.present(destination, animated: true, completion: nil)

@@ -22,7 +22,7 @@ class ImagePageView: UIView {
     var imageUrl: String? {
         didSet {
             imageView.image = nil
-            loadImage(url: imageUrl)
+            loadImage(urlString: imageUrl)
         }
     }
     
@@ -43,6 +43,8 @@ class ImagePageView: UIView {
     }
     
     private func doInit() {
+        
+        backgroundColor = ThemeManager.shared.currentTheme.backgroundColor
         
         imageView = UIImageView(frame: CGRect.zero)
         imageView.contentMode = .scaleAspectFit
@@ -79,16 +81,14 @@ class ImagePageView: UIView {
         singleTapGesture.require(toFail: doubleTapGesture)
     }
     
-    func loadImage(url: String?) {
-        if let imagePath = url
-            , let urlString = MangaEdenApi.getImageUrl(withImagePath: imagePath)
+    func loadImage(urlString: String?) {
+        if let urlString = urlString
             , let url = URL(string: urlString) {
             
             showLoading(backgroundColor: .clear)
             imageView.af_setImage(withURL: url, placeholderImage: nil, imageTransition: .crossDissolve(0.2))  {[weak self] (imageDataResponse) in
-                guard let `self` = self else {return}
-                self.hideLoading()
-                self.delegate?.imageLoaded(imagePageView: self)
+                self?.hideLoading()
+                self?.delegate?.imageLoaded(imagePageView: self)
             }
         }
     }

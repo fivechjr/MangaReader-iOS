@@ -10,15 +10,10 @@ import Foundation
 import AlamofireImage
 
 class BaseChapterReadViewModel {
-    var chapterObject: ChapterProtocol
-    var manga: MangaProtocol
+    var chapterObject: ChapterProtocol?
+    var manga: MangaProtocol?
     
     var currentPageIndex: Int = 0
-    
-    init(chapterObject: ChapterProtocol, manga: MangaProtocol) {
-        self.chapterObject = chapterObject
-        self.manga = manga
-    }
     
     var chapterDetail: ChapterDetailProtocol?
     
@@ -26,7 +21,7 @@ class BaseChapterReadViewModel {
     private var receipts: [RequestReceipt] = []
     
     var chapterName: String {
-        let name = chapterObject.chapterTitle ?? chapterObject.chapterId ?? ""
+        let name = chapterObject?.chapterTitle ?? chapterObject?.chapterId ?? ""
         return "\(LocalizedString("Chapter")) - '\(name)'"
     }
     
@@ -43,7 +38,7 @@ class BaseChapterReadViewModel {
     }
     
     var prevChapterButtonHidden: Bool {
-        guard let chapterCount = manga.chapterObjects?.count,
+        guard let chapterCount = manga?.chapterObjects?.count,
             let chapterIndex = getCurrentChapterIndex(),
             chapterIndex < chapterCount - 1 else {
                 return true
@@ -80,12 +75,13 @@ class BaseChapterReadViewModel {
     }
     
     func recordCurrentChapter() {
-        DataManager.shared.recordCurrentChapter(chapterId: chapterObject.chapterId, mangaId: manga.mangaId)
+        guard let chapterId = chapterObject?.chapterId, let mangaId = manga?.mangaId else {return}
+        DataManager.shared.recordCurrentChapter(chapterId: chapterId, mangaId: mangaId)
     }
     
     func getCurrentChapterIndex() -> Int? {
         
-        guard let chapterObjects = manga.chapterObjects, let currentId = chapterObject.chapterId else {
+        guard let chapterObjects = manga?.chapterObjects, let currentId = chapterObject?.chapterId else {
             return nil
         }
         
@@ -100,7 +96,7 @@ class BaseChapterReadViewModel {
     
     func chapter(next: Bool) -> ChapterProtocol? {
         guard var index = getCurrentChapterIndex()
-            , let chapterObjects = manga.chapterObjects else {
+            , let chapterObjects = manga?.chapterObjects else {
                 return nil
         }
         

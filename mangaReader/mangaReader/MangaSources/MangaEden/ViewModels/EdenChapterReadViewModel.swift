@@ -12,7 +12,7 @@ import AlamofireImage
 class EdenChapterReadViewModel: BaseChapterReadViewModel {
     
     override func getChapterDetail(completion: @escaping (ChapterDetailProtocol?, Error?) -> Void) {
-        guard let mangaId = manga.mangaId, let chapterId = chapterObject.chapterId else {return}
+        guard let mangaId = manga?.mangaId, let chapterId = chapterObject?.chapterId else {return}
         
         MangaEdenApi.getChapterDetail(mangaId: mangaId, chapterId: chapterId) { [weak self] (chapterDetailResponse, error) in
             self?.chapterDetail = chapterDetailResponse?.chapter

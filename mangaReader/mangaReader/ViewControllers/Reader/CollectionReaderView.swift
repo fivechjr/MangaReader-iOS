@@ -23,6 +23,7 @@ class CollectionReaderView: NSObject, ReaderViewProtocol {
             if let imagePaths = chapterDetail?.chapterImages {
                 imageUrls.append(contentsOf: imagePaths)
             }
+            collectionView.reloadData()
         }
     }
     
