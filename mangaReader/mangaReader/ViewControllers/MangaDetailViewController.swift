@@ -100,7 +100,7 @@ class MangaDetailViewController: BaseViewController {
     func openChapter(chapter: ChapterProtocol?) {
         guard let theChapter = chapter, let destination = ChapterReadViewController.newInstance() as? ChapterReadViewController else {return}
         
-        let readViewModel = ChapterReadViewModel(chapterObject: theChapter, manga: viewModel.manga)
+        let readViewModel = EdenChapterReadViewModel(chapterObject: theChapter, manga: viewModel.manga)
         destination.viewModel = readViewModel
         
         present(destination, animated: true, completion: nil)

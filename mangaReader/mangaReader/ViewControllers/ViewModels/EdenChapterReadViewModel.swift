@@ -9,7 +9,7 @@
 import Foundation
 import AlamofireImage
 
-class ChapterReadViewModel {
+class EdenChapterReadViewModel {
     var chapterObject: ChapterProtocol
     var manga: MangaProtocol
     
