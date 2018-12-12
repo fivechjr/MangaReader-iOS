@@ -1,15 +1,15 @@
 //
-//  ChapterReadViewModel.swift
+//  BaseChapterReadViewModel.swift
 //  mangaReader
 //
-//  Created by Yiming Dong on 2018/10/8.
+//  Created by Yiming Dong on 2018/12/12.
 //  Copyright © 2018 Yiming Dong. All rights reserved.
 //
 
 import Foundation
 import AlamofireImage
 
-class EdenChapterReadViewModel {
+class BaseChapterReadViewModel {
     var chapterObject: ChapterProtocol
     var manga: MangaProtocol
     
@@ -46,19 +46,14 @@ class EdenChapterReadViewModel {
         guard let chapterCount = manga.chapterObjects?.count,
             let chapterIndex = getCurrentChapterIndex(),
             chapterIndex < chapterCount - 1 else {
-            return true
+                return true
         }
         
         return false
     }
     
     func getChapterDetail(completion: @escaping (ChapterDetailProtocol?, Error?) -> Void) {
-        guard let mangaId = manga.mangaId, let chapterId = chapterObject.chapterId else {return}
-        
-        MangaEdenApi.getChapterDetail(mangaId: mangaId, chapterId: chapterId) { [weak self] (chapterDetailResponse, error) in
-            self?.chapterDetail = chapterDetailResponse?.chapter
-            completion(chapterDetailResponse?.chapter, error)
-        }
+        fatalError("should be overrided by subclass")
     }
     
     func cancelDownload() {
@@ -66,25 +61,22 @@ class EdenChapterReadViewModel {
         receipts.removeAll()
     }
     
+    func downloadImage(_ urlString: String?) {
+        guard let urlString = urlString, let url = URL(string: urlString) else {return}
+        
+        let urlRequest = URLRequest(url: url)
+        
+        let receipt = downloader.download(urlRequest) { response in
+            print("Download:\(urlRequest.url?.absoluteString ?? "") - Success: \(response.result.isSuccess)")
+        }
+        
+        if let receipt = receipt {
+            receipts.append(receipt)
+        }
+    }
+    
     func downloadImages() {
-        
-        cancelDownload()
-        
-        chapterDetail?.chapterImages?.forEach({ (imagePath) in
-            if let urlString = MangaEdenApi.getImageUrl(withImagePath: imagePath)
-                , let url = URL(string: urlString) {
-                
-                let urlRequest = URLRequest(url: url)
-                
-                let receipt = downloader.download(urlRequest) { response in
-                    print("Download:\(urlRequest.url?.absoluteString ?? "") - Success: \(response.result.isSuccess)")
-                }
-                
-                if let receipt = receipt {
-                    receipts.append(receipt)
-                }
-            }
-        })
+        fatalError("should be overrided by subclass")
     }
     
     func recordCurrentChapter() {
@@ -127,3 +119,4 @@ class EdenChapterReadViewModel {
         completion()
     }
 }
+
