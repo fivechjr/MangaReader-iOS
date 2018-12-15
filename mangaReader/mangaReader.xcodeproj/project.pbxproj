@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		30F4340321C4C12B0078E01C /* LamaSearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F4340221C4C12B0078E01C /* LamaSearchResponse.swift */; };
 		8C16A8CF20A12DAC009D5692 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8C16A8D120A12DAC009D5692 /* Localizable.strings */; };
 		8C16A8D820A13204009D5692 /* MangaDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C16A8DA20A13204009D5692 /* MangaDetailTableViewCell.xib */; };
 		8C16A8E220A1329B009D5692 /* MangaDetailHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C16A8E120A1329B009D5692 /* MangaDetailHeaderTableViewCell.xib */; };
@@ -135,6 +136,7 @@
 
 /* Begin PBXFileReference section */
 		1A55816C541577B20C9EA282 /* Pods-mangaReader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mangaReader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-mangaReader/Pods-mangaReader.debug.xcconfig"; sourceTree = "<group>"; };
+		30F4340221C4C12B0078E01C /* LamaSearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LamaSearchResponse.swift; sourceTree = "<group>"; };
 		65171A2F5A9EBB700F64B9D3 /* Pods-mangaReader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mangaReader.release.xcconfig"; path = "Pods/Target Support Files/Pods-mangaReader/Pods-mangaReader.release.xcconfig"; sourceTree = "<group>"; };
 		8C16A8CC20A1256C009D5692 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		8C16A8D020A12DAC009D5692 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -353,6 +355,7 @@
 				8C3C8C012199BD76000F3FDD /* LamaTopicsResponse.swift */,
 				8CC9E45A21BC044B0098E505 /* LamaTopicResponse.swift */,
 				8CC9E46121BCC00D0098E505 /* LamaChapterResponse.swift */,
+				30F4340221C4C12B0078E01C /* LamaSearchResponse.swift */,
 			);
 			path = ResponseModels;
 			sourceTree = "<group>";
@@ -939,6 +942,7 @@
 				8C96738321756F2700DE5D69 /* FavoritesViewModel.swift in Sources */,
 				8C5E790421C1570200754DAB /* LamaChapterReadViewModel.swift in Sources */,
 				8C60C9662094A4FE0069EFDB /* RecentManga.swift in Sources */,
+				30F4340321C4C12B0078E01C /* LamaSearchResponse.swift in Sources */,
 				8C904D892088BB7F00A599E9 /* ImagePageViewController.swift in Sources */,
 				8C3C8BDD2196B794000F3FDD /* LamaDailyResponse.swift in Sources */,
 				8C81DCF12180DC8200F47A31 /* UITableView+Helper.swift in Sources */,

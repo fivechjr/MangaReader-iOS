@@ -13,6 +13,7 @@ enum LamaEndpoint {
     case topics(tag: Int, offset: Int, limit: Int)
     case topic(id: Int, sort: Int)
     case chapter(id: Int)
+    case search(keyword: String, offset: Int, limit: Int)
     
     var baseUrl: String {
         return "http://api.lamamanhua.com/"
@@ -28,6 +29,8 @@ enum LamaEndpoint {
             return baseUrl + "v2/topics/\(id)?sort=\(sort)"
         case .chapter(let id):
             return baseUrl + "v2/comics/\(id)"
+        case .search(let keyword, let offset, let limit):
+            return baseUrl + "v2/topics/search?keyword=\(keyword)&offset=\(offset)&limit=\(limit)"
         }
     }
 }

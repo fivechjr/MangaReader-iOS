@@ -29,4 +29,9 @@ class LamaApi {
         let path = LamaEndpoint.chapter(id: id).path
         NetworkManager.get(urlString: path, responseType: LamaChapterResponse.self, completion: completion)
     }
+    
+    static func search(keyword: String, offset: Int, limit: Int, completion:@escaping (LamaSearchResponse?, Error?) -> Void) {
+        let path = LamaEndpoint.search(keyword: keyword, offset: offset, limit: limit).path
+        NetworkManager.get(urlString: path, responseType: LamaSearchResponse.self, completion: completion)
+    }
 }
