@@ -87,7 +87,9 @@ class PageReaderView: NSObject, ReaderViewProtocol {
         
         if let imageViewController = imageViewController {
             pageViewController.setViewControllers([imageViewController], direction: .forward, animated: false, completion: { [weak self] (completed) in
-                self?.presenter?.viewDidStart()
+                guard let `self` = self else {return}
+                self.presenter?.viewDidChangePage(self.currentIndex)
+                self.presenter?.viewDidStart()
             })
         }
     }
@@ -104,7 +106,9 @@ class PageReaderView: NSObject, ReaderViewProtocol {
         let previousVC = imageViewControllers[index - 1]
         
         pageViewController.setViewControllers([previousVC], direction: .reverse, animated: true, completion: { [weak self] (completed) in
-            self?.presenter?.viewDidGotoPreviousPage()
+            guard let `self` = self else {return}
+            self.presenter?.viewDidChangePage(self.currentIndex)
+            self.presenter?.viewDidGotoPreviousPage()
         })
     }
     
@@ -120,7 +124,9 @@ class PageReaderView: NSObject, ReaderViewProtocol {
         let nextVC = imageViewControllers[index + 1]
         
         pageViewController.setViewControllers([nextVC], direction: .forward, animated: true, completion: { [weak self] (completed) in
-            self?.presenter?.vieDidGotoNextPage()
+            guard let `self` = self else {return}
+            self.presenter?.viewDidChangePage(self.currentIndex)
+            self.presenter?.vieDidGotoNextPage()
         })
     }
 }
