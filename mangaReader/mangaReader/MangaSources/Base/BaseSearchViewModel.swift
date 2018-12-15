@@ -9,20 +9,25 @@
 import Foundation
 import RxSwift
 
-class SearchViewModel {
+protocol SearchViewModelProtocol {
+    func searchManga(withKeyword keyword: String?, completion: @escaping ([MangaProtocol]?, Error?) -> Void)
+    func filterManga(_ mangas: [MangaProtocol]) -> [MangaProtocol]
+}
+
+class BaseSearchViewModel {
     private(set) var keyword: String?
     
-    var mangasSignal = Variable<[Manga]>([])
-    var mangasShowing: [Manga] {
+    var mangasSignal = Variable<[MangaProtocol]>([])
+    var mangasShowing: [MangaProtocol] {
         return mangasSignal.value
     }
     
-    fileprivate var mangas:[Manga] = []
+    fileprivate var mangas:[MangaProtocol] = []
     
     var currentPage: Int = 0
     let pageSize: Int = 21
     
-    func manga(atIndex index: Int) -> Manga? {
+    func manga(atIndex index: Int) -> MangaProtocol? {
         if index < mangasShowing.count {
             return mangasShowing[index]
         }
@@ -30,13 +35,13 @@ class SearchViewModel {
         return nil
     }
     
-    func search(_ keyword: String?, completion: @escaping (MangaListResponse?, Error?) -> Void) {
+    func search(_ keyword: String?, completion: @escaping ([MangaProtocol]?, Error?) -> Void) {
         self.keyword = keyword
         currentPage = 0
         searchManga(withKeyword: keyword, completion: completion)
     }
     
-    func searchNextPage(completion: @escaping (MangaListResponse?, Error?) -> Void) {
+    func searchNextPage(completion: @escaping ([MangaProtocol]?, Error?) -> Void) {
         currentPage += 1
         searchManga(withKeyword: keyword, completion: completion)
     }
@@ -46,9 +51,9 @@ class SearchViewModel {
     }
 }
 
-extension SearchViewModel {
+extension BaseSearchViewModel: SearchViewModelProtocol {
     
-    fileprivate func searchManga(withKeyword keyword: String?, completion: @escaping (MangaListResponse?, Error?) -> Void) {
+     func searchManga(withKeyword keyword: String?, completion: @escaping ([MangaProtocol]?, Error?) -> Void) {
         guard let keyword = keyword else {return}
         
         if currentPage <= 0 {
@@ -60,11 +65,11 @@ extension SearchViewModel {
             guard let `self` = self else {return}
             self.mangas.append(contentsOf: response?.mangalist ?? [])
             self.refreshManga()
-            completion(response, error)
+            completion(self.mangas, error)
         }
     }
     
-    fileprivate func filterManga(_ mangas: [Manga]) -> [Manga] {
+    func filterManga(_ mangas: [MangaProtocol]) -> [MangaProtocol] {
         return mangas.filter {$0.canPublish()}
     }
 }

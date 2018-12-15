@@ -89,7 +89,7 @@
 		8C96736E2169175100DE5D69 /* UIViewController+Extra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C96736D2169175100DE5D69 /* UIViewController+Extra.swift */; };
 		8C967370216918D800DE5D69 /* GenresListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C96736F216918D800DE5D69 /* GenresListViewModel.swift */; };
 		8C9673722169217700DE5D69 /* SensitiveData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9673712169217700DE5D69 /* SensitiveData.swift */; };
-		8C9673742169C7B300DE5D69 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9673732169C7B300DE5D69 /* SearchViewModel.swift */; };
+		8C9673742169C7B300DE5D69 /* BaseSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9673732169C7B300DE5D69 /* BaseSearchViewModel.swift */; };
 		8C967377216A32C700DE5D69 /* EdenMangaDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C967376216A32C700DE5D69 /* EdenMangaDetailViewModel.swift */; };
 		8C96737B216A5AF300DE5D69 /* MangaDetailHeaderCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C96737A216A5AF300DE5D69 /* MangaDetailHeaderCellModel.swift */; };
 		8C96737D216A5B1A00DE5D69 /* MangaListCollectionCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C96737C216A5B1A00DE5D69 /* MangaListCollectionCellViewModel.swift */; };
@@ -227,7 +227,7 @@
 		8C96736D2169175100DE5D69 /* UIViewController+Extra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extra.swift"; sourceTree = "<group>"; };
 		8C96736F216918D800DE5D69 /* GenresListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenresListViewModel.swift; sourceTree = "<group>"; };
 		8C9673712169217700DE5D69 /* SensitiveData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensitiveData.swift; sourceTree = "<group>"; };
-		8C9673732169C7B300DE5D69 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		8C9673732169C7B300DE5D69 /* BaseSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSearchViewModel.swift; sourceTree = "<group>"; };
 		8C967376216A32C700DE5D69 /* EdenMangaDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdenMangaDetailViewModel.swift; sourceTree = "<group>"; };
 		8C96737A216A5AF300DE5D69 /* MangaDetailHeaderCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaDetailHeaderCellModel.swift; sourceTree = "<group>"; };
 		8C96737C216A5B1A00DE5D69 /* MangaListCollectionCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaListCollectionCellViewModel.swift; sourceTree = "<group>"; };
@@ -416,6 +416,7 @@
 		8C5E790021C147D500754DAB /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				8C9673732169C7B300DE5D69 /* BaseSearchViewModel.swift */,
 				8C5E78F921BEBAFB00754DAB /* BaseMangaDetailViewModel.swift */,
 				8C5E790121C1538300754DAB /* BaseChapterReadViewModel.swift */,
 			);
@@ -548,7 +549,6 @@
 			isa = PBXGroup;
 			children = (
 				8C96736F216918D800DE5D69 /* GenresListViewModel.swift */,
-				8C9673732169C7B300DE5D69 /* SearchViewModel.swift */,
 				8CC9E45F21BC14720098E505 /* MangaDetailViewModelProtocol.swift */,
 				8C96738221756F2700DE5D69 /* FavoritesViewModel.swift */,
 				8C9673842178169E00DE5D69 /* RecentViewModel.swift */,
@@ -921,7 +921,7 @@
 				8C96738721795B3A00DE5D69 /* SettingsViewModel.swift in Sources */,
 				8C96736321686F0600DE5D69 /* EdenMangaListViewModel.swift in Sources */,
 				8C3C8BE42196B8A8000F3FDD /* LamaTopic.swift in Sources */,
-				8C9673742169C7B300DE5D69 /* SearchViewModel.swift in Sources */,
+				8C9673742169C7B300DE5D69 /* BaseSearchViewModel.swift in Sources */,
 				8C81DD1A21857FE300F47A31 /* MangaDetailChaptersViewController.swift in Sources */,
 				8C5EA97120F0AF0A007E8A7D /* ConsentManager.swift in Sources */,
 				8C8EAC7F206A141900803BD1 /* AppDelegate.swift in Sources */,
