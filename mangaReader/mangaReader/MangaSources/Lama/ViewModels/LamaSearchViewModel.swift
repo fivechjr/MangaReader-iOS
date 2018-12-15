@@ -17,7 +17,8 @@ class LamaSearchViewModel: BaseSearchViewModel {
             mangas.removeAll()
         }
         
-        LamaApi.search(keyword: keyword, offset: currentPage * pageSize, limit: pageSize) { [weak self] (response, error) in
+        // XXX: Lama Api does not support offset for now
+        LamaApi.search(keyword: keyword, offset: 0, limit: pageSize) { [weak self] (response, error) in
             guard let `self` = self else {return}
             self.mangas.append(contentsOf: response?.data?.topics ?? [])
             self.refreshManga()
