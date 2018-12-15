@@ -133,7 +133,8 @@ class MangaListViewController: BaseViewController {
     
     @objc func searchAction() {
         if let navigationVC = SearchViewController.createFromStoryboard() {
-//            let searchVC = navigationVC.viewControllers.first as! SearchViewController
+            let searchVC = navigationVC.viewControllers.first as! SearchViewController
+            searchVC.viewModel = FSInjector.shared.resolve(BaseSearchViewModel.self)
             present(navigationVC, animated: true, completion: nil)
         }
     }

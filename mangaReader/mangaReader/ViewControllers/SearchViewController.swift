@@ -13,7 +13,7 @@ class SearchViewController: BaseViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var resultCollectionView: UICollectionView!
     
-    var viewModel = BaseSearchViewModel()
+    var viewModel: BaseSearchViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,7 +93,9 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
         
         let vc = MangaDetailViewController.newInstance() as! MangaDetailViewController
         
-        vc.viewModel = EdenMangaDetailViewModel(mangaId: mangaId)
+        vc.viewModel = FSInjector.shared.resolve(MangaDetailViewModelProtocol.self)
+        vc.viewModel.mangaId = mangaId
+//        vc.viewModel = EdenMangaDetailViewModel(mangaId: mangaId)
         
         navigationController?.pushViewController(vc, animated: true)
     }

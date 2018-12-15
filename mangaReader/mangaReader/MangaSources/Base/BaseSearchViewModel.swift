@@ -14,7 +14,7 @@ protocol SearchViewModelProtocol {
     func filterManga(_ mangas: [MangaProtocol]) -> [MangaProtocol]
 }
 
-class BaseSearchViewModel {
+class BaseSearchViewModel: SearchViewModelProtocol {
     private(set) var keyword: String?
     
     var mangasSignal = Variable<[MangaProtocol]>([])
@@ -22,7 +22,7 @@ class BaseSearchViewModel {
         return mangasSignal.value
     }
     
-    fileprivate var mangas:[MangaProtocol] = []
+    var mangas:[MangaProtocol] = []
     
     var currentPage: Int = 0
     let pageSize: Int = 21
@@ -49,27 +49,12 @@ class BaseSearchViewModel {
     func refreshManga() {
         mangasSignal.value = filterManga(mangas)
     }
-}
-
-extension BaseSearchViewModel: SearchViewModelProtocol {
     
-     func searchManga(withKeyword keyword: String?, completion: @escaping ([MangaProtocol]?, Error?) -> Void) {
-        guard let keyword = keyword else {return}
-        
-        if currentPage <= 0 {
-            currentPage = 0
-            mangas.removeAll()
-        }
-        
-        MangaEdenApi.searchManga(withKeyword: keyword, page: currentPage, size: pageSize, sort: .hits) { [weak self] (response, error) in
-            guard let `self` = self else {return}
-            self.mangas.append(contentsOf: response?.mangalist ?? [])
-            self.refreshManga()
-            completion(self.mangas, error)
-        }
+    func searchManga(withKeyword keyword: String?, completion: @escaping ([MangaProtocol]?, Error?) -> Void) {
+        fatalError("should be override")
     }
     
     func filterManga(_ mangas: [MangaProtocol]) -> [MangaProtocol] {
-        return mangas.filter {$0.canPublish()}
+        fatalError("should be ovveride")
     }
 }
