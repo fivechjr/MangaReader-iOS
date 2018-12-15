@@ -12,9 +12,16 @@ import Alamofire
 public typealias NetworkCompletion<T: Codable> = (T?, Error?) -> Void
 
 class NetworkManager {
+    
+    private static var sessionManager: SessionManager = {
+        let sm = Alamofire.SessionManager(configuration: URLSessionConfiguration.default)
+        sm.adapter = CustomRequestAdapter()
+        return sm
+    }()
+    
     static func get<T: Codable>(urlString: String?, responseType: T.Type, completion: @escaping NetworkCompletion<T>) {
-        guard let urlString = urlString, let url = URL(string: urlString) else {return}
-        Alamofire.request(url).responseData { (response) in
+        guard let urlString = self.safeUrlString(urlString), let url = URL(string: urlString) else {return}
+        sessionManager.request(url).responseData { (response) in
             guard let data = response.result.value else {
                 completion(nil, response.result.error)
                 return
@@ -31,7 +38,7 @@ class NetworkManager {
     
     static func post<T: Codable>(urlString: String?, parameters: Parameters? = nil, responseType: T.Type, completion: @escaping NetworkCompletion<T>) {
         guard let urlString = urlString, let url = URL(string: urlString) else {return}
-        Alamofire.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default).responseData { (response) in
+        sessionManager.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default).responseData { (response) in
             guard let data = response.result.value else {
                 completion(nil, response.result.error)
                 return
@@ -44,5 +51,11 @@ class NetworkManager {
                 completion(nil, error)
             }
         }
+    }
+    
+    private static func safeUrlString(_ urlString: String?) -> String? {
+        let allowedCharacterSet = CharacterSet(charactersIn: " ").inverted
+        guard let safeUrlString = urlString?.addingPercentEncoding(withAllowedCharacters: allowedCharacterSet) else {return nil}
+        return safeUrlString
     }
 }
