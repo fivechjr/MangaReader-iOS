@@ -79,6 +79,8 @@ class CollectionReaderView: NSObject, ReaderViewProtocol {
     
     func start() {
         collectionView.reloadData()
+        
+        presenter?.viewDidChangePage(currentIndex)
     }
     
     func gotoPreviousPage() {
@@ -90,6 +92,10 @@ class CollectionReaderView: NSObject, ReaderViewProtocol {
             let offsetX = collectionView.contentOffset.x - collectionView.frame.width
             let targetOffset = CGPoint(x: offsetX > 0 ? offsetX : 0, y: 0)
             collectionView.setContentOffset(targetOffset, animated: true)
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.presenter?.viewDidChangePage(self.currentIndex)
         }
     }
     
@@ -106,10 +112,23 @@ class CollectionReaderView: NSObject, ReaderViewProtocol {
             let targetOffset = CGPoint(x: offsetX < maxOffsetX ? offsetX : maxOffsetX, y: 0)
             collectionView.setContentOffset(targetOffset, animated: true)
         }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.presenter?.viewDidChangePage(self.currentIndex)
+        }
     }
     
     private var isVertical: Bool {
         return ReaderMode.currentMode.direction == .vertical
+    }
+    
+    private var currentIndex: Int {
+        guard let firstCell = collectionView.visibleCells.first as? ImagePageViewCollectionCell,
+            let imageUrl = firstCell.imagePageView.imageUrl else {
+            return 0
+        }
+        
+        return imageUrls.firstIndex(where: {$0 == imageUrl}) ?? 0
     }
 }
 
@@ -125,6 +144,10 @@ extension CollectionReaderView: UICollectionViewDelegateFlowLayout {
 
 //        print("collection cell size: \(size), indexpath: \(indexPath)")
         return size
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        presenter?.viewDidChangePage(currentIndex)
     }
 }
 
