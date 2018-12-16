@@ -314,7 +314,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
                                         <items/>
                                     </toolbar>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dEd-p0-eKZ">
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dEd-p0-eKZ">
                                         <rect key="frame" x="10" y="8" width="44" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="44" id="2Pz-I1-q8t"/>
@@ -328,7 +328,7 @@
                                             <action selector="gotoPreviousChapterAction:" destination="WAO-F0-Dug" eventType="touchUpInside" id="9yM-zQ-KFU"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="72h-Br-5G9">
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="72h-Br-5G9">
                                         <rect key="frame" x="321" y="8" width="44" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="44" id="WTA-9y-lyG"/>

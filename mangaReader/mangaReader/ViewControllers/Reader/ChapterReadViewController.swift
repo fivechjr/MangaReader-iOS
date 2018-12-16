@@ -34,8 +34,8 @@ class ChapterReadViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        topNavigationView.alpha = 1
-        bottomToolView.alpha = 1
+        topNavigationView.alpha = 0
+        bottomToolView.alpha = 0
         
         setupReaderView()
         
