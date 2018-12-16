@@ -81,6 +81,8 @@ class CollectionReaderView: NSObject, ReaderViewProtocol {
         collectionView.reloadData()
         
         presenter?.viewDidChangePage(currentIndex)
+        
+        presenter?.viewDidStart()
     }
     
     func gotoPreviousPage() {

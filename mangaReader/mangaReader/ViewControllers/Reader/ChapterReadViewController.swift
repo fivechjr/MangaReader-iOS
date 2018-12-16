@@ -103,6 +103,13 @@ class ChapterReadViewController: BaseViewController {
         }
     }
     
+    private func hideToolbarAnimated() {
+        UIView.animate(withDuration: 0.3) {
+            self.topNavigationView.alpha = 0
+            self.bottomToolView.alpha = 0
+        }
+    }
+    
     // MARK: Chapter navigation
     @IBAction func gotoNextChapterAction(_ sender: Any) {
         viewModel.goToChapter(next: true) { [weak self] in
@@ -110,6 +117,7 @@ class ChapterReadViewController: BaseViewController {
             self.currentReaderView?.uninstall(sameChapter: false)
             self.currentReaderView?.install(to: self)
             self.getChapterDetail()
+            self.hideToolbarAnimated()
         }
     }
     
@@ -119,6 +127,7 @@ class ChapterReadViewController: BaseViewController {
             self.currentReaderView?.uninstall(sameChapter: false)
             self.currentReaderView?.install(to: self)
             self.getChapterDetail()
+            self.hideToolbarAnimated()
         }
     }
     
