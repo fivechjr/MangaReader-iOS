@@ -10,6 +10,7 @@ import UIKit
 
 import SnapKit
 import RealmSwift
+import SVProgressHUD
 
 class ChapterReadViewController: BaseViewController {
 
@@ -112,6 +113,12 @@ class ChapterReadViewController: BaseViewController {
     
     // MARK: Chapter navigation
     @IBAction func gotoNextChapterAction(_ sender: Any) {
+        
+        guard !viewModel.isTheLastChapter else {
+            SVProgressHUD.showInfo(withStatus: LocalizedString("msg_the_last_chapter"))
+            return
+        }
+        
         viewModel.goToChapter(next: true) { [weak self] in
             guard let `self` = self else {return}
             self.currentReaderView?.uninstall(sameChapter: false)
@@ -122,6 +129,12 @@ class ChapterReadViewController: BaseViewController {
     }
     
     @IBAction func gotoPreviousChapterAction(_ sender: Any) {
+        
+        guard !viewModel.isTheFirstChapter else {
+            SVProgressHUD.showInfo(withStatus: LocalizedString("msg_the_first_chapter"))
+            return
+        }
+        
         viewModel.goToChapter(next: false) { [weak self] in
             guard let `self` = self else {return}
             self.currentReaderView?.uninstall(sameChapter: false)
@@ -154,6 +167,14 @@ class ChapterReadViewController: BaseViewController {
 }
 
 extension ChapterReadViewController: ReaderViewPresenterProtocol {
+    func vieGotoNextChapter() {
+        gotoNextChapterAction(buttonNextChapter)
+    }
+    
+    func vieGotoPrevChapter() {
+        gotoPreviousChapterAction(buttonPreviousChapter)
+    }
+    
     func viewDidStart() {
         updateInfoLabel()
         updateChapterButtons()

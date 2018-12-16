@@ -72,3 +72,6 @@
 "lbl_read_mode_page_curl" = "Curl Page";
 "lbl_read_mode_collection_horizonal" = "Horizontal Scroll";
 "lbl_read_mode_collection_vertical" = "Vertical Scroll";
+
+"msg_the_first_chapter" = "It's already the first chapter.";
+"msg_the_last_chapter" = "It's already the last chapter.";

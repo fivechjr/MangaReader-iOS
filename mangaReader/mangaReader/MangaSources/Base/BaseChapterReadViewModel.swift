@@ -109,6 +109,14 @@ class BaseChapterReadViewModel {
         return nil
     }
     
+    var isTheLastChapter: Bool {
+        return chapter(next: true) == nil
+    }
+    
+    var isTheFirstChapter: Bool {
+        return chapter(next: false) == nil
+    }
+    
     func goToChapter(next: Bool, completion: @escaping () -> Void) {
         guard let chapter = chapter(next: next) else {return}
         chapterObject = chapter

@@ -72,3 +72,6 @@
 "lbl_read_mode_page_curl" = "仿真翻页";
 "lbl_read_mode_collection_horizonal" = "水平滚动";
 "lbl_read_mode_collection_vertical" = "垂直滚动";
+
+"msg_the_first_chapter" = "已经是第一章了";
+"msg_the_last_chapter" = "已经是最后一章了";

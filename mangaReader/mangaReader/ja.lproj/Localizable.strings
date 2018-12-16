@@ -72,3 +72,6 @@
 "lbl_read_mode_page_curl" = "シミュレーションページの回転";
 "lbl_read_mode_collection_horizonal" = "水平スクロール";
 "lbl_read_mode_collection_vertical" = "垂直スクロール";
+
+"msg_the_first_chapter" = "It's already the first chapter.";
+"msg_the_last_chapter" = "It's already the last chapter.";

@@ -8,6 +8,7 @@
 
 import Foundation
 import SnapKit
+import CRRefresh
 
 class CollectionReaderView: NSObject, ReaderViewProtocol {
     
@@ -72,6 +73,23 @@ class CollectionReaderView: NSObject, ReaderViewProtocol {
             maker.bottom.equalTo(parentVC.view.snp.bottom)
             maker.leading.equalTo(parentVC.view.snp.leading)
             maker.trailing.equalTo(parentVC.view.snp.trailing)
+        }
+        
+        collectionView.cr.addHeadRefresh(animator: SlackLoadingAnimator()) { [weak self] in
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                
+                self?.presenter?.vieGotoPrevChapter()
+                self?.collectionView.cr.endHeaderRefresh()
+            })
+        }
+        
+        collectionView.cr.addFootRefresh(animator: SlackLoadingAnimator()) { [weak self] in
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+                self?.presenter?.vieGotoNextChapter()
+                self?.collectionView.cr.endLoadingMore()
+            })
         }
         
         start()
