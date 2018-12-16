@@ -23,7 +23,8 @@ target 'mangaReader' do
     pod 'TagListView', '~> 1.3.0'
     # pod 'BPStatusBarAlert', '~> 0.1.5'
     pod 'Toast-Swift', '~> 3.0.1'
-    pod 'SVPullToRefresh', '~> 2.2.5'
+    pod 'SVPullToRefresh', '~> 0.4.1'
+    pod 'CRRefresh', '~> 1.1.3'
     
     # ADS
     pod 'VungleSDK-iOS', '~> 6.2.0'
