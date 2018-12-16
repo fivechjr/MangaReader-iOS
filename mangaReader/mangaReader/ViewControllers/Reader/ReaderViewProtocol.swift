@@ -62,7 +62,7 @@ enum ReaderMode: Int {
     
     static var currentValue: Int {
         get {
-            return UserDefaults.standard.value(forKey: cacheKey) as? Int ?? 0
+            return UserDefaults.standard.value(forKey: cacheKey) as? Int ?? ReaderMode.collectionVertical.rawValue
         }
         
         set {

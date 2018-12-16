@@ -74,7 +74,8 @@ extension LamaMangaListViewModel {
         // load from network
         isLoading = true
         
-        LamaApi.getTopics(tag: 200, offset: currentPage * pageSize, limit: pageSize) { [weak self] (response, error) in
+        let sort = sortByRecentUpdate ? 0 : 1
+        LamaApi.getTopics(tag: 200, offset: currentPage * pageSize, limit: pageSize, sort: sort) { [weak self] (response, error) in
             guard let `self` = self, let comics = response?.data?.topics else {return}
             self.mangas.append(contentsOf: comics)
             self.mangasSignal.value = self.mangas
