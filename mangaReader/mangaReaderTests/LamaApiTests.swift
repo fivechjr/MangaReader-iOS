@@ -49,4 +49,18 @@ class LamaApiTests: XCTestCase {
         
         wait(for: [exp], timeout: 30)
     }
+    
+    func test_tag_suggestion_ok() {
+        let exp = expectation(description: "should finish request")
+        
+        LamaApi.tagSuggestion() { (response, error) in
+            exp.fulfill()
+            XCTAssertNotNil(response)
+            XCTAssertNotNil(response?.data)
+            XCTAssertFalse(response?.data?.suggestion?.isEmpty ?? true)
+            XCTAssertNil(error)
+        }
+        
+        wait(for: [exp], timeout: 30)
+    }
 }

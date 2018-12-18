@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		308E8E4D21C8826A000F7F63 /* LamaTagSuggestionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308E8E4C21C8826A000F7F63 /* LamaTagSuggestionResponse.swift */; };
 		30F4340321C4C12B0078E01C /* LamaSearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F4340221C4C12B0078E01C /* LamaSearchResponse.swift */; };
 		30F4340521C4CD950078E01C /* EdenSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F4340421C4CD950078E01C /* EdenSearchViewModel.swift */; };
 		30F4340721C4CF010078E01C /* LamaSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F4340621C4CF010078E01C /* LamaSearchViewModel.swift */; };
@@ -139,6 +140,7 @@
 
 /* Begin PBXFileReference section */
 		1A55816C541577B20C9EA282 /* Pods-mangaReader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mangaReader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-mangaReader/Pods-mangaReader.debug.xcconfig"; sourceTree = "<group>"; };
+		308E8E4C21C8826A000F7F63 /* LamaTagSuggestionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LamaTagSuggestionResponse.swift; sourceTree = "<group>"; };
 		30F4340221C4C12B0078E01C /* LamaSearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LamaSearchResponse.swift; sourceTree = "<group>"; };
 		30F4340421C4CD950078E01C /* EdenSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdenSearchViewModel.swift; sourceTree = "<group>"; };
 		30F4340621C4CF010078E01C /* LamaSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LamaSearchViewModel.swift; sourceTree = "<group>"; };
@@ -362,6 +364,7 @@
 				8CC9E45A21BC044B0098E505 /* LamaTopicResponse.swift */,
 				8CC9E46121BCC00D0098E505 /* LamaChapterResponse.swift */,
 				30F4340221C4C12B0078E01C /* LamaSearchResponse.swift */,
+				308E8E4C21C8826A000F7F63 /* LamaTagSuggestionResponse.swift */,
 			);
 			path = ResponseModels;
 			sourceTree = "<group>";
@@ -906,6 +909,7 @@
 				8C5E78FA21BEBAFB00754DAB /* BaseMangaDetailViewModel.swift in Sources */,
 				8CC9E46021BC14730098E505 /* MangaDetailViewModelProtocol.swift in Sources */,
 				8C96738B217964D200DE5D69 /* ThemeManager.swift in Sources */,
+				308E8E4D21C8826A000F7F63 /* LamaTagSuggestionResponse.swift in Sources */,
 				8C3C8BD42196B366000F3FDD /* NetworkManager.swift in Sources */,
 				8C5E78F621BD026200754DAB /* UICollectionView+Helper.swift in Sources */,
 				8C96738F217C51F500DE5D69 /* Color+Utilities.swift in Sources */,

@@ -34,4 +34,9 @@ class LamaApi {
         let path = LamaEndpoint.search(keyword: keyword, offset: offset, limit: limit).path
         NetworkManager.get(urlString: path, responseType: LamaSearchResponse.self, completion: completion)
     }
+    
+    static func tagSuggestion(completion: @escaping (LamaTagSuggestionResponse?, Error?) -> Void) {
+        let path = LamaEndpoint.tagSuggestion.path
+        NetworkManager.get(urlString: path, responseType: LamaTagSuggestionResponse.self, completion: completion)
+    }
 }
