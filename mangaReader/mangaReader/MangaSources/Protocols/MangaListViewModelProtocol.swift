@@ -13,8 +13,7 @@ protocol MangaListViewModelProtocol {
     var sortByRecentUpdate: Bool {get set}
     var isLoading: Bool {get}
     
-    var selectedGenres: [String] {get set}
-    var selectedGenresLocalized: [String] {get set}
+    var selectedCategories: [CategoryProtocol] {get set}
     
     var mangasSignal: Variable<[MangaProtocol]> {get}
     var mangasShowing: [MangaProtocol] {get}

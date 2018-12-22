@@ -17,8 +17,7 @@ class EdenMangaListViewModel: MangaListViewModelProtocol {
     
     var isLoading: Bool = false
     
-    var selectedGenres: [String] = []
-    var selectedGenresLocalized: [String] = []
+    var selectedCategories: [CategoryProtocol]  = []
     
     var mangasSignal = Variable<[MangaProtocol]>([])
     var mangasShowing: [MangaProtocol] {
@@ -76,7 +75,7 @@ extension EdenMangaListViewModel {
         // Load from cache
         let cachedManaga = MangaCache.getMangaList(page: currentPage, size: pageSize, sort: mangaSort)
         // Only use cached data if no genres selected
-        if !cachedManaga.isEmpty && selectedGenres.isEmpty {
+        if !cachedManaga.isEmpty && selectedCategories.isEmpty {
             mangas.append(contentsOf: cachedManaga)
             _ = refreshManga()
             completion(cachedManaga, nil)
@@ -91,7 +90,7 @@ extension EdenMangaListViewModel {
             let refreshedManga = self.refreshManga()
             
             // Only cache if no genres are selected
-            if self.selectedGenres.isEmpty {
+            if self.selectedCategories.isEmpty {
                 MangaCache.saveMangaList(mangaList: refreshedManga, currentPage: self.currentPage, size: self.pageSize, sort: self.mangaSort)
             }
             

@@ -15,8 +15,7 @@ class LamaMangaListViewModel: MangaListViewModelProtocol {
     
     var isLoading: Bool = false
     
-    var selectedGenres: [String] = []
-    var selectedGenresLocalized: [String] = []
+    var selectedCategories: [CategoryProtocol] = []
     
     var mangasSignal = Variable<[MangaProtocol]>([])
     var mangasShowing: [MangaProtocol] {

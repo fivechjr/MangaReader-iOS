@@ -11,34 +11,16 @@ import RealmSwift
 
 class DataManager {
     
-    enum CacheKey: String {
-        case key_manga_categories
-    }
-    
     static let shared = DataManager()
     private init() {
         Realm.Configuration.defaultConfiguration.deleteRealmIfMigrationNeeded = true
     }
     
     private var _categories: [String]?
-    private(set) var categories: [String] {
-        get {
-            if let _categories = _categories {
-                return _categories
-            } else {
-                _categories = UserDefaults.standard.array(forKey: CacheKey.key_manga_categories.rawValue) as? [String]
-                return _categories ?? []
-            }
-        }
-        
-        set(value) {
-            _categories = value
-            UserDefaults.standard.set(value, forKey: CacheKey.key_manga_categories.rawValue)
-        }
-    }
-    private(set) var legalCategories: [String] = []
+    private(set) var categories: [CategoryProtocol] = []
+    private(set) var legalCategories: [CategoryProtocol] = []
     
-    func loadCategories(forceUpdate: Bool = false, completion: (([String], Error?) -> Void)? = nil) {
+    func loadCategories(forceUpdate: Bool = false, completion: (([CategoryProtocol], Error?) -> Void)? = nil) {
         
         guard categories.isEmpty || forceUpdate else {
             completion?(categories, nil)
@@ -48,8 +30,9 @@ class DataManager {
         MangaEdenApi.getCategories { [weak self] (response, error) in
             guard let `self` = self else {return}
             
-            let categories = response?.categoryNames?.compactMap { Utility.string($0, containsAny: SensitiveData.categories) ? nil : $0}
-            self.categories = categories ?? []
+            let categories: [String] = response?.categoryNames?.compactMap { Utility.string($0, containsAny: SensitiveData.categories) ? nil : $0} ?? []
+            
+            self.categories = categories.map({EdenCategory(title: $0)})
             completion?(self.categories, nil)
         }
     }

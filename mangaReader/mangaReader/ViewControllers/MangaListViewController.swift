@@ -174,14 +174,15 @@ extension MangaListViewController: UICollectionViewDataSource, UICollectionViewD
 }
 
 extension MangaListViewController: GenresListViewControllerDelegate {
-    func didSelectGenre(genre: String!) {
+    func didSelectCagegory(_ category: CategoryProtocol?) {
+        guard let category = category else {return}
         
-        if viewModel.selectedGenres.index(of: genre) == nil {
-            viewModel.selectedGenres.append(genre)
-            viewModel.selectedGenresLocalized.append(LocalizedString(genre))
+        if viewModel.selectedCategories.firstIndex(where: {$0.id == category.id}) == nil {
+            viewModel.selectedCategories.append(category)
             
             genresTagListView.removeAllTags()
-            genresTagListView.addTags(viewModel.selectedGenresLocalized)
+            
+            genresTagListView.addTags(viewModel.selectedCategories.map({LocalizedString($0.title)}))
             
             refreshFirstPage()
         }
@@ -193,12 +194,11 @@ extension MangaListViewController: TagListViewDelegate {
         
         genresTagListView.removeTag(title)
         
-        guard let indexOfGenre = viewModel.selectedGenresLocalized.index(of: title), indexOfGenre < viewModel.selectedGenres.count else {
+        guard let indexOfGenre = viewModel.selectedCategories.firstIndex(where: {title == LocalizedString($0.title)}), indexOfGenre < viewModel.selectedCategories.count else {
             return
         }
         
-        viewModel.selectedGenres.remove(at: indexOfGenre)
-        viewModel.selectedGenresLocalized.remove(at: indexOfGenre)
+        viewModel.selectedCategories.remove(at: indexOfGenre)
         
         refreshFirstPage()
     }

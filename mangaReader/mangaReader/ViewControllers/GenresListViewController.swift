@@ -9,7 +9,7 @@
 import UIKit
 
 protocol GenresListViewControllerDelegate: class {
-    func didSelectGenre(genre: String!)
+    func didSelectCagegory(_ category: CategoryProtocol?)
 }
 
 class GenresListViewController: BaseViewController {
@@ -57,13 +57,13 @@ extension GenresListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         
-        cell.textLabel?.text = viewModel.title(atIndex: indexPath.row)
+        cell.textLabel?.text = viewModel.localizedTitle(atIndex: indexPath.row)
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        delegate?.didSelectGenre(genre: viewModel.genre(atIndex: indexPath.row))
+        delegate?.didSelectCagegory(viewModel.category(atIndex: indexPath.row))
         
         farewell()
     }
