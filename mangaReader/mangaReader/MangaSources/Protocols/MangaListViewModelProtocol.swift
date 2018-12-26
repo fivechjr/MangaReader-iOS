@@ -14,6 +14,7 @@ protocol MangaListViewModelProtocol {
     var isLoading: Bool {get}
     
     var selectedCategories: [CategoryProtocol] {get set}
+    func didSelectCategory(_ category: CategoryProtocol) -> Bool
     
     var mangasSignal: Variable<[MangaProtocol]> {get}
     var mangasShowing: [MangaProtocol] {get}

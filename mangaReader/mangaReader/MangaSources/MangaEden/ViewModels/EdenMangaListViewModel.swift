@@ -19,8 +19,16 @@ class EdenMangaListViewModel: MangaListViewModelProtocol {
     
     var selectedCategories: [CategoryProtocol]  = []
     
-    var categoryNames: [String] {
+    private var categoryNames: [String] {
         return selectedCategories.map({$0.title})
+    }
+    
+    func didSelectCategory(_ category: CategoryProtocol) -> Bool {
+        if selectedCategories.firstIndex(where: {$0.id == category.id}) == nil {
+            selectedCategories.append(category)
+            return true
+        }
+        return false
     }
     
     var mangasSignal = Variable<[MangaProtocol]>([])

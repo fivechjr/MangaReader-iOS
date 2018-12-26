@@ -177,9 +177,7 @@ extension MangaListViewController: GenresListViewControllerDelegate {
     func didSelectCagegory(_ category: CategoryProtocol?) {
         guard let category = category else {return}
         
-        if viewModel.selectedCategories.firstIndex(where: {$0.id == category.id}) == nil {
-            viewModel.selectedCategories.append(category)
-            
+        if viewModel.didSelectCategory(category) {
             genresTagListView.removeAllTags()
             
             genresTagListView.addTags(viewModel.selectedCategories.map({LocalizedString($0.title)}))
