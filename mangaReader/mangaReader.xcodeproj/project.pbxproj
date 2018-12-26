@@ -52,6 +52,8 @@
 		8C5E790421C1570200754DAB /* LamaChapterReadViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5E790321C1570200754DAB /* LamaChapterReadViewModel.swift */; };
 		8C5E790A21CE707000754DAB /* CategoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5E790921CE707000754DAB /* CategoryProtocol.swift */; };
 		8C5E790C21CE70A800754DAB /* EdenCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5E790B21CE70A800754DAB /* EdenCategory.swift */; };
+		8C5E790E21D33BE900754DAB /* CategoryRefresherProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5E790D21D33BE900754DAB /* CategoryRefresherProtocol.swift */; };
+		8C5E791021D33F5700754DAB /* LamaCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5E790F21D33F5700754DAB /* LamaCategory.swift */; };
 		8C5EA97120F0AF0A007E8A7D /* ConsentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5EA97020F0AF09007E8A7D /* ConsentManager.swift */; };
 		8C60C95E2092E5AA0069EFDB /* GenresListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C60C95D2092E5AA0069EFDB /* GenresListViewController.swift */; };
 		8C60C960209414350069EFDB /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C60C95F209414350069EFDB /* FavoritesViewController.swift */; };
@@ -192,6 +194,8 @@
 		8C5E790321C1570200754DAB /* LamaChapterReadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LamaChapterReadViewModel.swift; sourceTree = "<group>"; };
 		8C5E790921CE707000754DAB /* CategoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryProtocol.swift; sourceTree = "<group>"; };
 		8C5E790B21CE70A800754DAB /* EdenCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdenCategory.swift; sourceTree = "<group>"; };
+		8C5E790D21D33BE900754DAB /* CategoryRefresherProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRefresherProtocol.swift; sourceTree = "<group>"; };
+		8C5E790F21D33F5700754DAB /* LamaCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LamaCategory.swift; sourceTree = "<group>"; };
 		8C5EA97020F0AF09007E8A7D /* ConsentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsentManager.swift; sourceTree = "<group>"; };
 		8C60C95D2092E5AA0069EFDB /* GenresListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenresListViewController.swift; sourceTree = "<group>"; };
 		8C60C95F209414350069EFDB /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
@@ -356,6 +360,7 @@
 				8C3C8BE12196B842000F3FDD /* LamaComic.swift */,
 				8C3C8BE32196B8A8000F3FDD /* LamaTopic.swift */,
 				8CC9E46321BCC5A50098E505 /* LamaChapter.swift */,
+				8C5E790F21D33F5700754DAB /* LamaCategory.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -392,6 +397,7 @@
 				8C5E78E721BCE36500754DAB /* ChapterProtocol.swift */,
 				8C5E78FC21C0081300754DAB /* ChapterDetailProtocol.swift */,
 				8C5E790921CE707000754DAB /* CategoryProtocol.swift */,
+				8C5E790D21D33BE900754DAB /* CategoryRefresherProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -941,6 +947,7 @@
 				8C96737D216A5B1A00DE5D69 /* MangaListCollectionCellViewModel.swift in Sources */,
 				8C81DCEF2180D43600F47A31 /* NSAttributedString+Helper.swift in Sources */,
 				8C5E78F321BCFC0B00754DAB /* ImagePageViewCollectionCell.swift in Sources */,
+				8C5E790E21D33BE900754DAB /* CategoryRefresherProtocol.swift in Sources */,
 				8CD98FA320A52B23002C448F /* GuideView.swift in Sources */,
 				8C5E78EC21BCF59900754DAB /* ImagePageView.swift in Sources */,
 				8C96738721795B3A00DE5D69 /* SettingsViewModel.swift in Sources */,
@@ -972,6 +979,7 @@
 				30F4340321C4C12B0078E01C /* LamaSearchResponse.swift in Sources */,
 				30F4340921C4D7750078E01C /* CustomRequestAdapter.swift in Sources */,
 				8C904D892088BB7F00A599E9 /* ImagePageViewController.swift in Sources */,
+				8C5E791021D33F5700754DAB /* LamaCategory.swift in Sources */,
 				8C3C8BDD2196B794000F3FDD /* LamaDailyResponse.swift in Sources */,
 				8C81DCF12180DC8200F47A31 /* UITableView+Helper.swift in Sources */,
 				8C96737B216A5AF300DE5D69 /* MangaDetailHeaderCellModel.swift in Sources */,

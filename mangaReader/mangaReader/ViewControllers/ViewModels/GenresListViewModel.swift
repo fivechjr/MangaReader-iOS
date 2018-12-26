@@ -18,7 +18,7 @@ class GenresListViewModel {
     }
     
     func loadCategories(completion: @escaping () -> Void) {
-        DataManager.shared.loadCategories(forceUpdate: false) { [weak self] (categories, error) in
+        DataManager.shared.categoryRefresher.loadCategories(forceUpdate: false) { [weak self] (categories, error) in
             self?.genresSignal.value = categories
             completion()
         }

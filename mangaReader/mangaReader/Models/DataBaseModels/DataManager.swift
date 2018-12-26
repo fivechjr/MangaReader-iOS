@@ -11,31 +11,14 @@ import RealmSwift
 
 class DataManager {
     
+    let categoryRefresher: CategoryRefresherProtocol
+    
     static let shared = DataManager()
     private init() {
         Realm.Configuration.defaultConfiguration.deleteRealmIfMigrationNeeded = true
+        categoryRefresher = FSInjector.shared.resolve(CategoryRefresherProtocol.self)!
     }
     
-    private var _categories: [String]?
-    private(set) var categories: [CategoryProtocol] = []
-    private(set) var legalCategories: [CategoryProtocol] = []
-    
-    func loadCategories(forceUpdate: Bool = false, completion: (([CategoryProtocol], Error?) -> Void)? = nil) {
-        
-        guard categories.isEmpty || forceUpdate else {
-            completion?(categories, nil)
-            return
-        }
-        
-        MangaEdenApi.getCategories { [weak self] (response, error) in
-            guard let `self` = self else {return}
-            
-            let categories: [String] = response?.categoryNames?.compactMap { Utility.string($0, containsAny: SensitiveData.categories) ? nil : $0} ?? []
-            
-            self.categories = categories.map({EdenCategory(title: $0)})
-            completion?(self.categories, nil)
-        }
-    }
 }
 
 // MARK: recent manga

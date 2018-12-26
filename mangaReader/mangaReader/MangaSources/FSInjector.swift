@@ -15,6 +15,7 @@ class FSInjector {
     
     private func setup() {
         
+        //
         worker.register(MangaListViewModelProtocol.self, name: MangaSource.mangaEden.rawValue) { (r) in
             EdenMangaListViewModel()
         }
@@ -22,6 +23,7 @@ class FSInjector {
             LamaMangaListViewModel()
         }
         
+        //
         worker.register(MangaDetailViewModelProtocol.self, name: MangaSource.mangaEden.rawValue) { (r) in
             EdenMangaDetailViewModel()
         }
@@ -29,6 +31,7 @@ class FSInjector {
             LamaMangaDetailViewModel()
         }
         
+        //
         worker.register(BaseChapterReadViewModel.self, name: MangaSource.mangaEden.rawValue) { _ in
             EdenChapterReadViewModel()
         }
@@ -36,11 +39,21 @@ class FSInjector {
             LamaChapterReadViewModel()
         }
         
+        //
         worker.register(BaseSearchViewModel.self, name: MangaSource.mangaEden.rawValue) { _ in
             EdenSearchViewModel()
         }
         worker.register(BaseSearchViewModel.self, name: MangaSource.lama.rawValue) { _ in
             LamaSearchViewModel()
+        }
+        
+        //
+        worker.register(CategoryRefresherProtocol.self, name: MangaSource.mangaEden.rawValue) { _ in
+            EdenCategoryRefresher()
+        }
+        
+        worker.register(CategoryRefresherProtocol.self, name: MangaSource.lama.rawValue) { _ in
+            LamaCategoryRefresher()
         }
     }
     
