@@ -19,6 +19,10 @@ class EdenMangaListViewModel: MangaListViewModelProtocol {
     
     var selectedCategories: [CategoryProtocol]  = []
     
+    var categoryNames: [String] {
+        return selectedCategories.map({$0.title})
+    }
+    
     var mangasSignal = Variable<[MangaProtocol]>([])
     var mangasShowing: [MangaProtocol] {
         return mangasSignal.value
@@ -84,7 +88,7 @@ extension EdenMangaListViewModel {
         
         // load from network
         isLoading = true
-        MangaEdenApi.getMangaList(page: currentPage, size: pageSize, sort: mangaSort) { [weak self] (mangalist, error) in
+        MangaEdenApi.getMangaList(page: currentPage, size: pageSize, sort: mangaSort, categoryNames: categoryNames) { [weak self] (mangalist, error) in
             guard let `self` = self else {return}
             self.mangas.append(contentsOf: mangalist ?? [])
             let refreshedManga = self.refreshManga()
