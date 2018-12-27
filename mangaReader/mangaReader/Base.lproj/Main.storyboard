@@ -781,6 +781,40 @@
             </objects>
             <point key="canvasLocation" x="2574" y="788"/>
         </scene>
+        <!--Manga Download View Controller-->
+        <scene sceneID="NeE-mg-UGC">
+            <objects>
+                <viewController storyboardIdentifier="MangaDownloadViewController" id="hxY-jn-thu" customClass="MangaDownloadViewController" customModule="mangaReader" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="aH3-Of-ZYi">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="QhI-Vz-py5">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="hxY-jn-thu" id="6mo-yY-inF"/>
+                                    <outlet property="delegate" destination="hxY-jn-thu" id="6FY-7a-Py8"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="QhI-Vz-py5" firstAttribute="top" secondItem="aH3-Of-ZYi" secondAttribute="top" id="AjJ-Rn-B8G"/>
+                            <constraint firstItem="QhI-Vz-py5" firstAttribute="trailing" secondItem="H27-M2-YkJ" secondAttribute="trailing" id="C75-Zm-AAx"/>
+                            <constraint firstItem="QhI-Vz-py5" firstAttribute="bottom" secondItem="H27-M2-YkJ" secondAttribute="bottom" id="odu-T6-DP2"/>
+                            <constraint firstItem="QhI-Vz-py5" firstAttribute="leading" secondItem="H27-M2-YkJ" secondAttribute="leading" id="xX6-aV-my5"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="H27-M2-YkJ"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="QhI-Vz-py5" id="ybe-DQ-qIS"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YLf-ub-57t" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3453.5999999999999" y="795.6521739130435"/>
+        </scene>
     </scenes>
     <resources>
         <image name="backward" width="25.622776031494141" height="25.622776031494141"/>

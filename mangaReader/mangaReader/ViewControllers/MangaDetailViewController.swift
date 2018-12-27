@@ -71,6 +71,9 @@ class MangaDetailViewController: BaseViewController {
         nestCell.install(viewController: chaptersViewController, parent: self, toTheLeft: true)
         nestCell.install(viewController: infoViewController, parent: self, toTheLeft: false)
         
+        let downloadButton = UIBarButtonItem(image: UIImage(named: "icon_download"), style: .plain, target: self, action: #selector(download))
+        navigationItem.rightBarButtonItem = downloadButton
+        
         viewModel.getManga { [weak self] (_, _) in
             guard let `self` = self else {return}
             self.hideLoading()
@@ -79,6 +82,13 @@ class MangaDetailViewController: BaseViewController {
         }
         showLoading()
         view.bringSubview(toFront: maskView)
+    }
+    
+    @objc func download() {
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MangaDownloadViewController") as! MangaDownloadViewController
+        let nc = UINavigationController(rootViewController: vc)
+        present(nc, animated: true, completion: nil)
+//        print(#function)
     }
     
     func continueReading() {
