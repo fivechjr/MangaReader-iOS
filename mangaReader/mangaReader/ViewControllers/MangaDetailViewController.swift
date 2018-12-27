@@ -86,6 +86,7 @@ class MangaDetailViewController: BaseViewController {
     
     @objc func download() {
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MangaDownloadViewController") as! MangaDownloadViewController
+        vc.viewModel = MangaDownloadViewModel(manga: viewModel.manga)
         let nc = UINavigationController(rootViewController: vc)
         present(nc, animated: true, completion: nil)
 //        print(#function)

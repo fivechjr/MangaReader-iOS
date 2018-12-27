@@ -51,9 +51,16 @@ class FSInjector {
         worker.register(CategoryRefresherProtocol.self, name: MangaSource.mangaEden.rawValue) { _ in
             EdenCategoryRefresher()
         }
-        
         worker.register(CategoryRefresherProtocol.self, name: MangaSource.lama.rawValue) { _ in
             LamaCategoryRefresher()
+        }
+        
+        //
+        worker.register(DownloadManager.self, name: MangaSource.mangaEden.rawValue) { _ in
+            EdenDownloadManager()
+        }
+        worker.register(DownloadManager.self, name: MangaSource.lama.rawValue) { _ in
+            LamaDownloadManager()
         }
     }
     
