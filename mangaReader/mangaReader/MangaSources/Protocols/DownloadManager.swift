@@ -7,29 +7,31 @@
 //
 
 import Foundation
-import AlamofireImage
+import Kingfisher
 
 class DownloadManager {
     
-    let downloader = ImageDownloader()
-    private var receipts: [RequestReceipt] = []
+    let downloader = ImageDownloader.default
+    private var tasks: [RetrieveImageDownloadTask] = []
     
     func cancelDownload() {
-        receipts.forEach { downloader.cancelRequest(with: $0) }
-        receipts.removeAll()
+        tasks.forEach { $0.cancel() }
+        tasks.removeAll()
     }
     
     func downloadImage(_ urlString: String?) {
         guard let urlString = urlString, let url = URL(string: urlString) else {return}
         
-        let urlRequest = URLRequest(url: url)
-        
-        let receipt = downloader.download(urlRequest) { response in
-            print("Download:\(urlRequest.url?.absoluteString ?? "") - Success: \(response.result.isSuccess)")
+        let task = downloader.downloadImage(with: url) { (image, error, url, data) in
+            if let error = error {
+                print("Image download error: \(error), for url: \(url?.absoluteString ?? "N/A")")
+            } else {
+                print("Image download success, for url: \(url?.absoluteString ?? "N/A")")
+            }
         }
         
-        if let receipt = receipt {
-            receipts.append(receipt)
+        if let task = task {
+            tasks.append(task)
         }
     }
 

@@ -29,6 +29,6 @@ class MangaListCollectionViewCell: UICollectionViewCell {
         labelTitle.text = viewModel?.title
         
         guard let imageURL = viewModel?.imageURL else {return}
-        imageViewCover.af_setImage(withURL: imageURL, placeholderImage: viewModel?.placeHolderImage)
+        imageViewCover.kf.setImage(with: imageURL, placeholder: viewModel?.placeHolderImage)
     }
 }

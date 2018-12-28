@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import AlamofireImage
+import Kingfisher
 
 class LamaChapterReadViewModel: BaseChapterReadViewModel {
     

@@ -1,7 +1,10 @@
 //
-//  Image.swift
+//  Kingfisher.h
+//  Kingfisher
 //
-//  Copyright (c) 2015-2018 Alamofire Software Foundation (http://alamofire.org/)
+//  Created by Wei Wang on 15/4/6.
+//
+//  Copyright (c) 2018 Wei Wang <onevcat@gmail.com>
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -20,14 +23,15 @@
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
-//
 
-import Foundation
+#import <Foundation/Foundation.h>
 
-#if os(iOS) || os(tvOS) || os(watchOS)
-import UIKit
-public typealias Image = UIImage
-#elseif os(macOS)
-import Cocoa
-public typealias Image = NSImage
-#endif
+//! Project version number for Kingfisher.
+FOUNDATION_EXPORT double KingfisherVersionNumber;
+
+//! Project version string for Kingfisher.
+FOUNDATION_EXPORT const unsigned char KingfisherVersionString[];
+
+// In this header, you should import all the public headers of your framework using statements like #import <Kingfisher/PublicHeader.h>
+
+

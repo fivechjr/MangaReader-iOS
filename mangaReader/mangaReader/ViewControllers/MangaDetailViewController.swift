@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import AlamofireImage
+import Kingfisher
 import NVActivityIndicatorView
 
 class MangaDetailViewController: BaseViewController {

@@ -1,7 +1,5 @@
 PODS:
   - Alamofire (4.6.0)
-  - AlamofireImage (3.3.1):
-    - Alamofire (~> 4.5)
   - Bolts (1.9.0):
     - Bolts/AppLinks (= 1.9.0)
     - Bolts/Tasks (= 1.9.0)
@@ -15,6 +13,7 @@ PODS:
   - FBSDKCoreKit (4.38.1):
     - Bolts (~> 1.9)
   - Google-Mobile-Ads-SDK (7.31.0)
+  - Kingfisher (4.10.1)
   - NVActivityIndicatorView (4.1.1):
     - NVActivityIndicatorView/Presenter (= 4.1.1)
   - NVActivityIndicatorView/Presenter (4.1.1)
@@ -40,10 +39,10 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 4.6.0)
-  - AlamofireImage (~> 3.3)
   - CRRefresh (~> 1.1.3)
   - FacebookCore (~> 0.3.1)
   - Google-Mobile-Ads-SDK (~> 7.31.0)
+  - Kingfisher (~> 4.10.1)
   - NVActivityIndicatorView (~> 4.1.1)
   - PersonalizedAdConsent
   - RealmSwift (~> 3.7.4)
@@ -61,12 +60,12 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
-    - AlamofireImage
     - Bolts
     - CRRefresh
     - FacebookCore
     - FBSDKCoreKit
     - Google-Mobile-Ads-SDK
+    - Kingfisher
     - NVActivityIndicatorView
     - PersonalizedAdConsent
     - Realm
@@ -85,12 +84,12 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
-  AlamofireImage: 3b35b586853abaf94ca1250f4e94cff3c21a4c0d
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   CRRefresh: 1415d4ae06837fa7bb064c44f2e102f3ef517044
   FacebookCore: 9ecbe48cfd37c91a93add7f8cec2b4a2c50a1eec
   FBSDKCoreKit: 8d47857400e2f5bdea697a80daff882e91c84ef6
   Google-Mobile-Ads-SDK: 6e529e748b45507a2ca904e0b5a52669ba3920c4
+  Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
   NVActivityIndicatorView: 60109b9bf46efc2e71ab81453196ccdfdfeea870
   PersonalizedAdConsent: b50a8a5d6065b6db23121e8fcc0dce2ae983f6ea
   Realm: 9eaecad54712d6246d08ba34c10f354e4715d7d3
@@ -107,6 +106,6 @@ SPEC CHECKSUMS:
   UnityAds: 7ff4f1f17ab02b50f92646a353db25d23a4694af
   VungleSDK-iOS: a8665f4e826ad688135429f4618df4235f8738c7
 
-PODFILE CHECKSUM: 48df08b50dfd10742e3e3b1a5e39aa703a4ef92b
+PODFILE CHECKSUM: f1228a9657c217ef28f2d6175c2da925953fd06f
 
 COCOAPODS: 1.5.3

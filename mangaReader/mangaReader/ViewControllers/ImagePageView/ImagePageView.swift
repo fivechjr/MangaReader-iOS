@@ -86,7 +86,7 @@ class ImagePageView: UIView {
             , let url = URL(string: urlString) {
             
             showLoading(backgroundColor: .clear)
-            imageView.af_setImage(withURL: url, placeholderImage: nil, imageTransition: .crossDissolve(0.2))  {[weak self] (imageDataResponse) in
+            imageView.kf.setImage(with: url, options: [.transition(.fade(0.2))]) { [weak self] (image, error, cacheType, url) in
                 self?.hideLoading()
                 self?.delegate?.imageLoaded(imagePageView: self)
             }
