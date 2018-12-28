@@ -9,6 +9,7 @@
 import Foundation
 import SnapKit
 import CRRefresh
+import Kingfisher
 
 class CollectionReaderView: NSObject, ReaderViewProtocol {
     
@@ -60,6 +61,8 @@ class CollectionReaderView: NSObject, ReaderViewProtocol {
         collectionView.ezRegisterNib(cellType: ImagePageViewCollectionCell.self)
         collectionView.dataSource = self
         collectionView.delegate = self
+        collectionView.prefetchDataSource = self
+        collectionView.isPrefetchingEnabled = true
         
         if #available(iOS 11.0, *) {
             collectionView.contentInsetAdjustmentBehavior = .never
@@ -155,7 +158,7 @@ class CollectionReaderView: NSObject, ReaderViewProtocol {
 extension CollectionReaderView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-        let collectionViewSize = collectionView.frame.size
+        let collectionViewSize = CGSize(width: collectionView.frame.size.width, height: 100)
 
         let imageUrl = imageUrls[indexPath.item]
         guard let size = sizeCache[imageUrl], size != CGSize.zero else {
@@ -185,6 +188,16 @@ extension CollectionReaderView: UICollectionViewDataSource {
         cell.imagePageView.imageUrl = imageUrl
         
         return cell
+    }
+}
+
+extension CollectionReaderView: UICollectionViewDataSourcePrefetching {
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        let urls = indexPaths.compactMap { (indexPath) -> URL? in
+            guard indexPath.row < imageUrls.count else {return nil}
+            return URL(string: imageUrls[indexPath.row])
+        }
+        ImagePrefetcher(urls: urls).start()
     }
 }
 
