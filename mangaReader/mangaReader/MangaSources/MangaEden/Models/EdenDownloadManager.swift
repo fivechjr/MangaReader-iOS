@@ -30,7 +30,10 @@ class EdenDownloadManager: DownloadManager {
     }
     
     private func getChapterDetail(mangaId: String?, chapter: ChapterProtocol?, completion: @escaping (ChapterDetailProtocol?, Error?) -> Void) {
-        guard let mangaId = mangaId, let chapterId = chapter?.chapterId else {return}
+        guard let mangaId = mangaId, let chapterId = chapter?.chapterId else {
+            completion(nil, NSError.generic)
+            return
+        }
 
         MangaEdenApi.getChapterDetail(mangaId: mangaId, chapterId: chapterId) { (chapterDetailResponse, error) in
             completion(chapterDetailResponse?.chapter, error)

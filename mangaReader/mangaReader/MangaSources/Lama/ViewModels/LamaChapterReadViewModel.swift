@@ -14,6 +14,7 @@ class LamaChapterReadViewModel: BaseChapterReadViewModel {
     override func getChapterDetail(completion: @escaping (ChapterDetailProtocol?, Error?) -> Void) {
         guard let chapterIdString = chapterObject?.chapterId
             , let chapterId = Int(chapterIdString) else {
+                completion(nil, NSError.generic)
                 return
         }
         

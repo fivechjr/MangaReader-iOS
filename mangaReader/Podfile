@@ -9,7 +9,8 @@ target 'mangaReader' do
     
     # Network
     pod 'Alamofire', '~> 4.6.0'
-    pod 'AlamofireImage', '~> 3.3'
+    #pod 'AlamofireImage', '~> 3.3'
+    pod 'Kingfisher', '~> 4.10.1'
     
     # Database
     pod 'RealmSwift', '~> 3.7.4'
