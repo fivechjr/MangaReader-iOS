@@ -8,6 +8,7 @@
 
 import UIKit
 import FacebookCore
+import Kingfisher
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -25,6 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         ThemeManager.shared.load()
+        
+        KingfisherManager.shared.downloader.downloadTimeout = 60
         
         customizeUI()
         

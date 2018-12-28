@@ -158,7 +158,7 @@ class CollectionReaderView: NSObject, ReaderViewProtocol {
 extension CollectionReaderView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-        let collectionViewSize = CGSize(width: collectionView.frame.size.width, height: 100)
+        let collectionViewSize = collectionView.frame.size
 
         let imageUrl = imageUrls[indexPath.item]
         guard let size = sizeCache[imageUrl], size != CGSize.zero else {
