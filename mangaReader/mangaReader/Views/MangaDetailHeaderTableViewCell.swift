@@ -42,6 +42,8 @@ class MangaDetailHeaderTableViewCell: UITableViewCell {
         
         if let imageURL = viewModel.imagePath
             , let url = URL(string: imageURL){
+            imageViewCover.kf.cancelDownloadTask()
+            imageViewCover.kf.indicatorType = .activity
             imageViewCover.kf.setImage(with: url, placeholder: viewModel.placeHolderImage)
         }
         

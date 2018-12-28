@@ -85,9 +85,9 @@ class ImagePageView: UIView {
         if let urlString = urlString
             , let url = URL(string: urlString) {
             
-            showLoading(backgroundColor: .clear)
+            imageView.kf.cancelDownloadTask()
+            imageView.kf.indicatorType = .activity
             imageView.kf.setImage(with: url, options: [.transition(.fade(0.2))]) { [weak self] (image, error, cacheType, url) in
-                self?.hideLoading()
                 self?.delegate?.imageLoaded(imagePageView: self)
             }
         }
