@@ -32,12 +32,13 @@ class DownloadManager {
             receipts.append(receipt)
         }
     }
-    
-    func download(chapterDetail: ChapterDetailProtocol?) {
+
+    // MARK: subclass methods 
+    func download(mangaId: String?, chapterDetail: ChapterDetailProtocol?) {
         fatalError("should be implemented by subclass")
     }
     
-    func download(chapters: [ChapterProtocol], completion: (Bool) -> Void) {
+    func download(mangaId: String?, chapters: [ChapterProtocol]?) {
         fatalError("should be implemented by subclass")
     }
 }

@@ -78,3 +78,5 @@
 
 "btn_cancel" = "Cancel";
 "btn_download" = "Download";
+
+"msg_download_started" = "Dowload Started";

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class MangaDownloadViewController: UIViewController {
 
@@ -17,17 +18,16 @@ class MangaDownloadViewController: UIViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: LocalizedString("btn_download"), style: .plain, target: self, action: #selector(startDownload))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: LocalizedString("btn_cancel"), style: .plain, target: self, action: #selector(cancel))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: LocalizedString("btn_cancel"), style: .plain, target: self, action: #selector(dismissMe))
     }
     
     @objc func startDownload() {
-        showLoading()
-        viewModel.startDownload { [weak self] (completed) in
-            self?.hideLoading()
-        }
+        SVProgressHUD.showInfo(withStatus: LocalizedString("msg_download_started"))
+        viewModel.startDownload()
+        dismissMe()
     }
     
-    @objc func cancel() {
+    @objc func dismissMe() {
         navigationController?.presentingViewController?.dismiss(animated: true, completion: nil)
     }
 }

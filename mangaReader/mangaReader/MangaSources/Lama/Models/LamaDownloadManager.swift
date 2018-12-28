@@ -9,13 +9,14 @@
 import Foundation
 
 class LamaDownloadManager: DownloadManager {
-    override func download(chapters: [ChapterProtocol], completion: (Bool) -> Void) {
-        
-    }
     
-    override func download(chapterDetail: ChapterDetailProtocol?) {
+    override func download(mangaId: String?, chapterDetail: ChapterDetailProtocol?) {
         chapterDetail?.chapterImages?.forEach({ (imagePath) in
             downloadImage(imagePath)
         })
+    }
+    
+    override func download(mangaId: String?, chapters: [ChapterProtocol]?) {
+        fatalError("should be implemented by subclass")
     }
 }

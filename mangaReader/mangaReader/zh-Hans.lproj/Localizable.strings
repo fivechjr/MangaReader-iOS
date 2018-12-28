@@ -78,3 +78,5 @@
 
 "btn_cancel" = "取消";
 "btn_download" = "下载";
+
+"msg_download_started" = "下载开始";
