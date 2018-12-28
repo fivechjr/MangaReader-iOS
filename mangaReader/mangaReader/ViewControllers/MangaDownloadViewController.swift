@@ -15,10 +15,21 @@ class MangaDownloadViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: LocalizedString("btn_download"), style: .plain, target: self, action: #selector(startDownload))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: LocalizedString("btn_cancel"), style: .plain, target: self, action: #selector(cancel))
+    }
+    
+    @objc func startDownload() {
+        print(#function)
+    }
+    
+    @objc func cancel() {
+        navigationController?.presentingViewController?.dismiss(animated: true, completion: nil)
     }
 }
 
-extension MangaDownloadViewController: UITableViewDataSource {
+extension MangaDownloadViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.manga.chapterObjects?.count ?? 0
     }
@@ -27,20 +38,12 @@ extension MangaDownloadViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let chapter = viewModel.chapter(at: indexPath.row)
         cell.textLabel?.text = chapter?.chapterTitle
+        cell.accessoryType = viewModel.isSelected(chapter: chapter) ? .checkmark : .none
         return cell
     }
-}
-
-class MangaDownloadViewModel {
-    var manga: MangaProtocol
     
-    init(manga: MangaProtocol) {
-        self.manga = manga
-    }
-    
-    func chapter(at index: Int) -> ChapterProtocol? {
-        guard let chapterObjects = manga.chapterObjects, index < chapterObjects.count else {return nil}
-        
-        return chapterObjects[index]
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        viewModel.didSelect(at: indexPath.row)
+        tableView.reloadData()
     }
 }

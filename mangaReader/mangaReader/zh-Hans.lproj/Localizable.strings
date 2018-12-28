@@ -75,3 +75,6 @@
 
 "msg_the_first_chapter" = "已经是第一章了";
 "msg_the_last_chapter" = "已经是最后一章了";
+
+"btn_cancel" = "取消";
+"btn_download" = "下载";

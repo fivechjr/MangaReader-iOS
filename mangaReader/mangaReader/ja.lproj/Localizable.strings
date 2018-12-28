@@ -75,3 +75,6 @@
 
 "msg_the_first_chapter" = "It's already the first chapter.";
 "msg_the_last_chapter" = "It's already the last chapter.";
+
+"btn_cancel" = "Cancel";
+"btn_download" = "Download";
