@@ -11,8 +11,16 @@ import Foundation
 class MangaDownloadViewModel {
     var manga: MangaProtocol
     private(set) var selectedChapters = [ChapterProtocol]()
+    private let downloadManager = FSInjector.shared.resolve(DownloadManager.self)
+    
     init(manga: MangaProtocol) {
         self.manga = manga
+    }
+    
+    func startDownload(completion: (Bool) -> Void) {
+        downloadManager?.download(chapters: selectedChapters, completion: { (completed) in
+            completion(completed)
+        })
     }
     
     func chapter(at index: Int) -> ChapterProtocol? {

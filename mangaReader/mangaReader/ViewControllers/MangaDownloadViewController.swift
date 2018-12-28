@@ -21,7 +21,10 @@ class MangaDownloadViewController: UIViewController {
     }
     
     @objc func startDownload() {
-        print(#function)
+        showLoading()
+        viewModel.startDownload { [weak self] (completed) in
+            self?.hideLoading()
+        }
     }
     
     @objc func cancel() {

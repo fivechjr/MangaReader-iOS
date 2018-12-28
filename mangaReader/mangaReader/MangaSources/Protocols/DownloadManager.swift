@@ -7,24 +7,37 @@
 //
 
 import Foundation
+import AlamofireImage
 
 class DownloadManager {
-    static let shared: DownloadManager = {
-        return FSInjector.shared.resolve(DownloadManager.self)!
-    }()
-    func downloadManga(_ mangaId: String, chapterIds: [String], completion: (Bool) -> Void) {
-        
+    
+    let downloader = ImageDownloader()
+    private var receipts: [RequestReceipt] = []
+    
+    func cancelDownload() {
+        receipts.forEach { downloader.cancelRequest(with: $0) }
+        receipts.removeAll()
     }
-}
-
-class EdenDownloadManager: DownloadManager {
-    override func downloadManga(_ mangaId: String, chapterIds: [String], completion: (Bool) -> Void) {
+    
+    func downloadImage(_ urlString: String?) {
+        guard let urlString = urlString, let url = URL(string: urlString) else {return}
         
+        let urlRequest = URLRequest(url: url)
+        
+        let receipt = downloader.download(urlRequest) { response in
+            print("Download:\(urlRequest.url?.absoluteString ?? "") - Success: \(response.result.isSuccess)")
+        }
+        
+        if let receipt = receipt {
+            receipts.append(receipt)
+        }
     }
-}
-
-class LamaDownloadManager: DownloadManager {
-    override func downloadManga(_ mangaId: String, chapterIds: [String], completion: (Bool) -> Void) {
-        
+    
+    func download(chapterDetail: ChapterDetailProtocol?) {
+        fatalError("should be implemented by subclass")
+    }
+    
+    func download(chapters: [ChapterProtocol], completion: (Bool) -> Void) {
+        fatalError("should be implemented by subclass")
     }
 }

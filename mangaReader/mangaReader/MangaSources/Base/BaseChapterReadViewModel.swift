@@ -10,15 +10,26 @@ import Foundation
 import AlamofireImage
 
 class BaseChapterReadViewModel {
+    
+    // MARK: download
+    private var downloadManager = FSInjector.shared.resolve(DownloadManager.self)
+    
+    func cancelDownload() {
+       downloadManager?.cancelDownload()
+    }
+    
+    func downloadImages() {
+        downloadManager?.cancelDownload()
+        downloadManager?.download(chapterDetail: chapterDetail)
+    }
+    
+    //
     var chapterObject: ChapterProtocol?
     var manga: MangaProtocol?
     
     var currentPageIndex: Int = 0
     
     var chapterDetail: ChapterDetailProtocol?
-    
-    let downloader = ImageDownloader()
-    private var receipts: [RequestReceipt] = []
     
     var chapterName: String {
         let name = chapterObject?.chapterTitle ?? chapterObject?.chapterId ?? ""
@@ -48,29 +59,6 @@ class BaseChapterReadViewModel {
     }
     
     func getChapterDetail(completion: @escaping (ChapterDetailProtocol?, Error?) -> Void) {
-        fatalError("should be overrided by subclass")
-    }
-    
-    func cancelDownload() {
-        receipts.forEach { downloader.cancelRequest(with: $0) }
-        receipts.removeAll()
-    }
-    
-    func downloadImage(_ urlString: String?) {
-        guard let urlString = urlString, let url = URL(string: urlString) else {return}
-        
-        let urlRequest = URLRequest(url: url)
-        
-        let receipt = downloader.download(urlRequest) { response in
-            print("Download:\(urlRequest.url?.absoluteString ?? "") - Success: \(response.result.isSuccess)")
-        }
-        
-        if let receipt = receipt {
-            receipts.append(receipt)
-        }
-    }
-    
-    func downloadImages() {
         fatalError("should be overrided by subclass")
     }
     

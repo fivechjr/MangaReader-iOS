@@ -19,12 +19,4 @@ class EdenChapterReadViewModel: BaseChapterReadViewModel {
             completion(chapterDetailResponse?.chapter, error)
         }
     }
-    
-    override func downloadImages() {
-        
-        cancelDownload()
-        chapterDetail?.chapterImages?.forEach({ (imagePath) in
-            downloadImage(MangaEdenApi.getImageUrl(withImagePath: imagePath))
-        })
-    }
 }

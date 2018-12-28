@@ -22,12 +22,4 @@ class LamaChapterReadViewModel: BaseChapterReadViewModel {
             completion(chapterResonse?.data, error)
         }
     }
-    
-    override func downloadImages() {
-        
-        cancelDownload()
-        chapterDetail?.chapterImages?.forEach({ (imagePath) in
-            downloadImage(imagePath)
-        })
-    }
 }
