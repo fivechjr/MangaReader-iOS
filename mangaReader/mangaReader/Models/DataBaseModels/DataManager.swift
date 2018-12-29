@@ -23,6 +23,11 @@ class DataManager {
 
 // MARK: recent manga
 extension DataManager {
+    func getRecentManga() -> Results<RecentManga> {
+        let realm = try! Realm()
+        return realm.objects(RecentManga.self).filter("source = %@", MangaSource.current.rawValue).sorted(byKeyPath: "readTime", ascending: false)
+    }
+    
     func recordRecentManga(manga: MangaProtocol) {
         
         guard let mangaId = manga.mangaId else {return}
@@ -37,6 +42,14 @@ extension DataManager {
         
         try! realm.write {
             realm.add(recentManga, update:true)
+        }
+    }
+    
+    func deleteRecentManga(_ mangaId: String) {
+        let realm = try! Realm()
+        let favObjects = realm.objects(RecentManga.self).filter("id = %@", mangaId)
+        try! realm.write {
+            realm.delete(favObjects)
         }
     }
 }
@@ -93,7 +106,7 @@ extension DataManager {
     
     func getAllFavorites() -> Results<FavoriteManga> {
         let realm = try! Realm()
-        return realm.objects(FavoriteManga.self)
+        return realm.objects(FavoriteManga.self).filter("source = %@", MangaSource.current.rawValue)
     }
     
     func addFavorite(manga: MangaProtocol) {
@@ -132,7 +145,7 @@ extension DataManager {
 extension DataManager {
     func getAllDownloadManga() -> Results<DownloadManga> {
         let realm = try! Realm()
-        return realm.objects(DownloadManga.self)
+        return realm.objects(DownloadManga.self).filter("source = %@", MangaSource.current.rawValue)
     }
     
     func addDownloadManga(manga: MangaProtocol) {

@@ -21,16 +21,11 @@ class RecentViewModel {
     }
     
     func deleteRecent(mangaId: String) {
-        let realm = try! Realm()
-        let favObjects = realm.objects(RecentManga.self).filter("id = %@", mangaId)
-        try! realm.write {
-            realm.delete(favObjects)
-        }
+        DataManager.shared.deleteRecentManga(mangaId)
     }
     
     func loadData() {
-        let realm = try! Realm()
-        recentManga = realm.objects(RecentManga.self).sorted(byKeyPath: "readTime", ascending: false)
+        recentManga = DataManager.shared.getRecentManga()
     }
     
     var count: Int {
