@@ -13,6 +13,8 @@ class LamaDownloadManager: DownloadManager {
     override func download(manga: MangaProtocol?, chapterDetail: ChapterDetailProtocol?) {
         guard let chapterId = chapterDetail?.chapterId else {return}
         
+        DataManager.shared.addDownloadChapeter(chapterDetail: chapterDetail, mangaId: manga?.mangaId)
+        
         chapterDetail?.chapterImages?.forEach({ (imagePath) in
             downloadImage(imagePath, completion: { [weak self] (success) in
                 
@@ -37,8 +39,6 @@ class LamaDownloadManager: DownloadManager {
         chapters.forEach { (chapter) in
             getChapterDetail(chapter: chapter, completion: { [weak self] (detail, error) in
                 guard let detail = detail else {return}
-                
-                DataManager.shared.addDownloadChapeter(chapterDetail: detail, mangaId: manga.mangaId)
                 
                 self?.download(manga: manga, chapterDetail: detail)
             })

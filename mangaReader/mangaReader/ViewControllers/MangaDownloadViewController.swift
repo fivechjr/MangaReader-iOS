@@ -58,6 +58,7 @@ extension MangaDownloadViewController: UITableViewDataSource, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         let chapter = viewModel.chapter(at: indexPath.row)
         if !DataManager.shared.isDownloaded(chapter?.chapterId) {
             viewModel.didSelect(at: indexPath.row)
