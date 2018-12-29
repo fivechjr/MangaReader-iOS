@@ -200,6 +200,20 @@ extension DataManager {
         }
     }
     
+    func downloadProgress(_ chapterId: String?) -> Double {
+        guard let chapterId = chapterId else {return 0}
+        
+        let realm = try! Realm()
+        return realm.objects(DownloadChapter.self).filter("chapterId = %@", chapterId).first?.downloadProgress ?? 0
+    }
+    
+    func isDownloaded(_ chapterId: String?) -> Bool {
+        guard let chapterId = chapterId else {return false}
+        
+        let realm = try! Realm()
+        return realm.objects(DownloadChapter.self).filter("chapterId = %@", chapterId).first?.isDownloaded ?? false
+    }
+    
     func updateDownloadChapter(_ chapterId: String?, downloaded: Int) {
         guard let chapterId = chapterId else {return}
         

@@ -89,7 +89,6 @@ class MangaDetailViewController: BaseViewController {
         vc.viewModel = MangaDownloadViewModel(manga: viewModel.manga)
         let nc = UINavigationController(rootViewController: vc)
         present(nc, animated: true, completion: nil)
-//        print(#function)
     }
     
     func continueReading() {
@@ -114,7 +113,6 @@ class MangaDetailViewController: BaseViewController {
         let readViewModel = FSInjector.shared.resolve(BaseChapterReadViewModel.self)
         readViewModel?.chapterObject = theChapter
         readViewModel?.manga = viewModel.manga
-//        let readViewModel = EdenChapterReadViewModel(chapterObject: theChapter, manga: viewModel.manga)
         destination.viewModel = readViewModel
         
         present(destination, animated: true, completion: nil)

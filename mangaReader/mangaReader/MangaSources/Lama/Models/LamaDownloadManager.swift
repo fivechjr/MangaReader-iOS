@@ -48,6 +48,7 @@ class LamaDownloadManager: DownloadManager {
         }
         
         LamaApi.getChapter(id: chapterId) { (chapterResonse, error) in
+            chapterResonse?.data?.chapterId = chapter?.chapterId
             completion(chapterResonse?.data, error)
         }
     }

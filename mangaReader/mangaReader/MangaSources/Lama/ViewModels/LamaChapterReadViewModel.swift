@@ -19,6 +19,7 @@ class LamaChapterReadViewModel: BaseChapterReadViewModel {
         }
         
         LamaApi.getChapter(id: chapterId) { [weak self] (chapterResonse, error) in
+            chapterResonse?.data?.chapterId = self?.chapterObject?.chapterId
             self?.chapterDetail = chapterResonse?.data
             completion(chapterResonse?.data, error)
         }

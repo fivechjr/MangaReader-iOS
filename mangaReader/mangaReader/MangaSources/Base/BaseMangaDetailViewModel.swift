@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 class BaseMangaDetailViewModel: MangaDetailViewModelProtocol {
     
