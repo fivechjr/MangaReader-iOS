@@ -30,6 +30,15 @@ class LamaTopic: Codable {
 
 // MangaProtocol
 extension LamaTopic: MangaProtocol {
+    var mangaSource: String? {
+        get {
+            return MangaSource.lama.rawValue
+        }
+        set {
+            
+        }
+    }
+    
     
     var chapterObjects: [ChapterProtocol]? {
         return comics

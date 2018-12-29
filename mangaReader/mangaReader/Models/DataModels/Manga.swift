@@ -56,6 +56,15 @@ class Manga: Codable {
 
 // MangaProtocol
 extension Manga: MangaProtocol {
+    var mangaSource: String? {
+        get {
+            return MangaSource.mangaEden.rawValue
+        }
+        set {
+            
+        }
+    }
+    
     var mangaName: String? {
         get {
             return title

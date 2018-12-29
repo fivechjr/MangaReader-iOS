@@ -19,9 +19,15 @@ class DownloadManager {
         tasks.removeAll()
     }
     
+    func removeCachedImage(_ urlString: String?) {
+        guard let urlString = urlString else {return}
+        ImageCache.default.removeImage(forKey: urlString)
+    }
+    
     func downloadImage(_ urlString: String?) {
         guard let urlString = urlString, let url = URL(string: urlString) else {return}
         
+//        print("Image has been cached >>> \(ImageCache.default.imageCachedType(forKey: urlString))")
         let task = downloader.downloadImage(with: url) { (image, error, url, data) in
             if let error = error {
                 print("Image download error: \(error), for url: \(url?.absoluteString ?? "N/A")")

@@ -1,15 +1,15 @@
 //
-//  FavoriteManga.swift
+//  DownloadManga.swift
 //  mangaReader
 //
-//  Created by Yiming Dong on 23/04/2018.
+//  Created by Yiming Dong on 2018/12/29.
 //  Copyright © 2018 Yiming Dong. All rights reserved.
 //
 
 import Foundation
 import RealmSwift
 
-class FavoriteManga: Object {
+class DownloadManga: Object {
     @objc private dynamic var name = ""
     @objc private dynamic var author = ""
     @objc private dynamic var imagePath = ""
@@ -21,7 +21,7 @@ class FavoriteManga: Object {
     }
 }
 
-extension FavoriteManga: MangaProtocol {
+extension DownloadManga: MangaProtocol {
     var mangaSource: String? {
         get {
             return source

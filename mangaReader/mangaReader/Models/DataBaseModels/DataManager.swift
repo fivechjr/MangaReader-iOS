@@ -33,6 +33,8 @@ extension DataManager {
         recentManga.mangaName = manga.mangaName
         recentManga.coverImageUrl = manga.coverImageUrl
         recentManga.readTime = Date()
+        recentManga.mangaSource = manga.mangaSource
+        
         try! realm.write {
             realm.add(recentManga, update:true)
         }
@@ -109,6 +111,7 @@ extension DataManager {
             favManga.mangaId = mangaId
             favManga.mangaName = manga.mangaName
             favManga.coverImageUrl = manga.coverImageUrl
+            favManga.mangaSource = manga.mangaSource
             
             try! realm.write {
                 realm.add(favManga)
@@ -119,6 +122,45 @@ extension DataManager {
     func deleteFavorite(mangaId: String) {
         let realm = try! Realm()
         let favObjects = realm.objects(FavoriteManga.self).filter("id = %@", mangaId)
+        try! realm.write {
+            realm.delete(favObjects)
+        }
+    }
+}
+
+// MARK: download manga
+extension DataManager {
+    func getAllDownloadManga() -> Results<DownloadManga> {
+        let realm = try! Realm()
+        return realm.objects(DownloadManga.self)
+    }
+    
+    func addDownloadManga(manga: MangaProtocol) {
+        guard let mangaId = manga.mangaId else {return}
+        
+        let realm = try! Realm()
+        let favObjects = realm.objects(DownloadManga.self).filter("id = %@", mangaId)
+        if favObjects.count > 0 {
+            try! realm.write {
+                realm.delete(favObjects)
+            }
+        } else {
+            
+            let favManga = DownloadManga()
+            favManga.mangaId = mangaId
+            favManga.mangaName = manga.mangaName
+            favManga.coverImageUrl = manga.coverImageUrl
+            favManga.mangaSource = manga.mangaSource
+            
+            try! realm.write {
+                realm.add(favManga)
+            }
+        }
+    }
+    
+    func deleteDownloadManga(mangaId: String) {
+        let realm = try! Realm()
+        let favObjects = realm.objects(DownloadManga.self).filter("id = %@", mangaId)
         try! realm.write {
             realm.delete(favObjects)
         }
