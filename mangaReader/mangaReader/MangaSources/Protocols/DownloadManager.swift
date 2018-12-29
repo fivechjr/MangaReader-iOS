@@ -8,6 +8,7 @@
 
 import Foundation
 import Kingfisher
+import RxSwift
 
 class DownloadManager {
     private static let edenManager: DownloadManager = {
@@ -24,6 +25,8 @@ class DownloadManager {
     
     private let downloader = ImageDownloader.default
     private var tasks: [RetrieveImageTask] = []
+    
+    var downloadedChaptersSignal = Variable<Set<String>>([])
     
     func cancelDownload() {
         tasks.forEach { $0.cancel() }
@@ -64,23 +67,6 @@ class DownloadManager {
             completion(error == nil)
         }
         tasks.append(task)
-        
-//        let task = downloader.downloadImage(with: url) { (image, error, url, data) in
-//            if let error = error {
-//                print("Image download error: \(error), for url: \(url?.absoluteString ?? "N/A")")
-//            } else {
-//                print("Image download success, for url: \(url?.absoluteString ?? "N/A")")
-//            }
-//            
-//            completion(error == nil)
-//        }
-        
-//        if let task = task {
-//            tasks.append(task)
-//        } else {
-//            // can not create task
-//            completion(false)
-//        }
     }
 
     // MARK: subclass methods 

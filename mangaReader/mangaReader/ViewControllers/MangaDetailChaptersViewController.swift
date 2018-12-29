@@ -23,6 +23,12 @@ class MangaDetailChaptersViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        DownloadManager.shared.downloadedChaptersSignal.asObservable()
+            .distinctUntilChanged()
+            .subscribe(onNext: { [weak self] (chapterIds) in
+                self?.tableView.reloadData()
+            }).disposed(by: bag)
     }
     
     func reload() {

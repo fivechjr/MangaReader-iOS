@@ -9,7 +9,7 @@
 import UIKit
 import SVProgressHUD
 
-class MangaDownloadViewController: UIViewController {
+class MangaDownloadViewController: BaseViewController {
 
     var viewModel: MangaDownloadViewModel!
     @IBOutlet weak var tableView: UITableView!
