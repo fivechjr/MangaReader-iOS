@@ -80,3 +80,4 @@
 "btn_download" = "下载";
 
 "msg_download_started" = "下载开始";
+"lbl_downloaded" = "已下载";

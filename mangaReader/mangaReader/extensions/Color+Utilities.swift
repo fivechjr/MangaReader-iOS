@@ -13,6 +13,7 @@ extension UIColor {
     
     static let blueSky = UIColor(red: 21, green: 126, blue: 251)
     static let greenBlack = UIColor(red: 22, green: 27, blue: 33)
+    static let greenNormal = UIColor(hexString: "08C0A6")
 
     convenience init(hexString: String) {
         let scanner = Scanner(string: hexString)

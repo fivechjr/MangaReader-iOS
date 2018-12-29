@@ -47,18 +47,21 @@ extension MangaDetailChaptersViewController: UITableViewDataSource {
 
         cell.backgroundColor = ThemeManager.shared.currentTheme.backgroundSecondColor
         if let chapter = viewModel.manga.chapterObjects?[indexPath.item] {
-            let chapterTitle = chapter.chapterTitle
-            var title = "[\(NSLocalizedString("Chapter", comment: ""))] \(chapterTitle ?? "")"
-            if DataManager.shared.isDownloaded(chapter.chapterId) {
-                title += " - [Downloaded]"
-            }
-            cell.textLabel?.text = title
             
+            var textColor = ThemeManager.shared.currentTheme.textColor
             if let chapterID = chapter.chapterId, chapterID == viewModel.currentChapterID {
-                cell.textLabel?.textColor = UIColor.blueSky
-            } else {
-                cell.textLabel?.textColor = ThemeManager.shared.currentTheme.textColor
+                textColor = UIColor.blueSky
             }
+            
+            let title = "[\(NSLocalizedString("Chapter", comment: ""))] \(chapter.chapterTitle ?? "")"
+            var attrTitle = AttributedStringModel(string: title, foregroundColor: textColor).attributedString
+            
+            if DataManager.shared.isDownloaded(chapter.chapterId) {
+                let statusString = "        [\(LocalizedString("lbl_downloaded"))]"
+                let attrStatus = AttributedStringModel(string: statusString, foregroundColor: UIColor.darkGray.withAlphaComponent(0.5)).attributedString
+                attrTitle = attrTitle.concat(attrStatus)
+            }
+            cell.textLabel?.attributedText = attrTitle
         }
         
         return cell

@@ -80,3 +80,4 @@
 "btn_download" = "Download";
 
 "msg_download_started" = "Dowload Started";
+"lbl_downloaded" = "Downloaded";

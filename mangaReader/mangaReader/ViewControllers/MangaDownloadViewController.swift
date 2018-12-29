@@ -40,13 +40,28 @@ extension MangaDownloadViewController: UITableViewDataSource, UITableViewDelegat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let chapter = viewModel.chapter(at: indexPath.row)
-        cell.textLabel?.text = chapter?.chapterTitle
+        
         cell.accessoryType = viewModel.isSelected(chapter: chapter) ? .checkmark : .none
+        
+        let textColor = ThemeManager.shared.currentTheme.textColor
+        let title = "[\(NSLocalizedString("Chapter", comment: ""))] \(chapter?.chapterTitle ?? "")"
+        var attrTitle = AttributedStringModel(string: title, foregroundColor: textColor).attributedString
+        
+        if DataManager.shared.isDownloaded(chapter?.chapterId) {
+            let statusString = "        [\(LocalizedString("lbl_downloaded"))]"
+            let attrStatus = AttributedStringModel(string: statusString, foregroundColor: UIColor.darkGray.withAlphaComponent(0.5)).attributedString
+            attrTitle = attrTitle.concat(attrStatus)
+        }
+        cell.textLabel?.attributedText = attrTitle
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        viewModel.didSelect(at: indexPath.row)
-        tableView.reloadData()
+        let chapter = viewModel.chapter(at: indexPath.row)
+        if !DataManager.shared.isDownloaded(chapter?.chapterId) {
+            viewModel.didSelect(at: indexPath.row)
+            tableView.reloadData()
+        }
     }
 }
