@@ -42,11 +42,11 @@ class DownloadManager {
     }
 
     // MARK: subclass methods 
-    func download(mangaId: String?, chapterDetail: ChapterDetailProtocol?) {
+    func download(manga: MangaProtocol?, chapterDetail: ChapterDetailProtocol?) {
         fatalError("should be implemented by subclass")
     }
     
-    func download(mangaId: String?, chapters: [ChapterProtocol]?) {
+    func download(manga: MangaProtocol?, chapters: [ChapterProtocol]?) {
         fatalError("should be implemented by subclass")
     }
 }

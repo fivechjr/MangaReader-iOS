@@ -20,7 +20,7 @@ class BaseChapterReadViewModel {
     
     func downloadImages() {
         downloadManager?.cancelDownload()
-        downloadManager?.download(mangaId: manga?.mangaId, chapterDetail: chapterDetail)
+        downloadManager?.download(manga: manga, chapterDetail: chapterDetail)
     }
     
     //

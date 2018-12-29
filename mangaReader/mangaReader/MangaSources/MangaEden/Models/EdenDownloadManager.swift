@@ -9,21 +9,23 @@
 import Foundation
 
 class EdenDownloadManager: DownloadManager {
-    override func download(mangaId: String?, chapters: [ChapterProtocol]?) {
-        guard let mangaId = mangaId, let chapters = chapters, !chapters.isEmpty else {
+    override func download(manga: MangaProtocol?, chapters: [ChapterProtocol]?) {
+        guard let manga = manga, let mangaId = manga.mangaId, let chapters = chapters, !chapters.isEmpty else {
             return
         }
+        
+        DataManager.shared.addDownloadManga(manga: manga)
         
         chapters.forEach { (chapter) in
             getChapterDetail(mangaId: mangaId, chapter: chapter, completion: { [weak self] (detail, error) in
                 guard let detail = detail else {return}
                 
-                self?.download(mangaId: mangaId, chapterDetail: detail)
+                self?.download(manga: manga, chapterDetail: detail)
             })
         }
     }
     
-    override func download(mangaId: String?, chapterDetail: ChapterDetailProtocol?) {
+    override func download(manga: MangaProtocol?, chapterDetail: ChapterDetailProtocol?) {
         chapterDetail?.chapterImages?.forEach({ (imagePath) in
             downloadImage(MangaEdenApi.getImageUrl(withImagePath: imagePath))
         })

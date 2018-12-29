@@ -18,7 +18,7 @@ class MangaDownloadViewModel {
     }
     
     func startDownload() {
-        downloadManager?.download(mangaId: manga.mangaId, chapters: selectedChapters)
+        downloadManager?.download(manga: manga, chapters: selectedChapters)
     }
     
     func chapter(at index: Int) -> ChapterProtocol? {
