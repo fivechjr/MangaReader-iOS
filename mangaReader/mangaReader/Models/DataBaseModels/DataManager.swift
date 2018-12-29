@@ -139,30 +139,72 @@ extension DataManager {
         guard let mangaId = manga.mangaId else {return}
         
         let realm = try! Realm()
-        let favObjects = realm.objects(DownloadManga.self).filter("id = %@", mangaId)
-        if favObjects.count > 0 {
-            try! realm.write {
-                realm.delete(favObjects)
-            }
-        } else {
-            
-            let favManga = DownloadManga()
-            favManga.mangaId = mangaId
-            favManga.mangaName = manga.mangaName
-            favManga.coverImageUrl = manga.coverImageUrl
-            favManga.mangaSource = manga.mangaSource
+        let objects = realm.objects(DownloadManga.self).filter("id = %@", mangaId)
+        if objects.count == 0 {
+            let downloadManga = DownloadManga()
+            downloadManga.mangaId = mangaId
+            downloadManga.mangaName = manga.mangaName
+            downloadManga.coverImageUrl = manga.coverImageUrl
+            downloadManga.mangaSource = manga.mangaSource
             
             try! realm.write {
-                realm.add(favManga)
+                realm.add(downloadManga)
             }
         }
     }
     
     func deleteDownloadManga(mangaId: String) {
         let realm = try! Realm()
-        let favObjects = realm.objects(DownloadManga.self).filter("id = %@", mangaId)
+        let objects = realm.objects(DownloadManga.self).filter("id = %@", mangaId)
         try! realm.write {
-            realm.delete(favObjects)
+            realm.delete(objects)
+        }
+    }
+}
+
+// MARK: download chapter
+extension DataManager {
+    func getDownloadedChapters(_ mangaId: String) -> Results<DownloadChapter> {
+        let realm = try! Realm()
+        return realm.objects(DownloadChapter.self).filter("mangaId = %@", mangaId)
+    }
+    
+    func addDownloadChapeter(chapterDetail: ChapterDetailProtocol?, mangaId: String?) {
+        guard let chapterDetail = chapterDetail, let chapterId = chapterDetail.chapterId, let mangaId = mangaId else {return}
+        
+        let realm = try! Realm()
+        let objects = realm.objects(DownloadChapter.self).filter("chapterId = %@", chapterId)
+        if objects.count == 0 {
+            
+            let newChapter = DownloadChapter()
+            newChapter.chapterId = chapterId
+            newChapter.mangaId = mangaId
+            newChapter.total = chapterDetail.chapterImages?.count ?? 0
+            
+            try! realm.write {
+                realm.add(newChapter)
+            }
+        }
+    }
+    
+    func updateDownloadChapter(_ chapterId: String?, downloaded: Int) {
+        guard let chapterId = chapterId else {return}
+        
+        let realm = try! Realm()
+        let objects = realm.objects(DownloadChapter.self).filter("chapterId = %@", chapterId)
+        if let chapter = objects.first {
+            try! realm.write {
+                chapter.downloaded = downloaded
+                realm.add(chapter, update: true)
+            }
+        }
+    }
+    
+    func deleteDownloadChapeter(chapterId: String) {
+        let realm = try! Realm()
+        let objects = realm.objects(DownloadManga.self).filter("chapterId = %@", chapterId)
+        try! realm.write {
+            realm.delete(objects)
         }
     }
 }

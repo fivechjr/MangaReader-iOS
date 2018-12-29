@@ -12,15 +12,17 @@ import Kingfisher
 class BaseChapterReadViewModel {
     
     // MARK: download
-    private var downloadManager = FSInjector.shared.resolve(DownloadManager.self)
+    private var downloadManager: DownloadManager {
+        return DownloadManager.shared
+    }
     
     func cancelDownload() {
-       downloadManager?.cancelDownload()
+       downloadManager.cancelDownload()
     }
     
     func downloadImages() {
-        downloadManager?.cancelDownload()
-        downloadManager?.download(manga: manga, chapterDetail: chapterDetail)
+        downloadManager.cancelDownload()
+        downloadManager.download(manga: manga, chapterDetail: chapterDetail)
     }
     
     //

@@ -20,6 +20,8 @@ class EdenDownloadManager: DownloadManager {
             getChapterDetail(mangaId: mangaId, chapter: chapter, completion: { [weak self] (detail, error) in
                 guard let detail = detail else {return}
                 
+                DataManager.shared.addDownloadChapeter(chapterDetail: detail, mangaId: mangaId)
+                
                 self?.download(manga: manga, chapterDetail: detail)
             })
         }
@@ -27,7 +29,13 @@ class EdenDownloadManager: DownloadManager {
     
     override func download(manga: MangaProtocol?, chapterDetail: ChapterDetailProtocol?) {
         chapterDetail?.chapterImages?.forEach({ (imagePath) in
-            downloadImage(MangaEdenApi.getImageUrl(withImagePath: imagePath))
+            downloadImage(MangaEdenApi.getImageUrl(withImagePath: imagePath), completion: { [weak self] (success) in
+                
+                let downloaded = self?.downloadedPageCount(chapterDetail) ?? 0
+                DataManager.shared.updateDownloadChapter(chapterDetail?.chapterId, downloaded: downloaded)
+                
+                print("update downloaded page of chapter - \(downloaded) / \(chapterDetail?.chapterImages?.count ?? 0)")
+            })
         })
     }
     
