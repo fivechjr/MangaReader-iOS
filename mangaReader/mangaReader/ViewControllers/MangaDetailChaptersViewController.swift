@@ -48,6 +48,7 @@ extension MangaDetailChaptersViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.ezDeuqeue(cellType: DetailChapterCell.self, for: indexPath)
 
         cell.backgroundColor = ThemeManager.shared.currentTheme.backgroundSecondColor
@@ -61,12 +62,9 @@ extension MangaDetailChaptersViewController: UITableViewDataSource {
             let title = "[\(NSLocalizedString("Chapter", comment: ""))] \(chapter.chapterTitle ?? "")"
             cell.titleLabel.textColor = textColor
             cell.titleLabel.text = title
-//            var attrTitle = AttributedStringModel(string: title, foregroundColor: textColor).attributedString
             
             if DataManager.shared.isDownloaded(chapter.chapterId) {
                 let statusString = "[\(LocalizedString("lbl_downloaded"))]"
-//                let attrStatus = AttributedStringModel(string: statusString, foregroundColor: UIColor.darkGray.withAlphaComponent(0.5)).attributedString
-//                attrTitle = attrTitle.concat(attrStatus)
                 cell.statusLabel.textColor = UIColor.darkGray.withAlphaComponent(0.5)
                 cell.statusLabel.text = statusString
             } else {

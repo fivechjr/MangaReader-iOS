@@ -15,7 +15,7 @@ class MangaDownloadViewController: BaseViewController {
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.ezRegisterNib(cellType: DetailChapterCell.self)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: LocalizedString("btn_download"), style: .plain, target: self, action: #selector(startDownload))
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: LocalizedString("btn_cancel"), style: .plain, target: self, action: #selector(dismissMe))
@@ -38,21 +38,23 @@ extension MangaDownloadViewController: UITableViewDataSource, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = tableView.ezDeuqeue(cellType: DetailChapterCell.self, for: indexPath)
         let chapter = viewModel.chapter(at: indexPath.row)
         
-        cell.accessoryType = viewModel.isSelected(chapter: chapter) ? .checkmark : .none
+        cell.checkButton.isSelected = viewModel.isSelected(chapter: chapter)
         
         let textColor = ThemeManager.shared.currentTheme.textColor
         let title = "[\(NSLocalizedString("Chapter", comment: ""))] \(chapter?.chapterTitle ?? "")"
-        var attrTitle = AttributedStringModel(string: title, foregroundColor: textColor).attributedString
+        cell.titleLabel.textColor = textColor
+        cell.titleLabel.text = title
         
         if DataManager.shared.isDownloaded(chapter?.chapterId) {
-            let statusString = "        [\(LocalizedString("lbl_downloaded"))]"
-            let attrStatus = AttributedStringModel(string: statusString, foregroundColor: UIColor.darkGray.withAlphaComponent(0.5)).attributedString
-            attrTitle = attrTitle.concat(attrStatus)
+            let statusString = "[\(LocalizedString("lbl_downloaded"))]"
+            cell.statusLabel.textColor = UIColor.darkGray.withAlphaComponent(0.5)
+            cell.statusLabel.text = statusString
+        } else {
+            cell.statusLabel.text = nil
         }
-        cell.textLabel?.attributedText = attrTitle
         
         return cell
     }
