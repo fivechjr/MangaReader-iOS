@@ -31,11 +31,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         customizeUI()
         
+//        checkAppVersion()
+        
+        return true
+    }
+    
+    func checkAppVersion() {
         Utility.getAppStoreVersion { (version) in
             guard let version = version else {return}
             
             if Utility.shortVersionString.compare(version) == .orderedDescending {
-//            if false {
                 MangaSource.current = .lama
                 print("current version is newer")
             } else {
@@ -43,8 +48,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("current version is same or older")
             }
         }
-        
-        return true
     }
     
     func customizeUI() {

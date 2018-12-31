@@ -84,11 +84,13 @@ class MangaListViewController: BaseViewController {
         
         MangaSource.sourceChangedSignal.asObservable()
             .subscribe(onNext: { [weak self] (source) in
-                guard let `self` = self else {return}
-                if self.viewModel.source != source {
-                    self.viewModel = FSInjector.shared.resolve(MangaListViewModelProtocol.self)!
-                    self.refreshFirstPage()
-                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                    guard let `self` = self else {return}
+                    if self.viewModel.source != source {
+                        self.viewModel = FSInjector.shared.resolve(MangaListViewModelProtocol.self)!
+                        self.refreshFirstPage()
+                    }
+                })
             }).disposed(by: bag)
     }
     
