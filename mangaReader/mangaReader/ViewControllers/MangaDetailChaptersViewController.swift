@@ -12,7 +12,7 @@ class MangaDetailChaptersViewController: BaseViewController {
 
     @IBOutlet weak var tableView: UITableView! {
         didSet {
-            tableView.register(UITableViewCell.self, forCellReuseIdentifier: "chapterCell")
+            tableView.ezRegisterNib(cellType: DetailChapterCell.self)
             tableView.rowHeight = 44.0
             tableView.estimatedRowHeight = 44.0
             tableView.tableFooterView = UIView()
@@ -48,8 +48,7 @@ extension MangaDetailChaptersViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "chapterCell", for: indexPath)
+        let cell = tableView.ezDeuqeue(cellType: DetailChapterCell.self, for: indexPath)
 
         cell.backgroundColor = ThemeManager.shared.currentTheme.backgroundSecondColor
         if let chapter = viewModel.manga.chapterObjects?[indexPath.item] {
@@ -60,14 +59,20 @@ extension MangaDetailChaptersViewController: UITableViewDataSource {
             }
             
             let title = "[\(NSLocalizedString("Chapter", comment: ""))] \(chapter.chapterTitle ?? "")"
-            var attrTitle = AttributedStringModel(string: title, foregroundColor: textColor).attributedString
+            cell.titleLabel.textColor = textColor
+            cell.titleLabel.text = title
+//            var attrTitle = AttributedStringModel(string: title, foregroundColor: textColor).attributedString
             
             if DataManager.shared.isDownloaded(chapter.chapterId) {
-                let statusString = "        [\(LocalizedString("lbl_downloaded"))]"
-                let attrStatus = AttributedStringModel(string: statusString, foregroundColor: UIColor.darkGray.withAlphaComponent(0.5)).attributedString
-                attrTitle = attrTitle.concat(attrStatus)
+                let statusString = "[\(LocalizedString("lbl_downloaded"))]"
+//                let attrStatus = AttributedStringModel(string: statusString, foregroundColor: UIColor.darkGray.withAlphaComponent(0.5)).attributedString
+//                attrTitle = attrTitle.concat(attrStatus)
+                cell.statusLabel.textColor = UIColor.darkGray.withAlphaComponent(0.5)
+                cell.statusLabel.text = statusString
+            } else {
+                cell.statusLabel.text = nil
             }
-            cell.textLabel?.attributedText = attrTitle
+            cell.hideCheckButton = true
         }
         
         return cell
