@@ -9,6 +9,8 @@
 import Foundation
 
 protocol MangaDetailViewModelProtocol: MangaDetailDataProtocol {
+    var source: MangaSource {get}
+    
     var manga: MangaProtocol {get set}
     
     var mangaId: String? {get set}

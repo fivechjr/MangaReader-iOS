@@ -10,6 +10,9 @@ import Foundation
 import RealmSwift
 
 class BaseMangaDetailViewModel: MangaDetailViewModelProtocol {
+    var source: MangaSource {
+        return .lama
+    }
     
     var manga: MangaProtocol
     

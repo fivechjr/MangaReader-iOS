@@ -10,6 +10,10 @@ import Foundation
 import RxSwift
 
 class EdenMangaListViewModel: MangaListViewModelProtocol {
+    var source: MangaSource {
+        return .mangaEden
+    }
+    
     var sortByRecentUpdate = false
     private var mangaSort: MangaSort {
         return sortByRecentUpdate ? .last_chapter_date : .hits

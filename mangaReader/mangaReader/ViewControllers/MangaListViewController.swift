@@ -81,6 +81,15 @@ class MangaListViewController: BaseViewController {
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         
         refreshFirstPage()
+        
+        MangaSource.sourceChangedSignal.asObservable()
+            .subscribe(onNext: { [weak self] (source) in
+                guard let `self` = self else {return}
+                if self.viewModel.source != source {
+                    self.viewModel = FSInjector.shared.resolve(MangaListViewModelProtocol.self)!
+                    self.refreshFirstPage()
+                }
+            }).disposed(by: bag)
     }
     
     @objc func genresAction() {
@@ -96,6 +105,7 @@ class MangaListViewController: BaseViewController {
         mangaListCollectionView.reloadData()
         viewModel.loadFirstPage(completion: { [weak self] (_, _) in
             self?.refreshControl.stop(shouldAdjustOffset: true)
+            self?.mangaListCollectionView.reloadData()
         })
     }
     

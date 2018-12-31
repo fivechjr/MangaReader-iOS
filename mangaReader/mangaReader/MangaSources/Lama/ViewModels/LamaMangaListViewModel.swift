@@ -10,6 +10,9 @@ import Foundation
 import RxSwift
 
 class LamaMangaListViewModel: MangaListViewModelProtocol {
+    var source: MangaSource {
+        return .lama
+    }
     
     var sortByRecentUpdate: Bool = false
     

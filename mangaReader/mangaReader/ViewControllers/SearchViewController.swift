@@ -95,7 +95,6 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
         
         vc.viewModel = FSInjector.shared.resolve(MangaDetailViewModelProtocol.self)
         vc.viewModel.mangaId = mangaId
-//        vc.viewModel = EdenMangaDetailViewModel(mangaId: mangaId)
         
         navigationController?.pushViewController(vc, animated: true)
     }

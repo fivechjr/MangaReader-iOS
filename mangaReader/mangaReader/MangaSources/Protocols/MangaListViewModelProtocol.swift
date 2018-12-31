@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 
 protocol MangaListViewModelProtocol {
+    var source: MangaSource {get}
     var sortByRecentUpdate: Bool {get set}
     var isLoading: Bool {get}
     

@@ -31,6 +31,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         customizeUI()
         
+        Utility.getAppStoreVersion { (version) in
+            guard let version = version else {return}
+            
+            if Utility.shortVersionString.compare(version) == .orderedDescending {
+//            if false {
+                MangaSource.current = .lama
+                print("current version is newer")
+            } else {
+                MangaSource.current = .mangaEden
+                print("current version is same or older")
+            }
+        }
+        
         return true
     }
     

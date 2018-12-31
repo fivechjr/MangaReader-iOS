@@ -74,6 +74,19 @@ class MangaDetailViewController: BaseViewController {
         let downloadButton = UIBarButtonItem(image: UIImage(named: "icon_download"), style: .plain, target: self, action: #selector(download))
         navigationItem.rightBarButtonItem = downloadButton
         
+        requestMangaDetail()
+        
+        MangaSource.sourceChangedSignal.asObservable()
+            .subscribe(onNext: { [weak self] (source) in
+                guard let `self` = self else {return}
+                if self.viewModel.source != source {
+                    self.viewModel = FSInjector.shared.resolve(MangaDetailViewModelProtocol.self)!
+                    self.requestMangaDetail()
+                }
+            }).disposed(by: bag)
+    }
+    
+    func requestMangaDetail() {
         viewModel.getManga { [weak self] (_, _) in
             guard let `self` = self else {return}
             self.hideLoading()
