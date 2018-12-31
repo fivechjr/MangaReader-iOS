@@ -75,15 +75,6 @@ class MangaDetailViewController: BaseViewController {
         navigationItem.rightBarButtonItem = downloadButton
         
         requestMangaDetail()
-        
-        MangaSource.sourceChangedSignal.asObservable()
-            .subscribe(onNext: { [weak self] (source) in
-                guard let `self` = self else {return}
-                if self.viewModel.source != source {
-                    self.viewModel = FSInjector.shared.resolve(MangaDetailViewModelProtocol.self)!
-                    self.requestMangaDetail()
-                }
-            }).disposed(by: bag)
     }
     
     func requestMangaDetail() {

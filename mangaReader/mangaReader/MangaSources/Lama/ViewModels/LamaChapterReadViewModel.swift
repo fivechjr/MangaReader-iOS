@@ -11,6 +11,10 @@ import Kingfisher
 
 class LamaChapterReadViewModel: BaseChapterReadViewModel {
     
+    override var source: MangaSource {
+        return .lama
+    }
+    
     override func getChapterDetail(completion: @escaping (ChapterDetailProtocol?, Error?) -> Void) {
         guard let chapterIdString = chapterObject?.chapterId
             , let chapterId = Int(chapterIdString) else {

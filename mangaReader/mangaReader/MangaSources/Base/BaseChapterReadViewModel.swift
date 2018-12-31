@@ -11,6 +11,10 @@ import Kingfisher
 
 class BaseChapterReadViewModel {
     
+    var source: MangaSource {
+        fatalError("should be implemented by subclass")
+    }
+    
     // MARK: download
     private var downloadManager: DownloadManager {
         return DownloadManager.shared

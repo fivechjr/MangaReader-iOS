@@ -11,6 +11,10 @@ import Kingfisher
 
 class EdenChapterReadViewModel: BaseChapterReadViewModel {
     
+    override var source: MangaSource {
+        return .mangaEden
+    }
+    
     override func getChapterDetail(completion: @escaping (ChapterDetailProtocol?, Error?) -> Void) {
         guard let mangaId = manga?.mangaId, let chapterId = chapterObject?.chapterId else {
             completion(nil, NSError.generic)
