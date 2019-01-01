@@ -9,7 +9,6 @@
 import Foundation
 
 class Utility {
-    static let appId = "1378089411"
     
     static func string(_ target: String, containsAny stringArray: [String], caseSensitive: Bool = false) -> Bool {
         for str in stringArray {
@@ -98,7 +97,7 @@ class Utility {
     }
     
     static func getAppStoreVersion(completion: @escaping (String?) -> Void) {
-        let urlString = "https://itunes.apple.com/lookup?id=\(appId)"
+        let urlString = "https://itunes.apple.com/lookup?id=\(Constants.appId)"
         guard let url = URL(string: urlString) else {return}
         let request = URLRequest(url: url)
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in

@@ -17,7 +17,7 @@ enum ImageConstant: String {
 }
 
 struct Constants {
-    static let appId = "1378089411"
+    static let appId = "1448158046"
     
     static var reviewURL: String {
         

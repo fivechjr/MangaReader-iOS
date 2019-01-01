@@ -72,7 +72,8 @@ class CollectionReaderView: NSObject, ReaderViewProtocol {
         
         parentVC.view.insertSubview(collectionView, at: 0)
         collectionView.snp.makeConstraints { (maker) in
-            maker.top.equalTo(parentVC.view.snp.top).offset(UIApplication.shared.statusBarFrame.height)
+//            maker.top.equalTo(parentVC.view.snp.top).offset(UIApplication.shared.statusBarFrame.height)
+            maker.top.equalTo(parentVC.view.snp.top)
             maker.bottom.equalTo(parentVC.view.snp.bottom)
             maker.leading.equalTo(parentVC.view.snp.leading)
             maker.trailing.equalTo(parentVC.view.snp.trailing)

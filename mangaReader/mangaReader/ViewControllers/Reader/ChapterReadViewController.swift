@@ -44,7 +44,7 @@ class ChapterReadViewController: BaseViewController {
     }
     
     override var prefersStatusBarHidden: Bool {
-        return false
+        return true
     }
     
     func setupReaderView(sameChapter: Bool = false) {
