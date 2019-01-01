@@ -1,0 +1,381 @@
+{
+    "version":1,
+    "maxFreeReadCount":20,
+    "enableBaiduReadCount":3,
+    "intervalToShowAds":600,
+    "cb_app_id": "54b2794004b0167ddb366e00",
+    "cb_app_sign": "98629ca1ebbf6ecab5dbad8df22eb288f61d7b96",
+    "vungle_app_id": "566437d827af870935000017",
+    "vungle_placement_id": "DEFAULT38465",
+    "unity_app_id": "95451",
+    "admob_banner_id":"ca-app-pub-7635376757557763/1563828618",
+    "fat_guy_config":{
+        "chance": 10,
+        "duration": 10,
+        "working": 2577,
+        "sleep_hours": [9, 10, 11, 13, 14, 15, 16, 17, 18]
+    },
+    "apps":
+    {
+        "com.dymx102.daomu":
+        {
+            "app_name":"盗墓笔记全集",
+            "admob_id":"ca-app-pub-7635376757557763/1863289132",
+            "ads_enabled":true,
+            "admob_enabled":true,
+            "cb_enabled":true,
+            "vungle_enabled":true,
+            "unity_enabled":true,
+            "chapter_change_ads":"admob",
+            "unity_weight":10,
+            "vungle_weight":5,
+            "admob_weight":0,
+            "cb_weight":0
+        }
+        , "com.dymx102.danmei":
+        {
+            "app_name":"耽美纯爱小说",
+            "admob_id":"ca-app-pub-7635376757557763/1863289132",
+            "ads_enabled":true,
+            "admob_enabled":true,
+            "cb_enabled":true,
+            "vungle_enabled":true,
+            "unity_enabled":true,
+            "chapter_change_ads":"admob",
+            "unity_weight":10,
+            "vungle_weight":5,
+            "admob_weight":0,
+            "cb_weight":0
+        }
+        , "com.dymx102.qihuan":
+        {
+            "app_name":"奇幻小说精选",
+            "admob_id":"ca-app-pub-7635376757557763/1863289132",
+            "ads_enabled":true,
+            "admob_enabled":true,
+            "cb_enabled":true,
+            "vungle_enabled":true,
+            "unity_enabled":true,
+            "chapter_change_ads":"admob",
+            "unity_weight":10,
+            "vungle_weight":5,
+            "admob_weight":0,
+            "cb_weight":0
+        }
+        , "com.dymx102.xiaohua":
+        {
+            "app_name":"校花的贴身高手",
+            "admob_id":"ca-app-pub-7635376757557763/1863289132",
+            "ads_enabled":true,
+            "admob_enabled":true,
+            "cb_enabled":true,
+            "vungle_enabled":true,
+            "unity_enabled":true,
+            "chapter_change_ads":"admob",
+            "unity_weight":10,
+            "vungle_weight":5,
+            "admob_weight":0,
+            "cb_weight":0
+        }
+        , "com.dym.xianxia":
+        {
+            "app_name":"仙侠小说",
+            "admob_id":"ca-app-pub-7635376757557763/1863289132",
+            "ads_enabled":true,
+            "admob_enabled":true,
+            "cb_enabled":true,
+            "vungle_enabled":true,
+            "unity_enabled":true,
+            "chapter_change_ads":"admob",
+            "unity_weight":10,
+            "vungle_weight":5,
+            "admob_weight":0,
+            "cb_weight":0
+        }
+        , "com.dymx102.kehuan":
+        {
+            "app_name":"科幻悬疑小说",
+            "admob_id":"ca-app-pub-7635376757557763/1863289132",
+            "ads_enabled":true,
+            "admob_enabled":true,
+            "cb_enabled":true,
+            "vungle_enabled":true,
+            "unity_enabled":true,
+            "chapter_change_ads":"admob",
+            "unity_weight":10,
+            "vungle_weight":5,
+            "admob_weight":0,
+            "cb_weight":0
+        }
+        , "com.dymx102.tonghua":
+        {
+            "app_name":"童话故事",
+            "admob_id":"ca-app-pub-7635376757557763/1863289132",
+            "ads_enabled":true,
+            "admob_enabled":true,
+            "cb_enabled":true,
+            "vungle_enabled":true,
+            "unity_enabled":true,
+            "chapter_change_ads":"admob",
+            "unity_weight":10,
+            "vungle_weight":5,
+            "admob_weight":0,
+            "cb_weight":0
+        }
+        , "com.dymx102.HappySong":
+        {
+            "app_name":"欢乐颂",
+            "admob_id":"ca-app-pub-7635376757557763/1863289132",
+            "ads_enabled":true,
+            "admob_enabled":true,
+            "cb_enabled":true,
+            "vungle_enabled":true,
+            "unity_enabled":true,
+            "chapter_change_ads":"admob",
+            "unity_weight":10,
+            "vungle_weight":5,
+            "admob_weight":0,
+            "cb_weight":0
+        }
+        , "com.dymx102.fanren":
+        {
+            "app_name":"玄幻小说-凡人修仙",
+            "admob_id":"ca-app-pub-7635376757557763/1863289132",
+            "ads_enabled":true,
+            "admob_enabled":true,
+            "cb_enabled":true,
+            "vungle_enabled":true,
+            "unity_enabled":true,
+            "chapter_change_ads":"admob",
+            "unity_weight":10,
+            "vungle_weight":5,
+            "admob_weight":0,
+            "cb_weight":0
+        }
+        , "com.dymx102.FishMan":
+        {
+            "app_name":"都市玄幻小说系列",
+            "admob_id":"ca-app-pub-7635376757557763/1863289132",
+            "ads_enabled":true,
+            "admob_enabled":true,
+            "cb_enabled":true,
+            "vungle_enabled":true,
+            "unity_enabled":true,
+            "chapter_change_ads":"admob",
+            "unity_weight":10,
+            "vungle_weight":5,
+            "admob_weight":0,
+            "cb_weight":0
+        }
+        , "com.dymx102.gongting":
+        {
+            "app_name":"寂寞空庭春欲晚",
+            "admob_id":"ca-app-pub-7635376757557763/1863289132",
+            "ads_enabled":true,
+            "admob_enabled":true,
+            "cb_enabled":true,
+            "vungle_enabled":true,
+            "unity_enabled":true,
+            "chapter_change_ads":"admob",
+            "unity_weight":10,
+            "vungle_weight":5,
+            "admob_weight":0,
+            "cb_weight":0
+        }
+        , "com.dym.SienceFiction":
+        {
+            "app_name":"热门科幻小说",
+            "admob_id":"ca-app-pub-7635376757557763/1863289132",
+            "ads_enabled":true,
+            "admob_enabled":true,
+            "cb_enabled":true,
+            "vungle_enabled":true,
+            "unity_enabled":true,
+            "chapter_change_ads":"admob",
+            "unity_weight":10,
+            "vungle_weight":5,
+            "admob_weight":0,
+            "cb_weight":0
+        }
+        , "com.dymx102.conan":
+        {
+            "app_name":"名侦探柯南系列 - 动漫同人小说",
+            "admob_id":"ca-app-pub-7635376757557763/1863289132",
+            "ads_enabled":true,
+            "admob_enabled":true,
+            "cb_enabled":true,
+            "vungle_enabled":true,
+            "unity_enabled":true,
+            "chapter_change_ads":"admob",
+            "unity_weight":10,
+            "vungle_weight":5,
+            "admob_weight":0,
+            "cb_weight":0
+        }
+        , "com.dym.HistoryNovel":
+        {
+            "app_name":"历史小说",
+            "admob_id":"ca-app-pub-7635376757557763/1863289132",
+            "ads_enabled":true,
+            "admob_enabled":true,
+            "cb_enabled":true,
+            "vungle_enabled":true,
+            "unity_enabled":true,
+            "chapter_change_ads":"admob",
+            "unity_weight":10,
+            "vungle_weight":5,
+            "admob_weight":0,
+            "cb_weight":0
+        }
+        , "com.dymx102.douluo":
+        {
+            "app_name":"唐家三少玄幻小说",
+            "admob_id":"ca-app-pub-7635376757557763/1863289132",
+            "ads_enabled":true,
+            "admob_enabled":false,
+            "cb_enabled":true,
+            "vungle_enabled":true,
+            "unity_enabled":true,
+            "chapter_change_ads":"unity",
+            "unity_weight":10,
+            "vungle_weight":5,
+            "admob_weight":0,
+            "cb_weight":0
+        }
+        , "com.dymx102.EastFantasy":
+        {
+            "app_name":"玄幻修仙小说2",
+            "admob_id":"ca-app-pub-7635376757557763/1863289132",
+            "ads_enabled":true,
+            "admob_enabled":true,
+            "cb_enabled":true,
+            "vungle_enabled":true,
+            "unity_enabled":true,
+            "chapter_change_ads":"admob",
+            "unity_weight":10,
+            "vungle_weight":5,
+            "admob_weight":0,
+            "cb_weight":0
+        }
+        , "com.dymx102.EatTomato":
+        {
+            "app_name":"我吃西红柿作品",
+            "admob_id":"ca-app-pub-7635376757557763/1863289132",
+            "ads_enabled":true,
+            "admob_enabled":true,
+            "cb_enabled":true,
+            "vungle_enabled":true,
+            "unity_enabled":true,
+            "chapter_change_ads":"admob",
+            "unity_weight":10,
+            "vungle_weight":5,
+            "admob_weight":0,
+            "cb_weight":0
+        }
+        , "com.dymx102.EastFantasy2":
+        {
+            "app_name":"梦入神机玄幻小说",
+            "admob_id":"ca-app-pub-7635376757557763/1863289132",
+            "ads_enabled":true,
+            "admob_enabled":true,
+            "cb_enabled":true,
+            "vungle_enabled":true,
+            "unity_enabled":true,
+            "chapter_change_ads":"admob",
+            "unity_weight":10,
+            "vungle_weight":5,
+            "admob_weight":0,
+            "cb_weight":0
+        }
+        , "com.dymx102.EastFantasy3":
+        {
+            "app_name":"血红玄幻小说",
+            "admob_id":"ca-app-pub-7635376757557763/1863289132",
+            "ads_enabled":true,
+            "admob_enabled":true,
+            "cb_enabled":true,
+            "vungle_enabled":true,
+            "unity_enabled":true,
+            "chapter_change_ads":"admob",
+            "unity_weight":10,
+            "vungle_weight":5,
+            "admob_weight":0,
+            "cb_weight":0
+        }
+        , "com.dymx102.BlackBasketball":
+        {
+            "app_name":"黑篮同人小说",
+            "admob_id":"ca-app-pub-7635376757557763/1863289132",
+            "ads_enabled":true,
+            "admob_enabled":true,
+            "cb_enabled":true,
+            "vungle_enabled":true,
+            "unity_enabled":true,
+            "chapter_change_ads":"admob",
+            "unity_weight":10,
+            "vungle_weight":5,
+            "admob_weight":0,
+            "cb_weight":0
+        }
+        , "com.dymx102.laojiumen":
+        {
+            "app_name":"老九门盗墓小说",
+            "admob_id":"ca-app-pub-7635376757557763/1863289132",
+            "ads_enabled":true,
+            "admob_enabled":true,
+            "cb_enabled":true,
+            "vungle_enabled":true,
+            "unity_enabled":true,
+            "chapter_change_ads":"admob",
+            "unity_weight":10,
+            "vungle_weight":5,
+            "admob_weight":0,
+            "cb_weight":0
+        }
+        , "com.dymx101.mangaReader":
+        {
+            "app_name":"Manga Monster",
+            "admob_id":"ca-app-pub-7635376757557763/1863289132",
+            "ads_enabled":true,
+            "admob_enabled":true,
+            "cb_enabled":false,
+            "vungle_enabled":true,
+            "unity_enabled":true,
+            "chapter_change_ads":"admob",
+            "unity_weight":10,
+            "vungle_weight":5,
+            "admob_weight":10,
+            "cb_weight":0
+        }
+        , "com.dymx102.vpnapp":
+        {
+            "app_name":"UMBRA VPN",
+            "admob_id":"ca-app-pub-7635376757557763/1863289132",
+            "ads_enabled":true,
+            "admob_enabled":true,
+            "cb_enabled":true,
+            "vungle_enabled":true,
+            "unity_enabled":true,
+            "chapter_change_ads":"admob",
+            "unity_weight":10,
+            "vungle_weight":5,
+            "admob_weight":10,
+            "cb_weight":0
+        }
+        , "com.dymx.default":
+        {
+            "app_name":"默认设定",
+            "admob_id":"ca-app-pub-7635376757557763/1863289132",
+            "ads_enabled":true,
+            "admob_enabled":true,
+            "cb_enabled":true,
+            "vungle_enabled":true,
+            "unity_enabled":true,
+            "chapter_change_ads":"admob",
+            "unity_weight":10,
+            "vungle_weight":5,
+            "admob_weight":0,
+            "cb_weight":0
+        }
+    }
+}

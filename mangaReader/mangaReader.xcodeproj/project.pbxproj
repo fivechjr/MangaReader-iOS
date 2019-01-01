@@ -64,6 +64,7 @@
 		8C5E792221D709A400754DAB /* DownloadChapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5E792121D709A400754DAB /* DownloadChapter.swift */; };
 		8C5E792521D9FC9A00754DAB /* DetailChapterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5E792321D9FC9A00754DAB /* DetailChapterCell.swift */; };
 		8C5E792621D9FC9A00754DAB /* DetailChapterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C5E792421D9FC9A00754DAB /* DetailChapterCell.xib */; };
+		8C5E792821DB480E00754DAB /* default_ads_config.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C5E792721DB480E00754DAB /* default_ads_config.json */; };
 		8C5EA97120F0AF0A007E8A7D /* ConsentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5EA97020F0AF09007E8A7D /* ConsentManager.swift */; };
 		8C60C95E2092E5AA0069EFDB /* GenresListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C60C95D2092E5AA0069EFDB /* GenresListViewController.swift */; };
 		8C60C960209414350069EFDB /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C60C95F209414350069EFDB /* FavoritesViewController.swift */; };
@@ -216,6 +217,7 @@
 		8C5E792121D709A400754DAB /* DownloadChapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadChapter.swift; sourceTree = "<group>"; };
 		8C5E792321D9FC9A00754DAB /* DetailChapterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailChapterCell.swift; sourceTree = "<group>"; };
 		8C5E792421D9FC9A00754DAB /* DetailChapterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailChapterCell.xib; sourceTree = "<group>"; };
+		8C5E792721DB480E00754DAB /* default_ads_config.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = default_ads_config.json; sourceTree = "<group>"; };
 		8C5EA97020F0AF09007E8A7D /* ConsentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsentManager.swift; sourceTree = "<group>"; };
 		8C60C95D2092E5AA0069EFDB /* GenresListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenresListViewController.swift; sourceTree = "<group>"; };
 		8C60C95F209414350069EFDB /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
@@ -521,6 +523,7 @@
 				8C8EAC8A206A141A00803BD1 /* Info.plist */,
 				8C394780208E2AA200344FCF /* Document.txt */,
 				8C88E38C20905DD0004B54D9 /* mangaList.json */,
+				8C5E792721DB480E00754DAB /* default_ads_config.json */,
 			);
 			path = mangaReader;
 			sourceTree = "<group>";
@@ -823,6 +826,7 @@
 				8C394781208E2AA200344FCF /* Document.txt in Resources */,
 				8CD98FA520A52B31002C448F /* GuideView.xib in Resources */,
 				8C81DCEB2180C0AA00F47A31 /* Radomir Tinkov - Gilroy-SemiBold.otf in Resources */,
+				8C5E792821DB480E00754DAB /* default_ads_config.json in Resources */,
 				8CC9E3AB21A593F30098E505 /* SettingSelectCell.xib in Resources */,
 				8C81DD1721857EA700F47A31 /* NestedTableViewCell.xib in Resources */,
 				8C88E38B209045A8004B54D9 /* MangaListCollectionViewCell.xib in Resources */,
