@@ -13,7 +13,7 @@ enum MangaSource: String {
     case mangaEden
     case lama
     
-    static var sourceChangedSignal = Variable<MangaSource>(.lama)
+    static var sourceChangedSignal = Variable<MangaSource>(MangaSource.current)
     
     private static let storageKey = "manga_source_current_key"
     static var current: MangaSource {

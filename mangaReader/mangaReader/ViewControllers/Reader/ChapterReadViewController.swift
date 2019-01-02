@@ -84,7 +84,7 @@ class ChapterReadViewController: BaseViewController {
         guard let chapterDetail = viewModel.chapterDetail else {return false}
         currentReaderView?.chapterDetail = chapterDetail
         currentReaderView?.start()
-        viewModel.downloadImages()
+//        viewModel.downloadImages()
         
         return true
     }
