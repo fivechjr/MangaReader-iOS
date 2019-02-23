@@ -70,7 +70,7 @@ class RecentViewController: BaseViewController {
         let sectionInsets = layout.sectionInset
         let itemSpacing = layout.minimumInteritemSpacing
         
-        let itemCountPerRow = (UI_USER_INTERFACE_IDIOM() == .pad) ? 5 : 3
+        let itemCountPerRow = Constants.mangaCountInRow
         
         let colletionViewWidth = recentCollectionView.frame.size.width
         let gap = (sectionInsets.left + sectionInsets.right) + itemSpacing * CGFloat(itemCountPerRow - 1)

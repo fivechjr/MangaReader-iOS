@@ -43,7 +43,7 @@ class EdenMangaListViewModel: MangaListViewModelProtocol {
     private var mangas:[MangaProtocol] = []
     
     private var currentPage: Int = 0
-    private let pageSize: Int = 21
+    private let pageSize: Int = Constants.pageSize
     
     func manga(atIndex index: Int) -> MangaProtocol? {
         if index < mangasShowing.count {

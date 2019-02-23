@@ -19,7 +19,7 @@ enum MangaSource: String {
     static var current: MangaSource {
         get {
             let str = UserDefaults.standard.value(forKey: storageKey) as? String ?? ""
-            return MangaSource(rawValue: str) ?? .lama
+            return MangaSource(rawValue: str) ?? .mangaEden
         }
         set {
             let oldValue = current

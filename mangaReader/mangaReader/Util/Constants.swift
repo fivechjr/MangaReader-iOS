@@ -19,6 +19,21 @@ enum ImageConstant: String {
 struct Constants {
     static let appId = "1448158046"
     
+    private static let mangaCountInRowPad = 5
+    private static let mangaCountInRowPhone = 4
+    
+    static var isPad: Bool {
+        return (UI_USER_INTERFACE_IDIOM() == .pad)
+    }
+    
+    static var pageSize: Int {
+        return mangaCountInRow * 7
+    }
+    
+    static var mangaCountInRow: Int {
+        return isPad ? mangaCountInRowPad : mangaCountInRowPhone
+    }
+    
     static var reviewURL: String {
         
         if #available(iOS 11.0, *) {

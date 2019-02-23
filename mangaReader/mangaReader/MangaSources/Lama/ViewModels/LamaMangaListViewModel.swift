@@ -44,7 +44,7 @@ class LamaMangaListViewModel: MangaListViewModelProtocol {
     fileprivate var mangas:[MangaProtocol] = []
     
     var currentPage: Int = 0
-    let pageSize: Int = 21
+    let pageSize: Int = Constants.pageSize
     
     func manga(atIndex index: Int) -> MangaProtocol? {
         if index < mangasShowing.count {

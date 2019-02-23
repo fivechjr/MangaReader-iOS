@@ -92,6 +92,8 @@ class MangaListViewController: BaseViewController {
                     }
                 })
             }).disposed(by: bag)
+        
+        updateTheme()
     }
     
     @objc func genresAction() {
@@ -134,7 +136,7 @@ class MangaListViewController: BaseViewController {
         let sectionInsets = layout.sectionInset
         let itemSpacing = layout.minimumInteritemSpacing
         
-        let itemCountPerRow = (UI_USER_INTERFACE_IDIOM() == .pad) ? 5 : 3
+        let itemCountPerRow = Constants.mangaCountInRow
         
         let colletionViewWidth = mangaListCollectionView.frame.size.width
         let gap = (sectionInsets.left + sectionInsets.right) + itemSpacing * CGFloat(itemCountPerRow - 1)
