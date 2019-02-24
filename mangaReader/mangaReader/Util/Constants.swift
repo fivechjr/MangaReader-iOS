@@ -20,7 +20,7 @@ struct Constants {
     static let appId = "1448158046"
     
     private static let mangaCountInRowPad = 5
-    private static let mangaCountInRowPhone = 4
+    private static let mangaCountInRowPhone = 3
     
     static var isPad: Bool {
         return (UI_USER_INTERFACE_IDIOM() == .pad)

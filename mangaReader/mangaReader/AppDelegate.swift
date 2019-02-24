@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         customizeUI()
         
-//        checkAppVersion()
+        checkAppVersion()
         
         return true
     }
