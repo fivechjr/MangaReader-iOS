@@ -6,4 +6,4 @@ http://111.231.224.94:8000/api/
 
 
 ### SwaggerUI
-http://api.lamamanhua.com/swagger-ui.html#/mobile-interface-impl    
+http://api.lamamanhua.com/swagger-ui.html
