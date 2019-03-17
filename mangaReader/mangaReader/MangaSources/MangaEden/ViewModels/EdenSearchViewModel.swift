@@ -12,6 +12,10 @@ class EdenSearchViewModel: BaseSearchViewModel {
     override func searchManga(withKeyword keyword: String?, completion: @escaping ([MangaProtocol]?, Error?) -> Void) {
         guard let keyword = keyword else {return}
         
+        if MemoryCache.shared.limitedFunction {
+            currentPage = 0
+        }
+        
         if currentPage <= 0 {
             currentPage = 0
             mangas.removeAll()
@@ -19,7 +23,16 @@ class EdenSearchViewModel: BaseSearchViewModel {
         
         MangaEdenApi.searchManga(withKeyword: keyword, page: currentPage, size: pageSize, sort: .hits) { [weak self] (response, error) in
             guard let `self` = self else {return}
-            self.mangas.append(contentsOf: response?.mangalist ?? [])
+            if MemoryCache.shared.limitedFunction {
+                self.mangas = []
+                if let mangas = response?.mangalist, mangas.count > 3 {
+                    let slice = mangas[0..<3]
+                    self.mangas.append(contentsOf: Array(slice))
+                }
+            } else {
+                self.mangas.append(contentsOf: response?.mangalist ?? [])
+            }
+            
             self.refreshManga()
             completion(self.mangas, error)
         }

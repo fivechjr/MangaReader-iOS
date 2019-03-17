@@ -52,6 +52,9 @@ class EdenCategoryRefresher: CategoryRefresherProtocol {
             let categories: [String] = response?.categoryNames?.compactMap { Utility.string($0, containsAny: SensitiveData.categories) ? nil : $0} ?? []
             
             self.categories = categories.map({EdenCategory(title: $0)})
+            if MemoryCache.shared.limitedFunction {
+                self.categories = Array(self.categories.prefix(6))
+            }
             completion?(self.categories, nil)
         }
     }

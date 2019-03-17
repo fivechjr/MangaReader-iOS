@@ -31,21 +31,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         customizeUI()
         
-//        checkAppVersion()
+        checkAppVersion()
         
         return true
     }
     
     func checkAppVersion() {
         Utility.getAppStoreVersion { (version) in
-            guard let version = version else {return}
+            guard let version = version else {
+                MemoryCache.shared.limitedFunction = true
+                return
+            }
             
             if Utility.shortVersionString.compare(version) == .orderedDescending {
-                MangaSource.current = .lama
-                print("current version is newer")
+//                MangaSource.current = .lama
+                print("current version is newer than app store, should limit")
+                MemoryCache.shared.limitedFunction = true
             } else {
-                MangaSource.current = .mangaEden
-                print("current version is same or older")
+//                MangaSource.current = .mangaEden
+                print("current version is same or older tha app store, should not limit")
+                MemoryCache.shared.limitedFunction = false
             }
         }
     }

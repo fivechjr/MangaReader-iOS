@@ -45,16 +45,18 @@ class MangaListViewController: BaseViewController {
         mangaDetailVC.viewModel = FSInjector.shared.resolve(MangaDetailViewModelProtocol.self)
         mangaDetailVC.viewModel.mangaId = mangaId
     }
+    
+    private func installGenresButton() {
+        let genresImage = UIImage(named: "filter")
+        let genresButton = UIBarButtonItem(image: genresImage, style: .plain, target: self, action: #selector(genresAction))
+        navigationItem.leftBarButtonItem = genresButton
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         genresTagListView.delegate = self
         genresTagListView.textFont = UIFont.systemFont(ofSize: 14)
-        
-        let genresImage = UIImage(named: "filter")
-        let genresButton = UIBarButtonItem(image: genresImage, style: .plain, target: self, action: #selector(genresAction))
-        navigationItem.leftBarButtonItem = genresButton
         
         let searchButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchAction))
         navigationItem.rightBarButtonItem = searchButton
@@ -123,6 +125,8 @@ class MangaListViewController: BaseViewController {
         if viewModel.isLoading && !refreshControl.isRefreshing {
             refreshControl.start(shouldAdjustOffset: true)
         }
+        
+        installGenresButton()
     }
     
     @objc func refresh() {

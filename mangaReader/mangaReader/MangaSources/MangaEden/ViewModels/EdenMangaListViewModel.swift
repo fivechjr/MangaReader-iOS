@@ -83,6 +83,11 @@ extension EdenMangaListViewModel {
         }
         
         currentPage = page
+        
+        if MemoryCache.shared.limitedFunction && currentPage > 2 {
+            currentPage = 2
+        }
+        
         if currentPage <= 0 {
             currentPage = 0
             mangas.removeAll()
@@ -102,7 +107,9 @@ extension EdenMangaListViewModel {
         isLoading = true
         MangaEdenApi.getMangaList(page: currentPage, size: pageSize, sort: mangaSort, categoryNames: categoryNames) { [weak self] (mangalist, error) in
             guard let `self` = self else {return}
+            
             self.mangas.append(contentsOf: mangalist ?? [])
+            
             let refreshedManga = self.refreshManga()
             
             // Only cache if no genres are selected
