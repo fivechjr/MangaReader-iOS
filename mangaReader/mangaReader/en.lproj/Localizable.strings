@@ -66,6 +66,10 @@
 "message_bottom_guide" = "Tap the lower area to go to the next page.";
 
 "Change Theme" = "Change Theme";
+"Switch to Dark Mode" = "Switch to Dark Mode";
+"Switch to Light Mode" = "Switch to Light Mode";
+
+"Ops, somthing is wrong with this chapter..." = "Ops, somthing is wrong with this chapter...";
 
 "lbl_read_mode_page_horizonal" = "Horizontal Page";
 "lbl_read_mode_page_vertical" = "Vertical Page";

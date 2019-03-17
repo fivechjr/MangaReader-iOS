@@ -66,6 +66,10 @@
 "message_bottom_guide" = "次のページをクリックして、次のページをクリックします。";
 
 "Change Theme" = "インタフェース色の切り替え";
+"Switch to Dark Mode" = "ダークモードに切り替え";
+"Switch to Light Mode" = "ライトモードに切り替える";
+
+"Ops, somthing is wrong with this chapter..." = "おっと、この章で何か問題があります...";
 
 "lbl_read_mode_page_horizonal" = "水平ページめくり";
 "lbl_read_mode_page_vertical" = "縦方向のページめくり";

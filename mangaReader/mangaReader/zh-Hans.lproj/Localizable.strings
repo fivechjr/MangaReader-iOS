@@ -66,6 +66,10 @@
 "message_bottom_guide" = "点击下面的区域，翻到后一页";
 
 "Change Theme" = "切换界面颜色";
+"Switch to Dark Mode" = "切换至深色主题";
+"Switch to Light Mode" = "切换至浅色主题";
+
+"Ops, somthing is wrong with this chapter..." = "哇哦，这个章节貌似有点问题。。。";
 
 "lbl_read_mode_page_horizonal" = "水平翻页";
 "lbl_read_mode_page_vertical" = "垂直翻页";

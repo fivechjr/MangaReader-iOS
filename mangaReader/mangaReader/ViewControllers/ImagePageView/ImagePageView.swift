@@ -9,12 +9,14 @@
 import Foundation
 import SnapKit
 import NVActivityIndicatorView
+import SVProgressHUD
 
 protocol ImagePageViewDelegate: class {
     func topAreaTapped(imagePageView: ImagePageView?)
     func centerAreaTapped(imagePageView: ImagePageView?)
     func bottomAreaTapped(imagePageView: ImagePageView?)
     func imageLoaded(imagePageView: ImagePageView?)
+    func imageLoadFailed(error: Error)
 }
 
 class ImagePageView: UIView {
@@ -89,6 +91,10 @@ class ImagePageView: UIView {
             imageView.kf.indicatorType = .activity
             imageView.kf.setImage(with: url, options: [.transition(.fade(0.2))]) { [weak self] (image, error, cacheType, url) in
                 self?.delegate?.imageLoaded(imagePageView: self)
+                if let error = error {
+//                    self?.delegate?.imageLoadFailed(error: error)
+                    self?.imageView.image = UIImage(named: "image_error")
+                }
             }
         }
     }

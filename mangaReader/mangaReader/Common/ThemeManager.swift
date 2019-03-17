@@ -12,6 +12,15 @@ enum Theme: Int {
     case light
     case dark
     
+    var settingTitle: String {
+        switch self {
+        case .light:
+            return LocalizedString("Switch to Dark Mode")
+        case .dark:
+            return LocalizedString("Switch to Light Mode")
+        }
+    }
+    
     var backgroundColor: UIColor {
         switch self {
         case .light:

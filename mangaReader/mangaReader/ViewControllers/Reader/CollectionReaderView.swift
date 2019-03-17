@@ -10,6 +10,7 @@ import Foundation
 import SnapKit
 import CRRefresh
 import Kingfisher
+import SVProgressHUD
 
 class CollectionReaderView: NSObject, ReaderViewProtocol {
     
@@ -203,6 +204,10 @@ extension CollectionReaderView: UICollectionViewDataSourcePrefetching {
 }
 
 extension CollectionReaderView: ImagePageViewDelegate {
+    func imageLoadFailed(error: Error) {
+        SVProgressHUD.showInfo(withStatus: LocalizedString("Ops, somthing is wrong with this chapter..."))
+    }
+    
     func topAreaTapped(imagePageView: ImagePageView?) {
         gotoPreviousPage()
     }

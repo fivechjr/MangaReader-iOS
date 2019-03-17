@@ -6,7 +6,8 @@
 //  Copyright © 2018 Yiming Dong. All rights reserved.
 //
 
-import Foundation
+import UIKit
+import SVProgressHUD
 
 class PageReaderView: NSObject, ReaderViewProtocol {
     
@@ -180,6 +181,10 @@ extension PageReaderView: UIPageViewControllerDelegate {
 }
 
 extension PageReaderView: ImagePageViewDelegate {
+    func imageLoadFailed(error: Error) {
+        SVProgressHUD.showInfo(withStatus: LocalizedString("Ops, somthing is wrong with this chapter..."))
+    }
+    
     func topAreaTapped(imagePageView: ImagePageView?) {
         gotoPreviousPage()
     }
