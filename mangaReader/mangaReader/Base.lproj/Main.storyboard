@@ -452,6 +452,7 @@
                     </view>
                     <connections>
                         <outlet property="closeButton" destination="RNV-dL-dec" id="5rX-hO-A27"/>
+                        <outlet property="lbl_readingMode" destination="SuX-cz-7In" id="4Sf-k9-b76"/>
                         <outlet property="tableView" destination="QUf-QX-ok5" id="VwV-Uz-GAB"/>
                     </connections>
                 </viewController>

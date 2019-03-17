@@ -14,7 +14,12 @@ class MangaDownloadViewController: BaseViewController {
     var viewModel: MangaDownloadViewModel!
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
+        
+        view.backgroundColor = currentTheme.backgroundColor
+        
         super.viewDidLoad()
+        
+        tableView.backgroundColor = .clear
         tableView.ezRegisterNib(cellType: DetailChapterCell.self)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: LocalizedString("btn_download"), style: .plain, target: self, action: #selector(startDownload))
@@ -42,6 +47,8 @@ extension MangaDownloadViewController: UITableViewDataSource, UITableViewDelegat
         let chapter = viewModel.chapter(at: indexPath.row)
         
         cell.checkButton.isSelected = viewModel.isSelected(chapter: chapter)
+        
+        cell.backgroundColor = .clear
         
         let textColor = ThemeManager.shared.currentTheme.textColor
         let title = "[\(NSLocalizedString("Chapter", comment: ""))] \(chapter?.chapterTitle ?? "")"
