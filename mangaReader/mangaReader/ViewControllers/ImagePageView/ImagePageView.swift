@@ -32,6 +32,8 @@ class ImagePageView: UIView {
     
     var imageView: UIImageView!
     
+    var messageLabel: UILabel!
+    
     var imageScrollView: UIScrollView!
     
     override init(frame: CGRect) {
@@ -50,6 +52,13 @@ class ImagePageView: UIView {
         
         imageView = UIImageView(frame: CGRect.zero)
         imageView.contentMode = .scaleAspectFit
+        
+        messageLabel = UILabel()
+        messageLabel.textColor = UIColor.white
+        messageLabel.font = UIFont.systemFont(ofSize: 18.0)
+        messageLabel.textAlignment = .center
+        messageLabel.text = LocalizedString("lbl_page_image_load_error")
+        messageLabel.isHidden = true
         
         imageScrollView = UIScrollView(frame: CGRect.zero)
         imageScrollView.minimumZoomScale = 1.0
@@ -70,6 +79,11 @@ class ImagePageView: UIView {
             maker.edges.equalToSuperview()
             maker.width.equalToSuperview()
             maker.height.equalToSuperview()
+        }
+        
+        imageView.addSubview(messageLabel)
+        messageLabel.snp.makeConstraints { (maker) in
+            maker.edges.equalToSuperview()
         }
         
         let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(ImagePageView.handleDoubleTapScrollView(_:)))
@@ -94,6 +108,9 @@ class ImagePageView: UIView {
                 if let error = error {
 //                    self?.delegate?.imageLoadFailed(error: error)
                     self?.imageView.image = UIImage(named: "image_error")
+                    self?.messageLabel.isHidden = false
+                } else {
+                    self?.messageLabel.isHidden = true
                 }
             }
         }

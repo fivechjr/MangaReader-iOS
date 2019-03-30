@@ -69,7 +69,7 @@
 "Switch to Dark Mode" = "切换至深色主题";
 "Switch to Light Mode" = "切换至浅色主题";
 
-"Ops, somthing is wrong with this chapter..." = "哇哦，这个章节貌似有点问题。。。";
+"lbl_page_image_load_error" = "很抱歉，这一页有些问题，无法显示。";
 
 "lbl_read_mode_page_horizonal" = "水平翻页";
 "lbl_read_mode_page_vertical" = "垂直翻页";

@@ -182,7 +182,7 @@ extension PageReaderView: UIPageViewControllerDelegate {
 
 extension PageReaderView: ImagePageViewDelegate {
     func imageLoadFailed(error: Error) {
-        SVProgressHUD.showInfo(withStatus: LocalizedString("Ops, somthing is wrong with this chapter..."))
+        SVProgressHUD.showInfo(withStatus: LocalizedString("lbl_page_image_load_error"))
     }
     
     func topAreaTapped(imagePageView: ImagePageView?) {

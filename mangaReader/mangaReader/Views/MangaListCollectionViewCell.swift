@@ -31,6 +31,41 @@ class MangaListCollectionViewCell: UICollectionViewCell {
         guard let imageURL = viewModel?.imageURL else {return}
         imageViewCover.kf.cancelDownloadTask()
         imageViewCover.kf.indicatorType = .activity
-        imageViewCover.kf.setImage(with: imageURL, placeholder: viewModel?.placeHolderImage)
+        
+        if MemoryCache.shared.limitedFunction {
+            imageViewCover.kf.setImage(with: imageURL, placeholder: viewModel?.placeHolderImage, options: [.transition(.fade(0.2))], progressBlock: { (_, _) in
+                
+            }) { [weak self] (image, error, cacheType, url) in
+                if error == nil, let image = image {
+                    RandomCoverCache.shared.addImage(image)
+                } else {
+                    self?.imageViewCover.image = RandomCoverCache.shared.getImage()
+                }
+            }
+        } else {
+            imageViewCover.kf.setImage(with: imageURL, placeholder: viewModel?.placeHolderImage, options: [.transition(.fade(0.2))])
+        }
+    }
+}
+
+class RandomCoverCache {
+    static let shared = RandomCoverCache()
+    private init() {}
+    
+    private var images = [UIImage]()
+    
+    func addImage(_ image: UIImage) {
+        if images.count < 100 {
+            images.append(image)
+        }
+    }
+    
+    func getImage() -> UIImage {
+        guard images.count > 5 else {
+            let index = Int.random(in: 0..<10)
+            return UIImage(named: "default_cover_\(index).jpg")!
+        }
+        let index = Int.random(in: 0..<images.count)
+        return images[index]
     }
 }

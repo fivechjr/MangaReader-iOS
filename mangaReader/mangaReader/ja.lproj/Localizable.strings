@@ -69,7 +69,7 @@
 "Switch to Dark Mode" = "ダークモードに切り替え";
 "Switch to Light Mode" = "ライトモードに切り替える";
 
-"Ops, somthing is wrong with this chapter..." = "おっと、この章で何か問題があります...";
+"lbl_page_image_load_error" = "抱擁、この問題は解決できません。表示されていません。";
 
 "lbl_read_mode_page_horizonal" = "水平ページめくり";
 "lbl_read_mode_page_vertical" = "縦方向のページめくり";
