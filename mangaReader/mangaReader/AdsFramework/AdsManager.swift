@@ -259,7 +259,8 @@ extension AdsManager {
     func lastAdsShowsBefore(_ secondsAgo: Double) -> Bool {
         
         guard let lastShowTime = lastAdsShowTime else {
-            return true
+            lastAdsShowTime = Date()
+            return false
         }
         
         let interval = Date().timeIntervalSince(lastShowTime)
