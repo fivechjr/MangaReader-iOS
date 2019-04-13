@@ -72,7 +72,7 @@ class FSInjector {
             EdenDownloadManager()
         }
         worker.register(DownloadManager.self, name: MangaSource.mangaEdenReal.rawValue) { _ in
-            EdenDownloadManager()
+            RealEdenDownloadManager()
         }
         worker.register(DownloadManager.self, name: MangaSource.lama.rawValue) { _ in
             LamaDownloadManager()
