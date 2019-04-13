@@ -59,8 +59,10 @@ extension MangaDownloadViewController: UITableViewDataSource, UITableViewDelegat
             let statusString = "[\(LocalizedString("lbl_downloaded"))]"
             cell.statusLabel.textColor = UIColor.darkGray.withAlphaComponent(0.5)
             cell.statusLabel.text = statusString
+            cell.checkButton.isHidden = true
         } else {
             cell.statusLabel.text = nil
+            cell.checkButton.isHidden = false
         }
         
         return cell

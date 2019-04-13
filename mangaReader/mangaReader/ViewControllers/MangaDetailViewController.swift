@@ -71,8 +71,9 @@ class MangaDetailViewController: BaseViewController {
         nestCell.install(viewController: chaptersViewController, parent: self, toTheLeft: true)
         nestCell.install(viewController: infoViewController, parent: self, toTheLeft: false)
         
-        let downloadButton = UIBarButtonItem(image: UIImage(named: "icon_download"), style: .plain, target: self, action: #selector(download))
-        navigationItem.rightBarButtonItem = downloadButton
+        // TODO: enable download button, after fix the concurrent download FAIL issue!!!
+//        let downloadButton = UIBarButtonItem(image: UIImage(named: "icon_download"), style: .plain, target: self, action: #selector(download))
+//        navigationItem.rightBarButtonItem = downloadButton
         
         requestMangaDetail()
     }
