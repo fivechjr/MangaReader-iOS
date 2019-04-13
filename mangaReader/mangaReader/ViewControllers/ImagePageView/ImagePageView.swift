@@ -54,8 +54,9 @@ class ImagePageView: UIView {
         imageView.contentMode = .scaleAspectFit
         
         messageLabel = UILabel()
-        messageLabel.textColor = UIColor.white
-        messageLabel.font = UIFont.systemFont(ofSize: 18.0)
+        messageLabel.textColor = ThemeManager.shared.currentTheme.textSecondColor
+        messageLabel.numberOfLines = 0
+        messageLabel.font = UIFont.systemFont(ofSize: 12.0)
         messageLabel.textAlignment = .center
         messageLabel.text = LocalizedString("lbl_page_image_load_error")
         messageLabel.isHidden = true
@@ -83,7 +84,9 @@ class ImagePageView: UIView {
         
         imageView.addSubview(messageLabel)
         messageLabel.snp.makeConstraints { (maker) in
-            maker.edges.equalToSuperview()
+            maker.centerY.equalTo(imageView.snp_centerY).offset(64)
+            maker.leading.equalTo(imageView.snp_leading).offset(32)
+            maker.trailing.equalTo(imageView.snp_trailing).offset(-32)
         }
         
         let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(ImagePageView.handleDoubleTapScrollView(_:)))

@@ -69,7 +69,7 @@
 "Switch to Dark Mode" = "Switch to Dark Mode";
 "Switch to Light Mode" = "Switch to Light Mode";
 
-"lbl_page_image_load_error" = "Sometime wrong happened, this page can not be loaded.";
+"lbl_page_image_load_error" = "Something wrong happened, this page can not be loaded.";
 
 "lbl_read_mode_page_horizonal" = "Horizontal Page";
 "lbl_read_mode_page_vertical" = "Vertical Page";
