@@ -9,7 +9,7 @@
 import Foundation
 
 protocol MangaProtocol {
-    var mangaSource: String? {get set}
+    var mangaSource: String? {get}
     var mangaId: String? {get set}
     var mangaName: String? {get set}
     var mangaAuthor: String? {get set}

@@ -60,9 +60,6 @@ extension Manga: MangaProtocol {
         get {
             return MangaSource.mangaEden.rawValue
         }
-        set {
-            
-        }
     }
     
     var mangaName: String? {

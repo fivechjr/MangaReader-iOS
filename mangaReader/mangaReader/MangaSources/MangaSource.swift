@@ -11,6 +11,7 @@ import RxSwift
 
 enum MangaSource: String {
     case mangaEden
+    case mangaEdenReal
     case lama
     
     static var sourceChangedSignal = Variable<MangaSource>(MangaSource.current)

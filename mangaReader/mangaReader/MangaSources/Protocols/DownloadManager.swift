@@ -19,8 +19,19 @@ class DownloadManager {
         return FSInjector.shared.resolve(DownloadManager.self, source: MangaSource.lama)!
     } ()
     
+    private static let edenRealManager: DownloadManager = {
+        return FSInjector.shared.resolve(DownloadManager.self, source: MangaSource.mangaEdenReal)!
+    } ()
+    
     static var shared: DownloadManager {
-        return MangaSource.current == .mangaEden ? edenManager : lamaManager
+        switch MangaSource.current {
+        case .mangaEden:
+            return edenManager
+        case .mangaEdenReal:
+            return edenRealManager
+        case .lama:
+            return lamaManager
+        }
     }
     
     private let downloader = ImageDownloader.default
