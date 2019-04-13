@@ -77,6 +77,7 @@
 		8C6785842261BFB9003AA66F /* RealMangaEdenApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6785832261BFB9003AA66F /* RealMangaEdenApiTests.swift */; };
 		8C6785862261C03F003AA66F /* MangaEdenLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6785852261C03F003AA66F /* MangaEdenLanguage.swift */; };
 		8C6785892261C213003AA66F /* RealMangaEdenListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6785882261C213003AA66F /* RealMangaEdenListResponse.swift */; };
+		8C67858E2261D47D003AA66F /* RealEdenMangaListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C67858D2261D47D003AA66F /* RealEdenMangaListViewModel.swift */; };
 		8C81DCEA2180C0AA00F47A31 /* SF-Pro-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8C81DCE82180C0A900F47A31 /* SF-Pro-Text-Regular.otf */; };
 		8C81DCEB2180C0AA00F47A31 /* Radomir Tinkov - Gilroy-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8C81DCE92180C0A900F47A31 /* Radomir Tinkov - Gilroy-SemiBold.otf */; };
 		8C81DCED2180C0EF00F47A31 /* Font+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C81DCEC2180C0EF00F47A31 /* Font+Custom.swift */; };
@@ -236,6 +237,7 @@
 		8C6785832261BFB9003AA66F /* RealMangaEdenApiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealMangaEdenApiTests.swift; sourceTree = "<group>"; };
 		8C6785852261C03F003AA66F /* MangaEdenLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaEdenLanguage.swift; sourceTree = "<group>"; };
 		8C6785882261C213003AA66F /* RealMangaEdenListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealMangaEdenListResponse.swift; sourceTree = "<group>"; };
+		8C67858D2261D47D003AA66F /* RealEdenMangaListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealEdenMangaListViewModel.swift; sourceTree = "<group>"; };
 		8C81DCE82180C0A900F47A31 /* SF-Pro-Text-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Regular.otf"; sourceTree = "<group>"; };
 		8C81DCE92180C0A900F47A31 /* Radomir Tinkov - Gilroy-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Radomir Tinkov - Gilroy-SemiBold.otf"; sourceTree = "<group>"; };
 		8C81DCEC2180C0EF00F47A31 /* Font+Custom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Custom.swift"; sourceTree = "<group>"; };
@@ -489,6 +491,7 @@
 		8C67857E2261B65E003AA66F /* RealMangaEden */ = {
 			isa = PBXGroup;
 			children = (
+				8C67858C2261D46D003AA66F /* ViewModels */,
 				8C6785872261C1C1003AA66F /* Response */,
 				8C67857F2261B6A0003AA66F /* RealMangaEdenApi.swift */,
 				8C6785812261B6DF003AA66F /* RealMangaEdenEndpoint.swift */,
@@ -503,6 +506,14 @@
 				8C6785882261C213003AA66F /* RealMangaEdenListResponse.swift */,
 			);
 			path = Response;
+			sourceTree = "<group>";
+		};
+		8C67858C2261D46D003AA66F /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				8C67858D2261D47D003AA66F /* RealEdenMangaListViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		8C81DCE72180C0A900F47A31 /* Fonts */ = {
@@ -1009,6 +1020,7 @@
 				8CC9E45B21BC044B0098E505 /* LamaTopicResponse.swift in Sources */,
 				8C5E791C21D5D5A600754DAB /* NSError+Extension.swift in Sources */,
 				8C5E78EA21BCE59C00754DAB /* EdenChapterDetail.swift in Sources */,
+				8C67858E2261D47D003AA66F /* RealEdenMangaListViewModel.swift in Sources */,
 				8C3C8BEE21980C1B000F3FDD /* FSInjector.swift in Sources */,
 				30F4340721C4CF010078E01C /* LamaSearchViewModel.swift in Sources */,
 				8C9673812172F61300DE5D69 /* BaseViewController.swift in Sources */,

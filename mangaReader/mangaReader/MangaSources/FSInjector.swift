@@ -22,6 +22,9 @@ class FSInjector {
         worker.register(MangaListViewModelProtocol.self, name: MangaSource.lama.rawValue) { (r) in
             LamaMangaListViewModel()
         }
+        worker.register(MangaListViewModelProtocol.self, name: MangaSource.mangaEdenReal.rawValue) { (r) in
+            RealEdenMangaListViewModel()
+        }
         
         //
         worker.register(MangaDetailViewModelProtocol.self, name: MangaSource.mangaEden.rawValue) { (r) in
