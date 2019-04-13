@@ -11,7 +11,7 @@ import XCTest
 
 class RealMangaEdenApiTests: XCTestCase {
 
-    func test_getTopMangaList() {
+    func test_getMangaList() {
         let exp = expectation(description: "should finish request")
         RealMangaEdenApi.getMangaList(pageNumber: 0, pageSize: 30){ (manga, error) in
             exp.fulfill()
@@ -23,7 +23,7 @@ class RealMangaEdenApiTests: XCTestCase {
         wait(for: [exp], timeout: 30)
     }
     
-    func test_getTopManga() {
+    func test_getManga() {
         let exp = expectation(description: "should finish request")
         
         let mangaId = "5bfdd0ff719a162b3c196677"
@@ -38,4 +38,19 @@ class RealMangaEdenApiTests: XCTestCase {
         wait(for: [exp], timeout: 30)
     }
 
+    func test_getChapter() {
+        let exp = expectation(description: "should finish request")
+        
+        let chapterId = "5bfe41ce719a167a5c3e2c98"
+        
+        RealMangaEdenApi.getChapterDetail(chapterId: chapterId) { (chapter, error) in
+            exp.fulfill()
+            XCTAssertNotNil(chapter)
+            XCTAssertNotNil(chapter?.chapterId)
+            XCTAssertEqual(chapter!.chapterId, chapterId)
+            XCTAssertNil(error)
+        }
+        
+        wait(for: [exp], timeout: 30)
+    }
 }

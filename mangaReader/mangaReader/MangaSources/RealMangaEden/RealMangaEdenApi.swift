@@ -22,9 +22,12 @@ class RealMangaEdenApi {
         }
     }
     
-    static func getChapterDetail(mangaId: String, chapterId: String, completion:@escaping (EdenChapterDetailResponse?, Error?) -> Void) {
-//        let path = MangaEndpoint.chapter(mangaId: mangaId, chapterId: chapterId).path
-//        NetworkManager.get(urlString: path, responseType: EdenChapterDetailResponse.self, completion: completion)
+    static func getChapterDetail(chapterId: String, completion:@escaping (ChapterDetailProtocol?, Error?) -> Void) {
+        let path = RealMangaEdenEndpoint.chapter(chapterId: chapterId).path
+        NetworkManager.get(urlString: path, responseType: EdenChapterDetail.self) { (chapter, error) in
+            chapter?.chapterId = chapterId
+            completion(chapter, error)
+        }
     }
     
     static func getMangaList(pageNumber: Int, pageSize: Int = DEFAULT_PAGE_SIZE, language: MangaEdenLanguage = .english, completion:@escaping ([MangaProtocol]?, Error?) -> Void) {
