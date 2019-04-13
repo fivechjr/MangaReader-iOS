@@ -10,6 +10,7 @@ import Foundation
 import Alamofire
 
 public typealias NetworkCompletion<T: Codable> = (T?, Error?) -> Void
+public typealias ProgressHandler = (Double) -> Void
 
 class NetworkManager {
     
@@ -20,8 +21,16 @@ class NetworkManager {
     }()
     
     static func get<T: Codable>(urlString: String?, responseType: T.Type, completion: @escaping NetworkCompletion<T>) {
+        get(urlString: urlString, responseType: responseType, onProgress: nil, completion: completion)
+    }
+    
+    static func get<T: Codable>(urlString: String?, responseType: T.Type, onProgress: ProgressHandler?, completion: @escaping NetworkCompletion<T>) {
         guard let urlString = self.safeUrlString(urlString), let url = URL(string: urlString) else {return}
-        sessionManager.request(url).responseData { (response) in
+        sessionManager.request(url)
+            .downloadProgress(closure: { (progress) in
+                onProgress?(progress.fractionCompleted)
+            })
+            .responseData { (response) in
             guard let data = response.result.value else {
                 completion(nil, response.result.error)
                 return

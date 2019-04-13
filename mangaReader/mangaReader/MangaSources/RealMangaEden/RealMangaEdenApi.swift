@@ -42,9 +42,11 @@ class RealMangaEdenApi {
         }
     }
     
-    static func getAllMangaList(language: MangaEdenLanguage = .english, completion:@escaping (RealMangaEdenListResponse?, Error?) -> Void) {
+    static func getAllMangaList(language: MangaEdenLanguage = .english, onProgress: @escaping ProgressHandler, completion:@escaping (RealMangaEdenListResponse?, Error?) -> Void) {
         let path = RealMangaEdenEndpoint.allMangaList(language: language).path
-        NetworkManager.get(urlString: path, responseType: RealMangaEdenListResponse.self, completion: completion)
+        NetworkManager.get(urlString: path, responseType: RealMangaEdenListResponse.self,
+                           onProgress: onProgress,
+                           completion: completion)
     }
     
     static func getImageUrl(withImagePath path: String?) -> String? {

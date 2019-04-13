@@ -76,7 +76,20 @@ class RealEdenMangaListViewModel: MangaListViewModelProtocol {
 
 extension RealEdenMangaListViewModel {
     
-    private  func loadManga(page: Int, completion: @escaping ([MangaProtocol]?, Error?) -> Void) {
+    private func loadAllManga() {
+        // TODO: only trigger once a week
+        RealMangaEdenApi.getAllMangaList(onProgress: { progress in
+            print("progress: \(progress)")
+        }) { (mangaListResponse, error) in
+            // TODO
+            print("got all manga, saving to database...")
+        }
+    }
+    
+    private func loadManga(page: Int, completion: @escaping ([MangaProtocol]?, Error?) -> Void) {
+        
+        loadAllManga()
+        
         guard !isLoading else {
             completion(nil, nil)
             return
