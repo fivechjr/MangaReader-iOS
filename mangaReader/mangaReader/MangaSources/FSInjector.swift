@@ -19,16 +19,19 @@ class FSInjector {
         worker.register(MangaListViewModelProtocol.self, name: MangaSource.mangaEden.rawValue) { (r) in
             EdenMangaListViewModel()
         }
-        worker.register(MangaListViewModelProtocol.self, name: MangaSource.lama.rawValue) { (r) in
-            LamaMangaListViewModel()
-        }
         worker.register(MangaListViewModelProtocol.self, name: MangaSource.mangaEdenReal.rawValue) { (r) in
             RealEdenMangaListViewModel()
+        }
+        worker.register(MangaListViewModelProtocol.self, name: MangaSource.lama.rawValue) { (r) in
+            LamaMangaListViewModel()
         }
         
         //
         worker.register(MangaDetailViewModelProtocol.self, name: MangaSource.mangaEden.rawValue) { (r) in
             EdenMangaDetailViewModel()
+        }
+        worker.register(MangaDetailViewModelProtocol.self, name: MangaSource.mangaEdenReal.rawValue) { (r) in
+            RealEdenMangaDetailViewModel()
         }
         worker.register(MangaDetailViewModelProtocol.self, name: MangaSource.lama.rawValue) { (r) in
             LamaMangaDetailViewModel()
@@ -54,12 +57,18 @@ class FSInjector {
         worker.register(CategoryRefresherProtocol.self, name: MangaSource.mangaEden.rawValue) { _ in
             EdenCategoryRefresher()
         }
+        worker.register(CategoryRefresherProtocol.self, name: MangaSource.mangaEdenReal.rawValue) { _ in
+            RealEdenCategoryRefresher()
+        }
         worker.register(CategoryRefresherProtocol.self, name: MangaSource.lama.rawValue) { _ in
             LamaCategoryRefresher()
         }
         
         //
         worker.register(DownloadManager.self, name: MangaSource.mangaEden.rawValue) { _ in
+            EdenDownloadManager()
+        }
+        worker.register(DownloadManager.self, name: MangaSource.mangaEdenReal.rawValue) { _ in
             EdenDownloadManager()
         }
         worker.register(DownloadManager.self, name: MangaSource.lama.rawValue) { _ in

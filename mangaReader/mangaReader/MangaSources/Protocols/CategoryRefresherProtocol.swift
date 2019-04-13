@@ -59,3 +59,27 @@ class EdenCategoryRefresher: CategoryRefresherProtocol {
         }
     }
 }
+
+class RealEdenCategoryRefresher: CategoryRefresherProtocol {
+    private(set) var categories: [CategoryProtocol] = []
+    
+    func loadCategories(forceUpdate: Bool = false, completion: (([CategoryProtocol], Error?) -> Void)? = nil) {
+        
+        guard categories.isEmpty || forceUpdate else {
+            completion?(categories, nil)
+            return
+        }
+        
+        if let url = Bundle.main.url(forResource: "real_manga_eden_categories", withExtension: "json") {
+            if let categoriesData = try? Data(contentsOf: url) {
+                let categories = try? JSONDecoder().decode(CategoryNamesResponse.self, from: categoriesData)
+                let names = categories?.categoryNames?.compactMap{ Utility.string($0, containsAny: SensitiveData.categories) ? nil : $0} ?? []
+                self.categories = names.map({EdenCategory(title: $0)})
+                if MemoryCache.shared.limitedFunction {
+                    self.categories = Array(self.categories.prefix(6))
+                }
+                completion?(self.categories, nil)
+            }
+        }
+    }
+}
