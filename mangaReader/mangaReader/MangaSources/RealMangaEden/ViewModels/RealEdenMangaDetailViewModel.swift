@@ -11,7 +11,7 @@ import Foundation
 class RealEdenMangaDetailViewModel: BaseMangaDetailViewModel {
     
     override var source: MangaSource {
-        return .mangaEden
+        return .mangaEdenReal
     }
     
     init(mangaId: String = "") {

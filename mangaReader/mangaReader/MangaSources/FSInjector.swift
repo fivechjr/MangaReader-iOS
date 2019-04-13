@@ -41,6 +41,9 @@ class FSInjector {
         worker.register(BaseChapterReadViewModel.self, name: MangaSource.mangaEden.rawValue) { _ in
             EdenChapterReadViewModel()
         }
+        worker.register(BaseChapterReadViewModel.self, name: MangaSource.mangaEdenReal.rawValue) { _ in
+            RealEdenChapterReadViewModel()
+        }
         worker.register(BaseChapterReadViewModel.self, name: MangaSource.lama.rawValue) { _ in
             LamaChapterReadViewModel()
         }
