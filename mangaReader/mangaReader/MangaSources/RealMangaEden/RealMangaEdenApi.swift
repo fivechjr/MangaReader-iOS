@@ -18,6 +18,7 @@ class RealMangaEdenApi {
         
         NetworkManager.get(urlString: path, responseType: Manga.self) { (manga, error) in
             manga?.mangaId = mangaId
+            manga?.mangaSource = MangaSource.mangaEdenReal.rawValue
             completion(manga, error)
         }
     }

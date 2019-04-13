@@ -52,13 +52,19 @@ class Manga: Codable {
     var random: [Double]?
     
     var topImageUrl: String?
+    
+    // custom vars
+    var source: String? = MangaSource.mangaEden.rawValue
 }
 
 // MangaProtocol
 extension Manga: MangaProtocol {
     var mangaSource: String? {
         get {
-            return MangaSource.mangaEden.rawValue
+            return source
+        }
+        set {
+            source = newValue
         }
     }
     

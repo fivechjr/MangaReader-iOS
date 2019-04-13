@@ -28,12 +28,16 @@ class RealMangaEdenManga: Codable {
     // custom vars
     var imageURL: String?
     var author: String?
+    var source: String? = MangaSource.mangaEdenReal.rawValue
 }
 
 extension RealMangaEdenManga: MangaProtocol {
     var mangaSource: String? {
         get {
-            return MangaSource.mangaEdenReal.rawValue
+            return source
+        }
+        set {
+            source = newValue
         }
     }
     
