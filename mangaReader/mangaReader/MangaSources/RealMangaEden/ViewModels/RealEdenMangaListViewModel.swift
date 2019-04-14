@@ -62,12 +62,12 @@ class RealEdenMangaListViewModel: MangaListViewModelProtocol {
 //        loadManga(page: currentPage + 1, completion: completion)
     }
     
-    private func refreshManga() -> [MangaProtocol] {
-        let refreshedManga = filterManga(mangas)
-        mangasSignal.value = refreshedManga
-        
-        return refreshedManga
-    }
+//    private func refreshManga() -> [MangaProtocol] {
+//        let refreshedManga = filterManga(mangas)
+//        mangasSignal.value = refreshedManga
+//
+//        return refreshedManga
+//    }
     
     func clearManga() {
         mangas = []
@@ -76,6 +76,41 @@ class RealEdenMangaListViewModel: MangaListViewModelProtocol {
 }
 
 extension RealEdenMangaListViewModel {
+    
+    private func initMangaFromJson(completion: @escaping ([MangaProtocol]?, Error?) -> Void) {
+        if let url = Bundle.main.url(forResource: "all_manga_list_en", withExtension: "json") {
+            if let mangaData = try? Data(contentsOf: url) {
+                let mangaResponse = try? JSONDecoder().decode(RealMangaEdenListResponse.self, from: mangaData)
+                let mangaList = mangaResponse?.manga?.sorted(by: { (manga1, manga2) -> Bool in
+                    if mangaSort == .hits {
+                        return manga1.hits ?? 0 > manga2.hits ?? 0
+                    } else {
+                        return manga1.lastChapterDate ?? 0 > manga2.lastChapterDate ?? 0
+                    }
+                })
+                
+                processManga(mangaList, completion: completion)
+            }
+        }
+    }
+    
+    private func saveMangaToDB(_ mangaList: [MangaProtocol], completion: @escaping ([MangaProtocol]?, Error?) -> Void) {
+        DataManager.shared.cacheMangaList(mangaList, completion: {
+            print("all manga has been cached!")
+            self.processManga(self.allMangaFromCache(), completion: completion)
+        })
+    }
+    
+    private func processManga(_ mangaList: [MangaProtocol]?, completion: @escaping ([MangaProtocol]?, Error?) -> Void) {
+        self.mangas = mangaList ?? []
+        DispatchQueue.global(qos: .utility).async {
+            let refreshedManga = self.filterManga(self.mangas)
+            DispatchQueue.main.async {
+                self.mangasSignal.value = refreshedManga
+                completion(self.mangasShowing, nil)
+            }
+        }
+    }
     
     private func loadAllManga(completion: @escaping ([MangaProtocol]?, Error?) -> Void) {
         // TODO: only trigger once a week
@@ -86,24 +121,31 @@ extension RealEdenMangaListViewModel {
         }
         
         isLoading = true
+        initMangaFromJson { (mangaList, error) in
+            completion(mangaList, error)
+            self.isLoading = false
+        }
+        return
+        
+        let cachedManga = allMangaFromCache()
+        if cachedManga.isEmpty {
+            initMangaFromJson(completion: completion)
+            return
+        }
+        
+        
+        
+        isLoading = true
         RealMangaEdenApi.getAllMangaList() { [weak self] (mangaListResponse, error) in
             guard let `self` = self else {return}
             
             if let mangaList = mangaListResponse?.manga {
-                DataManager.shared.cacheMangaList(mangaList, completion: {
-                    print("cache done")
-                    
-                    self.mangas = self.allMangaFromCache()
-                    DispatchQueue.global(qos: .utility).async {
-                        _ = self.refreshManga()
-                        DispatchQueue.main.async {
-                            completion(self.mangas, error)
-                            self.isLoading = false
-                        }
-                    }
+                self.saveMangaToDB(mangaList, completion: { (response, error) in
+                    completion(response, error)
+                    self.isLoading = false
                 })
             } else {
-                completion(self.mangas, error)
+                completion(self.mangasShowing, error)
                 self.isLoading = false
             }
         }
@@ -135,9 +177,7 @@ extension RealEdenMangaListViewModel {
         let cachedManaga = MangaCache.getMangaList(page: currentPage, size: pageSize, sort: mangaSort)
         // Only use cached data if no genres selected
         if !cachedManaga.isEmpty && selectedCategories.isEmpty {
-            mangas.append(contentsOf: cachedManaga)
-            _ = refreshManga()
-            completion(cachedManaga, nil)
+            processManga(cachedManaga, completion: completion)
             return
         }
         
@@ -146,17 +186,15 @@ extension RealEdenMangaListViewModel {
         RealMangaEdenApi.getMangaList(pageNumber: currentPage) { [weak self] (mangaList, error) in
             guard let `self` = self else {return}
             
-            self.mangas.append(contentsOf: mangaList ?? [])
-            
-            let refreshedManga = self.refreshManga()
-            
-            // Only cache if no genres are selected
-            if self.selectedCategories.isEmpty {
-                MangaCache.saveMangaList(mangaList: refreshedManga, currentPage: self.currentPage, size: self.pageSize, sort: self.mangaSort)
-            }
-            
-            completion(mangaList, error)
-            self.isLoading = false
+            self.processManga(mangaList, completion: { (processedManga, error) in
+                // Only cache if no genres are selected
+                if let processedManga = processedManga, self.selectedCategories.isEmpty {
+                    MangaCache.saveMangaList(mangaList: processedManga, currentPage: self.currentPage, size: self.pageSize, sort: self.mangaSort)
+                }
+                
+                completion(processedManga, error)
+                self.isLoading = false
+            })
         }
     }
     
