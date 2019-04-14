@@ -1,43 +1,44 @@
 //
-//  RecentManga.swift
+//  CachedManga.swift
 //  mangaReader
 //
-//  Created by Yiming Dong on 2018/4/28.
-//  Copyright © 2018 Yiming Dong. All rights reserved.
+//  Created by Yiming Dong on 2019/4/14.
+//  Copyright © 2019 Yiming Dong. All rights reserved.
 //
 
 import Foundation
 import RealmSwift
 
-class RecentManga: Object {
+class CachedManga: Object {
     @objc private dynamic var name = ""
     @objc private dynamic var author = ""
     @objc private dynamic var imagePath = ""
     @objc private dynamic var id = ""
-    @objc dynamic var readTime = Date()
     @objc private dynamic var source = ""
+    @objc private dynamic var _hits: Int = 0
+    @objc private dynamic var _lastChapterDate: Double = 0.0
     
     override static func primaryKey() -> String? {
         return "id"
     }
 }
 
-extension RecentManga: MangaProtocol {
-    
+extension CachedManga: MangaProtocol {
     var hits: Int? {
         get {
-            return 0
+            return _hits
         }
         set {
+            _hits = newValue ?? 0
         }
     }
     
     var lastChapterDate: Double? {
         get {
-            return 0.0
+            return _lastChapterDate
         }
         set {
-            
+            _lastChapterDate = newValue ?? 0
         }
     }
     

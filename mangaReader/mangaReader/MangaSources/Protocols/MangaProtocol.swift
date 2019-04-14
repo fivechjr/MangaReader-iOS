@@ -23,6 +23,9 @@ protocol MangaProtocol {
     var topImageUrl: String? {get}
     var placeHolderImage: UIImage? {get}
     
+    var hits: Int? {get set}
+    var lastChapterDate: Double? {get set}
+    
     func canPublish() -> Bool
     
     var isCompleted: Bool {get}

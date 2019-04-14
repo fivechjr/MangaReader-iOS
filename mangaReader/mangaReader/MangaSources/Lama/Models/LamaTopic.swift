@@ -33,6 +33,24 @@ class LamaTopic: Codable {
 
 // MangaProtocol
 extension LamaTopic: MangaProtocol {
+    
+    var hits: Int? {
+        get {
+            return 0
+        }
+        set {
+        }
+    }
+    
+    var lastChapterDate: Double? {
+        get {
+            return 0.0
+        }
+        set {
+            
+        }
+    }
+    
     var mangaSource: String? {
         get {
             return source

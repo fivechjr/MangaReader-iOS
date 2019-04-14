@@ -83,6 +83,16 @@ extension RealEdenMangaListViewModel {
         }) { (mangaListResponse, error) in
             // TODO
             print("got all manga, saving to database...")
+            if let mangaList = mangaListResponse?.manga {
+                DataManager.shared.cacheMangaList(mangaList, completion: {
+                    print("cache done")
+                    
+                    print("\(Date())")
+                    let mangaList = DataManager.shared.getAllCachedManga(sort: .last_chapter_date)
+                    print("\(Date())")
+                    print("read from realm")
+                })
+            }
         }
     }
     
