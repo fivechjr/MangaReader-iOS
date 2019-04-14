@@ -54,11 +54,12 @@ class RealEdenMangaListViewModel: MangaListViewModelProtocol {
     }
     
     func loadFirstPage(completion: @escaping ([MangaProtocol]?, Error?) -> Void) {
-        loadManga(page: 0, completion: completion)
+        loadAllManga(completion: completion)
+//        loadManga(page: 0, completion: completion)
     }
     
     func loadNextPage(completion: @escaping ([MangaProtocol]?, Error?) -> Void) {
-        loadManga(page: currentPage + 1, completion: completion)
+//        loadManga(page: currentPage + 1, completion: completion)
     }
     
     private func refreshManga() -> [MangaProtocol] {
@@ -76,29 +77,43 @@ class RealEdenMangaListViewModel: MangaListViewModelProtocol {
 
 extension RealEdenMangaListViewModel {
     
-    private func loadAllManga() {
+    private func loadAllManga(completion: @escaping ([MangaProtocol]?, Error?) -> Void) {
         // TODO: only trigger once a week
-        RealMangaEdenApi.getAllMangaList(onProgress: { progress in
-            print("progress: \(progress)")
-        }) { (mangaListResponse, error) in
-            // TODO
-            print("got all manga, saving to database...")
+        
+        guard !isLoading else {
+            completion(nil, nil)
+            return
+        }
+        
+        isLoading = true
+        RealMangaEdenApi.getAllMangaList() { [weak self] (mangaListResponse, error) in
+            guard let `self` = self else {return}
+            
             if let mangaList = mangaListResponse?.manga {
                 DataManager.shared.cacheMangaList(mangaList, completion: {
                     print("cache done")
                     
-                    print("\(Date())")
-                    let mangaList = DataManager.shared.getAllCachedManga(sort: .last_chapter_date)
-                    print("\(Date())")
-                    print("read from realm")
+                    self.mangas = self.allMangaFromCache()
+                    DispatchQueue.global(qos: .utility).async {
+                        _ = self.refreshManga()
+                        DispatchQueue.main.async {
+                            completion(self.mangas, error)
+                            self.isLoading = false
+                        }
+                    }
                 })
+            } else {
+                completion(self.mangas, error)
+                self.isLoading = false
             }
         }
     }
     
+    private func allMangaFromCache() -> [MangaProtocol] {
+        return Array(DataManager.shared.getAllCachedManga(sort: self.mangaSort))
+    }
+    
     private func loadManga(page: Int, completion: @escaping ([MangaProtocol]?, Error?) -> Void) {
-        
-        loadAllManga()
         
         guard !isLoading else {
             completion(nil, nil)
