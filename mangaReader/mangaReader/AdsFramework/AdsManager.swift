@@ -258,9 +258,13 @@ extension AdsManager {
     /// 距离上次广告显示时间，超过指定的秒数
     func lastAdsShowsBefore(_ secondsAgo: Double) -> Bool {
         
+        if MemoryCache.shared.limitedFunction {
+            return false
+        }
+        
         guard let lastShowTime = lastAdsShowTime else {
             lastAdsShowTime = Date()
-            return false
+            return true
         }
         
         let interval = Date().timeIntervalSince(lastShowTime)
