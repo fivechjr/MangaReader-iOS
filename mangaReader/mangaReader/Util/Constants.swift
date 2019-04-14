@@ -17,7 +17,7 @@ enum ImageConstant: String {
 }
 
 struct Constants {
-    static let appId = "1448158046"
+    static let appId = "1378089411"
     
     private static let mangaCountInRowPad = 5
     private static let mangaCountInRowPhone = 3
@@ -46,6 +46,7 @@ struct Constants {
     }
     
     static var appStoreURL: String {
+        // https://itunes.apple.com/us/app/manga-monster/id1378089411?ls=1&mt=8
         return "https://itunes.apple.com/app/id\(Constants.appId)"
     }
 }
