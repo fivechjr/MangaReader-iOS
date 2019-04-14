@@ -48,12 +48,13 @@ extension UIViewController: MFMailComposeViewControllerDelegate {
             bundleDisplayName = bundleName
         }
         mailVC.setMessageBody("\(NSLocalizedString("Please write your feedback", comment: "")) - '\(bundleDisplayName)'：\n\n", isHTML: false)
-        mailVC.setToRecipients(["dymx103@gmail.com"])
+        mailVC.setToRecipients(["bkkdreamer001@hotmail.com"])
         
         present(mailVC, animated: true, completion: nil)
     }
     
-    private func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+    public func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        
         switch result {
         case .sent:
             view.makeToast(NSLocalizedString("feedback_success_message", comment: ""), position: .center)
@@ -63,7 +64,7 @@ extension UIViewController: MFMailComposeViewControllerDelegate {
             break
         }
         
-        controller.presentingViewController?.dismiss(animated: true, completion: nil)
+        controller.dismiss(animated: true, completion: nil)
     }
     
     func shareApp() {

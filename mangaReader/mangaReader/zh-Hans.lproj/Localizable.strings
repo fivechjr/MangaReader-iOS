@@ -66,9 +66,22 @@
 "message_bottom_guide" = "点击下面的区域，翻到后一页";
 
 "Change Theme" = "切换界面颜色";
+"Switch to Dark Mode" = "切换至深色主题";
+"Switch to Light Mode" = "切换至浅色主题";
+
+"lbl_page_image_load_error" = "加载中...";
 
 "lbl_read_mode_page_horizonal" = "水平翻页";
 "lbl_read_mode_page_vertical" = "垂直翻页";
 "lbl_read_mode_page_curl" = "仿真翻页";
 "lbl_read_mode_collection_horizonal" = "水平滚动";
 "lbl_read_mode_collection_vertical" = "垂直滚动";
+
+"msg_the_first_chapter" = "已经是第一章了";
+"msg_the_last_chapter" = "已经是最后一章了";
+
+"btn_cancel" = "取消";
+"btn_download" = "下载";
+
+"msg_download_started" = "下载开始";
+"lbl_downloaded" = "已下载";

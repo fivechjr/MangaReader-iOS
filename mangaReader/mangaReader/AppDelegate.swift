@@ -8,6 +8,7 @@
 
 import UIKit
 import FacebookCore
+import Kingfisher
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         AdsManager.sharedInstance.initAdsConfig()
         
-        DataManager.shared.loadCategories()
+        ThemeManager.shared.updateScreenUI()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.checkDisclaimer()
@@ -28,9 +29,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         ThemeManager.shared.load()
         
+        KingfisherManager.shared.downloader.downloadTimeout = 60
+        
         customizeUI()
         
+        checkAppVersion()
+        
         return true
+    }
+    
+    func checkAppVersion() {
+        Utility.getAppStoreVersion { (version) in
+            guard let version = version else {
+                MemoryCache.shared.limitedFunction = true
+                return
+            }
+            
+            if Utility.shortVersionString.compare(version) == .orderedDescending {
+//                MangaSource.current = .lama
+                print("current version is newer than app store, should limit")
+                MemoryCache.shared.limitedFunction = true
+            } else {
+//                MangaSource.current = .mangaEden
+                print("current version is same or older tha app store, should not limit")
+                MemoryCache.shared.limitedFunction = false
+            }
+        }
     }
     
     func customizeUI() {

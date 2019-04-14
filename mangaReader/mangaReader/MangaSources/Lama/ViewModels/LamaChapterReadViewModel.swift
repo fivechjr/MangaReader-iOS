@@ -7,27 +7,25 @@
 //
 
 import Foundation
-import AlamofireImage
+import Kingfisher
 
 class LamaChapterReadViewModel: BaseChapterReadViewModel {
+    
+    override var source: MangaSource {
+        return .lama
+    }
     
     override func getChapterDetail(completion: @escaping (ChapterDetailProtocol?, Error?) -> Void) {
         guard let chapterIdString = chapterObject?.chapterId
             , let chapterId = Int(chapterIdString) else {
+                completion(nil, NSError.generic)
                 return
         }
         
         LamaApi.getChapter(id: chapterId) { [weak self] (chapterResonse, error) in
+            chapterResonse?.data?.chapterId = self?.chapterObject?.chapterId
             self?.chapterDetail = chapterResonse?.data
             completion(chapterResonse?.data, error)
         }
-    }
-    
-    override func downloadImages() {
-        
-        cancelDownload()
-        chapterDetail?.chapterImages?.forEach({ (imagePath) in
-            downloadImage(imagePath)
-        })
     }
 }

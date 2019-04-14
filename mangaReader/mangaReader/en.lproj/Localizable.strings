@@ -66,9 +66,22 @@
 "message_bottom_guide" = "Tap the lower area to go to the next page.";
 
 "Change Theme" = "Change Theme";
+"Switch to Dark Mode" = "Switch to Dark Mode";
+"Switch to Light Mode" = "Switch to Light Mode";
+
+"lbl_page_image_load_error" = "Loading...";
 
 "lbl_read_mode_page_horizonal" = "Horizontal Page";
 "lbl_read_mode_page_vertical" = "Vertical Page";
 "lbl_read_mode_page_curl" = "Curl Page";
 "lbl_read_mode_collection_horizonal" = "Horizontal Scroll";
 "lbl_read_mode_collection_vertical" = "Vertical Scroll";
+
+"msg_the_first_chapter" = "It's already the first chapter.";
+"msg_the_last_chapter" = "It's already the last chapter.";
+
+"btn_cancel" = "Cancel";
+"btn_download" = "Download";
+
+"msg_download_started" = "Dowload Started";
+"lbl_downloaded" = "Downloaded";

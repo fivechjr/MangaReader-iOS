@@ -7,8 +7,13 @@
 //
 
 import Foundation
+import RealmSwift
 
 class BaseMangaDetailViewModel: MangaDetailViewModelProtocol {
+    
+    var source: MangaSource {
+        fatalError("must be implemented by subclass")
+    }
     
     var manga: MangaProtocol
     

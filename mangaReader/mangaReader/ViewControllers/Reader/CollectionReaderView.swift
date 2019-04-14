@@ -8,6 +8,9 @@
 
 import Foundation
 import SnapKit
+import CRRefresh
+import Kingfisher
+import SVProgressHUD
 
 class CollectionReaderView: NSObject, ReaderViewProtocol {
     
@@ -59,6 +62,8 @@ class CollectionReaderView: NSObject, ReaderViewProtocol {
         collectionView.ezRegisterNib(cellType: ImagePageViewCollectionCell.self)
         collectionView.dataSource = self
         collectionView.delegate = self
+        collectionView.prefetchDataSource = self
+        collectionView.isPrefetchingEnabled = true
         
         if #available(iOS 11.0, *) {
             collectionView.contentInsetAdjustmentBehavior = .never
@@ -68,10 +73,28 @@ class CollectionReaderView: NSObject, ReaderViewProtocol {
         
         parentVC.view.insertSubview(collectionView, at: 0)
         collectionView.snp.makeConstraints { (maker) in
-            maker.top.equalTo(parentVC.view.snp.top).offset(UIApplication.shared.statusBarFrame.height)
+//            maker.top.equalTo(parentVC.view.snp.top).offset(UIApplication.shared.statusBarFrame.height)
+            maker.top.equalTo(parentVC.view.snp.top)
             maker.bottom.equalTo(parentVC.view.snp.bottom)
             maker.leading.equalTo(parentVC.view.snp.leading)
             maker.trailing.equalTo(parentVC.view.snp.trailing)
+        }
+        
+        collectionView.cr.addHeadRefresh(animator: SlackLoadingAnimator()) { [weak self] in
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                
+                self?.presenter?.vieGotoPrevChapter()
+                self?.collectionView.cr.endHeaderRefresh()
+            })
+        }
+        
+        collectionView.cr.addFootRefresh(animator: SlackLoadingAnimator()) { [weak self] in
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+                self?.presenter?.vieGotoNextChapter()
+                self?.collectionView.cr.endLoadingMore()
+            })
         }
         
         start()
@@ -79,6 +102,10 @@ class CollectionReaderView: NSObject, ReaderViewProtocol {
     
     func start() {
         collectionView.reloadData()
+        
+        presenter?.viewDidChangePage(currentIndex)
+        
+        presenter?.viewDidStart()
     }
     
     func gotoPreviousPage() {
@@ -90,6 +117,10 @@ class CollectionReaderView: NSObject, ReaderViewProtocol {
             let offsetX = collectionView.contentOffset.x - collectionView.frame.width
             let targetOffset = CGPoint(x: offsetX > 0 ? offsetX : 0, y: 0)
             collectionView.setContentOffset(targetOffset, animated: true)
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.presenter?.viewDidChangePage(self.currentIndex)
         }
     }
     
@@ -106,10 +137,23 @@ class CollectionReaderView: NSObject, ReaderViewProtocol {
             let targetOffset = CGPoint(x: offsetX < maxOffsetX ? offsetX : maxOffsetX, y: 0)
             collectionView.setContentOffset(targetOffset, animated: true)
         }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.presenter?.viewDidChangePage(self.currentIndex)
+        }
     }
     
     private var isVertical: Bool {
         return ReaderMode.currentMode.direction == .vertical
+    }
+    
+    private var currentIndex: Int {
+        guard let firstCell = collectionView.visibleCells.first as? ImagePageViewCollectionCell,
+            let imageUrl = firstCell.imagePageView.imageUrl else {
+            return 0
+        }
+        
+        return imageUrls.firstIndex(where: {$0 == imageUrl}) ?? 0
     }
 }
 
@@ -125,6 +169,10 @@ extension CollectionReaderView: UICollectionViewDelegateFlowLayout {
 
 //        print("collection cell size: \(size), indexpath: \(indexPath)")
         return size
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        presenter?.viewDidChangePage(currentIndex)
     }
 }
 
@@ -145,7 +193,21 @@ extension CollectionReaderView: UICollectionViewDataSource {
     }
 }
 
+extension CollectionReaderView: UICollectionViewDataSourcePrefetching {
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        let urls = indexPaths.compactMap { (indexPath) -> URL? in
+            guard indexPath.row < imageUrls.count else {return nil}
+            return URL(string: imageUrls[indexPath.row])
+        }
+        ImagePrefetcher(urls: urls).start()
+    }
+}
+
 extension CollectionReaderView: ImagePageViewDelegate {
+    func imageLoadFailed(error: Error) {
+        SVProgressHUD.showInfo(withStatus: LocalizedString("lbl_page_image_load_error"))
+    }
+    
     func topAreaTapped(imagePageView: ImagePageView?) {
         gotoPreviousPage()
     }

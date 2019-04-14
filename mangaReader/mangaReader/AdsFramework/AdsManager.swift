@@ -19,34 +19,42 @@ enum AdsType: Int {
     case count
 }
 
-let defaultAdsJsonString = "{ " +
-"version\":1, " +
-"maxFreeReadCount\":20,  " +
-"enableBaiduReadCount\":1, " +
-"intervalToShowAds\":600, " +
-"cb_app_id\": \"54b2794004b0167ddb366e00\", " +
-"cb_app_sign\": \"98629ca1ebbf6ecab5dbad8df22eb288f61d7b96\", " +
-"vungle_app_id\": \"566437d827af870935000017\", " +
-"unity_app_id\": \"95451\", " +
-"apps\": " +
-"{ " +
-    "com.dymx.default\": " +
-    "{ " +
-        "app_name\":\"默认设定\", " +
-        "admob_id\":\"\", " +
-        "ads_enabled\":true, " +
-        "admob_enabled\":true, " +
-        "cb_enabled\":false, " +
-        "vungle_enabled\":true, " +
-        "unity_enabled\":true, " +
-        "chapter_change_ads\":\"admob\", " +
-        "unity_weight\":10, " +
-        "vungle_weight\":5, " +
-        "admob_weight\":10, " +
-        "cb_weight\":0 " +
-    "} " +
-"} " +
-"}"
+//let defaultAdsJsonString = "{ " +
+//"version\":1, " +
+//"maxFreeReadCount\":20,  " +
+//"enableBaiduReadCount\":1, " +
+//"intervalToShowAds\":600, " +
+//"cb_app_id\": \"54b2794004b0167ddb366e00\", " +
+//"cb_app_sign\": \"98629ca1ebbf6ecab5dbad8df22eb288f61d7b96\", " +
+//"vungle_app_id\": \"566437d827af870935000017\", " +
+//"unity_app_id\": \"95451\", " +
+//"apps\": " +
+//"{ " +
+//    "com.dymx.default\": " +
+//    "{ " +
+//        "app_name\":\"默认设定\", " +
+//        "admob_id\":\"\", " +
+//        "ads_enabled\":true, " +
+//        "admob_enabled\":true, " +
+//        "cb_enabled\":false, " +
+//        "vungle_enabled\":true, " +
+//        "unity_enabled\":true, " +
+//        "chapter_change_ads\":\"admob\", " +
+//        "unity_weight\":10, " +
+//        "vungle_weight\":5, " +
+//        "admob_weight\":10, " +
+//        "cb_weight\":0 " +
+//    "} " +
+//"} " +
+//"}"
+
+var defaultAdsJsonData: Data? = {
+    if let filePath = Bundle.main.path(forResource: "default_ads_config", ofType: "json") {
+        return try? Data(contentsOf: URL(fileURLWithPath: filePath))
+    }
+    
+    return nil
+}()
 
 open class AdsManager: NSObject
 , GADBannerViewDelegate, GADInterstitialDelegate
@@ -236,7 +244,7 @@ extension AdsManager {
     
     func showRandomAdsIfComfortable() {
         if isComfortableToShowAds() {
-//            showRandomAds()
+            showRandomAds()
         }
     }
     
@@ -250,7 +258,12 @@ extension AdsManager {
     /// 距离上次广告显示时间，超过指定的秒数
     func lastAdsShowsBefore(_ secondsAgo: Double) -> Bool {
         
+        if MemoryCache.shared.limitedFunction {
+            return false
+        }
+        
         guard let lastShowTime = lastAdsShowTime else {
+            lastAdsShowTime = Date()
             return true
         }
         
@@ -474,20 +487,22 @@ extension AdsManager {
     
     func getAdsConfig(_ completion: @escaping (AnyObject?)->Void) {
         
-        AdsManager.getJsonFromURL("http://df-16.com:8080/static/dym_config/reader_app_cfg_dymx102.json", cacheFileName: "app_config.plist") { (json) in
-            
-            guard let json = json else {
-                AdsManager.getJsonFromURL("http://dymx102.github.io/PhotoMagicSite/reader_app_cfg_dymx102.json", cacheFileName: "app_config.plist", completion: completion)
-                return
-            }
-            
-            completion(json)
-        }
+        AdsManager.getJsonFromURL("http://dymx102.github.io/PhotoMagicSite/reader_app_cfg_dymx102.json", cacheFileName: "app_config.plist", completion: completion)
+        
+//        AdsManager.getJsonFromURL("http://df-16.com:8080/static/dym_config/reader_app_cfg_dymx102.json", cacheFileName: "app_config.plist") { (json) in
+//
+//            guard let json = json else {
+//                AdsManager.getJsonFromURL("http://dymx102.github.io/PhotoMagicSite/reader_app_cfg_dymx102.json", cacheFileName: "app_config.plist", completion: completion)
+//                return
+//            }
+//
+//            completion(json)
+//        }
         
     }
     
     func defaultLocalAdsSetting() -> AnyObject? {
-        if let data = defaultAdsJsonString.data(using: String.Encoding.utf8)
+        if let data = defaultAdsJsonData
         , let defaultSettingObject = try? JSONSerialization.jsonObject(with: data, options: .mutableContainers) {
             return defaultSettingObject as AnyObject?
         }

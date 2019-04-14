@@ -13,7 +13,7 @@ class SearchViewController: BaseViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var resultCollectionView: UICollectionView!
     
-    var viewModel = SearchViewModel()
+    var viewModel: BaseSearchViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,11 +28,17 @@ class SearchViewController: BaseViewController {
         AdsManager.sharedInstance.showRandomAdsIfComfortable()
         
         // load more
-        resultCollectionView.addInfiniteScrolling { [weak self] in
-            self?.loadMore {
-                self?.resultCollectionView.infiniteScrollingView.stopAnimating()
-            }
-        }
+//        resultCollectionView.addInfiniteScrolling { [weak self] in
+//            self?.loadMore {
+//                self?.resultCollectionView.infiniteScrollingView.stopAnimating()
+//            }
+//        }
+    }
+    
+    override func updateTheme() {
+        super.updateTheme()
+        searchBar.barStyle = (ThemeManager.shared.currentTheme == .light) ? .default : .black
+        resultCollectionView.backgroundColor = ThemeManager.shared.currentTheme.backgroundColor
     }
     
     static func createFromStoryboard() -> UINavigationController? {
@@ -59,6 +65,9 @@ class SearchViewController: BaseViewController {
         viewModel.search(searchBar.text) { [weak self] (_, _) in
             self?.hideLoading()
             self?.resultCollectionView.reloadData()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+                self?.resultCollectionView.setContentOffset(CGPoint.zero, animated: true)
+            })
         }
     }
     
@@ -93,7 +102,8 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
         
         let vc = MangaDetailViewController.newInstance() as! MangaDetailViewController
         
-        vc.viewModel = EdenMangaDetailViewModel(mangaId: mangaId)
+        vc.viewModel = FSInjector.shared.resolve(MangaDetailViewModelProtocol.self)
+        vc.viewModel.mangaId = mangaId
         
         navigationController?.pushViewController(vc, animated: true)
     }

@@ -9,12 +9,14 @@
 import Foundation
 import SnapKit
 import NVActivityIndicatorView
+import SVProgressHUD
 
 protocol ImagePageViewDelegate: class {
     func topAreaTapped(imagePageView: ImagePageView?)
     func centerAreaTapped(imagePageView: ImagePageView?)
     func bottomAreaTapped(imagePageView: ImagePageView?)
     func imageLoaded(imagePageView: ImagePageView?)
+    func imageLoadFailed(error: Error)
 }
 
 class ImagePageView: UIView {
@@ -29,6 +31,8 @@ class ImagePageView: UIView {
     weak var delegate: ImagePageViewDelegate?
     
     var imageView: UIImageView!
+    
+    var messageLabel: UILabel!
     
     var imageScrollView: UIScrollView!
     
@@ -48,6 +52,14 @@ class ImagePageView: UIView {
         
         imageView = UIImageView(frame: CGRect.zero)
         imageView.contentMode = .scaleAspectFit
+        
+        messageLabel = UILabel()
+        messageLabel.textColor = ThemeManager.shared.currentTheme.textSecondColor
+        messageLabel.numberOfLines = 0
+        messageLabel.font = UIFont.systemFont(ofSize: 12.0)
+        messageLabel.textAlignment = .center
+        messageLabel.text = LocalizedString("lbl_page_image_load_error")
+        messageLabel.isHidden = false
         
         imageScrollView = UIScrollView(frame: CGRect.zero)
         imageScrollView.minimumZoomScale = 1.0
@@ -70,6 +82,13 @@ class ImagePageView: UIView {
             maker.height.equalToSuperview()
         }
         
+        imageView.addSubview(messageLabel)
+        messageLabel.snp.makeConstraints { (maker) in
+            maker.centerY.equalTo(imageView.snp_centerY)
+            maker.leading.equalTo(imageView.snp_leading).offset(32)
+            maker.trailing.equalTo(imageView.snp_trailing).offset(-32)
+        }
+        
         let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(ImagePageView.handleDoubleTapScrollView(_:)))
         doubleTapGesture.numberOfTapsRequired = 2
         addGestureRecognizer(doubleTapGesture)
@@ -85,10 +104,17 @@ class ImagePageView: UIView {
         if let urlString = urlString
             , let url = URL(string: urlString) {
             
-            showLoading(backgroundColor: .clear)
-            imageView.af_setImage(withURL: url, placeholderImage: nil, imageTransition: .crossDissolve(0.2))  {[weak self] (imageDataResponse) in
-                self?.hideLoading()
+            imageView.kf.cancelDownloadTask()
+            imageView.kf.indicatorType = .activity
+            imageView.kf.setImage(with: url, options: [.transition(.fade(0.2))]) { [weak self] (image, error, cacheType, url) in
                 self?.delegate?.imageLoaded(imagePageView: self)
+                if let error = error {
+//                    self?.delegate?.imageLoadFailed(error: error)
+//                    self?.imageView.image = UIImage(named: "image_error")
+                    
+                }
+                
+                self?.messageLabel.isHidden = true
             }
         }
     }

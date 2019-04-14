@@ -42,7 +42,9 @@ class MangaDetailHeaderTableViewCell: UITableViewCell {
         
         if let imageURL = viewModel.imagePath
             , let url = URL(string: imageURL){
-            imageViewCover.af_setImage(withURL: url, placeholderImage: viewModel.placeHolderImage)
+            imageViewCover.kf.cancelDownloadTask()
+            imageViewCover.kf.indicatorType = .activity
+            imageViewCover.kf.setImage(with: url, placeholder: viewModel.placeHolderImage)
         }
         
         buttonStart.setTitle(viewModel.startButtonText, for: .normal)

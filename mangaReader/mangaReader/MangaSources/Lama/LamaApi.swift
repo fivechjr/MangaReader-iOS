@@ -15,8 +15,8 @@ class LamaApi {
         NetworkManager.get(urlString: path, responseType: LamaDailyResponse.self, completion: completion)
     }
     
-    static func getTopics(tag: Int, offset: Int, limit: Int, completion:@escaping (LamaTopicsResponse?, Error?) -> Void) {
-        let path = LamaEndpoint.topics(tag: tag, offset: offset, limit: limit).path
+    static func getTopics(tag: Int, offset: Int, limit: Int, sort: Int, completion:@escaping (LamaTopicsResponse?, Error?) -> Void) {
+        let path = LamaEndpoint.topicsIndex(tag: tag, offset: offset, limit: limit, sort: sort).path
         NetworkManager.get(urlString: path, responseType: LamaTopicsResponse.self, completion: completion)
     }
     
@@ -28,5 +28,15 @@ class LamaApi {
     static func getChapter(id: Int, completion:@escaping (LamaChapterResponse?, Error?) -> Void) {
         let path = LamaEndpoint.chapter(id: id).path
         NetworkManager.get(urlString: path, responseType: LamaChapterResponse.self, completion: completion)
+    }
+    
+    static func search(keyword: String, offset: Int, limit: Int, completion:@escaping (LamaSearchResponse?, Error?) -> Void) {
+        let path = LamaEndpoint.search(keyword: keyword, offset: offset, limit: limit).path
+        NetworkManager.get(urlString: path, responseType: LamaSearchResponse.self, completion: completion)
+    }
+    
+    static func tagSuggestion(completion: @escaping (LamaTagSuggestionResponse?, Error?) -> Void) {
+        let path = LamaEndpoint.tagSuggestion.path
+        NetworkManager.get(urlString: path, responseType: LamaTagSuggestionResponse.self, completion: completion)
     }
 }

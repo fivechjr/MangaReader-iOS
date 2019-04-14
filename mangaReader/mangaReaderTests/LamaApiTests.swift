@@ -30,7 +30,34 @@ class LamaApiTests: XCTestCase {
             exp.fulfill()
             XCTAssertNotNil(response)
             XCTAssertNotNil(response?.data)
-            XCTAssertFalse(response?.data?.images?.isEmpty ?? true)
+            XCTAssertFalse(response?.data?.chapterImages?.isEmpty ?? true)
+            XCTAssertNil(error)
+        }
+        
+        wait(for: [exp], timeout: 30)
+    }
+    
+    func test_search_ok() {
+        let exp = expectation(description: "should finish request")
+        LamaApi.search(keyword: "one", offset: 0, limit: 20) { (response, error) in
+            exp.fulfill()
+            XCTAssertNotNil(response)
+            XCTAssertNotNil(response?.data)
+            XCTAssertFalse(response?.data?.topics?.isEmpty ?? true)
+            XCTAssertNil(error)
+        }
+        
+        wait(for: [exp], timeout: 30)
+    }
+    
+    func test_tag_suggestion_ok() {
+        let exp = expectation(description: "should finish request")
+        
+        LamaApi.tagSuggestion() { (response, error) in
+            exp.fulfill()
+            XCTAssertNotNil(response)
+            XCTAssertNotNil(response?.data)
+            XCTAssertFalse(response?.data?.suggestion?.isEmpty ?? true)
             XCTAssertNil(error)
         }
         

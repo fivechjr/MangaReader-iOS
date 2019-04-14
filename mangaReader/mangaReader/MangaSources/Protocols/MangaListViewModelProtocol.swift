@@ -10,11 +10,12 @@ import Foundation
 import RxSwift
 
 protocol MangaListViewModelProtocol {
+    var source: MangaSource {get}
     var sortByRecentUpdate: Bool {get set}
     var isLoading: Bool {get}
     
-    var selectedGenres: [String] {get set}
-    var selectedGenresLocalized: [String] {get set}
+    var selectedCategories: [CategoryProtocol] {get set}
+    func didSelectCategory(_ category: CategoryProtocol) -> Bool
     
     var mangasSignal: Variable<[MangaProtocol]> {get}
     var mangasShowing: [MangaProtocol] {get}

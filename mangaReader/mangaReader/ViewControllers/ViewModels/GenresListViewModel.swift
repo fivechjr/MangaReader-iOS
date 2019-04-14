@@ -11,25 +11,30 @@ import RxSwift
 
 class GenresListViewModel {
     
-    var genresSignal = Variable<[String]>([])
+    var genresSignal = Variable<[CategoryProtocol]>([])
     
-    var genres: [String] {
+    var genres: [CategoryProtocol] {
         return genresSignal.value
     }
     
     func loadCategories(completion: @escaping () -> Void) {
-        DataManager.shared.loadCategories(forceUpdate: false) { [weak self] (categories, error) in
+        DataManager.shared.categoryRefresher.loadCategories(forceUpdate: false) { [weak self] (categories, error) in
             self?.genresSignal.value = categories
             completion()
         }
     }
     
-    func title(atIndex index: Int) -> String? {
-        guard index < genres.count else {return nil}
-        return LocalizedString(genres[index])
+    func localizedTitle(atIndex index: Int) -> String? {
+        guard let genre = title(atIndex: index) else {return nil}
+        return LocalizedString(genre)
     }
     
-    func genre(atIndex index: Int) -> String? {
+    func title(atIndex index: Int) -> String? {
+        guard index < genres.count else {return nil}
+        return category(atIndex: index)?.title
+    }
+    
+    func category(atIndex index: Int) -> CategoryProtocol? {
         guard index < genres.count else {return nil}
         return genres[index]
     }

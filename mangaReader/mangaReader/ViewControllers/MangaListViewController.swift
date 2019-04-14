@@ -30,7 +30,7 @@ class MangaListViewController: BaseViewController {
         
         mangaListCollectionView.backgroundColor = theme.backgroundSecondColor
         refreshControl.tintColor = theme.textColor
-        mangaListCollectionView.infiniteScrollingView.activityIndicatorViewStyle = theme.activityIndicatorStyle
+//        mangaListCollectionView.infiniteScrollingView.activityIndicatorViewStyle = theme.activityIndicatorStyle
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -45,16 +45,18 @@ class MangaListViewController: BaseViewController {
         mangaDetailVC.viewModel = FSInjector.shared.resolve(MangaDetailViewModelProtocol.self)
         mangaDetailVC.viewModel.mangaId = mangaId
     }
+    
+    private func installGenresButton() {
+        let genresImage = UIImage(named: "filter")
+        let genresButton = UIBarButtonItem(image: genresImage, style: .plain, target: self, action: #selector(genresAction))
+        navigationItem.leftBarButtonItem = genresButton
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         genresTagListView.delegate = self
         genresTagListView.textFont = UIFont.systemFont(ofSize: 14)
-        
-        let genresImage = UIImage(named: "filter")
-        let genresButton = UIBarButtonItem(image: genresImage, style: .plain, target: self, action: #selector(genresAction))
-        navigationItem.leftBarButtonItem = genresButton
         
         let searchButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchAction))
         navigationItem.rightBarButtonItem = searchButton
@@ -69,11 +71,11 @@ class MangaListViewController: BaseViewController {
             }).disposed(by: bag)
         
         // load more
-        mangaListCollectionView.addInfiniteScrolling { [weak self] in
-            self?.viewModel.loadNextPage(completion: { (_, _) in
-                self?.mangaListCollectionView.infiniteScrollingView.stopAnimating()
-            })
-        }
+//        mangaListCollectionView.addInfiniteScrolling { [weak self] in
+//            self?.viewModel.loadNextPage(completion: { (_, _) in
+//                self?.mangaListCollectionView.infiniteScrollingView.stopAnimating()
+//            })
+//        }
         
         // Pull to refresh
         mangaListCollectionView.addSubview(refreshControl)
@@ -81,6 +83,19 @@ class MangaListViewController: BaseViewController {
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         
         refreshFirstPage()
+        
+        MangaSource.sourceChangedSignal.asObservable()
+            .subscribe(onNext: { [weak self] (source) in
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                    guard let `self` = self else {return}
+                    if self.viewModel.source != source {
+                        self.viewModel = FSInjector.shared.resolve(MangaListViewModelProtocol.self)!
+                        self.refreshFirstPage()
+                    }
+                })
+            }).disposed(by: bag)
+        
+        updateTheme()
     }
     
     @objc func genresAction() {
@@ -96,6 +111,7 @@ class MangaListViewController: BaseViewController {
         mangaListCollectionView.reloadData()
         viewModel.loadFirstPage(completion: { [weak self] (_, _) in
             self?.refreshControl.stop(shouldAdjustOffset: true)
+            self?.mangaListCollectionView.reloadData()
         })
     }
     
@@ -109,6 +125,8 @@ class MangaListViewController: BaseViewController {
         if viewModel.isLoading && !refreshControl.isRefreshing {
             refreshControl.start(shouldAdjustOffset: true)
         }
+        
+        installGenresButton()
     }
     
     @objc func refresh() {
@@ -122,7 +140,7 @@ class MangaListViewController: BaseViewController {
         let sectionInsets = layout.sectionInset
         let itemSpacing = layout.minimumInteritemSpacing
         
-        let itemCountPerRow = (UI_USER_INTERFACE_IDIOM() == .pad) ? 5 : 3
+        let itemCountPerRow = Constants.mangaCountInRow
         
         let colletionViewWidth = mangaListCollectionView.frame.size.width
         let gap = (sectionInsets.left + sectionInsets.right) + itemSpacing * CGFloat(itemCountPerRow - 1)
@@ -133,7 +151,8 @@ class MangaListViewController: BaseViewController {
     
     @objc func searchAction() {
         if let navigationVC = SearchViewController.createFromStoryboard() {
-//            let searchVC = navigationVC.viewControllers.first as! SearchViewController
+            let searchVC = navigationVC.viewControllers.first as! SearchViewController
+            searchVC.viewModel = FSInjector.shared.resolve(BaseSearchViewModel.self)
             present(navigationVC, animated: true, completion: nil)
         }
     }
@@ -173,14 +192,13 @@ extension MangaListViewController: UICollectionViewDataSource, UICollectionViewD
 }
 
 extension MangaListViewController: GenresListViewControllerDelegate {
-    func didSelectGenre(genre: String!) {
+    func didSelectCagegory(_ category: CategoryProtocol?) {
+        guard let category = category else {return}
         
-        if viewModel.selectedGenres.index(of: genre) == nil {
-            viewModel.selectedGenres.append(genre)
-            viewModel.selectedGenresLocalized.append(LocalizedString(genre))
-            
+        if viewModel.didSelectCategory(category) {
             genresTagListView.removeAllTags()
-            genresTagListView.addTags(viewModel.selectedGenresLocalized)
+            
+            genresTagListView.addTags(viewModel.selectedCategories.map({LocalizedString($0.title)}))
             
             refreshFirstPage()
         }
@@ -192,12 +210,11 @@ extension MangaListViewController: TagListViewDelegate {
         
         genresTagListView.removeTag(title)
         
-        guard let indexOfGenre = viewModel.selectedGenresLocalized.index(of: title), indexOfGenre < viewModel.selectedGenres.count else {
+        guard let indexOfGenre = viewModel.selectedCategories.firstIndex(where: {title == LocalizedString($0.title)}), indexOfGenre < viewModel.selectedCategories.count else {
             return
         }
         
-        viewModel.selectedGenres.remove(at: indexOfGenre)
-        viewModel.selectedGenresLocalized.remove(at: indexOfGenre)
+        viewModel.selectedCategories.remove(at: indexOfGenre)
         
         refreshFirstPage()
     }

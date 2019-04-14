@@ -12,7 +12,7 @@ class MangaDetailChaptersViewController: BaseViewController {
 
     @IBOutlet weak var tableView: UITableView! {
         didSet {
-            tableView.register(UITableViewCell.self, forCellReuseIdentifier: "chapterCell")
+            tableView.ezRegisterNib(cellType: DetailChapterCell.self)
             tableView.rowHeight = 44.0
             tableView.estimatedRowHeight = 44.0
             tableView.tableFooterView = UIView()
@@ -23,6 +23,12 @@ class MangaDetailChaptersViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        DownloadManager.shared.downloadedChaptersSignal.asObservable()
+            .distinctUntilChanged()
+            .subscribe(onNext: { [weak self] (chapterIds) in
+                self?.tableView.reloadData()
+            }).disposed(by: bag)
     }
     
     func reload() {
@@ -43,18 +49,28 @@ extension MangaDetailChaptersViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "chapterCell", for: indexPath)
+        let cell = tableView.ezDeuqeue(cellType: DetailChapterCell.self, for: indexPath)
 
         cell.backgroundColor = ThemeManager.shared.currentTheme.backgroundSecondColor
         if let chapter = viewModel.manga.chapterObjects?[indexPath.item] {
-            let chapterTitle = chapter.chapterTitle
-            cell.textLabel?.text = "[\(NSLocalizedString("Chapter", comment: ""))] \(chapterTitle ?? "")"
             
+            var textColor = ThemeManager.shared.currentTheme.textColor
             if let chapterID = chapter.chapterId, chapterID == viewModel.currentChapterID {
-                cell.textLabel?.textColor = UIColor.blueSky
-            } else {
-                cell.textLabel?.textColor = ThemeManager.shared.currentTheme.textColor
+                textColor = UIColor.blueSky
             }
+            
+            let title = "[\(NSLocalizedString("Chapter", comment: ""))] \(chapter.chapterTitle ?? "")"
+            cell.titleLabel.textColor = textColor
+            cell.titleLabel.text = title
+            
+            if DataManager.shared.isDownloaded(chapter.chapterId) {
+                let statusString = "[\(LocalizedString("lbl_downloaded"))]"
+                cell.statusLabel.textColor = UIColor.darkGray.withAlphaComponent(0.5)
+                cell.statusLabel.text = statusString
+            } else {
+                cell.statusLabel.text = nil
+            }
+            cell.hideCheckButton = true
         }
         
         return cell

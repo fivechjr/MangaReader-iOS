@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import AlamofireImage
+import Kingfisher
 import NVActivityIndicatorView
 
 class MangaDetailViewController: BaseViewController {
@@ -71,6 +71,14 @@ class MangaDetailViewController: BaseViewController {
         nestCell.install(viewController: chaptersViewController, parent: self, toTheLeft: true)
         nestCell.install(viewController: infoViewController, parent: self, toTheLeft: false)
         
+        // TODO: enable download button, after fix the concurrent download FAIL issue!!!
+//        let downloadButton = UIBarButtonItem(image: UIImage(named: "icon_download"), style: .plain, target: self, action: #selector(download))
+//        navigationItem.rightBarButtonItem = downloadButton
+        
+        requestMangaDetail()
+    }
+    
+    func requestMangaDetail() {
         viewModel.getManga { [weak self] (_, _) in
             guard let `self` = self else {return}
             self.hideLoading()
@@ -79,6 +87,13 @@ class MangaDetailViewController: BaseViewController {
         }
         showLoading()
         view.bringSubview(toFront: maskView)
+    }
+    
+    @objc func download() {
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MangaDownloadViewController") as! MangaDownloadViewController
+        vc.viewModel = MangaDownloadViewModel(manga: viewModel.manga)
+        let nc = UINavigationController(rootViewController: vc)
+        present(nc, animated: true, completion: nil)
     }
     
     func continueReading() {
@@ -103,7 +118,6 @@ class MangaDetailViewController: BaseViewController {
         let readViewModel = FSInjector.shared.resolve(BaseChapterReadViewModel.self)
         readViewModel?.chapterObject = theChapter
         readViewModel?.manga = viewModel.manga
-//        let readViewModel = EdenChapterReadViewModel(chapterObject: theChapter, manga: viewModel.manga)
         destination.viewModel = readViewModel
         
         present(destination, animated: true, completion: nil)

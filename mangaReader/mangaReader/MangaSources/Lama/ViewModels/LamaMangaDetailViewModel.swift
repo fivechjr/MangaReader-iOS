@@ -10,6 +10,9 @@ import Foundation
 
 class LamaMangaDetailViewModel: BaseMangaDetailViewModel {
     
+    override var source: MangaSource {
+        return .lama
+    }
     
     init(mangaId: String = "") {
         super.init(mangaId: mangaId, manga: LamaTopic())

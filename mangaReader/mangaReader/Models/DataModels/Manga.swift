@@ -52,10 +52,32 @@ class Manga: Codable {
     var random: [Double]?
     
     var topImageUrl: String?
+    
+    // custom vars
+    var source: String? = MangaSource.mangaEden.rawValue
 }
 
 // MangaProtocol
 extension Manga: MangaProtocol {
+    
+    var lastChapterDate: Double? {
+        get {
+            return last_chapter_date
+        }
+        set {
+            last_chapter_date = newValue
+        }
+    }
+    
+    var mangaSource: String? {
+        get {
+            return source
+        }
+        set {
+            source = newValue
+        }
+    }
+    
     var mangaName: String? {
         get {
             return title
@@ -124,10 +146,10 @@ extension Manga: MangaProtocol {
     }
     
     var mangaCreateDate: Double {
-        return last_chapter_date ?? 0.0
+        return last_chapter_date ?? 0
     }
     var mangaUpdateDate: Double {
-        return created ?? 0.0
+        return created ?? 0
     }
     
     var mangaCategories: [String] {

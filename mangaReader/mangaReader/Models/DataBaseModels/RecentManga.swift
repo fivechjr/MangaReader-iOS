@@ -15,6 +15,7 @@ class RecentManga: Object {
     @objc private dynamic var imagePath = ""
     @objc private dynamic var id = ""
     @objc dynamic var readTime = Date()
+    @objc private dynamic var source = ""
     
     override static func primaryKey() -> String? {
         return "id"
@@ -22,6 +23,33 @@ class RecentManga: Object {
 }
 
 extension RecentManga: MangaProtocol {
+    
+    var hits: Int? {
+        get {
+            return 0
+        }
+        set {
+        }
+    }
+    
+    var lastChapterDate: Double? {
+        get {
+            return 0.0
+        }
+        set {
+            
+        }
+    }
+    
+    var mangaSource: String? {
+        get {
+            return source
+        }
+        set {
+            source = newValue ?? ""
+        }
+    }
+    
     var topImageUrl: String? {
         return nil
     }

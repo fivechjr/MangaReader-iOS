@@ -11,8 +11,11 @@ import Foundation
 enum LamaEndpoint {
     case daily(tag: Int, offset: Int, limit: Int)
     case topics(tag: Int, offset: Int, limit: Int)
+    case topicsIndex(tag: Int, offset: Int, limit: Int, sort: Int)
     case topic(id: Int, sort: Int)
     case chapter(id: Int)
+    case search(keyword: String, offset: Int, limit: Int)
+    case tagSuggestion
     
     var baseUrl: String {
         return "http://api.lamamanhua.com/"
@@ -24,10 +27,16 @@ enum LamaEndpoint {
             return baseUrl + "v2/daily/\(tag)?offset=\(offset)&limit=\(limit)"
         case .topics(let tag, let offset, let limit):
             return baseUrl + "v2/topics?offset=\(offset)&limit=\(limit)&tagid=\(tag)"
+        case .topicsIndex(let tag, let offset, let limit, let sort):
+            return baseUrl + "v2/topics/index?offset=\(offset)&limit=\(limit)&sort=\(sort)&lable_string=\(tag)"
         case .topic(let id, let sort):
             return baseUrl + "v2/topics/\(id)?sort=\(sort)"
         case .chapter(let id):
             return baseUrl + "v2/comics/\(id)"
+        case .search(let keyword, let offset, let limit):
+            return baseUrl + "v2/topics/search?keyword=\(keyword)&offset=\(offset)&limit=\(limit)"
+        case .tagSuggestion:
+            return baseUrl + "v2/tag/suggestion"
         }
     }
 }

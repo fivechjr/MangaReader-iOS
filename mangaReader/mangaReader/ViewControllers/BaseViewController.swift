@@ -16,6 +16,8 @@ class BaseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = ThemeManager.shared.currentTheme.backgroundColor
+        
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleThemeChanged(notification:)), name: NSNotification.Name.themeChanged, object: nil)

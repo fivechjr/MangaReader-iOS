@@ -62,6 +62,15 @@ enum MangaEndpoint {
 enum MangaSort: String {
     case hits
     case last_chapter_date
+    
+    var realmKey: String {
+        switch self {
+        case .hits:
+            return "_hits"
+        case .last_chapter_date:
+            return "_lastChapterDate"
+        }
+    }
 }
 
 /*

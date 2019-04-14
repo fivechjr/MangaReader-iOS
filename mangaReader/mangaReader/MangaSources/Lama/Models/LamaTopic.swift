@@ -26,10 +26,40 @@ class LamaTopic: Codable {
     var updated_at: Int?
     var user: String?
     var vertical_image_url: String?
+    
+    // custom vars
+    var source: String? = MangaSource.lama.rawValue
 }
 
 // MangaProtocol
 extension LamaTopic: MangaProtocol {
+    
+    var hits: Int? {
+        get {
+            return 0
+        }
+        set {
+        }
+    }
+    
+    var lastChapterDate: Double? {
+        get {
+            return 0.0
+        }
+        set {
+            
+        }
+    }
+    
+    var mangaSource: String? {
+        get {
+            return source
+        }
+        set {
+            source = newValue
+        }
+    }
+    
     
     var chapterObjects: [ChapterProtocol]? {
         return comics

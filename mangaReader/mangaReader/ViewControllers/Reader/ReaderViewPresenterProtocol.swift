@@ -14,4 +14,7 @@ protocol ReaderViewPresenterProtocol: class {
     func vieDidGotoNextPage()
     func viewDidChangePage(_ pageIndex: Int)
     func viewNeedToggleMenu()
+    
+    func vieGotoNextChapter()
+    func vieGotoPrevChapter()
 }

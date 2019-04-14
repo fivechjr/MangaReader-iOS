@@ -10,6 +10,10 @@ import Foundation
 
 class EdenMangaDetailViewModel: BaseMangaDetailViewModel {
 
+    override var source: MangaSource {
+        return .mangaEden
+    }
+    
     init(mangaId: String = "") {
         super.init(mangaId: mangaId, manga: Manga())
     }

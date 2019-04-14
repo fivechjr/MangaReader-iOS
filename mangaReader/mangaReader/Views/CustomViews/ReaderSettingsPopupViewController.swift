@@ -12,6 +12,7 @@ class ReaderSettingsPopupViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var lbl_readingMode: UILabel!
     @IBOutlet weak var closeButton: UIButton!
     
     var dismissed: (() -> Void)?
@@ -22,6 +23,7 @@ class ReaderSettingsPopupViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = currentTheme.backgroundColor
+        lbl_readingMode.textColor = currentTheme.textColor
         tableView.backgroundColor = .clear
         
         tableView.ezRegisterNib(cellType: SettingSelectCell.self)

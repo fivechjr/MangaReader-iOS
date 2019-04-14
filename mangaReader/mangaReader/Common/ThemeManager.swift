@@ -12,6 +12,15 @@ enum Theme: Int {
     case light
     case dark
     
+    var settingTitle: String {
+        switch self {
+        case .light:
+            return LocalizedString("Switch to Dark Mode")
+        case .dark:
+            return LocalizedString("Switch to Light Mode")
+        }
+    }
+    
     var backgroundColor: UIColor {
         switch self {
         case .light:
@@ -92,11 +101,11 @@ class ThemeManager {
     let key_currentTheme = "currentTheme"
     
     func load() {
-        let savedThemeId = (UserDefaults.standard.value(forKey: key_currentTheme) as? Int) ?? Theme.light.rawValue
-        currentTheme = Theme(rawValue: savedThemeId) ?? Theme.light
+        let savedThemeId = (UserDefaults.standard.value(forKey: key_currentTheme) as? Int) ?? Theme.dark.rawValue
+        currentTheme = Theme(rawValue: savedThemeId) ?? Theme.dark
     }
     
-    var currentTheme: Theme = .light {
+    var currentTheme: Theme = .dark {
         didSet {
             UserDefaults.standard.set(currentTheme.rawValue, forKey: key_currentTheme)
             handleThemeChanged(currentTheme: currentTheme)

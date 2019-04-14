@@ -29,7 +29,7 @@ enum SettingItem {
         case .aboutUs:
             return LocalizedString("About Us")
         case .changeTheme:
-            return LocalizedString("Change Theme")
+            return ThemeManager.shared.currentTheme.settingTitle
         }
     }
 }

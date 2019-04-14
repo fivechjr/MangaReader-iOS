@@ -14,6 +14,7 @@ class FavoriteManga: Object {
     @objc private dynamic var author = ""
     @objc private dynamic var imagePath = ""
     @objc private dynamic var id = ""
+    @objc private dynamic var source = ""
     
     override static func primaryKey() -> String? {
         return "id"
@@ -21,6 +22,33 @@ class FavoriteManga: Object {
 }
 
 extension FavoriteManga: MangaProtocol {
+    
+    var hits: Int? {
+        get {
+            return 0
+        }
+        set {
+        }
+    }
+    
+    var lastChapterDate: Double? {
+        get {
+            return 0.0
+        }
+        set {
+            
+        }
+    }
+    
+    var mangaSource: String? {
+        get {
+            return source
+        }
+        set {
+            source = newValue ?? ""
+        }
+    }
+    
     var topImageUrl: String? {
         return nil
     }

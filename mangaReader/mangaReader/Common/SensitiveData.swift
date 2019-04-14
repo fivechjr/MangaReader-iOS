@@ -9,7 +9,7 @@
 import Foundation
 
 class SensitiveData {
-    static var categories = ["Adult", "Mature"]
+    static var categories = ["Adult", "Mature", "Ecchi"]
     static var keywords = ["sex"]
     static var booknames = ["high school dxd"]
     static var titles = keywords + booknames

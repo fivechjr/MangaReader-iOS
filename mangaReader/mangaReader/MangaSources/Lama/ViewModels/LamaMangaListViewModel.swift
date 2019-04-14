@@ -10,13 +10,31 @@ import Foundation
 import RxSwift
 
 class LamaMangaListViewModel: MangaListViewModelProtocol {
+    var source: MangaSource {
+        return .lama
+    }
     
     var sortByRecentUpdate: Bool = false
     
     var isLoading: Bool = false
     
-    var selectedGenres: [String] = []
-    var selectedGenresLocalized: [String] = []
+    var selectedCategories: [CategoryProtocol] = []
+    
+    func didSelectCategory(_ category: CategoryProtocol) -> Bool {
+        if selectedCategories.firstIndex(where: {$0.id == category.id}) == nil {
+            selectedCategories = [category]
+            return true
+        }
+        return false
+    }
+    
+    var currentTag: Int {
+        guard let idStr = selectedCategories.first?.id, let id = Int(idStr) else {
+            return 200
+        }
+        
+        return id
+    }
     
     var mangasSignal = Variable<[MangaProtocol]>([])
     var mangasShowing: [MangaProtocol] {
@@ -26,7 +44,7 @@ class LamaMangaListViewModel: MangaListViewModelProtocol {
     fileprivate var mangas:[MangaProtocol] = []
     
     var currentPage: Int = 0
-    let pageSize: Int = 21
+    let pageSize: Int = Constants.pageSize
     
     func manga(atIndex index: Int) -> MangaProtocol? {
         if index < mangasShowing.count {
@@ -74,7 +92,8 @@ extension LamaMangaListViewModel {
         // load from network
         isLoading = true
         
-        LamaApi.getTopics(tag: 200, offset: currentPage * pageSize, limit: pageSize) { [weak self] (response, error) in
+        let sort = sortByRecentUpdate ? 0 : 1
+        LamaApi.getTopics(tag: currentTag, offset: currentPage * pageSize, limit: pageSize, sort: sort) { [weak self] (response, error) in
             guard let `self` = self, let comics = response?.data?.topics else {return}
             self.mangas.append(contentsOf: comics)
             self.mangasSignal.value = self.mangas

@@ -10,6 +10,7 @@ import UIKit
 
 import SnapKit
 import RealmSwift
+import SVProgressHUD
 
 class ChapterReadViewController: BaseViewController {
 
@@ -34,8 +35,8 @@ class ChapterReadViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        topNavigationView.alpha = 1
-        bottomToolView.alpha = 1
+        topNavigationView.alpha = 0
+        bottomToolView.alpha = 0
         
         setupReaderView()
         
@@ -43,7 +44,7 @@ class ChapterReadViewController: BaseViewController {
     }
     
     override var prefersStatusBarHidden: Bool {
-        return false
+        return true
     }
     
     func setupReaderView(sameChapter: Bool = false) {
@@ -83,7 +84,7 @@ class ChapterReadViewController: BaseViewController {
         guard let chapterDetail = viewModel.chapterDetail else {return false}
         currentReaderView?.chapterDetail = chapterDetail
         currentReaderView?.start()
-        viewModel.downloadImages()
+//        viewModel.downloadImages()
         
         return true
     }
@@ -103,22 +104,43 @@ class ChapterReadViewController: BaseViewController {
         }
     }
     
+    private func hideToolbarAnimated() {
+        UIView.animate(withDuration: 0.3) {
+            self.topNavigationView.alpha = 0
+            self.bottomToolView.alpha = 0
+        }
+    }
+    
     // MARK: Chapter navigation
     @IBAction func gotoNextChapterAction(_ sender: Any) {
+        
+        guard !viewModel.isTheLastChapter else {
+            SVProgressHUD.showInfo(withStatus: LocalizedString("msg_the_last_chapter"))
+            return
+        }
+        
         viewModel.goToChapter(next: true) { [weak self] in
             guard let `self` = self else {return}
             self.currentReaderView?.uninstall(sameChapter: false)
             self.currentReaderView?.install(to: self)
             self.getChapterDetail()
+            self.hideToolbarAnimated()
         }
     }
     
     @IBAction func gotoPreviousChapterAction(_ sender: Any) {
+        
+        guard !viewModel.isTheFirstChapter else {
+            SVProgressHUD.showInfo(withStatus: LocalizedString("msg_the_first_chapter"))
+            return
+        }
+        
         viewModel.goToChapter(next: false) { [weak self] in
             guard let `self` = self else {return}
             self.currentReaderView?.uninstall(sameChapter: false)
             self.currentReaderView?.install(to: self)
             self.getChapterDetail()
+            self.hideToolbarAnimated()
         }
     }
     
@@ -145,6 +167,14 @@ class ChapterReadViewController: BaseViewController {
 }
 
 extension ChapterReadViewController: ReaderViewPresenterProtocol {
+    func vieGotoNextChapter() {
+        gotoNextChapterAction(buttonNextChapter)
+    }
+    
+    func vieGotoPrevChapter() {
+        gotoPreviousChapterAction(buttonPreviousChapter)
+    }
+    
     func viewDidStart() {
         updateInfoLabel()
         updateChapterButtons()

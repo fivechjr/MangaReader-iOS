@@ -67,6 +67,7 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         case .changeTheme:
             ThemeManager.shared.currentTheme = (ThemeManager.shared.currentTheme == .light) ? .dark: .light
             tabBarController?.selectedIndex = 0
+            tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
         }
     }
 }

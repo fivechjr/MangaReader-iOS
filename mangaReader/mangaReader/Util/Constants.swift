@@ -19,6 +19,21 @@ enum ImageConstant: String {
 struct Constants {
     static let appId = "1378089411"
     
+    private static let mangaCountInRowPad = 5
+    private static let mangaCountInRowPhone = 3
+    
+    static var isPad: Bool {
+        return (UI_USER_INTERFACE_IDIOM() == .pad)
+    }
+    
+    static var pageSize: Int {
+        return mangaCountInRow * 7
+    }
+    
+    static var mangaCountInRow: Int {
+        return isPad ? mangaCountInRowPad : mangaCountInRowPhone
+    }
+    
     static var reviewURL: String {
         
         if #available(iOS 11.0, *) {
@@ -31,6 +46,7 @@ struct Constants {
     }
     
     static var appStoreURL: String {
+        // https://itunes.apple.com/us/app/manga-monster/id1378089411?ls=1&mt=8
         return "https://itunes.apple.com/app/id\(Constants.appId)"
     }
 }

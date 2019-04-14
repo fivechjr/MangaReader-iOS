@@ -7,10 +7,28 @@
 //
 
 import Foundation
+import RxSwift
 
 enum MangaSource: String {
     case mangaEden
+    case mangaEdenReal
     case lama
     
-    static var current: MangaSource = .lama
+    static var sourceChangedSignal = Variable<MangaSource>(MangaSource.current)
+    
+    private static let storageKey = "manga_source_current_key"
+    static var current: MangaSource {
+        get {
+            let str = UserDefaults.standard.value(forKey: storageKey) as? String ?? ""
+            return MangaSource(rawValue: str) ?? .mangaEdenReal
+        }
+        set {
+            let oldValue = current
+            UserDefaults.standard.set(newValue.rawValue, forKey: storageKey)
+            
+            if oldValue != newValue {
+                sourceChangedSignal.value = newValue
+            }
+        }
+    }
 }

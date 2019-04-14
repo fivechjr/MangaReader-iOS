@@ -7,18 +7,35 @@
 //
 
 import Foundation
-import AlamofireImage
+import Kingfisher
 
 class BaseChapterReadViewModel {
+    
+    var source: MangaSource {
+        fatalError("should be implemented by subclass")
+    }
+    
+    // MARK: download
+    private var downloadManager: DownloadManager {
+        return DownloadManager.shared
+    }
+    
+    func cancelDownload() {
+       downloadManager.cancelDownload()
+    }
+    
+    func downloadImages() {
+        downloadManager.cancelDownload()
+        downloadManager.download(manga: manga, chapterDetail: chapterDetail)
+    }
+    
+    //
     var chapterObject: ChapterProtocol?
     var manga: MangaProtocol?
     
     var currentPageIndex: Int = 0
     
     var chapterDetail: ChapterDetailProtocol?
-    
-    let downloader = ImageDownloader()
-    private var receipts: [RequestReceipt] = []
     
     var chapterName: String {
         let name = chapterObject?.chapterTitle ?? chapterObject?.chapterId ?? ""
@@ -48,29 +65,6 @@ class BaseChapterReadViewModel {
     }
     
     func getChapterDetail(completion: @escaping (ChapterDetailProtocol?, Error?) -> Void) {
-        fatalError("should be overrided by subclass")
-    }
-    
-    func cancelDownload() {
-        receipts.forEach { downloader.cancelRequest(with: $0) }
-        receipts.removeAll()
-    }
-    
-    func downloadImage(_ urlString: String?) {
-        guard let urlString = urlString, let url = URL(string: urlString) else {return}
-        
-        let urlRequest = URLRequest(url: url)
-        
-        let receipt = downloader.download(urlRequest) { response in
-            print("Download:\(urlRequest.url?.absoluteString ?? "") - Success: \(response.result.isSuccess)")
-        }
-        
-        if let receipt = receipt {
-            receipts.append(receipt)
-        }
-    }
-    
-    func downloadImages() {
         fatalError("should be overrided by subclass")
     }
     
@@ -107,6 +101,14 @@ class BaseChapterReadViewModel {
         }
         
         return nil
+    }
+    
+    var isTheLastChapter: Bool {
+        return chapter(next: true) == nil
+    }
+    
+    var isTheFirstChapter: Bool {
+        return chapter(next: false) == nil
     }
     
     func goToChapter(next: Bool, completion: @escaping () -> Void) {

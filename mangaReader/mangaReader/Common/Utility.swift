@@ -9,6 +9,7 @@
 import Foundation
 
 class Utility {
+    
     static func string(_ target: String, containsAny stringArray: [String], caseSensitive: Bool = false) -> Bool {
         for str in stringArray {
             if caseSensitive {
@@ -94,7 +95,56 @@ class Utility {
         
         UIApplication.shared.keyWindow?.rootViewController?.present(alertVC, animated: true, completion: nil)
     }
+    
+    
+    static func getAppStoreVersion(completion: @escaping (String?) -> Void) {
+        let urlString = "http://dymx102.github.io/PhotoMagicSite/live_verson.json"
+        guard let url = URL(string: urlString) else {return}
+        let request = URLRequest(url: url)
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let data = data {
+                let object = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
+                if let result = object??["manga_monster"] as? String {
+                    completion(result)
+                } else {
+                    completion(nil)
+                }
+            } else {
+                completion(nil)
+            }
+        }
+        
+        task.resume()
+    }
+    
+//    static func getAppStoreVersion(completion: @escaping (String?) -> Void) {
+//        let urlString = "https://itunes.apple.com/lookup?bundleId=\(Constants.appId)"
+//        guard let url = URL(string: urlString) else {return}
+//        let request = URLRequest(url: url)
+//        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+//            if let data = data {
+//                let object = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
+//                if let results = object??["results"] as? [[String: Any]] {
+//                    completion(results.first?["version"] as? String)
+//                } else {
+//                    completion(nil)
+//                }
+//            } else {
+//                completion(nil)
+//            }
+//        }
+//
+//        task.resume()
+//    }
+    
+    static var shortVersionString: String {
+        return Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.1"
+    }
 }
+
+//+(NSString *)shortVersionString {
+//    return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+//}
 
 public func LocalizedString(_ key: String) -> String {
     return NSLocalizedString(key, comment: key)
