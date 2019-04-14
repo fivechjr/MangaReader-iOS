@@ -52,6 +52,9 @@ class FSInjector {
         worker.register(BaseSearchViewModel.self, name: MangaSource.mangaEden.rawValue) { _ in
             EdenSearchViewModel()
         }
+        worker.register(BaseSearchViewModel.self, name: MangaSource.mangaEdenReal.rawValue) { _ in
+            RealEdenSearchViewModel()
+        }
         worker.register(BaseSearchViewModel.self, name: MangaSource.lama.rawValue) { _ in
             LamaSearchViewModel()
         }

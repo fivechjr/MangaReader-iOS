@@ -28,11 +28,11 @@ class SearchViewController: BaseViewController {
         AdsManager.sharedInstance.showRandomAdsIfComfortable()
         
         // load more
-        resultCollectionView.addInfiniteScrolling { [weak self] in
-            self?.loadMore {
-                self?.resultCollectionView.infiniteScrollingView.stopAnimating()
-            }
-        }
+//        resultCollectionView.addInfiniteScrolling { [weak self] in
+//            self?.loadMore {
+//                self?.resultCollectionView.infiniteScrollingView.stopAnimating()
+//            }
+//        }
     }
     
     static func createFromStoryboard() -> UINavigationController? {
