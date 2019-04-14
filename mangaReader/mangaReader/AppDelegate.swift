@@ -20,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         AdsManager.sharedInstance.initAdsConfig()
         
+        ThemeManager.shared.updateScreenUI()
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.checkDisclaimer()
             ThemeManager.shared.updateScreenUI()

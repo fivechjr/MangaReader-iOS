@@ -35,6 +35,12 @@ class SearchViewController: BaseViewController {
 //        }
     }
     
+    override func updateTheme() {
+        super.updateTheme()
+        searchBar.barStyle = (ThemeManager.shared.currentTheme == .light) ? .default : .black
+        resultCollectionView.backgroundColor = ThemeManager.shared.currentTheme.backgroundColor
+    }
+    
     static func createFromStoryboard() -> UINavigationController? {
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SearchViewController") as? UINavigationController
         return vc
@@ -59,6 +65,9 @@ class SearchViewController: BaseViewController {
         viewModel.search(searchBar.text) { [weak self] (_, _) in
             self?.hideLoading()
             self?.resultCollectionView.reloadData()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+                self?.resultCollectionView.setContentOffset(CGPoint.zero, animated: true)
+            })
         }
     }
     
