@@ -11,6 +11,8 @@ import RealmSwift
 
 class DataManager {
     
+    private var cachedManga: [MangaProtocol] = []
+    
     let categoryRefresher: CategoryRefresherProtocol
     
     static let shared = DataManager()
@@ -144,29 +146,41 @@ extension DataManager {
 // MARK: Cache
 extension DataManager {
     
-    func getAllCachedManga(sort: MangaSort) -> Results<CachedManga> {
-        let realm = try! Realm()
-        return realm.objects(CachedManga.self)
-            .filter("source = %@", MangaSource.current.rawValue)
-        .sorted(byKeyPath: sort.realmKey, ascending: false)
+    func getAllCachedManga(sort: MangaSort) -> [MangaProtocol] {
+        
+        return cachedManga.sorted(by: { (manga1, manga2) -> Bool in
+            if sort == MangaSort.hits {
+                return manga1.hits ?? 0 > manga2.hits ?? 0
+            } else {
+                return manga1.lastChapterDate ?? 0 > manga2.lastChapterDate ?? 0
+            }
+        })
+        
+//        let realm = try! Realm()
+//        return realm.objects(CachedManga.self)
+//            .filter("source = %@", MangaSource.current.rawValue)
+//        .sorted(byKeyPath: sort.realmKey, ascending: false)
     }
     
     func cacheMangaList(_ mangas: [MangaProtocol], completion: @escaping () -> Void) {
-        DispatchQueue.global(qos: .utility).async {
-            
-            self.deleteAllCachedManga()
-            
-            mangas.forEach { (manga) in
-                self.cacheManga(manga)
-            }
-            
-            DispatchQueue.main.async {
-                completion()
-            }
-        }
+        cachedManga = mangas
+        completion()
+        
+//        DispatchQueue.global(qos: .utility).async {
+//
+//            self.deleteAllCachedManga()
+//
+//            mangas.forEach { (manga) in
+//                self.cacheManga(manga)
+//            }
+//
+//            DispatchQueue.main.async {
+//                completion()
+//            }
+//        }
     }
     
-    func cacheManga(_ manga: MangaProtocol) {
+    private func cacheManga(_ manga: MangaProtocol) {
         guard let mangaId = manga.mangaId else {return}
         
         let realm = try! Realm()
@@ -191,14 +205,15 @@ extension DataManager {
     }
     
     func deleteAllCachedManga() {
-        let realm = try! Realm()
-        let favObjects = realm.objects(CachedManga.self)
-        try! realm.write {
-            realm.delete(favObjects)
-        }
+        cachedManga = []
+//        let realm = try! Realm()
+//        let favObjects = realm.objects(CachedManga.self)
+//        try! realm.write {
+//            realm.delete(favObjects)
+//        }
     }
     
-    func deleteCachedManga(mangaId: String) {
+    private func deleteCachedManga(mangaId: String) {
         let realm = try! Realm()
         let favObjects = realm.objects(CachedManga.self).filter("id = %@", mangaId)
         try! realm.write {

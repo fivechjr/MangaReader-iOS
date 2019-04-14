@@ -10,6 +10,9 @@ import Foundation
 import RxSwift
 
 class RealEdenMangaListViewModel: MangaListViewModelProtocol {
+    
+    private var lastUpdateDate: Date?
+    
     var source: MangaSource {
         return .mangaEdenReal
     }
@@ -112,28 +115,38 @@ extension RealEdenMangaListViewModel {
         }
     }
     
-    private func loadAllManga(completion: @escaping ([MangaProtocol]?, Error?) -> Void) {
+    
+    private func timeToUpdateMangaList() -> Bool {
         // TODO: only trigger once a week
+        if let lastUpdateDate = lastUpdateDate {
+            return Date().timeIntervalSince(lastUpdateDate) > 60 //604800 // 3600*24*7
+        }
+        return true
+    }
+    
+    private func loadAllManga(completion: @escaping ([MangaProtocol]?, Error?) -> Void) {
         
         guard !isLoading else {
             completion(nil, nil)
             return
         }
         
-        isLoading = true
-        initMangaFromJson { (mangaList, error) in
-            completion(mangaList, error)
-            self.isLoading = false
-        }
-        return
+        var shouldUpdateCache = false
         
         let cachedManga = allMangaFromCache()
         if cachedManga.isEmpty {
-            initMangaFromJson(completion: completion)
-            return
+            initMangaFromJson { (mangaList, error) in
+                completion(mangaList, error)
+            }
+            shouldUpdateCache = true
+        } else if timeToUpdateMangaList() {
+            processManga(cachedManga, completion: completion)
+            shouldUpdateCache = true
+        } else {
+            processManga(cachedManga, completion: completion)
         }
         
-        
+        if !shouldUpdateCache {return}
         
         isLoading = true
         RealMangaEdenApi.getAllMangaList() { [weak self] (mangaListResponse, error) in
@@ -141,6 +154,7 @@ extension RealEdenMangaListViewModel {
             
             if let mangaList = mangaListResponse?.manga {
                 self.saveMangaToDB(mangaList, completion: { (response, error) in
+                    self.lastUpdateDate = Date()
                     completion(response, error)
                     self.isLoading = false
                 })
