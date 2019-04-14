@@ -119,7 +119,7 @@ extension RealEdenMangaListViewModel {
     private func timeToUpdateMangaList() -> Bool {
         // TODO: only trigger once a week
         if let lastUpdateDate = lastUpdateDate {
-            return Date().timeIntervalSince(lastUpdateDate) > 60 //604800 // 3600*24*7
+            return Date().timeIntervalSince(lastUpdateDate) > 604800 // 3600*24*7
         }
         return true
     }
@@ -213,7 +213,17 @@ extension RealEdenMangaListViewModel {
     }
     
     private  func filterManga(_ mangas: [MangaProtocol]) -> [MangaProtocol] {
-        return mangas.filter {$0.canPublish()}
+        let mangaList = mangas.filter {$0.canPublish()}.filter { (manga) -> Bool in
+            var match = true
+            categoryNames.forEach({ (name) in
+                if !manga.mangaCategories.contains(name) {
+                    match = false
+                }
+            })
+            return match
+        }
+        
+        return mangaList
     }
 }
 

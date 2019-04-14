@@ -30,7 +30,7 @@ class MangaListViewController: BaseViewController {
         
         mangaListCollectionView.backgroundColor = theme.backgroundSecondColor
         refreshControl.tintColor = theme.textColor
-        mangaListCollectionView.infiniteScrollingView.activityIndicatorViewStyle = theme.activityIndicatorStyle
+//        mangaListCollectionView.infiniteScrollingView.activityIndicatorViewStyle = theme.activityIndicatorStyle
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -71,11 +71,11 @@ class MangaListViewController: BaseViewController {
             }).disposed(by: bag)
         
         // load more
-        mangaListCollectionView.addInfiniteScrolling { [weak self] in
-            self?.viewModel.loadNextPage(completion: { (_, _) in
-                self?.mangaListCollectionView.infiniteScrollingView.stopAnimating()
-            })
-        }
+//        mangaListCollectionView.addInfiniteScrolling { [weak self] in
+//            self?.viewModel.loadNextPage(completion: { (_, _) in
+//                self?.mangaListCollectionView.infiniteScrollingView.stopAnimating()
+//            })
+//        }
         
         // Pull to refresh
         mangaListCollectionView.addSubview(refreshControl)
