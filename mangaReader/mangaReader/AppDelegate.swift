@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     override init() {
         Armchair.appID(Constants.appId)
-        Armchair.debugEnabled(true)
+//        Armchair.debugEnabled(true)
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
