@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Armchair
 
 class Utility {
     
@@ -38,13 +39,15 @@ class Utility {
     
     static func rateApp() {
         
-        if let url = URL(string: Constants.reviewURL) {
-            if #available(iOS 10.0, *) {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            } else {
-                UIApplication.shared.openURL(url)
-            }
-        }
+        Armchair.rateApp()
+        
+//        if let url = URL(string: Constants.reviewURL) {
+//            if #available(iOS 10.0, *) {
+//                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+//            } else {
+//                UIApplication.shared.openURL(url)
+//            }
+//        }
     }
     
     static func aboutApp() {

@@ -28,6 +28,9 @@ target 'mangaReader' do
     pod 'SVProgressHUD', '~> 2.2.5'
     pod 'CRRefresh', '~> 1.1.3'
     
+    # Rate
+    pod 'Armchair', '~> 0.3.6'
+    
     # ADS
     pod 'VungleSDK-iOS', '~> 6.2.0'
     pod 'Google-Mobile-Ads-SDK', '~> 7.31.0'
